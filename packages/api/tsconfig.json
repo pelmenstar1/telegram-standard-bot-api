@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "preserve",
+    "outDir": "dist",
+    "moduleResolution": "bundler",
+    "declaration": true,
+    "skipLibCheck": true,
+    "strict": true,
+  },
+  "include": ["**/*"],
+  "exclude": ["node_modules", "dist"]
+}

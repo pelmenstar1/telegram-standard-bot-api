@@ -1,0 +1,19 @@
+{
+  "name": "@telegram-standard-bot-api/generator",
+  "private": true,
+  "packageManager": "yarn@4.9.2",
+  "scripts": {
+    "generate": "tsx src/main.ts"
+  },
+  "devDependencies": {
+    "@types/node": "24.0.10",
+    "tsx": "4.20.3",
+    "typescript": "5.8.3"
+  },
+  "dependencies": {
+    "cheerio": "1.1.0",
+    "domhandler": "5.0.3",
+    "parse5": "8.0.0",
+    "prettier": "3.6.2"
+  }
+}
