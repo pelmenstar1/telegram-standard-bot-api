@@ -26,7 +26,7 @@ export type CreateForumTopic = {
 };
 
 /**
- * Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns information about the created topic as a ForumTopic object.
+ * Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns information about the created topic as a {@link ForumTopic} object.
  */
 export const createForumTopic = botMethod<CreateForumTopic, ForumTopic>(
   'createForumTopic'

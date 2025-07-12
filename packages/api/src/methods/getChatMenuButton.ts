@@ -11,7 +11,7 @@ export type GetChatMenuButton = {
 };
 
 /**
- * Use this method to get the current value of the bot's menu button in a private chat, or the default menu button. Returns MenuButton on success.
+ * Use this method to get the current value of the bot's menu button in a private chat, or the default menu button. Returns {@link MenuButton} on success.
  */
 export const getChatMenuButton = botMethod<GetChatMenuButton, MenuButton>(
   'getChatMenuButton'

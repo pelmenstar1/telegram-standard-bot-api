@@ -31,7 +31,7 @@ export type CreateChatInviteLink = {
 };
 
 /**
- * Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. The link can be revoked using the method revokeChatInviteLink. Returns the new invite link as ChatInviteLink object.
+ * Use this method to create an additional invite link for a chat. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. The link can be revoked using the method revokeChatInviteLink. Returns the new invite link as {@link ChatInviteLink} object.
  */
 export const createChatInviteLink = botMethod<
   CreateChatInviteLink,

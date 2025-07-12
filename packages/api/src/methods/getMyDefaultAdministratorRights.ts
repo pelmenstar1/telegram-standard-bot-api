@@ -11,7 +11,7 @@ export type GetMyDefaultAdministratorRights = {
 };
 
 /**
- * Use this method to get the current default administrator rights of the bot. Returns ChatAdministratorRights on success.
+ * Use this method to get the current default administrator rights of the bot. Returns {@link ChatAdministratorRights} on success.
  */
 export const getMyDefaultAdministratorRights = botMethod<
   GetMyDefaultAdministratorRights,

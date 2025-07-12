@@ -84,6 +84,6 @@ export type SendMessage = {
 };
 
 /**
- * Use this method to send text messages. On success, the sent Message is returned.
+ * Use this method to send text messages. On success, the sent {@link Message} is returned.
  */
 export const sendMessage = botMethod<SendMessage, Message>('sendMessage');

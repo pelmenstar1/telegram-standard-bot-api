@@ -22,7 +22,7 @@ export type UploadStickerFile = {
 };
 
 /**
- * Use this method to upload a file with a sticker for later use in the createNewStickerSet, addStickerToSet, or replaceStickerInSet methods (the file can be used multiple times). Returns the uploaded File on success.
+ * Use this method to upload a file with a sticker for later use in the createNewStickerSet, addStickerToSet, or replaceStickerInSet methods (the file can be used multiple times). Returns the uploaded {@link File} on success.
  */
 export const uploadStickerFile = botMethod<UploadStickerFile, File>(
   'uploadStickerFile',

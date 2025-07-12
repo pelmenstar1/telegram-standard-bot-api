@@ -36,7 +36,7 @@ export type GiftPremiumSubscription = {
 };
 
 /**
- * Gifts a Telegram Premium subscription to the given user. Returns True on success.
+ * {@link Gifts} a Telegram Premium subscription to the given user. Returns True on success.
  */
 export const giftPremiumSubscription = botMethod<
   GiftPremiumSubscription,

@@ -36,7 +36,7 @@ export type SavePreparedInlineMessage = {
 };
 
 /**
- * Stores a message that can be sent by a user of a Mini App. Returns a PreparedInlineMessage object.
+ * Stores a message that can be sent by a user of a Mini App. Returns a {@link PreparedInlineMessage} object.
  */
 export const savePreparedInlineMessage = botMethod<
   SavePreparedInlineMessage,

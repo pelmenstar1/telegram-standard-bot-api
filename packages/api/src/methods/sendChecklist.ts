@@ -51,6 +51,6 @@ export type SendChecklist = {
 };
 
 /**
- * Use this method to send a checklist on behalf of a connected business account. On success, the sent Message is returned.
+ * Use this method to send a checklist on behalf of a connected business account. On success, the sent {@link Message} is returned.
  */
 export const sendChecklist = botMethod<SendChecklist, Message>('sendChecklist');

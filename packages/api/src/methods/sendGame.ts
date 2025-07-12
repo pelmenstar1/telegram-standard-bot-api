@@ -56,6 +56,6 @@ export type SendGame = {
 };
 
 /**
- * Use this method to send a game. On success, the sent Message is returned.
+ * Use this method to send a game. On success, the sent {@link Message} is returned.
  */
 export const sendGame = botMethod<SendGame, Message>('sendGame');

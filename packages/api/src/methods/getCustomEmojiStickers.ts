@@ -11,7 +11,7 @@ export type GetCustomEmojiStickers = {
 };
 
 /**
- * Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of Sticker objects.
+ * Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of {@link Sticker} objects.
  */
 export const getCustomEmojiStickers = botMethod<
   GetCustomEmojiStickers,

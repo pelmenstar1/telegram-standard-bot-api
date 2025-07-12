@@ -31,7 +31,7 @@ export type EditMessageChecklist = {
 };
 
 /**
- * Use this method to edit a checklist on behalf of a connected business account. On success, the edited Message is returned.
+ * Use this method to edit a checklist on behalf of a connected business account. On success, the edited {@link Message} is returned.
  */
 export const editMessageChecklist = botMethod<EditMessageChecklist, Message>(
   'editMessageChecklist'

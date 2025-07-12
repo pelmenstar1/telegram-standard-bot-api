@@ -160,7 +160,7 @@ export type ChatFullInfo = {
   max_reaction_count: number;
 
   /**
-   * Chat photo
+   * {@link Chat} photo
    */
   photo?: ChatPhoto;
 
@@ -405,7 +405,7 @@ export type Message = {
   is_automatic_forward?: true;
 
   /**
-   * For replies in the same chat and message thread, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+   * For replies in the same chat and message thread, the original message. Note that the {@link Message} object in this field will not contain further reply_to_message fields even if it itself is a reply.
    */
   reply_to_message?: Message;
 
@@ -480,52 +480,52 @@ export type Message = {
   effect_id?: string;
 
   /**
-   * Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+   * {@link Message} is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
    */
   animation?: Animation;
 
   /**
-   * Message is an audio file, information about the file
+   * {@link Message} is an audio file, information about the file
    */
   audio?: Audio;
 
   /**
-   * Message is a general file, information about the file
+   * {@link Message} is a general file, information about the file
    */
   document?: Document;
 
   /**
-   * Message contains paid media; information about the paid media
+   * {@link Message} contains paid media; information about the paid media
    */
   paid_media?: PaidMediaInfo;
 
   /**
-   * Message is a photo, available sizes of the photo
+   * {@link Message} is a photo, available sizes of the photo
    */
   photo?: PhotoSize[];
 
   /**
-   * Message is a sticker, information about the sticker
+   * {@link Message} is a sticker, information about the sticker
    */
   sticker?: Sticker;
 
   /**
-   * Message is a forwarded story
+   * {@link Message} is a forwarded story
    */
   story?: Story;
 
   /**
-   * Message is a video, information about the video
+   * {@link Message} is a video, information about the video
    */
   video?: Video;
 
   /**
-   * Message is a video note, information about the video message
+   * {@link Message} is a video note, information about the video message
    */
   video_note?: VideoNote;
 
   /**
-   * Message is a voice message, information about the file
+   * {@link Message} is a voice message, information about the file
    */
   voice?: Voice;
 
@@ -550,37 +550,37 @@ export type Message = {
   has_media_spoiler?: true;
 
   /**
-   * Message is a checklist
+   * {@link Message} is a checklist
    */
   checklist?: Checklist;
 
   /**
-   * Message is a shared contact, information about the contact
+   * {@link Message} is a shared contact, information about the contact
    */
   contact?: Contact;
 
   /**
-   * Message is a dice with random value
+   * {@link Message} is a dice with random value
    */
   dice?: Dice;
 
   /**
-   * Message is a game, information about the game. More about games »
+   * {@link Message} is a game, information about the game. More about games »
    */
   game?: Game;
 
   /**
-   * Message is a native poll, information about the poll
+   * {@link Message} is a native poll, information about the poll
    */
   poll?: Poll;
 
   /**
-   * Message is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
+   * {@link Message} is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
    */
   venue?: Venue;
 
   /**
-   * Message is a shared location, information about the location
+   * {@link Message} is a shared location, information about the location
    */
   location?: Location;
 
@@ -640,22 +640,22 @@ export type Message = {
   migrate_from_chat_id?: number;
 
   /**
-   * Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+   * Specified message was pinned. Note that the {@link Message} object in this field will not contain further reply_to_message fields even if it itself is a reply.
    */
   pinned_message?: MaybeInaccessibleMessage;
 
   /**
-   * Message is an invoice for a payment, information about the invoice. More about payments »
+   * {@link Message} is an invoice for a payment, information about the invoice. More about payments »
    */
   invoice?: Invoice;
 
   /**
-   * Message is a service message about a successful payment, information about the payment. More about payments »
+   * {@link Message} is a service message about a successful payment, information about the payment. More about payments »
    */
   successful_payment?: SuccessfulPayment;
 
   /**
-   * Message is a service message about a refunded payment, information about the payment. More about payments »
+   * {@link Message} is a service message about a refunded payment, information about the payment. More about payments »
    */
   refunded_payment?: RefundedPayment;
 
@@ -695,7 +695,7 @@ export type Message = {
   passport_data?: PassportData;
 
   /**
-   * Service message. A user in the chat triggered another user's proximity alert while sharing Live Location.
+   * Service message. A user in the chat triggered another user's proximity alert while sharing Live {@link Location}.
    */
   proximity_alert_triggered?: ProximityAlertTriggered;
 
@@ -915,7 +915,7 @@ export type ExternalReplyInfo = {
   origin: MessageOrigin;
 
   /**
-   * Chat the original message belongs to. Available only if the chat is a supergroup or a channel.
+   * {@link Chat} the original message belongs to. Available only if the chat is a supergroup or a channel.
    */
   chat?: Chat;
 
@@ -930,52 +930,52 @@ export type ExternalReplyInfo = {
   link_preview_options?: LinkPreviewOptions;
 
   /**
-   * Message is an animation, information about the animation
+   * {@link Message} is an animation, information about the animation
    */
   animation?: Animation;
 
   /**
-   * Message is an audio file, information about the file
+   * {@link Message} is an audio file, information about the file
    */
   audio?: Audio;
 
   /**
-   * Message is a general file, information about the file
+   * {@link Message} is a general file, information about the file
    */
   document?: Document;
 
   /**
-   * Message contains paid media; information about the paid media
+   * {@link Message} contains paid media; information about the paid media
    */
   paid_media?: PaidMediaInfo;
 
   /**
-   * Message is a photo, available sizes of the photo
+   * {@link Message} is a photo, available sizes of the photo
    */
   photo?: PhotoSize[];
 
   /**
-   * Message is a sticker, information about the sticker
+   * {@link Message} is a sticker, information about the sticker
    */
   sticker?: Sticker;
 
   /**
-   * Message is a forwarded story
+   * {@link Message} is a forwarded story
    */
   story?: Story;
 
   /**
-   * Message is a video, information about the video
+   * {@link Message} is a video, information about the video
    */
   video?: Video;
 
   /**
-   * Message is a video note, information about the video message
+   * {@link Message} is a video note, information about the video message
    */
   video_note?: VideoNote;
 
   /**
-   * Message is a voice message, information about the file
+   * {@link Message} is a voice message, information about the file
    */
   voice?: Voice;
 
@@ -985,27 +985,27 @@ export type ExternalReplyInfo = {
   has_media_spoiler?: true;
 
   /**
-   * Message is a checklist
+   * {@link Message} is a checklist
    */
   checklist?: Checklist;
 
   /**
-   * Message is a shared contact, information about the contact
+   * {@link Message} is a shared contact, information about the contact
    */
   contact?: Contact;
 
   /**
-   * Message is a dice with random value
+   * {@link Message} is a dice with random value
    */
   dice?: Dice;
 
   /**
-   * Message is a game, information about the game. More about games »
+   * {@link Message} is a game, information about the game. More about games »
    */
   game?: Game;
 
   /**
-   * Message is a scheduled giveaway, information about the giveaway
+   * {@link Message} is a scheduled giveaway, information about the giveaway
    */
   giveaway?: Giveaway;
 
@@ -1015,22 +1015,22 @@ export type ExternalReplyInfo = {
   giveaway_winners?: GiveawayWinners;
 
   /**
-   * Message is an invoice for a payment, information about the invoice. More about payments »
+   * {@link Message} is an invoice for a payment, information about the invoice. More about payments »
    */
   invoice?: Invoice;
 
   /**
-   * Message is a shared location, information about the location
+   * {@link Message} is a shared location, information about the location
    */
   location?: Location;
 
   /**
-   * Message is a native poll, information about the poll
+   * {@link Message} is a native poll, information about the poll
    */
   poll?: Poll;
 
   /**
-   * Message is a venue, information about the venue
+   * {@link Message} is a venue, information about the venue
    */
   venue?: Venue;
 };
@@ -1195,7 +1195,7 @@ export type PhotoSize = {
   height: number;
 
   /**
-   * File size in bytes
+   * {@link File} size in bytes
    */
   file_size?: number;
 };
@@ -1230,7 +1230,7 @@ export type Animation = {
   duration: number;
 
   /**
-   * Animation thumbnail as defined by the sender
+   * {@link Animation} thumbnail as defined by the sender
    */
   thumbnail?: PhotoSize;
 
@@ -1245,7 +1245,7 @@ export type Animation = {
   mime_type?: string;
 
   /**
-   * File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+   * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
   file_size?: number;
 };
@@ -1290,7 +1290,7 @@ export type Audio = {
   mime_type?: string;
 
   /**
-   * File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+   * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
   file_size?: number;
 
@@ -1315,7 +1315,7 @@ export type Document = {
   file_unique_id: string;
 
   /**
-   * Document thumbnail as defined by the sender
+   * {@link Document} thumbnail as defined by the sender
    */
   thumbnail?: PhotoSize;
 
@@ -1330,7 +1330,7 @@ export type Document = {
   mime_type?: string;
 
   /**
-   * File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+   * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
   file_size?: number;
 };
@@ -1380,7 +1380,7 @@ export type Video = {
   duration: number;
 
   /**
-   * Video thumbnail
+   * {@link Video} thumbnail
    */
   thumbnail?: PhotoSize;
 
@@ -1405,7 +1405,7 @@ export type Video = {
   mime_type?: string;
 
   /**
-   * File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+   * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
   file_size?: number;
 };
@@ -1435,12 +1435,12 @@ export type VideoNote = {
   duration: number;
 
   /**
-   * Video thumbnail
+   * {@link Video} thumbnail
    */
   thumbnail?: PhotoSize;
 
   /**
-   * File size in bytes
+   * {@link File} size in bytes
    */
   file_size?: number;
 };
@@ -1470,7 +1470,7 @@ export type Voice = {
   mime_type?: string;
 
   /**
-   * File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+   * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
   file_size?: number;
 };
@@ -1750,7 +1750,7 @@ export type ChecklistTask = {
   text_entities?: MessageEntity[];
 
   /**
-   * User that completed the task; omitted if the task wasn't completed
+   * {@link User} that completed the task; omitted if the task wasn't completed
    */
   completed_by_user?: User;
 
@@ -1855,7 +1855,7 @@ export type InputChecklist = {
  */
 export type ChecklistTasksDone = {
   /**
-   * Message containing the checklist whose tasks were marked as done or not done. Note that the Message object in this field will not contain the reply_to_message field even if it itself is a reply.
+   * {@link Message} containing the checklist whose tasks were marked as done or not done. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
    */
   checklist_message?: Message;
 
@@ -1875,7 +1875,7 @@ export type ChecklistTasksDone = {
  */
 export type ChecklistTasksAdded = {
   /**
-   * Message containing the checklist to which the tasks were added. Note that the Message object in this field will not contain the reply_to_message field even if it itself is a reply.
+   * {@link Message} containing the checklist to which the tasks were added. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
    */
   checklist_message?: Message;
 
@@ -2224,7 +2224,7 @@ export type GeneralForumTopicHidden = Record<string, never>;
 export type GeneralForumTopicUnhidden = Record<string, never>;
 
 /**
- * This object contains information about a user that was shared with the bot using a KeyboardButtonRequestUsers button.
+ * This object contains information about a user that was shared with the bot using a {@link KeyboardButtonRequestUsers} button.
  */
 export type SharedUser = {
   /**
@@ -2254,7 +2254,7 @@ export type SharedUser = {
 };
 
 /**
- * This object contains information about the {@link UsersShared.users | users} whose identifiers were shared with the bot using a KeyboardButtonRequestUsers button.
+ * This object contains information about the {@link UsersShared.users | users} whose identifiers were shared with the bot using a {@link KeyboardButtonRequestUsers} button.
  */
 export type UsersShared = {
   /**
@@ -2269,7 +2269,7 @@ export type UsersShared = {
 };
 
 /**
- * This object contains information about a chat that was shared with the bot using a KeyboardButtonRequestChat button.
+ * This object contains information about a chat that was shared with the bot using a {@link KeyboardButtonRequestChat} button.
  */
 export type ChatShared = {
   /**
@@ -2515,7 +2515,7 @@ export type GiveawayCompleted = {
   unclaimed_prize_count?: number;
 
   /**
-   * Message with the giveaway that was completed, if it wasn't deleted
+   * {@link Message} with the giveaway that was completed, if it wasn't deleted
    */
   giveaway_message?: Message;
 
@@ -2585,12 +2585,12 @@ export type File = {
   file_unique_id: string;
 
   /**
-   * File size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+   * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
   file_size?: number;
 
   /**
-   * File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file.
+   * {@link File} path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file.
    */
   file_path?: string;
 };
@@ -2610,7 +2610,7 @@ export type WebAppInfo = {
  */
 export type ReplyKeyboardMarkup = {
   /**
-   * Array of button rows, each represented by an Array of KeyboardButton objects
+   * Array of button rows, each represented by an Array of {@link KeyboardButton} objects
    */
   keyboard: KeyboardButton[][];
 
@@ -2635,13 +2635,13 @@ export type ReplyKeyboardMarkup = {
   input_field_placeholder?: string;
 
   /**
-   * Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
+   * Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
    */
   selective?: boolean;
 };
 
 /**
- * This object represents one button of the reply keyboard. At most one of the optional fields must be used to specify type of the button. For simple {@link KeyboardButton.text | text} buttons, String can be used instead of this object to specify the button text.
+ * This object represents one button of the reply keyboard. At most one of the optional fields must be used to specify type of the button. For simple {@link KeyboardButton.text | text} buttons, String can be used instead of this object to specify the button {@link KeyboardButton.text | text}.
  */
 export type KeyboardButton = {
   /**
@@ -2685,7 +2685,7 @@ export type KeyboardButton = {
  */
 export type KeyboardButtonRequestUsers = {
   /**
-   * Signed 32-bit identifier of the request that will be received back in the UsersShared object. Must be unique within the message
+   * Signed 32-bit identifier of the request that will be received back in the {@link UsersShared} object. Must be unique within the message
    */
   request_id: number;
 
@@ -2725,7 +2725,7 @@ export type KeyboardButtonRequestUsers = {
  */
 export type KeyboardButtonRequestChat = {
   /**
-   * Signed 32-bit identifier of the request, which will be received back in the ChatShared object. Must be unique within the message
+   * Signed 32-bit identifier of the request, which will be received back in the {@link ChatShared} object. Must be unique within the message
    */
   request_id: number;
 
@@ -2795,12 +2795,12 @@ export type KeyboardButtonPollType = {
  */
 export type ReplyKeyboardRemove = {
   /**
-   * Requests clients to remove the custom keyboard (user will not be able to summon this keyboard; if you want to hide the keyboard from sight but keep it accessible, use one_time_keyboard in ReplyKeyboardMarkup )
+   * Requests clients to remove the custom keyboard (user will not be able to summon this keyboard; if you want to hide the keyboard from sight but keep it accessible, use one_time_keyboard in {@link ReplyKeyboardMarkup} )
    */
   remove_keyboard: true;
 
   /**
-   * Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet.
+   * Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet.
    */
   selective?: boolean;
 };
@@ -2810,7 +2810,7 @@ export type ReplyKeyboardRemove = {
  */
 export type InlineKeyboardMarkup = {
   /**
-   * Array of button rows, each represented by an Array of InlineKeyboardButton objects
+   * Array of button rows, each represented by an Array of {@link InlineKeyboardButton} objects
    */
   inline_keyboard: InlineKeyboardButton[][];
 };
@@ -2941,7 +2941,7 @@ export type CopyTextButton = {
 };
 
 /**
- * This object represents an incoming callback query {@link CallbackQuery.from | from} a callback button in an inline keyboard. If the button that originated the query was attached to a {@link CallbackQuery.message | message} sent by the bot, the field message will be present. If the button was attached to a message sent via the bot (in inline mode), the field {@link CallbackQuery.inline_message_id | inline_message_id} will be present. Exactly one of the fields {@link CallbackQuery.data | data} or {@link CallbackQuery.game_short_name | game_short_name} will be present.
+ * This object represents an incoming callback query {@link CallbackQuery.from | from} a callback button in an inline keyboard. If the button that originated the query was attached to a {@link CallbackQuery.message | message} sent by the bot, the field {@link CallbackQuery.message | message} will be present. If the button was attached to a {@link CallbackQuery.message | message} sent via the bot (in inline mode), the field {@link CallbackQuery.inline_message_id | inline_message_id} will be present. Exactly one of the fields {@link CallbackQuery.data | data} or {@link CallbackQuery.game_short_name | game_short_name} will be present.
  */
 export type CallbackQuery = {
   /**
@@ -2955,7 +2955,7 @@ export type CallbackQuery = {
   from: User;
 
   /**
-   * Message sent by the bot with the callback button that originated the query
+   * {@link Message} sent by the bot with the callback button that originated the query
    */
   message?: MaybeInaccessibleMessage;
 
@@ -2975,7 +2975,7 @@ export type CallbackQuery = {
   data?: string;
 
   /**
-   * Short name of a Game to be returned, serves as the unique identifier for the game
+   * Short name of a {@link Game} to be returned, serves as the unique identifier for the game
    */
   game_short_name?: string;
 };
@@ -2995,7 +2995,7 @@ export type ForceReply = {
   input_field_placeholder?: string;
 
   /**
-   * Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
+   * Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
    */
   selective?: boolean;
 };
@@ -3195,7 +3195,7 @@ export type ChatMemberUpdated = {
   new_chat_member: ChatMember;
 
   /**
-   * Chat invite link, which was used by the user to join the chat; for joining by invite link events only.
+   * {@link Chat} invite link, which was used by the user to join the chat; for joining by invite link events only.
    */
   invite_link?: ChatInviteLink;
 
@@ -3515,7 +3515,7 @@ export type ChatJoinRequest = {
   bio?: string;
 
   /**
-   * Chat invite link that was used by the user to send the join request
+   * {@link Chat} invite link that was used by the user to send the join request
    */
   invite_link?: ChatInviteLink;
 };
@@ -3625,12 +3625,12 @@ export type BusinessIntro = {
   title?: string;
 
   /**
-   * Message text of the business intro
+   * {@link Message} text of the business intro
    */
   message?: string;
 
   /**
-   * Sticker of the business intro
+   * {@link Sticker} of the business intro
    */
   sticker?: Sticker;
 };
@@ -3645,7 +3645,7 @@ export type BusinessLocation = {
   address: string;
 
   /**
-   * Location of the business
+   * {@link Location} of the business
    */
   location?: Location;
 };
@@ -4665,7 +4665,7 @@ export type ChatBoostSourceGiveaway = {
   giveaway_message_id: number;
 
   /**
-   * User that won the prize in the giveaway if any; for Telegram Premium giveaways only
+   * {@link User} that won the prize in the giveaway if any; for Telegram Premium giveaways only
    */
   user?: User;
 
@@ -4990,17 +4990,17 @@ export type InputMediaVideo = {
   show_caption_above_media?: boolean;
 
   /**
-   * Video width
+   * {@link Video} width
    */
   width?: number;
 
   /**
-   * Video height
+   * {@link Video} height
    */
   height?: number;
 
   /**
-   * Video duration in seconds
+   * {@link Video} duration in seconds
    */
   duration?: number;
 
@@ -5055,17 +5055,17 @@ export type InputMediaAnimation = {
   show_caption_above_media?: boolean;
 
   /**
-   * Animation width
+   * {@link Animation} width
    */
   width?: number;
 
   /**
-   * Animation height
+   * {@link Animation} height
    */
   height?: number;
 
   /**
-   * Animation duration in seconds
+   * {@link Animation} duration in seconds
    */
   duration?: number;
 
@@ -5210,17 +5210,17 @@ export type InputPaidMediaVideo = {
   start_timestamp?: number;
 
   /**
-   * Video width
+   * {@link Video} width
    */
   width?: number;
 
   /**
-   * Video height
+   * {@link Video} height
    */
   height?: number;
 
   /**
-   * Video duration in seconds
+   * {@link Video} duration in seconds
    */
   duration?: number;
 
@@ -5427,7 +5427,7 @@ export type Sticker = {
   is_video: boolean;
 
   /**
-   * Sticker thumbnail in the.WEBP or.JPG format
+   * {@link Sticker} thumbnail in the.WEBP or.JPG format
    */
   thumbnail?: PhotoSize;
 
@@ -5462,7 +5462,7 @@ export type Sticker = {
   needs_repainting?: true;
 
   /**
-   * File size in bytes
+   * {@link File} size in bytes
    */
   file_size?: number;
 };
@@ -5492,7 +5492,7 @@ export type StickerSet = {
   stickers: Sticker[];
 
   /**
-   * Sticker set thumbnail in the.WEBP,.TGS, or.WEBM format
+   * {@link Sticker} set thumbnail in the.WEBP,.TGS, or.WEBM format
    */
   thumbnail?: PhotoSize;
 };
@@ -5523,7 +5523,7 @@ export type MaskPosition = {
 };
 
 /**
- * This object describes a {@link InputSticker.sticker | sticker} to be added to a sticker set.
+ * This object describes a {@link InputSticker.sticker | sticker} to be added to a {@link InputSticker.sticker | sticker} set.
  */
 export type InputSticker = {
   /**
@@ -5553,7 +5553,7 @@ export type InputSticker = {
 };
 
 /**
- * This object represents an incoming inline {@link InlineQuery.query | query}. When the user sends an empty query, your bot could return some default or trending results.
+ * This object represents an incoming inline {@link InlineQuery.query | query}. When the user sends an empty {@link InlineQuery.query | query}, your bot could return some default or trending results.
  */
 export type InlineQuery = {
   /**
@@ -5837,17 +5837,17 @@ export type InlineQueryResultMpeg4Gif = {
   mpeg4_url: string;
 
   /**
-   * Video width
+   * {@link Video} width
    */
   mpeg4_width?: number;
 
   /**
-   * Video height
+   * {@link Video} height
    */
   mpeg4_height?: number;
 
   /**
-   * Video duration in seconds
+   * {@link Video} duration in seconds
    */
   mpeg4_duration?: number;
 
@@ -5898,7 +5898,7 @@ export type InlineQueryResultMpeg4Gif = {
 };
 
 /**
- * Represents a link to a page containing an embedded video player or a video file. By default, this video file will be sent by the user with an optional {@link InlineQueryResultVideo.caption | caption}. Alternatively, you can use {@link InlineQueryResultVideo.input_message_content | input_message_content} to send a message with the specified content instead of the video. If an InlineQueryResultVideo message contains an embedded video (e.g., YouTube), you must replace its content using input_message_content.
+ * Represents a link to a page containing an embedded video player or a video file. By default, this video file will be sent by the user with an optional {@link InlineQueryResultVideo.caption | caption}. Alternatively, you can use {@link InlineQueryResultVideo.input_message_content | input_message_content} to send a message with the specified content instead of the video. If an {@link InlineQueryResultVideo} message contains an embedded video (e.g., YouTube), you must replace its content using {@link InlineQueryResultVideo.input_message_content | input_message_content}.
  */
 export type InlineQueryResultVideo = {
   /**
@@ -5952,17 +5952,17 @@ export type InlineQueryResultVideo = {
   show_caption_above_media?: boolean;
 
   /**
-   * Video width
+   * {@link Video} width
    */
   video_width?: number;
 
   /**
-   * Video height
+   * {@link Video} height
    */
   video_height?: number;
 
   /**
-   * Video duration in seconds
+   * {@link Video} duration in seconds
    */
   video_duration?: number;
 
@@ -5977,7 +5977,7 @@ export type InlineQueryResultVideo = {
   reply_markup?: InlineKeyboardMarkup;
 
   /**
-   * Content of the message to be sent instead of the video. This field is required if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video).
+   * Content of the message to be sent instead of the video. This field is required if {@link InlineQueryResultVideo} is used to send an HTML-page as a result (e.g., a YouTube video).
    */
   input_message_content?: InputMessageContent;
 };
@@ -6027,7 +6027,7 @@ export type InlineQueryResultAudio = {
   performer?: string;
 
   /**
-   * Audio duration in seconds
+   * {@link Audio} duration in seconds
    */
   audio_duration?: number;
 
@@ -6388,7 +6388,7 @@ export type InlineQueryResultContact = {
 };
 
 /**
- * Represents a Game.
+ * Represents a {@link Game}.
  */
 export type InlineQueryResultGame = {
   /**
@@ -7226,7 +7226,7 @@ export type ShippingAddress = {
  */
 export type OrderInfo = {
   /**
-   * User name
+   * {@link User} name
    */
   name?: string;
 
@@ -7236,12 +7236,12 @@ export type OrderInfo = {
   phone_number?: string;
 
   /**
-   * User email
+   * {@link User} email
    */
   email?: string;
 
   /**
-   * User shipping address
+   * {@link User} shipping address
    */
   shipping_address?: ShippingAddress;
 };
@@ -7651,7 +7651,7 @@ export type TransactionPartnerOther = {
  */
 export type StarTransaction = {
   /**
-   * Unique identifier of the transaction. Coincides with the identifier of the original transaction for refund transactions. Coincides with SuccessfulPayment.telegram_payment_charge_id for successful incoming payments from users.
+   * Unique identifier of the transaction. Coincides with the identifier of the original transaction for refund transactions. Coincides with {@link SuccessfulPayment}.telegram_payment_charge_id for successful incoming payments from users.
    */
   id: string;
 
@@ -7755,7 +7755,7 @@ export type EncryptedPassportElement = {
   type: string;
 
   /**
-   * Base64-encoded encrypted Telegram Passport element data provided by the user; available only for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying EncryptedCredentials.
+   * Base64-encoded encrypted Telegram Passport element data provided by the user; available only for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
    */
   data?: string;
 
@@ -7770,27 +7770,27 @@ export type EncryptedPassportElement = {
   email?: string;
 
   /**
-   * Array of encrypted files with documents provided by the user; available only for “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying EncryptedCredentials.
+   * Array of encrypted files with documents provided by the user; available only for “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
    */
   files?: PassportFile[];
 
   /**
-   * Encrypted file with the front side of the document, provided by the user; available only for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying EncryptedCredentials.
+   * Encrypted file with the front side of the document, provided by the user; available only for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
    */
   front_side?: PassportFile;
 
   /**
-   * Encrypted file with the reverse side of the document, provided by the user; available only for “driver_license” and “identity_card”. The file can be decrypted and verified using the accompanying EncryptedCredentials.
+   * Encrypted file with the reverse side of the document, provided by the user; available only for “driver_license” and “identity_card”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
    */
   reverse_side?: PassportFile;
 
   /**
-   * Encrypted file with the selfie of the user holding a document, provided by the user; available if requested for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying EncryptedCredentials.
+   * Encrypted file with the selfie of the user holding a document, provided by the user; available if requested for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
    */
   selfie?: PassportFile;
 
   /**
-   * Array of encrypted files with translated versions of documents provided by the user; available if requested for “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying EncryptedCredentials.
+   * Array of encrypted files with translated versions of documents provided by the user; available if requested for “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
    */
   translation?: PassportFile[];
 
@@ -7801,11 +7801,11 @@ export type EncryptedPassportElement = {
 };
 
 /**
- * Describes {@link EncryptedCredentials.data | data} required for decrypting and authenticating EncryptedPassportElement. See the Telegram Passport Documentation for a complete description of the data decryption and authentication processes.
+ * Describes {@link EncryptedCredentials.data | data} required for decrypting and authenticating {@link EncryptedPassportElement}. See the Telegram Passport Documentation for a complete description of the {@link EncryptedCredentials.data | data} decryption and authentication processes.
  */
 export type EncryptedCredentials = {
   /**
-   * Base64-encoded encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication
+   * Base64-encoded encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for {@link EncryptedPassportElement} decryption and authentication
    */
   data: string;
 
@@ -8091,7 +8091,7 @@ export type Game = {
   text_entities?: MessageEntity[];
 
   /**
-   * Animation that will be displayed in the game message in chats. Upload via BotFather
+   * {@link Animation} that will be displayed in the game message in chats. Upload via BotFather
    */
   animation?: Animation;
 };

@@ -11,7 +11,7 @@ export type GetBusinessConnection = {
 };
 
 /**
- * Use this method to get information about the connection of the bot with a business account. Returns a BusinessConnection object on success.
+ * Use this method to get information about the connection of the bot with a business account. Returns a {@link BusinessConnection} object on success.
  */
 export const getBusinessConnection = botMethod<
   GetBusinessConnection,

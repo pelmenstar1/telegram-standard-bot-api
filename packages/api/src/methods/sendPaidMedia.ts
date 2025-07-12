@@ -89,6 +89,6 @@ export type SendPaidMedia = {
 };
 
 /**
- * Use this method to send paid media. On success, the sent Message is returned.
+ * Use this method to send paid media. On success, the sent {@link Message} is returned.
  */
 export const sendPaidMedia = botMethod<SendPaidMedia, Message>('sendPaidMedia');

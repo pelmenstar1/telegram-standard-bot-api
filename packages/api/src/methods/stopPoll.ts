@@ -26,6 +26,6 @@ export type StopPoll = {
 };
 
 /**
- * Use this method to stop a poll which was sent by the bot. On success, the stopped Poll is returned.
+ * Use this method to stop a poll which was sent by the bot. On success, the stopped {@link Poll} is returned.
  */
 export const stopPoll = botMethod<StopPoll, Poll>('stopPoll');

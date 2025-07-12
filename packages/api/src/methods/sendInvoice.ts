@@ -156,6 +156,6 @@ export type SendInvoice = {
 };
 
 /**
- * Use this method to send invoices. On success, the sent Message is returned.
+ * Use this method to send invoices. On success, the sent {@link Message} is returned.
  */
 export const sendInvoice = botMethod<SendInvoice, Message>('sendInvoice');

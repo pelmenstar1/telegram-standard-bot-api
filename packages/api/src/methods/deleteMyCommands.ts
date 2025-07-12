@@ -5,7 +5,7 @@ import { BotCommandScope } from '../types';
 
 export type DeleteMyCommands = {
   /**
-   * A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to BotCommandScopeDefault.
+   * A JSON-serialized object, describing scope of users for which the commands are relevant. Defaults to {@link BotCommandScopeDefault}.
    */
   scope: BotCommandScope;
 

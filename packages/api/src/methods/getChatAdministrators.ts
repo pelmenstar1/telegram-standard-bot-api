@@ -11,7 +11,7 @@ export type GetChatAdministrators = {
 };
 
 /**
- * Use this method to get a list of administrators in a chat, which aren't bots. Returns an Array of ChatMember objects.
+ * Use this method to get a list of administrators in a chat, which aren't bots. Returns an Array of {@link ChatMember} objects.
  */
 export const getChatAdministrators = botMethod<
   GetChatAdministrators,

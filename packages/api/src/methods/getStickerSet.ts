@@ -11,7 +11,7 @@ export type GetStickerSet = {
 };
 
 /**
- * Use this method to get a sticker set. On success, a StickerSet object is returned.
+ * Use this method to get a sticker set. On success, a {@link StickerSet} object is returned.
  */
 export const getStickerSet = botMethod<GetStickerSet, StickerSet>(
   'getStickerSet'

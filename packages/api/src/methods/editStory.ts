@@ -41,6 +41,6 @@ export type EditStory = {
 };
 
 /**
- * Edits a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns Story on success.
+ * Edits a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns {@link Story} on success.
  */
 export const editStory = botMethod<EditStory, Story>('editStory');

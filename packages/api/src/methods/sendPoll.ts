@@ -134,6 +134,6 @@ export type SendPoll = {
 };
 
 /**
- * Use this method to send a native poll. On success, the sent Message is returned.
+ * Use this method to send a native poll. On success, the sent {@link Message} is returned.
  */
 export const sendPoll = botMethod<SendPoll, Message>('sendPoll');

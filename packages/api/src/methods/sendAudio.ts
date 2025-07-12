@@ -105,7 +105,7 @@ export type SendAudio = {
 };
 
 /**
- * Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the.MP3 or.M4A format. On success, the sent Message is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future. For sending voice messages, use the sendVoice method instead.
+ * Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the.MP3 or.M4A format. On success, the sent {@link Message} is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future. For sending voice messages, use the sendVoice method instead.
  */
 export const sendAudio = botMethod<SendAudio, Message>(
   'sendAudio',

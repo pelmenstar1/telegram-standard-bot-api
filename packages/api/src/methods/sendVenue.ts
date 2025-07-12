@@ -102,6 +102,6 @@ export type SendVenue = {
 };
 
 /**
- * Use this method to send information about a venue. On success, the sent Message is returned.
+ * Use this method to send information about a venue. On success, the sent {@link Message} is returned.
  */
 export const sendVenue = botMethod<SendVenue, Message>('sendVenue');

@@ -11,6 +11,6 @@ export type GetChat = {
 };
 
 /**
- * Use this method to get up-to-date information about the chat. Returns a ChatFullInfo object on success.
+ * Use this method to get up-to-date information about the chat. Returns a {@link ChatFullInfo} object on success.
  */
 export const getChat = botMethod<GetChat, ChatFullInfo>('getChat');

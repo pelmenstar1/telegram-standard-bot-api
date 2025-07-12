@@ -51,6 +51,6 @@ export type PostStory = {
 };
 
 /**
- * Posts a story on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns Story on success.
+ * Posts a story on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns {@link Story} on success.
  */
 export const postStory = botMethod<PostStory, Story>('postStory');

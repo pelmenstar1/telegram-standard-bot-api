@@ -36,7 +36,7 @@ export type EditChatInviteLink = {
 };
 
 /**
- * Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the edited invite link as a ChatInviteLink object.
+ * Use this method to edit a non-primary invite link created by the bot. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns the edited invite link as a {@link ChatInviteLink} object.
  */
 export const editChatInviteLink = botMethod<EditChatInviteLink, ChatInviteLink>(
   'editChatInviteLink'

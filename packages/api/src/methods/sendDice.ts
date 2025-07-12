@@ -27,7 +27,7 @@ export type SendDice = {
   message_thread_id: number;
 
   /**
-   * Emoji on which the dice throw animation is based. Currently, must be one of “ ”, “ ”, “ ”, “ ”, “ ”, or “ ”. Dice can have values 1-6 for “ ”, “ ” and “ ”, values 1-5 for “ ” and “ ”, and values 1-64 for “ ”. Defaults to “ ”
+   * Emoji on which the dice throw animation is based. Currently, must be one of “ ”, “ ”, “ ”, “ ”, “ ”, or “ ”. {@link Dice} can have values 1-6 for “ ”, “ ” and “ ”, values 1-5 for “ ” and “ ”, and values 1-64 for “ ”. Defaults to “ ”
    */
   emoji: string;
 
@@ -67,6 +67,6 @@ export type SendDice = {
 };
 
 /**
- * Use this method to send an animated emoji that will display a random value. On success, the sent Message is returned.
+ * Use this method to send an animated emoji that will display a random value. On success, the sent {@link Message} is returned.
  */
 export const sendDice = botMethod<SendDice, Message>('sendDice');

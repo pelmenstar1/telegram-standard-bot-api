@@ -29,7 +29,7 @@ export type SendSticker = {
   message_thread_id: number;
 
   /**
-   * Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a.WEBP sticker from the Internet, or upload a new.WEBP,.TGS, or.WEBM sticker using multipart/form-data. More information on Sending Files ». Video and animated stickers can't be sent via an HTTP URL.
+   * Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a.WEBP sticker from the Internet, or upload a new.WEBP,.TGS, or.WEBM sticker using multipart/form-data. More information on Sending Files ». {@link Video} and animated stickers can't be sent via an HTTP URL.
    */
   sticker?: InputFile | string;
 
@@ -74,7 +74,7 @@ export type SendSticker = {
 };
 
 /**
- * Use this method to send static.WEBP, animated.TGS, or video.WEBM stickers. On success, the sent Message is returned.
+ * Use this method to send static.WEBP, animated.TGS, or video.WEBM stickers. On success, the sent {@link Message} is returned.
  */
 export const sendSticker = botMethod<SendSticker, Message>(
   'sendSticker',

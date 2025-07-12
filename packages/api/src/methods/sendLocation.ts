@@ -92,6 +92,6 @@ export type SendLocation = {
 };
 
 /**
- * Use this method to send point on the map. On success, the sent Message is returned.
+ * Use this method to send point on the map. On success, the sent {@link Message} is returned.
  */
 export const sendLocation = botMethod<SendLocation, Message>('sendLocation');

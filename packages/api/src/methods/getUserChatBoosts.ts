@@ -16,7 +16,7 @@ export type GetUserChatBoosts = {
 };
 
 /**
- * Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat. Returns a UserChatBoosts object.
+ * Use this method to get the list of boosts added to a chat by a user. Requires administrator rights in the chat. Returns a {@link UserChatBoosts} object.
  */
 export const getUserChatBoosts = botMethod<GetUserChatBoosts, UserChatBoosts>(
   'getUserChatBoosts'

@@ -21,7 +21,7 @@ export type EditChatSubscriptionInviteLink = {
 };
 
 /**
- * Use this method to edit a subscription invite link created by the bot. The bot must have the can_invite_users administrator rights. Returns the edited invite link as a ChatInviteLink object.
+ * Use this method to edit a subscription invite link created by the bot. The bot must have the can_invite_users administrator rights. Returns the edited invite link as a {@link ChatInviteLink} object.
  */
 export const editChatSubscriptionInviteLink = botMethod<
   EditChatSubscriptionInviteLink,

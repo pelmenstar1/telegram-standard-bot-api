@@ -41,7 +41,7 @@ export type ForwardMessage = {
 };
 
 /**
- * Use this method to forward messages of any kind. Service messages and messages with protected content can't be forwarded. On success, the sent Message is returned.
+ * Use this method to forward messages of any kind. Service messages and messages with protected content can't be forwarded. On success, the sent {@link Message} is returned.
  */
 export const forwardMessage = botMethod<ForwardMessage, Message>(
   'forwardMessage'

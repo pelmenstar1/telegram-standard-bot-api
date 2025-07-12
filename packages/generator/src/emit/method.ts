@@ -10,6 +10,7 @@ import { prettify } from '../utils/prettify';
 import { capitalize } from '../utils/string';
 import { textToTsDocComment } from './comment';
 import { GENERATED_HEADER } from './constants';
+import { EmitMeta } from './meta';
 import { valueTypeToString } from './valueType';
 
 const METHODS_PATH = '../api/src/methods';
@@ -58,19 +59,17 @@ function resolveImports(types: ValueType[]): string[] {
   return [...new Set(result)].sort((a, b) => a.localeCompare(b));
 }
 
-function methodToFileContent({
-  name,
-  fields,
-  description,
-  returnType,
-}: ParsedMethod): string {
+function methodToFileContent(
+  { name, fields, description, returnType }: ParsedMethod,
+  meta: EmitMeta
+): string {
   const payloadName = capitalize(name);
   const imports = resolveImports([
     ...fields.map(({ type }) => type),
     returnType,
   ]);
 
-  const returnTypeString = valueTypeToString(returnType);
+  const returnTypeString = valueTypeToString(returnType, meta);
 
   const helperInvokation =
     fields.length > 0
@@ -97,10 +96,10 @@ function methodToFileContent({
   result += '\n';
 
   if (fields.length > 0) {
-    result += `export type ${payloadName} = ${valueTypeToString({ type: 'object', fields })};\n\n`;
+    result += `export type ${payloadName} = ${valueTypeToString({ type: 'object', fields }, meta)};\n\n`;
   }
 
-  result += `${textToTsDocComment(description)}\n`;
+  result += `${textToTsDocComment(description, { meta })}\n`;
   result += `export const ${name} = ${helperInvokation}(${helperArgs})\n`;
 
   return result;
@@ -133,12 +132,12 @@ async function createIndexFile(methods: ParsedMethod[]): Promise<string> {
   return prettify(content);
 }
 
-export async function emitMethods(result: FullParseResult) {
+export async function emitMethods(result: FullParseResult, meta: EmitMeta) {
   await fsp.mkdir(METHODS_PATH, { recursive: true });
 
   await Promise.all(
     result.methods.map(async (method) => {
-      let content = methodToFileContent(method);
+      let content = methodToFileContent(method, meta);
       content = await prettify(content);
 
       await fsp.writeFile(getMethodFilePath(method.name), content);

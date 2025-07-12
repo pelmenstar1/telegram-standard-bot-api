@@ -1,16 +1,19 @@
 import { DefaultTreeAdapterTypes, parseFragment } from 'parse5';
 
 import { ind } from './indent';
+import { EmitMeta } from './meta';
 
-type CommentOptions =
-  | {
-      indent?: number;
-    }
-  | {
-      indent?: number;
-      typeName: string;
-      fieldNames: string[];
-    };
+interface BaseCommentOptions {
+  indent?: number;
+  meta: EmitMeta;
+}
+
+interface NamedTypeCommentOptions extends BaseCommentOptions {
+  typeName: string;
+  fieldNames: string[];
+}
+
+type CommentOptions = BaseCommentOptions | NamedTypeCommentOptions;
 
 function normalizeSpaces(text: string): string {
   text = text.replaceAll(/\s+/g, ' ');
@@ -55,28 +58,28 @@ function htmlToDocString(value: string): string {
   return normalizeSpaces(htmlNodeToDocString(fragment));
 }
 
-function replaceFieldMentionsToLinks(
-  value: string,
-  typeName: string,
-  fieldNames: string[]
+function replaceMentions(
+  text: string,
+  values: string[],
+  getReplacement: (value: string) => string
 ): string {
   const WHITESPACES = new Set([',', '.', ' ', ';', ':']);
 
-  function worker(text: string, fieldName: string): string {
+  function worker(text: string, value: string): string {
     let offset = 0;
     while (offset < text.length) {
-      const nextOffset = value.indexOf(fieldName, offset);
+      const nextOffset = text.indexOf(value, offset);
       if (nextOffset === -1) {
         break;
       }
 
       if (
         WHITESPACES.has(text[nextOffset - 1]) &&
-        WHITESPACES.has(text[nextOffset + fieldName.length])
+        WHITESPACES.has(text[nextOffset + value.length])
       ) {
         const prefix = text.slice(0, nextOffset);
-        const suffix = text.slice(nextOffset + fieldName.length);
-        const replacement = `{@link ${typeName}.${fieldName} | ${fieldName}}`;
+        const suffix = text.slice(nextOffset + value.length);
+        const replacement = getReplacement(value);
 
         text = `${prefix}${replacement}${suffix}`;
 
@@ -89,11 +92,31 @@ function replaceFieldMentionsToLinks(
     return text;
   }
 
-  for (const name of fieldNames) {
-    value = worker(value, name);
+  for (const value of values) {
+    text = worker(text, value);
   }
 
-  return value;
+  return text;
+}
+
+function replaceFieldMentionsToLinks(
+  value: string,
+  typeName: string,
+  fieldNames: string[]
+): string {
+  return replaceMentions(
+    value,
+    fieldNames,
+    (fieldName) => `{@link ${typeName}.${fieldName} | ${fieldName}}`
+  );
+}
+
+function replaceTypeMentionsToLinks(value: string, namedTypes: string[]) {
+  return replaceMentions(
+    value,
+    namedTypes,
+    (typeName) => `{@link ${typeName}}`
+  );
 }
 
 function removeUnnecessaryParts(value: string) {
@@ -110,9 +133,9 @@ function removeUnnecessaryParts(value: string) {
 
 export function textToTsDocComment(
   value: string,
-  options?: CommentOptions
+  options: CommentOptions
 ): string {
-  const indent = options?.indent ?? 0;
+  const indent = options.indent ?? 0;
 
   if (value.length === 0) {
     return '';
@@ -120,8 +143,9 @@ export function textToTsDocComment(
 
   let docString = htmlToDocString(value);
   docString = removeUnnecessaryParts(docString);
+  docString = replaceTypeMentionsToLinks(docString, options.meta.namedTypes);
 
-  if (options && 'typeName' in options) {
+  if ('typeName' in options) {
     docString = replaceFieldMentionsToLinks(
       docString,
       options.typeName,

@@ -5,7 +5,7 @@ import { BotCommand, BotCommandScope } from '../types';
 
 export type GetMyCommands = {
   /**
-   * A JSON-serialized object, describing scope of users. Defaults to BotCommandScopeDefault.
+   * A JSON-serialized object, describing scope of users. Defaults to {@link BotCommandScopeDefault}.
    */
   scope: BotCommandScope;
 
@@ -16,7 +16,7 @@ export type GetMyCommands = {
 };
 
 /**
- * Use this method to get the current list of the bot's commands for the given scope and user language. Returns an Array of BotCommand objects. If commands aren't set, an empty list is returned.
+ * Use this method to get the current list of the bot's commands for the given scope and user language. Returns an Array of {@link BotCommand} objects. If commands aren't set, an empty list is returned.
  */
 export const getMyCommands = botMethod<GetMyCommands, BotCommand>(
   'getMyCommands'

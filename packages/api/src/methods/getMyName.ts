@@ -11,6 +11,6 @@ export type GetMyName = {
 };
 
 /**
- * Use this method to get the current bot name for the given user language. Returns BotName on success.
+ * Use this method to get the current bot name for the given user language. Returns {@link BotName} on success.
  */
 export const getMyName = botMethod<GetMyName, BotName>('getMyName');

@@ -15,7 +15,7 @@ export type GetStarTransactions = {
 };
 
 /**
- * Returns the bot's Telegram Star transactions in chronological order. On success, returns a StarTransactions object.
+ * Returns the bot's Telegram Star transactions in chronological order. On success, returns a {@link StarTransactions} object.
  */
 export const getStarTransactions = botMethod<GetStarTransactions, boolean>(
   'getStarTransactions'

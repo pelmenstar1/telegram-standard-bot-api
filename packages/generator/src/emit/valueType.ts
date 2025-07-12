@@ -1,20 +1,24 @@
 import { ValueType } from '../types';
 import { fieldToString } from './field';
+import { EmitMeta } from './meta';
 
 export function valueTypeToString(
   value: ValueType,
+  meta: EmitMeta,
   indent: number = 0
 ): string {
   switch (value.type) {
     case 'array': {
-      return `${valueTypeToString(value.element)}[]`;
+      return `${valueTypeToString(value.element, meta)}[]`;
     }
     case 'union': {
       if (value.types.length === 0) {
         throw new Error('No types in union');
       }
 
-      return value.types.map((type) => valueTypeToString(type)).join(' | ');
+      return value.types
+        .map((type) => valueTypeToString(type, meta))
+        .join(' | ');
     }
     case 'object': {
       if (value.fields.length === 0) {
@@ -23,7 +27,7 @@ export function valueTypeToString(
 
       let result = `{\n`;
       result += value.fields
-        .map((field) => fieldToString(field, indent + 2))
+        .map((field) => fieldToString(field, meta, indent + 2))
         .join('\n\n');
       result += '\n}';
 

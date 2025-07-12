@@ -82,6 +82,6 @@ export type SendContact = {
 };
 
 /**
- * Use this method to send phone contacts. On success, the sent Message is returned.
+ * Use this method to send phone contacts. On success, the sent {@link Message} is returned.
  */
 export const sendContact = botMethod<SendContact, Message>('sendContact');

@@ -51,7 +51,7 @@ export type GetBusinessAccountGifts = {
 };
 
 /**
- * Returns the gifts received and owned by a managed business account. Requires the can_view_gifts_and_stars business bot right. Returns OwnedGifts on success.
+ * Returns the gifts received and owned by a managed business account. Requires the can_view_gifts_and_stars business bot right. Returns {@link OwnedGifts} on success.
  */
 export const getBusinessAccountGifts = botMethod<
   GetBusinessAccountGifts,

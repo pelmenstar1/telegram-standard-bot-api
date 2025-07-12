@@ -11,7 +11,7 @@ export type GetMyShortDescription = {
 };
 
 /**
- * Use this method to get the current bot short description for the given user language. Returns BotShortDescription on success.
+ * Use this method to get the current bot short description for the given user language. Returns {@link BotShortDescription} on success.
  */
 export const getMyShortDescription = botMethod<
   GetMyShortDescription,
