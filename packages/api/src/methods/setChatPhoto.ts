@@ -1,8 +1,8 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { formDataPayloadTransformer } from '../payload';
-import { InputFile } from '../types';
+import { botMethod } from '../method.js';
+import { formDataPayloadTransformer } from '../payload.js';
+import { InputFile } from '../types.js';
 
 export type SetChatPhoto = {
   /**
@@ -19,7 +19,7 @@ export type SetChatPhoto = {
 /**
  * Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
  */
-export const setChatPhoto = botMethod<SetChatPhoto, boolean>(
+export const setChatPhoto = /* @__PURE__ */ botMethod<SetChatPhoto, boolean>(
   'setChatPhoto',
   formDataPayloadTransformer
 );

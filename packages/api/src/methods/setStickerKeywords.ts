@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type SetStickerKeywords = {
   /**
@@ -17,6 +17,7 @@ export type SetStickerKeywords = {
 /**
  * Use this method to change search keywords assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns True on success.
  */
-export const setStickerKeywords = botMethod<SetStickerKeywords, boolean>(
-  'setStickerKeywords'
-);
+export const setStickerKeywords = /* @__PURE__ */ botMethod<
+  SetStickerKeywords,
+  boolean
+>('setStickerKeywords');

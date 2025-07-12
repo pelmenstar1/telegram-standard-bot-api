@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { LabeledPrice } from '../types';
+import { botMethod } from '../method.js';
+import { LabeledPrice } from '../types.js';
 
 export type CreateInvoiceLink = {
   /**
@@ -118,6 +118,7 @@ export type CreateInvoiceLink = {
 /**
  * Use this method to create a link for an invoice. Returns the created invoice link as String on success.
  */
-export const createInvoiceLink = botMethod<CreateInvoiceLink, string>(
-  'createInvoiceLink'
-);
+export const createInvoiceLink = /* @__PURE__ */ botMethod<
+  CreateInvoiceLink,
+  string
+>('createInvoiceLink');

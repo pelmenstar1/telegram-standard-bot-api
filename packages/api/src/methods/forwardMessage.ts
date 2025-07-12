@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { Message } from '../types';
+import { botMethod } from '../method.js';
+import { Message } from '../types.js';
 
 export type ForwardMessage = {
   /**
@@ -43,6 +43,7 @@ export type ForwardMessage = {
 /**
  * Use this method to forward messages of any kind. Service messages and messages with protected content can't be forwarded. On success, the sent {@link Message} is returned.
  */
-export const forwardMessage = botMethod<ForwardMessage, Message>(
-  'forwardMessage'
-);
+export const forwardMessage = /* @__PURE__ */ botMethod<
+  ForwardMessage,
+  Message
+>('forwardMessage');

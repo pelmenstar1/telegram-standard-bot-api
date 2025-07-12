@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { MessageId } from '../types';
+import { botMethod } from '../method.js';
+import { MessageId } from '../types.js';
 
 export type ForwardMessages = {
   /**
@@ -38,6 +38,7 @@ export type ForwardMessages = {
 /**
  * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an array of {@link MessageId} of the sent messages is returned.
  */
-export const forwardMessages = botMethod<ForwardMessages, MessageId>(
-  'forwardMessages'
-);
+export const forwardMessages = /* @__PURE__ */ botMethod<
+  ForwardMessages,
+  MessageId
+>('forwardMessages');

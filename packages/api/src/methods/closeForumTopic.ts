@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type CloseForumTopic = {
   /**
@@ -17,6 +17,7 @@ export type CloseForumTopic = {
 /**
  * Use this method to close an open topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
  */
-export const closeForumTopic = botMethod<CloseForumTopic, boolean>(
-  'closeForumTopic'
-);
+export const closeForumTopic = /* @__PURE__ */ botMethod<
+  CloseForumTopic,
+  boolean
+>('closeForumTopic');

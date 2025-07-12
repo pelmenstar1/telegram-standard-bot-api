@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type SetMyShortDescription = {
   /**
@@ -17,6 +17,7 @@ export type SetMyShortDescription = {
 /**
  * Use this method to change the bot's short description, which is shown on the bot's profile page and is sent together with the link when users share the bot. Returns True on success.
  */
-export const setMyShortDescription = botMethod<SetMyShortDescription, boolean>(
-  'setMyShortDescription'
-);
+export const setMyShortDescription = /* @__PURE__ */ botMethod<
+  SetMyShortDescription,
+  boolean
+>('setMyShortDescription');

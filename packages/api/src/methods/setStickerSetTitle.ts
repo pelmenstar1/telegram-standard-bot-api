@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type SetStickerSetTitle = {
   /**
@@ -17,6 +17,7 @@ export type SetStickerSetTitle = {
 /**
  * Use this method to set the title of a created sticker set. Returns True on success.
  */
-export const setStickerSetTitle = botMethod<SetStickerSetTitle, boolean>(
-  'setStickerSetTitle'
-);
+export const setStickerSetTitle = /* @__PURE__ */ botMethod<
+  SetStickerSetTitle,
+  boolean
+>('setStickerSetTitle');

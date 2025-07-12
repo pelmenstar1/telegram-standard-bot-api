@@ -83,14 +83,14 @@ function methodToFileContent(
 
   let result = GENERATED_HEADER;
 
-  result += `import { botMethod } from '../method';\n`;
+  result += `import { botMethod } from '../method.js';\n`;
 
   if (hasFiles) {
-    result += `import { formDataPayloadTransformer } from '../payload'\n`;
+    result += `import { formDataPayloadTransformer } from '../payload.js'\n`;
   }
 
   if (imports.length > 0) {
-    result += `import { ${imports.join(', ')} } from '../types';\n`;
+    result += `import { ${imports.join(', ')} } from '../types.js';\n`;
   }
 
   result += '\n';
@@ -100,7 +100,7 @@ function methodToFileContent(
   }
 
   result += `${textToTsDocComment(description, { meta })}\n`;
-  result += `export const ${name} = ${helperInvokation}(${helperArgs})\n`;
+  result += `export const ${name} = /* @__PURE__ */ ${helperInvokation}(${helperArgs})\n`;
 
   return result;
 }
@@ -123,7 +123,7 @@ async function createIndexFile(methods: ParsedMethod[]): Promise<string> {
     .map(({ name, fields }) => {
       const items = fields.length > 0 ? [capitalize(name), name] : [name];
 
-      return `import { ${name} } from './${name}';\nexport { ${items.join(', ')} } from './${name}';`;
+      return `import { ${name} } from './${name}.js';\nexport { ${items.join(', ')} } from './${name}.js';`;
     })
     .join('\n');
   content += `export default { ${exportDefaultContent} };`;

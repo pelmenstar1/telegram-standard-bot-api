@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { formDataPayloadTransformer } from '../payload';
+import { botMethod } from '../method.js';
+import { formDataPayloadTransformer } from '../payload.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -11,7 +11,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendDocument = {
   /**
@@ -97,7 +97,7 @@ export type SendDocument = {
 /**
  * Use this method to send general files. On success, the sent {@link Message} is returned. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
  */
-export const sendDocument = botMethod<SendDocument, Message>(
+export const sendDocument = /* @__PURE__ */ botMethod<SendDocument, Message>(
   'sendDocument',
   formDataPayloadTransformer
 );

@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type SetMyName = {
   /**
@@ -17,4 +17,6 @@ export type SetMyName = {
 /**
  * Use this method to change the bot's name. Returns True on success.
  */
-export const setMyName = botMethod<SetMyName, boolean>('setMyName');
+export const setMyName = /* @__PURE__ */ botMethod<SetMyName, boolean>(
+  'setMyName'
+);

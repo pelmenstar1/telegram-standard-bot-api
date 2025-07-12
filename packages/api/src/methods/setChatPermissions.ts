@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { ChatPermissions } from '../types';
+import { botMethod } from '../method.js';
+import { ChatPermissions } from '../types.js';
 
 export type SetChatPermissions = {
   /**
@@ -23,6 +23,7 @@ export type SetChatPermissions = {
 /**
  * Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members administrator rights. Returns True on success.
  */
-export const setChatPermissions = botMethod<SetChatPermissions, boolean>(
-  'setChatPermissions'
-);
+export const setChatPermissions = /* @__PURE__ */ botMethod<
+  SetChatPermissions,
+  boolean
+>('setChatPermissions');

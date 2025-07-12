@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type SetMyDescription = {
   /**
@@ -17,6 +17,7 @@ export type SetMyDescription = {
 /**
  * Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty. Returns True on success.
  */
-export const setMyDescription = botMethod<SetMyDescription, boolean>(
-  'setMyDescription'
-);
+export const setMyDescription = /* @__PURE__ */ botMethod<
+  SetMyDescription,
+  boolean
+>('setMyDescription');

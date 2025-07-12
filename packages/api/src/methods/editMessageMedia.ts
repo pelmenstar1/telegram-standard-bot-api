@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InlineKeyboardMarkup, InputMedia, Message } from '../types';
+import { botMethod } from '../method.js';
+import { InlineKeyboardMarkup, InputMedia, Message } from '../types.js';
 
 export type EditMessageMedia = {
   /**
@@ -38,6 +38,7 @@ export type EditMessageMedia = {
 /**
  * Use this method to edit animation, audio, document, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited {@link Message} is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
  */
-export const editMessageMedia = botMethod<EditMessageMedia, Message | true>(
-  'editMessageMedia'
-);
+export const editMessageMedia = /* @__PURE__ */ botMethod<
+  EditMessageMedia,
+  Message | true
+>('editMessageMedia');

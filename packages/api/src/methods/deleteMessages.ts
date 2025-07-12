@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type DeleteMessages = {
   /**
@@ -17,6 +17,7 @@ export type DeleteMessages = {
 /**
  * Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped. Returns True on success.
  */
-export const deleteMessages = botMethod<DeleteMessages, boolean>(
-  'deleteMessages'
-);
+export const deleteMessages = /* @__PURE__ */ botMethod<
+  DeleteMessages,
+  boolean
+>('deleteMessages');

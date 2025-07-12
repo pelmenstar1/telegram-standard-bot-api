@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InlineKeyboardMarkup, Message } from '../types';
+import { botMethod } from '../method.js';
+import { InlineKeyboardMarkup, Message } from '../types.js';
 
 export type EditMessageLiveLocation = {
   /**
@@ -63,7 +63,7 @@ export type EditMessageLiveLocation = {
 /**
  * Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message is not an inline message, the edited {@link Message} is returned, otherwise True is returned.
  */
-export const editMessageLiveLocation = botMethod<
+export const editMessageLiveLocation = /* @__PURE__ */ botMethod<
   EditMessageLiveLocation,
   Message | true
 >('editMessageLiveLocation');

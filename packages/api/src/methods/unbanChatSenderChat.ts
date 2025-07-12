@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type UnbanChatSenderChat = {
   /**
@@ -17,6 +17,7 @@ export type UnbanChatSenderChat = {
 /**
  * Use this method to unban a previously banned channel chat in a supergroup or channel. The bot must be an administrator for this to work and must have the appropriate administrator rights. Returns True on success.
  */
-export const unbanChatSenderChat = botMethod<UnbanChatSenderChat, boolean>(
-  'unbanChatSenderChat'
-);
+export const unbanChatSenderChat = /* @__PURE__ */ botMethod<
+  UnbanChatSenderChat,
+  boolean
+>('unbanChatSenderChat');

@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { formDataPayloadTransformer } from '../payload';
+import { botMethod } from '../method.js';
+import { formDataPayloadTransformer } from '../payload.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -11,7 +11,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendAnimation = {
   /**
@@ -117,7 +117,7 @@ export type SendAnimation = {
 /**
  * Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent {@link Message} is returned. Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future.
  */
-export const sendAnimation = botMethod<SendAnimation, Message>(
+export const sendAnimation = /* @__PURE__ */ botMethod<SendAnimation, Message>(
   'sendAnimation',
   formDataPayloadTransformer
 );

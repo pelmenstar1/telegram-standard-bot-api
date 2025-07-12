@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -9,7 +9,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type CopyMessage = {
   /**
@@ -90,4 +90,6 @@ export type CopyMessage = {
 /**
  * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the {@link MessageId} of the sent message on success.
  */
-export const copyMessage = botMethod<CopyMessage, MessageId>('copyMessage');
+export const copyMessage = /* @__PURE__ */ botMethod<CopyMessage, MessageId>(
+  'copyMessage'
+);

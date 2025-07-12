@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { MessageEntity } from '../types';
+import { botMethod } from '../method.js';
+import { MessageEntity } from '../types.js';
 
 export type GiftPremiumSubscription = {
   /**
@@ -38,7 +38,7 @@ export type GiftPremiumSubscription = {
 /**
  * {@link Gifts} a Telegram Premium subscription to the given user. Returns True on success.
  */
-export const giftPremiumSubscription = botMethod<
+export const giftPremiumSubscription = /* @__PURE__ */ botMethod<
   GiftPremiumSubscription,
   boolean
 >('giftPremiumSubscription');

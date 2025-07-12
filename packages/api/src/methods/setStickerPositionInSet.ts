@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type SetStickerPositionInSet = {
   /**
@@ -17,7 +17,7 @@ export type SetStickerPositionInSet = {
 /**
  * Use this method to move a sticker in a set created by the bot to a specific position. Returns True on success.
  */
-export const setStickerPositionInSet = botMethod<
+export const setStickerPositionInSet = /* @__PURE__ */ botMethod<
   SetStickerPositionInSet,
   boolean
 >('setStickerPositionInSet');

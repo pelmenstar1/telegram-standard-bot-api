@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { formDataPayloadTransformer } from '../payload';
+import { botMethod } from '../method.js';
+import { formDataPayloadTransformer } from '../payload.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -10,7 +10,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendSticker = {
   /**
@@ -76,7 +76,7 @@ export type SendSticker = {
 /**
  * Use this method to send static.WEBP, animated.TGS, or video.WEBM stickers. On success, the sent {@link Message} is returned.
  */
-export const sendSticker = botMethod<SendSticker, Message>(
+export const sendSticker = /* @__PURE__ */ botMethod<SendSticker, Message>(
   'sendSticker',
   formDataPayloadTransformer
 );

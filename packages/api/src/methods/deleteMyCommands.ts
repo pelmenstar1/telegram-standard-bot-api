@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { BotCommandScope } from '../types';
+import { botMethod } from '../method.js';
+import { BotCommandScope } from '../types.js';
 
 export type DeleteMyCommands = {
   /**
@@ -18,6 +18,7 @@ export type DeleteMyCommands = {
 /**
  * Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, higher level commands will be shown to affected users. Returns True on success.
  */
-export const deleteMyCommands = botMethod<DeleteMyCommands, boolean>(
-  'deleteMyCommands'
-);
+export const deleteMyCommands = /* @__PURE__ */ botMethod<
+  DeleteMyCommands,
+  boolean
+>('deleteMyCommands');

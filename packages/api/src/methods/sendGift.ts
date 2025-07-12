@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { MessageEntity } from '../types';
+import { botMethod } from '../method.js';
+import { MessageEntity } from '../types.js';
 
 export type SendGift = {
   /**
@@ -43,4 +43,6 @@ export type SendGift = {
 /**
  * Sends a gift to the given user or channel chat. The gift can't be converted to Telegram Stars by the receiver. Returns True on success.
  */
-export const sendGift = botMethod<SendGift, boolean>('sendGift');
+export const sendGift = /* @__PURE__ */ botMethod<SendGift, boolean>(
+  'sendGift'
+);

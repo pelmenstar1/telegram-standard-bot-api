@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InlineKeyboardMarkup, Message, MessageEntity } from '../types';
+import { botMethod } from '../method.js';
+import { InlineKeyboardMarkup, Message, MessageEntity } from '../types.js';
 
 export type EditMessageCaption = {
   /**
@@ -53,6 +53,7 @@ export type EditMessageCaption = {
 /**
  * Use this method to edit captions of messages. On success, if the edited message is not an inline message, the edited {@link Message} is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
  */
-export const editMessageCaption = botMethod<EditMessageCaption, Message | true>(
-  'editMessageCaption'
-);
+export const editMessageCaption = /* @__PURE__ */ botMethod<
+  EditMessageCaption,
+  Message | true
+>('editMessageCaption');

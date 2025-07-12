@@ -1,5 +1,5 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
-export const close = botMethod<boolean>('close');
+export const close = /* @__PURE__ */ botMethod<boolean>('close');

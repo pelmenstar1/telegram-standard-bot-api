@@ -1,12 +1,12 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 import {
   InlineKeyboardMarkup,
   InputChecklist,
   Message,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendChecklist = {
   /**
@@ -53,4 +53,6 @@ export type SendChecklist = {
 /**
  * Use this method to send a checklist on behalf of a connected business account. On success, the sent {@link Message} is returned.
  */
-export const sendChecklist = botMethod<SendChecklist, Message>('sendChecklist');
+export const sendChecklist = /* @__PURE__ */ botMethod<SendChecklist, Message>(
+  'sendChecklist'
+);

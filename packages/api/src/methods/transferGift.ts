@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type TransferGift = {
   /**
@@ -27,4 +27,6 @@ export type TransferGift = {
 /**
  * Transfers an owned unique gift to another user. Requires the can_transfer_and_upgrade_gifts business bot right. Requires can_transfer_stars business bot right if the transfer is paid. Returns True on success.
  */
-export const transferGift = botMethod<TransferGift, boolean>('transferGift');
+export const transferGift = /* @__PURE__ */ botMethod<TransferGift, boolean>(
+  'transferGift'
+);

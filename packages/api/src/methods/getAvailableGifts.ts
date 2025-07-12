@@ -1,6 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { Gifts } from '../types';
+import { botMethod } from '../method.js';
+import { Gifts } from '../types.js';
 
-export const getAvailableGifts = botMethod<Gifts>('getAvailableGifts');
+export const getAvailableGifts =
+  /* @__PURE__ */ botMethod<Gifts>('getAvailableGifts');

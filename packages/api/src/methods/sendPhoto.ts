@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { formDataPayloadTransformer } from '../payload';
+import { botMethod } from '../method.js';
+import { formDataPayloadTransformer } from '../payload.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -11,7 +11,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendPhoto = {
   /**
@@ -97,7 +97,7 @@ export type SendPhoto = {
 /**
  * Use this method to send photos. On success, the sent {@link Message} is returned.
  */
-export const sendPhoto = botMethod<SendPhoto, Message>(
+export const sendPhoto = /* @__PURE__ */ botMethod<SendPhoto, Message>(
   'sendPhoto',
   formDataPayloadTransformer
 );

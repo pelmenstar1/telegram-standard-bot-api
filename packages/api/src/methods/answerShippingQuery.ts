@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { ShippingOption } from '../types';
+import { botMethod } from '../method.js';
+import { ShippingOption } from '../types.js';
 
 export type AnswerShippingQuery = {
   /**
@@ -28,6 +28,7 @@ export type AnswerShippingQuery = {
 /**
  * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. Use this method to reply to shipping queries. On success, True is returned.
  */
-export const answerShippingQuery = botMethod<AnswerShippingQuery, boolean>(
-  'answerShippingQuery'
-);
+export const answerShippingQuery = /* @__PURE__ */ botMethod<
+  AnswerShippingQuery,
+  boolean
+>('answerShippingQuery');

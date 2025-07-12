@@ -1,7 +1,12 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InputStoryContent, MessageEntity, Story, StoryArea } from '../types';
+import { botMethod } from '../method.js';
+import {
+  InputStoryContent,
+  MessageEntity,
+  Story,
+  StoryArea,
+} from '../types.js';
 
 export type PostStory = {
   /**
@@ -53,4 +58,6 @@ export type PostStory = {
 /**
  * Posts a story on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns {@link Story} on success.
  */
-export const postStory = botMethod<PostStory, Story>('postStory');
+export const postStory = /* @__PURE__ */ botMethod<PostStory, Story>(
+  'postStory'
+);

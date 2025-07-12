@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { AcceptedGiftTypes } from '../types';
+import { botMethod } from '../method.js';
+import { AcceptedGiftTypes } from '../types.js';
 
 export type SetBusinessAccountGiftSettings = {
   /**
@@ -23,7 +23,7 @@ export type SetBusinessAccountGiftSettings = {
 /**
  * Changes the privacy settings pertaining to incoming gifts in a managed business account. Requires the can_change_gift_settings business bot right. Returns True on success.
  */
-export const setBusinessAccountGiftSettings = botMethod<
+export const setBusinessAccountGiftSettings = /* @__PURE__ */ botMethod<
   SetBusinessAccountGiftSettings,
   boolean
 >('setBusinessAccountGiftSettings');

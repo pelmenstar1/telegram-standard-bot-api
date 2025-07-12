@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InputMediaAudio, Message, ReplyParameters } from '../types';
+import { botMethod } from '../method.js';
+import { InputMediaAudio, Message, ReplyParameters } from '../types.js';
 
 export type SendMediaGroup = {
   /**
@@ -53,6 +53,7 @@ export type SendMediaGroup = {
 /**
  * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Messages that were sent is returned.
  */
-export const sendMediaGroup = botMethod<SendMediaGroup, Message>(
-  'sendMediaGroup'
-);
+export const sendMediaGroup = /* @__PURE__ */ botMethod<
+  SendMediaGroup,
+  Message
+>('sendMediaGroup');

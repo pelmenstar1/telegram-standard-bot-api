@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type ConvertGiftToStars = {
   /**
@@ -17,6 +17,7 @@ export type ConvertGiftToStars = {
 /**
  * Converts a given regular gift to Telegram Stars. Requires the can_convert_gifts_to_stars business bot right. Returns True on success.
  */
-export const convertGiftToStars = botMethod<ConvertGiftToStars, boolean>(
-  'convertGiftToStars'
-);
+export const convertGiftToStars = /* @__PURE__ */ botMethod<
+  ConvertGiftToStars,
+  boolean
+>('convertGiftToStars');

@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type SetCustomEmojiStickerSetThumbnail = {
   /**
@@ -17,7 +17,7 @@ export type SetCustomEmojiStickerSetThumbnail = {
 /**
  * Use this method to set the thumbnail of a custom emoji sticker set. Returns True on success.
  */
-export const setCustomEmojiStickerSetThumbnail = botMethod<
+export const setCustomEmojiStickerSetThumbnail = /* @__PURE__ */ botMethod<
   SetCustomEmojiStickerSetThumbnail,
   boolean
 >('setCustomEmojiStickerSetThumbnail');

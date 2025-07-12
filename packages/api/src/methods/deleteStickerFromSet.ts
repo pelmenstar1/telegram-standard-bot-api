@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type DeleteStickerFromSet = {
   /**
@@ -12,6 +12,7 @@ export type DeleteStickerFromSet = {
 /**
  * Use this method to delete a sticker from a set created by the bot. Returns True on success.
  */
-export const deleteStickerFromSet = botMethod<DeleteStickerFromSet, boolean>(
-  'deleteStickerFromSet'
-);
+export const deleteStickerFromSet = /* @__PURE__ */ botMethod<
+  DeleteStickerFromSet,
+  boolean
+>('deleteStickerFromSet');

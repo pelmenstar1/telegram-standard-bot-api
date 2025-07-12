@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { ChatAdministratorRights } from '../types';
+import { botMethod } from '../method.js';
+import { ChatAdministratorRights } from '../types.js';
 
 export type GetMyDefaultAdministratorRights = {
   /**
@@ -13,7 +13,7 @@ export type GetMyDefaultAdministratorRights = {
 /**
  * Use this method to get the current default administrator rights of the bot. Returns {@link ChatAdministratorRights} on success.
  */
-export const getMyDefaultAdministratorRights = botMethod<
+export const getMyDefaultAdministratorRights = /* @__PURE__ */ botMethod<
   GetMyDefaultAdministratorRights,
   ChatAdministratorRights
 >('getMyDefaultAdministratorRights');

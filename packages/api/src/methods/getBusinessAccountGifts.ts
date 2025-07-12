@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { OwnedGifts } from '../types';
+import { botMethod } from '../method.js';
+import { OwnedGifts } from '../types.js';
 
 export type GetBusinessAccountGifts = {
   /**
@@ -53,7 +53,7 @@ export type GetBusinessAccountGifts = {
 /**
  * Returns the gifts received and owned by a managed business account. Requires the can_view_gifts_and_stars business bot right. Returns {@link OwnedGifts} on success.
  */
-export const getBusinessAccountGifts = botMethod<
+export const getBusinessAccountGifts = /* @__PURE__ */ botMethod<
   GetBusinessAccountGifts,
   OwnedGifts
 >('getBusinessAccountGifts');

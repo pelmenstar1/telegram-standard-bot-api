@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type SetChatAdministratorCustomTitle = {
   /**
@@ -22,7 +22,7 @@ export type SetChatAdministratorCustomTitle = {
 /**
  * Use this method to set a custom title for an administrator in a supergroup promoted by the bot. Returns True on success.
  */
-export const setChatAdministratorCustomTitle = botMethod<
+export const setChatAdministratorCustomTitle = /* @__PURE__ */ botMethod<
   SetChatAdministratorCustomTitle,
   boolean
 >('setChatAdministratorCustomTitle');

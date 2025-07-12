@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type EditGeneralForumTopic = {
   /**
@@ -17,6 +17,7 @@ export type EditGeneralForumTopic = {
 /**
  * Use this method to edit the name of the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success.
  */
-export const editGeneralForumTopic = botMethod<EditGeneralForumTopic, boolean>(
-  'editGeneralForumTopic'
-);
+export const editGeneralForumTopic = /* @__PURE__ */ botMethod<
+  EditGeneralForumTopic,
+  boolean
+>('editGeneralForumTopic');

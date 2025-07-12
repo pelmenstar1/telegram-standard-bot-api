@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -10,7 +10,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendPaidMedia = {
   /**
@@ -91,4 +91,6 @@ export type SendPaidMedia = {
 /**
  * Use this method to send paid media. On success, the sent {@link Message} is returned.
  */
-export const sendPaidMedia = botMethod<SendPaidMedia, Message>('sendPaidMedia');
+export const sendPaidMedia = /* @__PURE__ */ botMethod<SendPaidMedia, Message>(
+  'sendPaidMedia'
+);

@@ -1,8 +1,8 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { formDataPayloadTransformer } from '../payload';
-import { File, InputFile } from '../types';
+import { botMethod } from '../method.js';
+import { formDataPayloadTransformer } from '../payload.js';
+import { File, InputFile } from '../types.js';
 
 export type UploadStickerFile = {
   /**
@@ -24,7 +24,7 @@ export type UploadStickerFile = {
 /**
  * Use this method to upload a file with a sticker for later use in the createNewStickerSet, addStickerToSet, or replaceStickerInSet methods (the file can be used multiple times). Returns the uploaded {@link File} on success.
  */
-export const uploadStickerFile = botMethod<UploadStickerFile, File>(
-  'uploadStickerFile',
-  formDataPayloadTransformer
-);
+export const uploadStickerFile = /* @__PURE__ */ botMethod<
+  UploadStickerFile,
+  File
+>('uploadStickerFile', formDataPayloadTransformer);

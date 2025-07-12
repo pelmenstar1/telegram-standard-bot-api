@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { Sticker } from '../types';
+import { botMethod } from '../method.js';
+import { Sticker } from '../types.js';
 
 export type GetCustomEmojiStickers = {
   /**
@@ -13,7 +13,7 @@ export type GetCustomEmojiStickers = {
 /**
  * Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of {@link Sticker} objects.
  */
-export const getCustomEmojiStickers = botMethod<
+export const getCustomEmojiStickers = /* @__PURE__ */ botMethod<
   GetCustomEmojiStickers,
   Sticker
 >('getCustomEmojiStickers');

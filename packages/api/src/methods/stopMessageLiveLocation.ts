@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InlineKeyboardMarkup, Message } from '../types';
+import { botMethod } from '../method.js';
+import { InlineKeyboardMarkup, Message } from '../types.js';
 
 export type StopMessageLiveLocation = {
   /**
@@ -33,7 +33,7 @@ export type StopMessageLiveLocation = {
 /**
  * Use this method to stop updating a live location message before live_period expires. On success, if the message is not an inline message, the edited {@link Message} is returned, otherwise True is returned.
  */
-export const stopMessageLiveLocation = botMethod<
+export const stopMessageLiveLocation = /* @__PURE__ */ botMethod<
   StopMessageLiveLocation,
   Message | true
 >('stopMessageLiveLocation');

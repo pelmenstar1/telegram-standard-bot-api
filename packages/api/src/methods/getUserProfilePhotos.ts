@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { UserProfilePhotos } from '../types';
+import { botMethod } from '../method.js';
+import { UserProfilePhotos } from '../types.js';
 
 export type GetUserProfilePhotos = {
   /**
@@ -23,7 +23,7 @@ export type GetUserProfilePhotos = {
 /**
  * Use this method to get a list of profile pictures for a user. Returns a {@link UserProfilePhotos} object.
  */
-export const getUserProfilePhotos = botMethod<
+export const getUserProfilePhotos = /* @__PURE__ */ botMethod<
   GetUserProfilePhotos,
   UserProfilePhotos
 >('getUserProfilePhotos');

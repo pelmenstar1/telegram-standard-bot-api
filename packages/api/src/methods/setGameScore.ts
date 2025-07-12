@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type SetGameScore = {
   /**
@@ -42,4 +42,6 @@ export type SetGameScore = {
 /**
  * Use this method to set the score of the specified user in a game message. On success, if the message is not an inline message, the {@link Message} is returned, otherwise True is returned. Returns an error, if the new score is not greater than the user's current score in the chat and force is False.
  */
-export const setGameScore = botMethod<SetGameScore, boolean>('setGameScore');
+export const setGameScore = /* @__PURE__ */ botMethod<SetGameScore, boolean>(
+  'setGameScore'
+);

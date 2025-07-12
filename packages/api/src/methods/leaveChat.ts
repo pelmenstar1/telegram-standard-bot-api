@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type LeaveChat = {
   /**
@@ -12,4 +12,6 @@ export type LeaveChat = {
 /**
  * Use this method for your bot to leave a group, supergroup or channel. Returns True on success.
  */
-export const leaveChat = botMethod<LeaveChat, boolean>('leaveChat');
+export const leaveChat = /* @__PURE__ */ botMethod<LeaveChat, boolean>(
+  'leaveChat'
+);

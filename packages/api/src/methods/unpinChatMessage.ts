@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type UnpinChatMessage = {
   /**
@@ -22,6 +22,7 @@ export type UnpinChatMessage = {
 /**
  * Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns True on success.
  */
-export const unpinChatMessage = botMethod<UnpinChatMessage, boolean>(
-  'unpinChatMessage'
-);
+export const unpinChatMessage = /* @__PURE__ */ botMethod<
+  UnpinChatMessage,
+  boolean
+>('unpinChatMessage');

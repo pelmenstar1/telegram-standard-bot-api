@@ -1,12 +1,41 @@
 {
-  "name": "api",
-  "packageManager": "yarn@4.9.2",
+  "name": "telegram-standard-bot-api",
+  "version": "0.1.0",
+  "type": "module",
   "scripts": {
-    "build": "rm -rf dist && tsc"
+    "build": "rm -rf dist && tsc",
+    "release": "yarn build && release-it"
   },
   "devDependencies": {
     "@types/node": "24.0.10",
+    "release-it": "19.0.3",
     "tsx": "4.20.3",
     "typescript": "5.8.3"
+  },
+  "author": "Oleh Khmaruk <pelmenstar1@gmail.com>",
+  "packageManager": "yarn@4.9.2",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pelmenstar1/telegram-standard-bot-api.git"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types.js",
+      "types": "./dist/types.d.ts"
+    },
+    "./methods": {
+      "import": "./dist/methods/index.js",
+      "types": "./dist/methods/index.d.ts"
+    }
   }
 }

@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -10,7 +10,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendPoll = {
   /**
@@ -136,4 +136,6 @@ export type SendPoll = {
 /**
  * Use this method to send a native poll. On success, the sent {@link Message} is returned.
  */
-export const sendPoll = botMethod<SendPoll, Message>('sendPoll');
+export const sendPoll = /* @__PURE__ */ botMethod<SendPoll, Message>(
+  'sendPoll'
+);

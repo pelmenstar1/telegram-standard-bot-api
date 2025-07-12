@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InputSticker } from '../types';
+import { botMethod } from '../method.js';
+import { InputSticker } from '../types.js';
 
 export type CreateNewStickerSet = {
   /**
@@ -38,6 +38,7 @@ export type CreateNewStickerSet = {
 /**
  * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. Returns True on success.
  */
-export const createNewStickerSet = botMethod<CreateNewStickerSet, boolean>(
-  'createNewStickerSet'
-);
+export const createNewStickerSet = /* @__PURE__ */ botMethod<
+  CreateNewStickerSet,
+  boolean
+>('createNewStickerSet');

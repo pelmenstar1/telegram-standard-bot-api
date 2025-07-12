@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -8,7 +8,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendVenue = {
   /**
@@ -104,4 +104,6 @@ export type SendVenue = {
 /**
  * Use this method to send information about a venue. On success, the sent {@link Message} is returned.
  */
-export const sendVenue = botMethod<SendVenue, Message>('sendVenue');
+export const sendVenue = /* @__PURE__ */ botMethod<SendVenue, Message>(
+  'sendVenue'
+);

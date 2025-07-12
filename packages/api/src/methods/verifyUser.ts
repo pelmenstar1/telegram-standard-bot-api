@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type VerifyUser = {
   /**
@@ -17,4 +17,6 @@ export type VerifyUser = {
 /**
  * Verifies a user on behalf of the organization which is represented by the bot. Returns True on success.
  */
-export const verifyUser = botMethod<VerifyUser, boolean>('verifyUser');
+export const verifyUser = /* @__PURE__ */ botMethod<VerifyUser, boolean>(
+  'verifyUser'
+);

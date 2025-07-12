@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type GetBusinessAccountStarBalance = {
   /**
@@ -12,7 +12,7 @@ export type GetBusinessAccountStarBalance = {
 /**
  * Returns the amount of Telegram Stars owned by a managed business account. Requires the can_view_gifts_and_stars business bot right. Returns {@link StarAmount} on success.
  */
-export const getBusinessAccountStarBalance = botMethod<
+export const getBusinessAccountStarBalance = /* @__PURE__ */ botMethod<
   GetBusinessAccountStarBalance,
   boolean
 >('getBusinessAccountStarBalance');

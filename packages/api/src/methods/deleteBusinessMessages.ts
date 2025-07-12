@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type DeleteBusinessMessages = {
   /**
@@ -17,7 +17,7 @@ export type DeleteBusinessMessages = {
 /**
  * Delete messages on behalf of a business account. Requires the can_delete_sent_messages business bot right to delete messages sent by the bot itself, or the can_delete_all_messages business bot right to delete any message. Returns True on success.
  */
-export const deleteBusinessMessages = botMethod<
+export const deleteBusinessMessages = /* @__PURE__ */ botMethod<
   DeleteBusinessMessages,
   boolean
 >('deleteBusinessMessages');

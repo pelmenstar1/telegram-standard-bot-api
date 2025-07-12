@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type SetBusinessAccountBio = {
   /**
@@ -17,6 +17,7 @@ export type SetBusinessAccountBio = {
 /**
  * Changes the bio of a managed business account. Requires the can_change_bio business bot right. Returns True on success.
  */
-export const setBusinessAccountBio = botMethod<SetBusinessAccountBio, boolean>(
-  'setBusinessAccountBio'
-);
+export const setBusinessAccountBio = /* @__PURE__ */ botMethod<
+  SetBusinessAccountBio,
+  boolean
+>('setBusinessAccountBio');

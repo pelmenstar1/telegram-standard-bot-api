@@ -1,4 +1,4 @@
-import { jsonPayloadTransformer, PayloadTransformer } from './payload';
+import { jsonPayloadTransformer, PayloadTransformer } from './payload.js';
 
 type PayloadType = Record<string, unknown>;
 

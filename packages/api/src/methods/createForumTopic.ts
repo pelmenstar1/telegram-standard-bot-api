@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { ForumTopic } from '../types';
+import { botMethod } from '../method.js';
+import { ForumTopic } from '../types.js';
 
 export type CreateForumTopic = {
   /**
@@ -28,6 +28,7 @@ export type CreateForumTopic = {
 /**
  * Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns information about the created topic as a {@link ForumTopic} object.
  */
-export const createForumTopic = botMethod<CreateForumTopic, ForumTopic>(
-  'createForumTopic'
-);
+export const createForumTopic = /* @__PURE__ */ botMethod<
+  CreateForumTopic,
+  ForumTopic
+>('createForumTopic');

@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type RemoveChatVerification = {
   /**
@@ -12,7 +12,7 @@ export type RemoveChatVerification = {
 /**
  * Removes verification from a chat that is currently verified on behalf of the organization represented by the bot. Returns True on success.
  */
-export const removeChatVerification = botMethod<
+export const removeChatVerification = /* @__PURE__ */ botMethod<
   RemoveChatVerification,
   boolean
 >('removeChatVerification');

@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { formDataPayloadTransformer } from '../payload';
+import { botMethod } from '../method.js';
+import { formDataPayloadTransformer } from '../payload.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -10,7 +10,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendVideoNote = {
   /**
@@ -86,7 +86,7 @@ export type SendVideoNote = {
 /**
  * As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent {@link Message} is returned.
  */
-export const sendVideoNote = botMethod<SendVideoNote, Message>(
+export const sendVideoNote = /* @__PURE__ */ botMethod<SendVideoNote, Message>(
   'sendVideoNote',
   formDataPayloadTransformer
 );

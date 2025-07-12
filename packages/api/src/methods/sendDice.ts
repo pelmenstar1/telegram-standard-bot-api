@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -8,7 +8,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendDice = {
   /**
@@ -69,4 +69,6 @@ export type SendDice = {
 /**
  * Use this method to send an animated emoji that will display a random value. On success, the sent {@link Message} is returned.
  */
-export const sendDice = botMethod<SendDice, Message>('sendDice');
+export const sendDice = /* @__PURE__ */ botMethod<SendDice, Message>(
+  'sendDice'
+);

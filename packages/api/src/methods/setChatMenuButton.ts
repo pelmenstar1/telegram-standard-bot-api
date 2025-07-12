@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { MenuButton } from '../types';
+import { botMethod } from '../method.js';
+import { MenuButton } from '../types.js';
 
 export type SetChatMenuButton = {
   /**
@@ -18,6 +18,7 @@ export type SetChatMenuButton = {
 /**
  * Use this method to change the bot's menu button in a private chat, or the default menu button. Returns True on success.
  */
-export const setChatMenuButton = botMethod<SetChatMenuButton, boolean>(
-  'setChatMenuButton'
-);
+export const setChatMenuButton = /* @__PURE__ */ botMethod<
+  SetChatMenuButton,
+  boolean
+>('setChatMenuButton');

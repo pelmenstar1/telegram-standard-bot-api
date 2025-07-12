@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InlineQueryResult, SentWebAppMessage } from '../types';
+import { botMethod } from '../method.js';
+import { InlineQueryResult, SentWebAppMessage } from '../types.js';
 
 export type AnswerWebAppQuery = {
   /**
@@ -18,7 +18,7 @@ export type AnswerWebAppQuery = {
 /**
  * Use this method to set the result of an interaction with a {@link https://core.telegram.org/bots/webapps | Web App} and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a {@link SentWebAppMessage} object is returned.
  */
-export const answerWebAppQuery = botMethod<
+export const answerWebAppQuery = /* @__PURE__ */ botMethod<
   AnswerWebAppQuery,
   SentWebAppMessage
 >('answerWebAppQuery');

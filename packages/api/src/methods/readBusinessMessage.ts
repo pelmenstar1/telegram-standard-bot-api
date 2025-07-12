@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type ReadBusinessMessage = {
   /**
@@ -22,6 +22,7 @@ export type ReadBusinessMessage = {
 /**
  * Marks incoming message as read on behalf of a business account. Requires the can_read_messages business bot right. Returns True on success.
  */
-export const readBusinessMessage = botMethod<ReadBusinessMessage, boolean>(
-  'readBusinessMessage'
-);
+export const readBusinessMessage = /* @__PURE__ */ botMethod<
+  ReadBusinessMessage,
+  boolean
+>('readBusinessMessage');

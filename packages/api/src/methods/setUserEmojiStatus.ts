@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type SetUserEmojiStatus = {
   /**
@@ -22,6 +22,7 @@ export type SetUserEmojiStatus = {
 /**
  * Changes the emoji status for a given user that previously allowed the bot to manage their emoji status via the Mini App method {@link https://core.telegram.org/bots/webapps#initializing-mini-apps | requestEmojiStatusAccess}. Returns True on success.
  */
-export const setUserEmojiStatus = botMethod<SetUserEmojiStatus, boolean>(
-  'setUserEmojiStatus'
-);
+export const setUserEmojiStatus = /* @__PURE__ */ botMethod<
+  SetUserEmojiStatus,
+  boolean
+>('setUserEmojiStatus');

@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type UnpinAllForumTopicMessages = {
   /**
@@ -17,7 +17,7 @@ export type UnpinAllForumTopicMessages = {
 /**
  * Use this method to clear the list of pinned messages in a forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success.
  */
-export const unpinAllForumTopicMessages = botMethod<
+export const unpinAllForumTopicMessages = /* @__PURE__ */ botMethod<
   UnpinAllForumTopicMessages,
   boolean
 >('unpinAllForumTopicMessages');

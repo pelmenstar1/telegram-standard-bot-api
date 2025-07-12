@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { BotCommand, BotCommandScope } from '../types';
+import { botMethod } from '../method.js';
+import { BotCommand, BotCommandScope } from '../types.js';
 
 export type SetMyCommands = {
   /**
@@ -23,4 +23,6 @@ export type SetMyCommands = {
 /**
  * Use this method to change the list of the bot's commands. See {@link https://core.telegram.org/bots/features#commands | this manual} for more details about bot commands. Returns True on success.
  */
-export const setMyCommands = botMethod<SetMyCommands, boolean>('setMyCommands');
+export const setMyCommands = /* @__PURE__ */ botMethod<SetMyCommands, boolean>(
+  'setMyCommands'
+);

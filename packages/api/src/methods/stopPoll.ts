@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InlineKeyboardMarkup, Poll } from '../types';
+import { botMethod } from '../method.js';
+import { InlineKeyboardMarkup, Poll } from '../types.js';
 
 export type StopPoll = {
   /**
@@ -28,4 +28,4 @@ export type StopPoll = {
 /**
  * Use this method to stop a poll which was sent by the bot. On success, the stopped {@link Poll} is returned.
  */
-export const stopPoll = botMethod<StopPoll, Poll>('stopPoll');
+export const stopPoll = /* @__PURE__ */ botMethod<StopPoll, Poll>('stopPoll');

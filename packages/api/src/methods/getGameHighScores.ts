@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { GameHighScore } from '../types';
+import { botMethod } from '../method.js';
+import { GameHighScore } from '../types.js';
 
 export type GetGameHighScores = {
   /**
@@ -28,6 +28,7 @@ export type GetGameHighScores = {
 /**
  * Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. Returns an Array of {@link GameHighScore} objects. This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and their neighbors are not among them. Please note that this behavior is subject to change.
  */
-export const getGameHighScores = botMethod<GetGameHighScores, GameHighScore>(
-  'getGameHighScores'
-);
+export const getGameHighScores = /* @__PURE__ */ botMethod<
+  GetGameHighScores,
+  GameHighScore
+>('getGameHighScores');

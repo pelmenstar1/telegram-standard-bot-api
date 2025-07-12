@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { ChatInviteLink } from '../types';
+import { botMethod } from '../method.js';
+import { ChatInviteLink } from '../types.js';
 
 export type EditChatSubscriptionInviteLink = {
   /**
@@ -23,7 +23,7 @@ export type EditChatSubscriptionInviteLink = {
 /**
  * Use this method to edit a subscription invite link created by the bot. The bot must have the can_invite_users administrator rights. Returns the edited invite link as a {@link ChatInviteLink} object.
  */
-export const editChatSubscriptionInviteLink = botMethod<
+export const editChatSubscriptionInviteLink = /* @__PURE__ */ botMethod<
   EditChatSubscriptionInviteLink,
   ChatInviteLink
 >('editChatSubscriptionInviteLink');

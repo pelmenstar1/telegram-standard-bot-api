@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type DeleteChatPhoto = {
   /**
@@ -12,6 +12,7 @@ export type DeleteChatPhoto = {
 /**
  * Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
  */
-export const deleteChatPhoto = botMethod<DeleteChatPhoto, boolean>(
-  'deleteChatPhoto'
-);
+export const deleteChatPhoto = /* @__PURE__ */ botMethod<
+  DeleteChatPhoto,
+  boolean
+>('deleteChatPhoto');

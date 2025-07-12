@@ -1,486 +1,519 @@
 // This file is generated. Do not edit.
 
-import { addStickerToSet } from './addStickerToSet';
-export { AddStickerToSet, addStickerToSet } from './addStickerToSet';
-import { answerCallbackQuery } from './answerCallbackQuery';
+import { addStickerToSet } from './addStickerToSet.js';
+export { AddStickerToSet, addStickerToSet } from './addStickerToSet.js';
+import { answerCallbackQuery } from './answerCallbackQuery.js';
 export {
   AnswerCallbackQuery,
   answerCallbackQuery,
-} from './answerCallbackQuery';
-import { answerInlineQuery } from './answerInlineQuery';
-export { AnswerInlineQuery, answerInlineQuery } from './answerInlineQuery';
-import { answerPreCheckoutQuery } from './answerPreCheckoutQuery';
+} from './answerCallbackQuery.js';
+import { answerInlineQuery } from './answerInlineQuery.js';
+export { AnswerInlineQuery, answerInlineQuery } from './answerInlineQuery.js';
+import { answerPreCheckoutQuery } from './answerPreCheckoutQuery.js';
 export {
   AnswerPreCheckoutQuery,
   answerPreCheckoutQuery,
-} from './answerPreCheckoutQuery';
-import { answerShippingQuery } from './answerShippingQuery';
+} from './answerPreCheckoutQuery.js';
+import { answerShippingQuery } from './answerShippingQuery.js';
 export {
   AnswerShippingQuery,
   answerShippingQuery,
-} from './answerShippingQuery';
-import { answerWebAppQuery } from './answerWebAppQuery';
-export { AnswerWebAppQuery, answerWebAppQuery } from './answerWebAppQuery';
-import { approveChatJoinRequest } from './approveChatJoinRequest';
+} from './answerShippingQuery.js';
+import { answerWebAppQuery } from './answerWebAppQuery.js';
+export { AnswerWebAppQuery, answerWebAppQuery } from './answerWebAppQuery.js';
+import { approveChatJoinRequest } from './approveChatJoinRequest.js';
 export {
   ApproveChatJoinRequest,
   approveChatJoinRequest,
-} from './approveChatJoinRequest';
-import { banChatMember } from './banChatMember';
-export { BanChatMember, banChatMember } from './banChatMember';
-import { banChatSenderChat } from './banChatSenderChat';
-export { BanChatSenderChat, banChatSenderChat } from './banChatSenderChat';
-import { close } from './close';
-export { close } from './close';
-import { closeForumTopic } from './closeForumTopic';
-export { CloseForumTopic, closeForumTopic } from './closeForumTopic';
-import { closeGeneralForumTopic } from './closeGeneralForumTopic';
+} from './approveChatJoinRequest.js';
+import { banChatMember } from './banChatMember.js';
+export { BanChatMember, banChatMember } from './banChatMember.js';
+import { banChatSenderChat } from './banChatSenderChat.js';
+export { BanChatSenderChat, banChatSenderChat } from './banChatSenderChat.js';
+import { close } from './close.js';
+export { close } from './close.js';
+import { closeForumTopic } from './closeForumTopic.js';
+export { CloseForumTopic, closeForumTopic } from './closeForumTopic.js';
+import { closeGeneralForumTopic } from './closeGeneralForumTopic.js';
 export {
   CloseGeneralForumTopic,
   closeGeneralForumTopic,
-} from './closeGeneralForumTopic';
-import { convertGiftToStars } from './convertGiftToStars';
-export { ConvertGiftToStars, convertGiftToStars } from './convertGiftToStars';
-import { copyMessage } from './copyMessage';
-export { CopyMessage, copyMessage } from './copyMessage';
-import { copyMessages } from './copyMessages';
-export { CopyMessages, copyMessages } from './copyMessages';
-import { createChatInviteLink } from './createChatInviteLink';
+} from './closeGeneralForumTopic.js';
+import { convertGiftToStars } from './convertGiftToStars.js';
+export {
+  ConvertGiftToStars,
+  convertGiftToStars,
+} from './convertGiftToStars.js';
+import { copyMessage } from './copyMessage.js';
+export { CopyMessage, copyMessage } from './copyMessage.js';
+import { copyMessages } from './copyMessages.js';
+export { CopyMessages, copyMessages } from './copyMessages.js';
+import { createChatInviteLink } from './createChatInviteLink.js';
 export {
   CreateChatInviteLink,
   createChatInviteLink,
-} from './createChatInviteLink';
-import { createChatSubscriptionInviteLink } from './createChatSubscriptionInviteLink';
+} from './createChatInviteLink.js';
+import { createChatSubscriptionInviteLink } from './createChatSubscriptionInviteLink.js';
 export {
   CreateChatSubscriptionInviteLink,
   createChatSubscriptionInviteLink,
-} from './createChatSubscriptionInviteLink';
-import { createForumTopic } from './createForumTopic';
-export { CreateForumTopic, createForumTopic } from './createForumTopic';
-import { createInvoiceLink } from './createInvoiceLink';
-export { CreateInvoiceLink, createInvoiceLink } from './createInvoiceLink';
-import { createNewStickerSet } from './createNewStickerSet';
+} from './createChatSubscriptionInviteLink.js';
+import { createForumTopic } from './createForumTopic.js';
+export { CreateForumTopic, createForumTopic } from './createForumTopic.js';
+import { createInvoiceLink } from './createInvoiceLink.js';
+export { CreateInvoiceLink, createInvoiceLink } from './createInvoiceLink.js';
+import { createNewStickerSet } from './createNewStickerSet.js';
 export {
   CreateNewStickerSet,
   createNewStickerSet,
-} from './createNewStickerSet';
-import { declineChatJoinRequest } from './declineChatJoinRequest';
+} from './createNewStickerSet.js';
+import { declineChatJoinRequest } from './declineChatJoinRequest.js';
 export {
   DeclineChatJoinRequest,
   declineChatJoinRequest,
-} from './declineChatJoinRequest';
-import { deleteBusinessMessages } from './deleteBusinessMessages';
+} from './declineChatJoinRequest.js';
+import { deleteBusinessMessages } from './deleteBusinessMessages.js';
 export {
   DeleteBusinessMessages,
   deleteBusinessMessages,
-} from './deleteBusinessMessages';
-import { deleteChatPhoto } from './deleteChatPhoto';
-export { DeleteChatPhoto, deleteChatPhoto } from './deleteChatPhoto';
-import { deleteChatStickerSet } from './deleteChatStickerSet';
+} from './deleteBusinessMessages.js';
+import { deleteChatPhoto } from './deleteChatPhoto.js';
+export { DeleteChatPhoto, deleteChatPhoto } from './deleteChatPhoto.js';
+import { deleteChatStickerSet } from './deleteChatStickerSet.js';
 export {
   DeleteChatStickerSet,
   deleteChatStickerSet,
-} from './deleteChatStickerSet';
-import { deleteForumTopic } from './deleteForumTopic';
-export { DeleteForumTopic, deleteForumTopic } from './deleteForumTopic';
-import { deleteMessage } from './deleteMessage';
-export { DeleteMessage, deleteMessage } from './deleteMessage';
-import { deleteMessages } from './deleteMessages';
-export { DeleteMessages, deleteMessages } from './deleteMessages';
-import { deleteMyCommands } from './deleteMyCommands';
-export { DeleteMyCommands, deleteMyCommands } from './deleteMyCommands';
-import { deleteStickerFromSet } from './deleteStickerFromSet';
+} from './deleteChatStickerSet.js';
+import { deleteForumTopic } from './deleteForumTopic.js';
+export { DeleteForumTopic, deleteForumTopic } from './deleteForumTopic.js';
+import { deleteMessage } from './deleteMessage.js';
+export { DeleteMessage, deleteMessage } from './deleteMessage.js';
+import { deleteMessages } from './deleteMessages.js';
+export { DeleteMessages, deleteMessages } from './deleteMessages.js';
+import { deleteMyCommands } from './deleteMyCommands.js';
+export { DeleteMyCommands, deleteMyCommands } from './deleteMyCommands.js';
+import { deleteStickerFromSet } from './deleteStickerFromSet.js';
 export {
   DeleteStickerFromSet,
   deleteStickerFromSet,
-} from './deleteStickerFromSet';
-import { deleteStickerSet } from './deleteStickerSet';
-export { DeleteStickerSet, deleteStickerSet } from './deleteStickerSet';
-import { deleteStory } from './deleteStory';
-export { DeleteStory, deleteStory } from './deleteStory';
-import { editChatInviteLink } from './editChatInviteLink';
-export { EditChatInviteLink, editChatInviteLink } from './editChatInviteLink';
-import { editChatSubscriptionInviteLink } from './editChatSubscriptionInviteLink';
+} from './deleteStickerFromSet.js';
+import { deleteStickerSet } from './deleteStickerSet.js';
+export { DeleteStickerSet, deleteStickerSet } from './deleteStickerSet.js';
+import { deleteStory } from './deleteStory.js';
+export { DeleteStory, deleteStory } from './deleteStory.js';
+import { editChatInviteLink } from './editChatInviteLink.js';
+export {
+  EditChatInviteLink,
+  editChatInviteLink,
+} from './editChatInviteLink.js';
+import { editChatSubscriptionInviteLink } from './editChatSubscriptionInviteLink.js';
 export {
   EditChatSubscriptionInviteLink,
   editChatSubscriptionInviteLink,
-} from './editChatSubscriptionInviteLink';
-import { editForumTopic } from './editForumTopic';
-export { EditForumTopic, editForumTopic } from './editForumTopic';
-import { editGeneralForumTopic } from './editGeneralForumTopic';
+} from './editChatSubscriptionInviteLink.js';
+import { editForumTopic } from './editForumTopic.js';
+export { EditForumTopic, editForumTopic } from './editForumTopic.js';
+import { editGeneralForumTopic } from './editGeneralForumTopic.js';
 export {
   EditGeneralForumTopic,
   editGeneralForumTopic,
-} from './editGeneralForumTopic';
-import { editMessageCaption } from './editMessageCaption';
-export { EditMessageCaption, editMessageCaption } from './editMessageCaption';
-import { editMessageChecklist } from './editMessageChecklist';
+} from './editGeneralForumTopic.js';
+import { editMessageCaption } from './editMessageCaption.js';
+export {
+  EditMessageCaption,
+  editMessageCaption,
+} from './editMessageCaption.js';
+import { editMessageChecklist } from './editMessageChecklist.js';
 export {
   EditMessageChecklist,
   editMessageChecklist,
-} from './editMessageChecklist';
-import { editMessageLiveLocation } from './editMessageLiveLocation';
+} from './editMessageChecklist.js';
+import { editMessageLiveLocation } from './editMessageLiveLocation.js';
 export {
   EditMessageLiveLocation,
   editMessageLiveLocation,
-} from './editMessageLiveLocation';
-import { editMessageMedia } from './editMessageMedia';
-export { EditMessageMedia, editMessageMedia } from './editMessageMedia';
-import { editMessageReplyMarkup } from './editMessageReplyMarkup';
+} from './editMessageLiveLocation.js';
+import { editMessageMedia } from './editMessageMedia.js';
+export { EditMessageMedia, editMessageMedia } from './editMessageMedia.js';
+import { editMessageReplyMarkup } from './editMessageReplyMarkup.js';
 export {
   EditMessageReplyMarkup,
   editMessageReplyMarkup,
-} from './editMessageReplyMarkup';
-import { editMessageText } from './editMessageText';
-export { EditMessageText, editMessageText } from './editMessageText';
-import { editStory } from './editStory';
-export { EditStory, editStory } from './editStory';
-import { editUserStarSubscription } from './editUserStarSubscription';
+} from './editMessageReplyMarkup.js';
+import { editMessageText } from './editMessageText.js';
+export { EditMessageText, editMessageText } from './editMessageText.js';
+import { editStory } from './editStory.js';
+export { EditStory, editStory } from './editStory.js';
+import { editUserStarSubscription } from './editUserStarSubscription.js';
 export {
   EditUserStarSubscription,
   editUserStarSubscription,
-} from './editUserStarSubscription';
-import { exportChatInviteLink } from './exportChatInviteLink';
+} from './editUserStarSubscription.js';
+import { exportChatInviteLink } from './exportChatInviteLink.js';
 export {
   ExportChatInviteLink,
   exportChatInviteLink,
-} from './exportChatInviteLink';
-import { forwardMessage } from './forwardMessage';
-export { ForwardMessage, forwardMessage } from './forwardMessage';
-import { forwardMessages } from './forwardMessages';
-export { ForwardMessages, forwardMessages } from './forwardMessages';
-import { getAvailableGifts } from './getAvailableGifts';
-export { getAvailableGifts } from './getAvailableGifts';
-import { getBusinessAccountGifts } from './getBusinessAccountGifts';
+} from './exportChatInviteLink.js';
+import { forwardMessage } from './forwardMessage.js';
+export { ForwardMessage, forwardMessage } from './forwardMessage.js';
+import { forwardMessages } from './forwardMessages.js';
+export { ForwardMessages, forwardMessages } from './forwardMessages.js';
+import { getAvailableGifts } from './getAvailableGifts.js';
+export { getAvailableGifts } from './getAvailableGifts.js';
+import { getBusinessAccountGifts } from './getBusinessAccountGifts.js';
 export {
   GetBusinessAccountGifts,
   getBusinessAccountGifts,
-} from './getBusinessAccountGifts';
-import { getBusinessAccountStarBalance } from './getBusinessAccountStarBalance';
+} from './getBusinessAccountGifts.js';
+import { getBusinessAccountStarBalance } from './getBusinessAccountStarBalance.js';
 export {
   GetBusinessAccountStarBalance,
   getBusinessAccountStarBalance,
-} from './getBusinessAccountStarBalance';
-import { getBusinessConnection } from './getBusinessConnection';
+} from './getBusinessAccountStarBalance.js';
+import { getBusinessConnection } from './getBusinessConnection.js';
 export {
   GetBusinessConnection,
   getBusinessConnection,
-} from './getBusinessConnection';
-import { getChat } from './getChat';
-export { GetChat, getChat } from './getChat';
-import { getChatAdministrators } from './getChatAdministrators';
+} from './getBusinessConnection.js';
+import { getChat } from './getChat.js';
+export { GetChat, getChat } from './getChat.js';
+import { getChatAdministrators } from './getChatAdministrators.js';
 export {
   GetChatAdministrators,
   getChatAdministrators,
-} from './getChatAdministrators';
-import { getChatMember } from './getChatMember';
-export { GetChatMember, getChatMember } from './getChatMember';
-import { getChatMemberCount } from './getChatMemberCount';
-export { GetChatMemberCount, getChatMemberCount } from './getChatMemberCount';
-import { getChatMenuButton } from './getChatMenuButton';
-export { GetChatMenuButton, getChatMenuButton } from './getChatMenuButton';
-import { getCustomEmojiStickers } from './getCustomEmojiStickers';
+} from './getChatAdministrators.js';
+import { getChatMember } from './getChatMember.js';
+export { GetChatMember, getChatMember } from './getChatMember.js';
+import { getChatMemberCount } from './getChatMemberCount.js';
+export {
+  GetChatMemberCount,
+  getChatMemberCount,
+} from './getChatMemberCount.js';
+import { getChatMenuButton } from './getChatMenuButton.js';
+export { GetChatMenuButton, getChatMenuButton } from './getChatMenuButton.js';
+import { getCustomEmojiStickers } from './getCustomEmojiStickers.js';
 export {
   GetCustomEmojiStickers,
   getCustomEmojiStickers,
-} from './getCustomEmojiStickers';
-import { getFile } from './getFile';
-export { GetFile, getFile } from './getFile';
-import { getForumTopicIconStickers } from './getForumTopicIconStickers';
-export { getForumTopicIconStickers } from './getForumTopicIconStickers';
-import { getGameHighScores } from './getGameHighScores';
-export { GetGameHighScores, getGameHighScores } from './getGameHighScores';
-import { getMe } from './getMe';
-export { getMe } from './getMe';
-import { getMyCommands } from './getMyCommands';
-export { GetMyCommands, getMyCommands } from './getMyCommands';
-import { getMyDefaultAdministratorRights } from './getMyDefaultAdministratorRights';
+} from './getCustomEmojiStickers.js';
+import { getFile } from './getFile.js';
+export { GetFile, getFile } from './getFile.js';
+import { getForumTopicIconStickers } from './getForumTopicIconStickers.js';
+export { getForumTopicIconStickers } from './getForumTopicIconStickers.js';
+import { getGameHighScores } from './getGameHighScores.js';
+export { GetGameHighScores, getGameHighScores } from './getGameHighScores.js';
+import { getMe } from './getMe.js';
+export { getMe } from './getMe.js';
+import { getMyCommands } from './getMyCommands.js';
+export { GetMyCommands, getMyCommands } from './getMyCommands.js';
+import { getMyDefaultAdministratorRights } from './getMyDefaultAdministratorRights.js';
 export {
   GetMyDefaultAdministratorRights,
   getMyDefaultAdministratorRights,
-} from './getMyDefaultAdministratorRights';
-import { getMyDescription } from './getMyDescription';
-export { GetMyDescription, getMyDescription } from './getMyDescription';
-import { getMyName } from './getMyName';
-export { GetMyName, getMyName } from './getMyName';
-import { getMyShortDescription } from './getMyShortDescription';
+} from './getMyDefaultAdministratorRights.js';
+import { getMyDescription } from './getMyDescription.js';
+export { GetMyDescription, getMyDescription } from './getMyDescription.js';
+import { getMyName } from './getMyName.js';
+export { GetMyName, getMyName } from './getMyName.js';
+import { getMyShortDescription } from './getMyShortDescription.js';
 export {
   GetMyShortDescription,
   getMyShortDescription,
-} from './getMyShortDescription';
-import { getMyStarBalance } from './getMyStarBalance';
-export { getMyStarBalance } from './getMyStarBalance';
-import { getStarTransactions } from './getStarTransactions';
+} from './getMyShortDescription.js';
+import { getMyStarBalance } from './getMyStarBalance.js';
+export { getMyStarBalance } from './getMyStarBalance.js';
+import { getStarTransactions } from './getStarTransactions.js';
 export {
   GetStarTransactions,
   getStarTransactions,
-} from './getStarTransactions';
-import { getStickerSet } from './getStickerSet';
-export { GetStickerSet, getStickerSet } from './getStickerSet';
-import { getUserChatBoosts } from './getUserChatBoosts';
-export { GetUserChatBoosts, getUserChatBoosts } from './getUserChatBoosts';
-import { getUserProfilePhotos } from './getUserProfilePhotos';
+} from './getStarTransactions.js';
+import { getStickerSet } from './getStickerSet.js';
+export { GetStickerSet, getStickerSet } from './getStickerSet.js';
+import { getUserChatBoosts } from './getUserChatBoosts.js';
+export { GetUserChatBoosts, getUserChatBoosts } from './getUserChatBoosts.js';
+import { getUserProfilePhotos } from './getUserProfilePhotos.js';
 export {
   GetUserProfilePhotos,
   getUserProfilePhotos,
-} from './getUserProfilePhotos';
-import { giftPremiumSubscription } from './giftPremiumSubscription';
+} from './getUserProfilePhotos.js';
+import { giftPremiumSubscription } from './giftPremiumSubscription.js';
 export {
   GiftPremiumSubscription,
   giftPremiumSubscription,
-} from './giftPremiumSubscription';
-import { hideGeneralForumTopic } from './hideGeneralForumTopic';
+} from './giftPremiumSubscription.js';
+import { hideGeneralForumTopic } from './hideGeneralForumTopic.js';
 export {
   HideGeneralForumTopic,
   hideGeneralForumTopic,
-} from './hideGeneralForumTopic';
-import { leaveChat } from './leaveChat';
-export { LeaveChat, leaveChat } from './leaveChat';
-import { logOut } from './logOut';
-export { logOut } from './logOut';
-import { pinChatMessage } from './pinChatMessage';
-export { PinChatMessage, pinChatMessage } from './pinChatMessage';
-import { postStory } from './postStory';
-export { PostStory, postStory } from './postStory';
-import { promoteChatMember } from './promoteChatMember';
-export { PromoteChatMember, promoteChatMember } from './promoteChatMember';
-import { readBusinessMessage } from './readBusinessMessage';
+} from './hideGeneralForumTopic.js';
+import { leaveChat } from './leaveChat.js';
+export { LeaveChat, leaveChat } from './leaveChat.js';
+import { logOut } from './logOut.js';
+export { logOut } from './logOut.js';
+import { pinChatMessage } from './pinChatMessage.js';
+export { PinChatMessage, pinChatMessage } from './pinChatMessage.js';
+import { postStory } from './postStory.js';
+export { PostStory, postStory } from './postStory.js';
+import { promoteChatMember } from './promoteChatMember.js';
+export { PromoteChatMember, promoteChatMember } from './promoteChatMember.js';
+import { readBusinessMessage } from './readBusinessMessage.js';
 export {
   ReadBusinessMessage,
   readBusinessMessage,
-} from './readBusinessMessage';
-import { refundStarPayment } from './refundStarPayment';
-export { RefundStarPayment, refundStarPayment } from './refundStarPayment';
-import { removeBusinessAccountProfilePhoto } from './removeBusinessAccountProfilePhoto';
+} from './readBusinessMessage.js';
+import { refundStarPayment } from './refundStarPayment.js';
+export { RefundStarPayment, refundStarPayment } from './refundStarPayment.js';
+import { removeBusinessAccountProfilePhoto } from './removeBusinessAccountProfilePhoto.js';
 export {
   RemoveBusinessAccountProfilePhoto,
   removeBusinessAccountProfilePhoto,
-} from './removeBusinessAccountProfilePhoto';
-import { removeChatVerification } from './removeChatVerification';
+} from './removeBusinessAccountProfilePhoto.js';
+import { removeChatVerification } from './removeChatVerification.js';
 export {
   RemoveChatVerification,
   removeChatVerification,
-} from './removeChatVerification';
-import { removeUserVerification } from './removeUserVerification';
+} from './removeChatVerification.js';
+import { removeUserVerification } from './removeUserVerification.js';
 export {
   RemoveUserVerification,
   removeUserVerification,
-} from './removeUserVerification';
-import { reopenForumTopic } from './reopenForumTopic';
-export { ReopenForumTopic, reopenForumTopic } from './reopenForumTopic';
-import { reopenGeneralForumTopic } from './reopenGeneralForumTopic';
+} from './removeUserVerification.js';
+import { reopenForumTopic } from './reopenForumTopic.js';
+export { ReopenForumTopic, reopenForumTopic } from './reopenForumTopic.js';
+import { reopenGeneralForumTopic } from './reopenGeneralForumTopic.js';
 export {
   ReopenGeneralForumTopic,
   reopenGeneralForumTopic,
-} from './reopenGeneralForumTopic';
-import { replaceStickerInSet } from './replaceStickerInSet';
+} from './reopenGeneralForumTopic.js';
+import { replaceStickerInSet } from './replaceStickerInSet.js';
 export {
   ReplaceStickerInSet,
   replaceStickerInSet,
-} from './replaceStickerInSet';
-import { restrictChatMember } from './restrictChatMember';
-export { RestrictChatMember, restrictChatMember } from './restrictChatMember';
-import { revokeChatInviteLink } from './revokeChatInviteLink';
+} from './replaceStickerInSet.js';
+import { restrictChatMember } from './restrictChatMember.js';
+export {
+  RestrictChatMember,
+  restrictChatMember,
+} from './restrictChatMember.js';
+import { revokeChatInviteLink } from './revokeChatInviteLink.js';
 export {
   RevokeChatInviteLink,
   revokeChatInviteLink,
-} from './revokeChatInviteLink';
-import { savePreparedInlineMessage } from './savePreparedInlineMessage';
+} from './revokeChatInviteLink.js';
+import { savePreparedInlineMessage } from './savePreparedInlineMessage.js';
 export {
   SavePreparedInlineMessage,
   savePreparedInlineMessage,
-} from './savePreparedInlineMessage';
-import { sendAnimation } from './sendAnimation';
-export { SendAnimation, sendAnimation } from './sendAnimation';
-import { sendAudio } from './sendAudio';
-export { SendAudio, sendAudio } from './sendAudio';
-import { sendChatAction } from './sendChatAction';
-export { SendChatAction, sendChatAction } from './sendChatAction';
-import { sendChecklist } from './sendChecklist';
-export { SendChecklist, sendChecklist } from './sendChecklist';
-import { sendContact } from './sendContact';
-export { SendContact, sendContact } from './sendContact';
-import { sendDice } from './sendDice';
-export { SendDice, sendDice } from './sendDice';
-import { sendDocument } from './sendDocument';
-export { SendDocument, sendDocument } from './sendDocument';
-import { sendGame } from './sendGame';
-export { SendGame, sendGame } from './sendGame';
-import { sendGift } from './sendGift';
-export { SendGift, sendGift } from './sendGift';
-import { sendInvoice } from './sendInvoice';
-export { SendInvoice, sendInvoice } from './sendInvoice';
-import { sendLocation } from './sendLocation';
-export { SendLocation, sendLocation } from './sendLocation';
-import { sendMediaGroup } from './sendMediaGroup';
-export { SendMediaGroup, sendMediaGroup } from './sendMediaGroup';
-import { sendMessage } from './sendMessage';
-export { SendMessage, sendMessage } from './sendMessage';
-import { sendPaidMedia } from './sendPaidMedia';
-export { SendPaidMedia, sendPaidMedia } from './sendPaidMedia';
-import { sendPhoto } from './sendPhoto';
-export { SendPhoto, sendPhoto } from './sendPhoto';
-import { sendPoll } from './sendPoll';
-export { SendPoll, sendPoll } from './sendPoll';
-import { sendSticker } from './sendSticker';
-export { SendSticker, sendSticker } from './sendSticker';
-import { sendVenue } from './sendVenue';
-export { SendVenue, sendVenue } from './sendVenue';
-import { sendVideo } from './sendVideo';
-export { SendVideo, sendVideo } from './sendVideo';
-import { sendVideoNote } from './sendVideoNote';
-export { SendVideoNote, sendVideoNote } from './sendVideoNote';
-import { sendVoice } from './sendVoice';
-export { SendVoice, sendVoice } from './sendVoice';
-import { setBusinessAccountBio } from './setBusinessAccountBio';
+} from './savePreparedInlineMessage.js';
+import { sendAnimation } from './sendAnimation.js';
+export { SendAnimation, sendAnimation } from './sendAnimation.js';
+import { sendAudio } from './sendAudio.js';
+export { SendAudio, sendAudio } from './sendAudio.js';
+import { sendChatAction } from './sendChatAction.js';
+export { SendChatAction, sendChatAction } from './sendChatAction.js';
+import { sendChecklist } from './sendChecklist.js';
+export { SendChecklist, sendChecklist } from './sendChecklist.js';
+import { sendContact } from './sendContact.js';
+export { SendContact, sendContact } from './sendContact.js';
+import { sendDice } from './sendDice.js';
+export { SendDice, sendDice } from './sendDice.js';
+import { sendDocument } from './sendDocument.js';
+export { SendDocument, sendDocument } from './sendDocument.js';
+import { sendGame } from './sendGame.js';
+export { SendGame, sendGame } from './sendGame.js';
+import { sendGift } from './sendGift.js';
+export { SendGift, sendGift } from './sendGift.js';
+import { sendInvoice } from './sendInvoice.js';
+export { SendInvoice, sendInvoice } from './sendInvoice.js';
+import { sendLocation } from './sendLocation.js';
+export { SendLocation, sendLocation } from './sendLocation.js';
+import { sendMediaGroup } from './sendMediaGroup.js';
+export { SendMediaGroup, sendMediaGroup } from './sendMediaGroup.js';
+import { sendMessage } from './sendMessage.js';
+export { SendMessage, sendMessage } from './sendMessage.js';
+import { sendPaidMedia } from './sendPaidMedia.js';
+export { SendPaidMedia, sendPaidMedia } from './sendPaidMedia.js';
+import { sendPhoto } from './sendPhoto.js';
+export { SendPhoto, sendPhoto } from './sendPhoto.js';
+import { sendPoll } from './sendPoll.js';
+export { SendPoll, sendPoll } from './sendPoll.js';
+import { sendSticker } from './sendSticker.js';
+export { SendSticker, sendSticker } from './sendSticker.js';
+import { sendVenue } from './sendVenue.js';
+export { SendVenue, sendVenue } from './sendVenue.js';
+import { sendVideo } from './sendVideo.js';
+export { SendVideo, sendVideo } from './sendVideo.js';
+import { sendVideoNote } from './sendVideoNote.js';
+export { SendVideoNote, sendVideoNote } from './sendVideoNote.js';
+import { sendVoice } from './sendVoice.js';
+export { SendVoice, sendVoice } from './sendVoice.js';
+import { setBusinessAccountBio } from './setBusinessAccountBio.js';
 export {
   SetBusinessAccountBio,
   setBusinessAccountBio,
-} from './setBusinessAccountBio';
-import { setBusinessAccountGiftSettings } from './setBusinessAccountGiftSettings';
+} from './setBusinessAccountBio.js';
+import { setBusinessAccountGiftSettings } from './setBusinessAccountGiftSettings.js';
 export {
   SetBusinessAccountGiftSettings,
   setBusinessAccountGiftSettings,
-} from './setBusinessAccountGiftSettings';
-import { setBusinessAccountName } from './setBusinessAccountName';
+} from './setBusinessAccountGiftSettings.js';
+import { setBusinessAccountName } from './setBusinessAccountName.js';
 export {
   SetBusinessAccountName,
   setBusinessAccountName,
-} from './setBusinessAccountName';
-import { setBusinessAccountProfilePhoto } from './setBusinessAccountProfilePhoto';
+} from './setBusinessAccountName.js';
+import { setBusinessAccountProfilePhoto } from './setBusinessAccountProfilePhoto.js';
 export {
   SetBusinessAccountProfilePhoto,
   setBusinessAccountProfilePhoto,
-} from './setBusinessAccountProfilePhoto';
-import { setBusinessAccountUsername } from './setBusinessAccountUsername';
+} from './setBusinessAccountProfilePhoto.js';
+import { setBusinessAccountUsername } from './setBusinessAccountUsername.js';
 export {
   SetBusinessAccountUsername,
   setBusinessAccountUsername,
-} from './setBusinessAccountUsername';
-import { setChatAdministratorCustomTitle } from './setChatAdministratorCustomTitle';
+} from './setBusinessAccountUsername.js';
+import { setChatAdministratorCustomTitle } from './setChatAdministratorCustomTitle.js';
 export {
   SetChatAdministratorCustomTitle,
   setChatAdministratorCustomTitle,
-} from './setChatAdministratorCustomTitle';
-import { setChatDescription } from './setChatDescription';
-export { SetChatDescription, setChatDescription } from './setChatDescription';
-import { setChatMenuButton } from './setChatMenuButton';
-export { SetChatMenuButton, setChatMenuButton } from './setChatMenuButton';
-import { setChatPermissions } from './setChatPermissions';
-export { SetChatPermissions, setChatPermissions } from './setChatPermissions';
-import { setChatPhoto } from './setChatPhoto';
-export { SetChatPhoto, setChatPhoto } from './setChatPhoto';
-import { setChatStickerSet } from './setChatStickerSet';
-export { SetChatStickerSet, setChatStickerSet } from './setChatStickerSet';
-import { setChatTitle } from './setChatTitle';
-export { SetChatTitle, setChatTitle } from './setChatTitle';
-import { setCustomEmojiStickerSetThumbnail } from './setCustomEmojiStickerSetThumbnail';
+} from './setChatAdministratorCustomTitle.js';
+import { setChatDescription } from './setChatDescription.js';
+export {
+  SetChatDescription,
+  setChatDescription,
+} from './setChatDescription.js';
+import { setChatMenuButton } from './setChatMenuButton.js';
+export { SetChatMenuButton, setChatMenuButton } from './setChatMenuButton.js';
+import { setChatPermissions } from './setChatPermissions.js';
+export {
+  SetChatPermissions,
+  setChatPermissions,
+} from './setChatPermissions.js';
+import { setChatPhoto } from './setChatPhoto.js';
+export { SetChatPhoto, setChatPhoto } from './setChatPhoto.js';
+import { setChatStickerSet } from './setChatStickerSet.js';
+export { SetChatStickerSet, setChatStickerSet } from './setChatStickerSet.js';
+import { setChatTitle } from './setChatTitle.js';
+export { SetChatTitle, setChatTitle } from './setChatTitle.js';
+import { setCustomEmojiStickerSetThumbnail } from './setCustomEmojiStickerSetThumbnail.js';
 export {
   SetCustomEmojiStickerSetThumbnail,
   setCustomEmojiStickerSetThumbnail,
-} from './setCustomEmojiStickerSetThumbnail';
-import { setGameScore } from './setGameScore';
-export { SetGameScore, setGameScore } from './setGameScore';
-import { setMessageReaction } from './setMessageReaction';
-export { SetMessageReaction, setMessageReaction } from './setMessageReaction';
-import { setMyCommands } from './setMyCommands';
-export { SetMyCommands, setMyCommands } from './setMyCommands';
-import { setMyDefaultAdministratorRights } from './setMyDefaultAdministratorRights';
+} from './setCustomEmojiStickerSetThumbnail.js';
+import { setGameScore } from './setGameScore.js';
+export { SetGameScore, setGameScore } from './setGameScore.js';
+import { setMessageReaction } from './setMessageReaction.js';
+export {
+  SetMessageReaction,
+  setMessageReaction,
+} from './setMessageReaction.js';
+import { setMyCommands } from './setMyCommands.js';
+export { SetMyCommands, setMyCommands } from './setMyCommands.js';
+import { setMyDefaultAdministratorRights } from './setMyDefaultAdministratorRights.js';
 export {
   SetMyDefaultAdministratorRights,
   setMyDefaultAdministratorRights,
-} from './setMyDefaultAdministratorRights';
-import { setMyDescription } from './setMyDescription';
-export { SetMyDescription, setMyDescription } from './setMyDescription';
-import { setMyName } from './setMyName';
-export { SetMyName, setMyName } from './setMyName';
-import { setMyShortDescription } from './setMyShortDescription';
+} from './setMyDefaultAdministratorRights.js';
+import { setMyDescription } from './setMyDescription.js';
+export { SetMyDescription, setMyDescription } from './setMyDescription.js';
+import { setMyName } from './setMyName.js';
+export { SetMyName, setMyName } from './setMyName.js';
+import { setMyShortDescription } from './setMyShortDescription.js';
 export {
   SetMyShortDescription,
   setMyShortDescription,
-} from './setMyShortDescription';
-import { setPassportDataErrors } from './setPassportDataErrors';
+} from './setMyShortDescription.js';
+import { setPassportDataErrors } from './setPassportDataErrors.js';
 export {
   SetPassportDataErrors,
   setPassportDataErrors,
-} from './setPassportDataErrors';
-import { setStickerEmojiList } from './setStickerEmojiList';
+} from './setPassportDataErrors.js';
+import { setStickerEmojiList } from './setStickerEmojiList.js';
 export {
   SetStickerEmojiList,
   setStickerEmojiList,
-} from './setStickerEmojiList';
-import { setStickerKeywords } from './setStickerKeywords';
-export { SetStickerKeywords, setStickerKeywords } from './setStickerKeywords';
-import { setStickerMaskPosition } from './setStickerMaskPosition';
+} from './setStickerEmojiList.js';
+import { setStickerKeywords } from './setStickerKeywords.js';
+export {
+  SetStickerKeywords,
+  setStickerKeywords,
+} from './setStickerKeywords.js';
+import { setStickerMaskPosition } from './setStickerMaskPosition.js';
 export {
   SetStickerMaskPosition,
   setStickerMaskPosition,
-} from './setStickerMaskPosition';
-import { setStickerPositionInSet } from './setStickerPositionInSet';
+} from './setStickerMaskPosition.js';
+import { setStickerPositionInSet } from './setStickerPositionInSet.js';
 export {
   SetStickerPositionInSet,
   setStickerPositionInSet,
-} from './setStickerPositionInSet';
-import { setStickerSetThumbnail } from './setStickerSetThumbnail';
+} from './setStickerPositionInSet.js';
+import { setStickerSetThumbnail } from './setStickerSetThumbnail.js';
 export {
   SetStickerSetThumbnail,
   setStickerSetThumbnail,
-} from './setStickerSetThumbnail';
-import { setStickerSetTitle } from './setStickerSetTitle';
-export { SetStickerSetTitle, setStickerSetTitle } from './setStickerSetTitle';
-import { setUserEmojiStatus } from './setUserEmojiStatus';
-export { SetUserEmojiStatus, setUserEmojiStatus } from './setUserEmojiStatus';
-import { stopMessageLiveLocation } from './stopMessageLiveLocation';
+} from './setStickerSetThumbnail.js';
+import { setStickerSetTitle } from './setStickerSetTitle.js';
+export {
+  SetStickerSetTitle,
+  setStickerSetTitle,
+} from './setStickerSetTitle.js';
+import { setUserEmojiStatus } from './setUserEmojiStatus.js';
+export {
+  SetUserEmojiStatus,
+  setUserEmojiStatus,
+} from './setUserEmojiStatus.js';
+import { stopMessageLiveLocation } from './stopMessageLiveLocation.js';
 export {
   StopMessageLiveLocation,
   stopMessageLiveLocation,
-} from './stopMessageLiveLocation';
-import { stopPoll } from './stopPoll';
-export { StopPoll, stopPoll } from './stopPoll';
-import { transferBusinessAccountStars } from './transferBusinessAccountStars';
+} from './stopMessageLiveLocation.js';
+import { stopPoll } from './stopPoll.js';
+export { StopPoll, stopPoll } from './stopPoll.js';
+import { transferBusinessAccountStars } from './transferBusinessAccountStars.js';
 export {
   TransferBusinessAccountStars,
   transferBusinessAccountStars,
-} from './transferBusinessAccountStars';
-import { transferGift } from './transferGift';
-export { TransferGift, transferGift } from './transferGift';
-import { unbanChatMember } from './unbanChatMember';
-export { UnbanChatMember, unbanChatMember } from './unbanChatMember';
-import { unbanChatSenderChat } from './unbanChatSenderChat';
+} from './transferBusinessAccountStars.js';
+import { transferGift } from './transferGift.js';
+export { TransferGift, transferGift } from './transferGift.js';
+import { unbanChatMember } from './unbanChatMember.js';
+export { UnbanChatMember, unbanChatMember } from './unbanChatMember.js';
+import { unbanChatSenderChat } from './unbanChatSenderChat.js';
 export {
   UnbanChatSenderChat,
   unbanChatSenderChat,
-} from './unbanChatSenderChat';
-import { unhideGeneralForumTopic } from './unhideGeneralForumTopic';
+} from './unbanChatSenderChat.js';
+import { unhideGeneralForumTopic } from './unhideGeneralForumTopic.js';
 export {
   UnhideGeneralForumTopic,
   unhideGeneralForumTopic,
-} from './unhideGeneralForumTopic';
-import { unpinAllChatMessages } from './unpinAllChatMessages';
+} from './unhideGeneralForumTopic.js';
+import { unpinAllChatMessages } from './unpinAllChatMessages.js';
 export {
   UnpinAllChatMessages,
   unpinAllChatMessages,
-} from './unpinAllChatMessages';
-import { unpinAllForumTopicMessages } from './unpinAllForumTopicMessages';
+} from './unpinAllChatMessages.js';
+import { unpinAllForumTopicMessages } from './unpinAllForumTopicMessages.js';
 export {
   UnpinAllForumTopicMessages,
   unpinAllForumTopicMessages,
-} from './unpinAllForumTopicMessages';
-import { unpinAllGeneralForumTopicMessages } from './unpinAllGeneralForumTopicMessages';
+} from './unpinAllForumTopicMessages.js';
+import { unpinAllGeneralForumTopicMessages } from './unpinAllGeneralForumTopicMessages.js';
 export {
   UnpinAllGeneralForumTopicMessages,
   unpinAllGeneralForumTopicMessages,
-} from './unpinAllGeneralForumTopicMessages';
-import { unpinChatMessage } from './unpinChatMessage';
-export { UnpinChatMessage, unpinChatMessage } from './unpinChatMessage';
-import { upgradeGift } from './upgradeGift';
-export { UpgradeGift, upgradeGift } from './upgradeGift';
-import { uploadStickerFile } from './uploadStickerFile';
-export { UploadStickerFile, uploadStickerFile } from './uploadStickerFile';
-import { verifyChat } from './verifyChat';
-export { VerifyChat, verifyChat } from './verifyChat';
-import { verifyUser } from './verifyUser';
-export { VerifyUser, verifyUser } from './verifyUser';
+} from './unpinAllGeneralForumTopicMessages.js';
+import { unpinChatMessage } from './unpinChatMessage.js';
+export { UnpinChatMessage, unpinChatMessage } from './unpinChatMessage.js';
+import { upgradeGift } from './upgradeGift.js';
+export { UpgradeGift, upgradeGift } from './upgradeGift.js';
+import { uploadStickerFile } from './uploadStickerFile.js';
+export { UploadStickerFile, uploadStickerFile } from './uploadStickerFile.js';
+import { verifyChat } from './verifyChat.js';
+export { VerifyChat, verifyChat } from './verifyChat.js';
+import { verifyUser } from './verifyUser.js';
+export { VerifyUser, verifyUser } from './verifyUser.js';
 export default {
   addStickerToSet,
   answerCallbackQuery,

@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InputSticker } from '../types';
+import { botMethod } from '../method.js';
+import { InputSticker } from '../types.js';
 
 export type AddStickerToSet = {
   /**
@@ -23,6 +23,7 @@ export type AddStickerToSet = {
 /**
  * Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other sticker sets can have up to 120 stickers. Returns True on success.
  */
-export const addStickerToSet = botMethod<AddStickerToSet, boolean>(
-  'addStickerToSet'
-);
+export const addStickerToSet = /* @__PURE__ */ botMethod<
+  AddStickerToSet,
+  boolean
+>('addStickerToSet');

@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { MessageId } from '../types';
+import { botMethod } from '../method.js';
+import { MessageId } from '../types.js';
 
 export type CopyMessages = {
   /**
@@ -43,4 +43,6 @@ export type CopyMessages = {
 /**
  * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of {@link MessageId} of the sent messages is returned.
  */
-export const copyMessages = botMethod<CopyMessages, MessageId>('copyMessages');
+export const copyMessages = /* @__PURE__ */ botMethod<CopyMessages, MessageId>(
+  'copyMessages'
+);

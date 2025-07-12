@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -8,7 +8,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendContact = {
   /**
@@ -84,4 +84,6 @@ export type SendContact = {
 /**
  * Use this method to send phone contacts. On success, the sent {@link Message} is returned.
  */
-export const sendContact = botMethod<SendContact, Message>('sendContact');
+export const sendContact = /* @__PURE__ */ botMethod<SendContact, Message>(
+  'sendContact'
+);

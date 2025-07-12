@@ -1,7 +1,12 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InputStoryContent, MessageEntity, Story, StoryArea } from '../types';
+import { botMethod } from '../method.js';
+import {
+  InputStoryContent,
+  MessageEntity,
+  Story,
+  StoryArea,
+} from '../types.js';
 
 export type EditStory = {
   /**
@@ -43,4 +48,6 @@ export type EditStory = {
 /**
  * Edits a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns {@link Story} on success.
  */
-export const editStory = botMethod<EditStory, Story>('editStory');
+export const editStory = /* @__PURE__ */ botMethod<EditStory, Story>(
+  'editStory'
+);

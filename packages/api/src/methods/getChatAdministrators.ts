@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { ChatMember } from '../types';
+import { botMethod } from '../method.js';
+import { ChatMember } from '../types.js';
 
 export type GetChatAdministrators = {
   /**
@@ -13,7 +13,7 @@ export type GetChatAdministrators = {
 /**
  * Use this method to get a list of administrators in a chat, which aren't bots. Returns an Array of {@link ChatMember} objects.
  */
-export const getChatAdministrators = botMethod<
+export const getChatAdministrators = /* @__PURE__ */ botMethod<
   GetChatAdministrators,
   ChatMember
 >('getChatAdministrators');

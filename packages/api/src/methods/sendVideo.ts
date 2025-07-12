@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { formDataPayloadTransformer } from '../payload';
+import { botMethod } from '../method.js';
+import { formDataPayloadTransformer } from '../payload.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -11,7 +11,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendVideo = {
   /**
@@ -132,7 +132,7 @@ export type SendVideo = {
 /**
  * Use this method to send video files, Telegram clients support MPEG4 videos (other formats may be sent as {@link Document} ). On success, the sent {@link Message} is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
  */
-export const sendVideo = botMethod<SendVideo, Message>(
+export const sendVideo = /* @__PURE__ */ botMethod<SendVideo, Message>(
   'sendVideo',
   formDataPayloadTransformer
 );

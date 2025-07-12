@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type GetStarTransactions = {
   /**
@@ -17,6 +17,7 @@ export type GetStarTransactions = {
 /**
  * Returns the bot's Telegram Star transactions in chronological order. On success, returns a {@link StarTransactions} object.
  */
-export const getStarTransactions = botMethod<GetStarTransactions, boolean>(
-  'getStarTransactions'
-);
+export const getStarTransactions = /* @__PURE__ */ botMethod<
+  GetStarTransactions,
+  boolean
+>('getStarTransactions');

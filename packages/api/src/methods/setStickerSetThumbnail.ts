@@ -1,8 +1,8 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { formDataPayloadTransformer } from '../payload';
-import { InputFile } from '../types';
+import { botMethod } from '../method.js';
+import { formDataPayloadTransformer } from '../payload.js';
+import { InputFile } from '../types.js';
 
 export type SetStickerSetThumbnail = {
   /**
@@ -29,7 +29,7 @@ export type SetStickerSetThumbnail = {
 /**
  * Use this method to set the thumbnail of a regular or mask sticker set. The format of the thumbnail file must match the format of the stickers in the set. Returns True on success.
  */
-export const setStickerSetThumbnail = botMethod<
+export const setStickerSetThumbnail = /* @__PURE__ */ botMethod<
   SetStickerSetThumbnail,
   boolean
 >('setStickerSetThumbnail', formDataPayloadTransformer);

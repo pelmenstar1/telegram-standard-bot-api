@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type GetChatMemberCount = {
   /**
@@ -12,6 +12,7 @@ export type GetChatMemberCount = {
 /**
  * Use this method to get the number of members in a chat. Returns Int on success.
  */
-export const getChatMemberCount = botMethod<GetChatMemberCount, number>(
-  'getChatMemberCount'
-);
+export const getChatMemberCount = /* @__PURE__ */ botMethod<
+  GetChatMemberCount,
+  number
+>('getChatMemberCount');

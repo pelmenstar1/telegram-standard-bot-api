@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type RemoveBusinessAccountProfilePhoto = {
   /**
@@ -17,7 +17,7 @@ export type RemoveBusinessAccountProfilePhoto = {
 /**
  * Removes the current profile photo of a managed business account. Requires the can_edit_profile_photo business bot right. Returns True on success.
  */
-export const removeBusinessAccountProfilePhoto = botMethod<
+export const removeBusinessAccountProfilePhoto = /* @__PURE__ */ botMethod<
   RemoveBusinessAccountProfilePhoto,
   boolean
 >('removeBusinessAccountProfilePhoto');

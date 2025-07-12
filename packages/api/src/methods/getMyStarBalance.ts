@@ -1,6 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { StarAmount } from '../types';
+import { botMethod } from '../method.js';
+import { StarAmount } from '../types.js';
 
-export const getMyStarBalance = botMethod<StarAmount>('getMyStarBalance');
+export const getMyStarBalance =
+  /* @__PURE__ */ botMethod<StarAmount>('getMyStarBalance');

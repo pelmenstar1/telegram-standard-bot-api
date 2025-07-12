@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InlineQueryResult, InlineQueryResultsButton } from '../types';
+import { botMethod } from '../method.js';
+import { InlineQueryResult, InlineQueryResultsButton } from '../types.js';
 
 export type AnswerInlineQuery = {
   /**
@@ -38,6 +38,7 @@ export type AnswerInlineQuery = {
 /**
  * Use this method to send answers to an inline query. On success, True is returned. No more than 50 results per query are allowed.
  */
-export const answerInlineQuery = botMethod<AnswerInlineQuery, boolean>(
-  'answerInlineQuery'
-);
+export const answerInlineQuery = /* @__PURE__ */ botMethod<
+  AnswerInlineQuery,
+  boolean
+>('answerInlineQuery');

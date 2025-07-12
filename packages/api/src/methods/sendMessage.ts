@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -10,7 +10,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendMessage = {
   /**
@@ -86,4 +86,6 @@ export type SendMessage = {
 /**
  * Use this method to send text messages. On success, the sent {@link Message} is returned.
  */
-export const sendMessage = botMethod<SendMessage, Message>('sendMessage');
+export const sendMessage = /* @__PURE__ */ botMethod<SendMessage, Message>(
+  'sendMessage'
+);

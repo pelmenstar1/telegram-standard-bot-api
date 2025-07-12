@@ -1,12 +1,12 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 import {
   InlineKeyboardMarkup,
   LabeledPrice,
   Message,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendInvoice = {
   /**
@@ -158,4 +158,6 @@ export type SendInvoice = {
 /**
  * Use this method to send invoices. On success, the sent {@link Message} is returned.
  */
-export const sendInvoice = botMethod<SendInvoice, Message>('sendInvoice');
+export const sendInvoice = /* @__PURE__ */ botMethod<SendInvoice, Message>(
+  'sendInvoice'
+);

@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { ReactionType } from '../types';
+import { botMethod } from '../method.js';
+import { ReactionType } from '../types.js';
 
 export type SetMessageReaction = {
   /**
@@ -28,6 +28,7 @@ export type SetMessageReaction = {
 /**
  * Use this method to change the chosen reactions on a message. Service messages of some types can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can't use paid reactions. Returns True on success.
  */
-export const setMessageReaction = botMethod<SetMessageReaction, boolean>(
-  'setMessageReaction'
-);
+export const setMessageReaction = /* @__PURE__ */ botMethod<
+  SetMessageReaction,
+  boolean
+>('setMessageReaction');

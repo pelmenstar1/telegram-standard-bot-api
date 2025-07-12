@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { formDataPayloadTransformer } from '../payload';
+import { botMethod } from '../method.js';
+import { formDataPayloadTransformer } from '../payload.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -11,7 +11,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendVoice = {
   /**
@@ -92,7 +92,7 @@ export type SendVoice = {
 /**
  * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an.OGG file encoded with OPUS, or in.MP3 format, or in.M4A format (other formats may be sent as {@link Audio} or {@link Document} ). On success, the sent {@link Message} is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
  */
-export const sendVoice = botMethod<SendVoice, Message>(
+export const sendVoice = /* @__PURE__ */ botMethod<SendVoice, Message>(
   'sendVoice',
   formDataPayloadTransformer
 );

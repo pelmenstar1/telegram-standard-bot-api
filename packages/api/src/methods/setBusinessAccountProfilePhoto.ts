@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InputProfilePhoto } from '../types';
+import { botMethod } from '../method.js';
+import { InputProfilePhoto } from '../types.js';
 
 export type SetBusinessAccountProfilePhoto = {
   /**
@@ -23,7 +23,7 @@ export type SetBusinessAccountProfilePhoto = {
 /**
  * Changes the profile photo of a managed business account. Requires the can_edit_profile_photo business bot right. Returns True on success.
  */
-export const setBusinessAccountProfilePhoto = botMethod<
+export const setBusinessAccountProfilePhoto = /* @__PURE__ */ botMethod<
   SetBusinessAccountProfilePhoto,
   boolean
 >('setBusinessAccountProfilePhoto');

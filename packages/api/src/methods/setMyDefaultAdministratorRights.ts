@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { ChatAdministratorRights } from '../types';
+import { botMethod } from '../method.js';
+import { ChatAdministratorRights } from '../types.js';
 
 export type SetMyDefaultAdministratorRights = {
   /**
@@ -18,7 +18,7 @@ export type SetMyDefaultAdministratorRights = {
 /**
  * Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are free to modify the list before adding the bot. Returns True on success.
  */
-export const setMyDefaultAdministratorRights = botMethod<
+export const setMyDefaultAdministratorRights = /* @__PURE__ */ botMethod<
   SetMyDefaultAdministratorRights,
   boolean
 >('setMyDefaultAdministratorRights');

@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { BotDescription } from '../types';
+import { botMethod } from '../method.js';
+import { BotDescription } from '../types.js';
 
 export type GetMyDescription = {
   /**
@@ -13,6 +13,7 @@ export type GetMyDescription = {
 /**
  * Use this method to get the current bot description for the given user language. Returns {@link BotDescription} on success.
  */
-export const getMyDescription = botMethod<GetMyDescription, BotDescription>(
-  'getMyDescription'
-);
+export const getMyDescription = /* @__PURE__ */ botMethod<
+  GetMyDescription,
+  BotDescription
+>('getMyDescription');

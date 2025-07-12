@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type PromoteChatMember = {
   /**
@@ -92,6 +92,7 @@ export type PromoteChatMember = {
 /**
  * Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Pass False for all boolean parameters to demote a user. Returns True on success.
  */
-export const promoteChatMember = botMethod<PromoteChatMember, boolean>(
-  'promoteChatMember'
-);
+export const promoteChatMember = /* @__PURE__ */ botMethod<
+  PromoteChatMember,
+  boolean
+>('promoteChatMember');

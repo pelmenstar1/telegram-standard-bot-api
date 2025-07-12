@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type SetStickerEmojiList = {
   /**
@@ -17,6 +17,7 @@ export type SetStickerEmojiList = {
 /**
  * Use this method to change the list of emoji assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns True on success.
  */
-export const setStickerEmojiList = botMethod<SetStickerEmojiList, boolean>(
-  'setStickerEmojiList'
-);
+export const setStickerEmojiList = /* @__PURE__ */ botMethod<
+  SetStickerEmojiList,
+  boolean
+>('setStickerEmojiList');

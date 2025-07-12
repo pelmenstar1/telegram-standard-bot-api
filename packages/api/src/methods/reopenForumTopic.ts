@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type ReopenForumTopic = {
   /**
@@ -17,6 +17,7 @@ export type ReopenForumTopic = {
 /**
  * Use this method to reopen a closed topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
  */
-export const reopenForumTopic = botMethod<ReopenForumTopic, boolean>(
-  'reopenForumTopic'
-);
+export const reopenForumTopic = /* @__PURE__ */ botMethod<
+  ReopenForumTopic,
+  boolean
+>('reopenForumTopic');

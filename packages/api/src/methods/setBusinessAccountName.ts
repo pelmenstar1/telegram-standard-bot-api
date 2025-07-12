@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type SetBusinessAccountName = {
   /**
@@ -22,7 +22,7 @@ export type SetBusinessAccountName = {
 /**
  * Changes the first and last name of a managed business account. Requires the can_change_name business bot right. Returns True on success.
  */
-export const setBusinessAccountName = botMethod<
+export const setBusinessAccountName = /* @__PURE__ */ botMethod<
   SetBusinessAccountName,
   boolean
 >('setBusinessAccountName');

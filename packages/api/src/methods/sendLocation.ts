@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 import {
   ForceReply,
   InlineKeyboardMarkup,
@@ -8,7 +8,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
-} from '../types';
+} from '../types.js';
 
 export type SendLocation = {
   /**
@@ -94,4 +94,6 @@ export type SendLocation = {
 /**
  * Use this method to send point on the map. On success, the sent {@link Message} is returned.
  */
-export const sendLocation = botMethod<SendLocation, Message>('sendLocation');
+export const sendLocation = /* @__PURE__ */ botMethod<SendLocation, Message>(
+  'sendLocation'
+);

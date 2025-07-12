@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type ApproveChatJoinRequest = {
   /**
@@ -17,7 +17,7 @@ export type ApproveChatJoinRequest = {
 /**
  * Use this method to approve a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right. Returns True on success.
  */
-export const approveChatJoinRequest = botMethod<
+export const approveChatJoinRequest = /* @__PURE__ */ botMethod<
   ApproveChatJoinRequest,
   boolean
 >('approveChatJoinRequest');

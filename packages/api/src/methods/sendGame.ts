@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InlineKeyboardMarkup, Message, ReplyParameters } from '../types';
+import { botMethod } from '../method.js';
+import { InlineKeyboardMarkup, Message, ReplyParameters } from '../types.js';
 
 export type SendGame = {
   /**
@@ -58,4 +58,6 @@ export type SendGame = {
 /**
  * Use this method to send a game. On success, the sent {@link Message} is returned.
  */
-export const sendGame = botMethod<SendGame, Message>('sendGame');
+export const sendGame = /* @__PURE__ */ botMethod<SendGame, Message>(
+  'sendGame'
+);

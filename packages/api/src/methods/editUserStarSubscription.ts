@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type EditUserStarSubscription = {
   /**
@@ -22,7 +22,7 @@ export type EditUserStarSubscription = {
 /**
  * Allows the bot to cancel or re-enable extension of a subscription paid in Telegram Stars. Returns True on success.
  */
-export const editUserStarSubscription = botMethod<
+export const editUserStarSubscription = /* @__PURE__ */ botMethod<
   EditUserStarSubscription,
   boolean
 >('editUserStarSubscription');

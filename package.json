@@ -1,5 +1,5 @@
 {
-  "name": "telegram-standard-bot-api",
+  "name": "@telegram-standard-bot-api/mono-repo",
   "packageManager": "yarn@4.9.2",
   "scripts": {
     "lint": "eslint . --cache && tsc --noEmit",

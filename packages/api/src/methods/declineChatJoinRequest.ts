@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type DeclineChatJoinRequest = {
   /**
@@ -17,7 +17,7 @@ export type DeclineChatJoinRequest = {
 /**
  * Use this method to decline a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right. Returns True on success.
  */
-export const declineChatJoinRequest = botMethod<
+export const declineChatJoinRequest = /* @__PURE__ */ botMethod<
   DeclineChatJoinRequest,
   boolean
 >('declineChatJoinRequest');

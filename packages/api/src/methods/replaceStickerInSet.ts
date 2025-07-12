@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InputSticker } from '../types';
+import { botMethod } from '../method.js';
+import { InputSticker } from '../types.js';
 
 export type ReplaceStickerInSet = {
   /**
@@ -28,6 +28,7 @@ export type ReplaceStickerInSet = {
 /**
  * Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling deleteStickerFromSet, then addStickerToSet, then setStickerPositionInSet. Returns True on success.
  */
-export const replaceStickerInSet = botMethod<ReplaceStickerInSet, boolean>(
-  'replaceStickerInSet'
-);
+export const replaceStickerInSet = /* @__PURE__ */ botMethod<
+  ReplaceStickerInSet,
+  boolean
+>('replaceStickerInSet');

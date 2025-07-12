@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { ChatPermissions } from '../types';
+import { botMethod } from '../method.js';
+import { ChatPermissions } from '../types.js';
 
 export type RestrictChatMember = {
   /**
@@ -33,6 +33,7 @@ export type RestrictChatMember = {
 /**
  * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate administrator rights. Pass True for all permissions to lift restrictions from a user. Returns True on success.
  */
-export const restrictChatMember = botMethod<RestrictChatMember, boolean>(
-  'restrictChatMember'
-);
+export const restrictChatMember = /* @__PURE__ */ botMethod<
+  RestrictChatMember,
+  boolean
+>('restrictChatMember');

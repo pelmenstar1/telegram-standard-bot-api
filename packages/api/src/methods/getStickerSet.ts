@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { StickerSet } from '../types';
+import { botMethod } from '../method.js';
+import { StickerSet } from '../types.js';
 
 export type GetStickerSet = {
   /**
@@ -13,6 +13,7 @@ export type GetStickerSet = {
 /**
  * Use this method to get a sticker set. On success, a {@link StickerSet} object is returned.
  */
-export const getStickerSet = botMethod<GetStickerSet, StickerSet>(
-  'getStickerSet'
-);
+export const getStickerSet = /* @__PURE__ */ botMethod<
+  GetStickerSet,
+  StickerSet
+>('getStickerSet');

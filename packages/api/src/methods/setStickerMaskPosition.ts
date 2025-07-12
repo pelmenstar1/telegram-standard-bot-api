@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { MaskPosition } from '../types';
+import { botMethod } from '../method.js';
+import { MaskPosition } from '../types.js';
 
 export type SetStickerMaskPosition = {
   /**
@@ -18,7 +18,7 @@ export type SetStickerMaskPosition = {
 /**
  * Use this method to change the mask position of a mask sticker. The sticker must belong to a sticker set that was created by the bot. Returns True on success.
  */
-export const setStickerMaskPosition = botMethod<
+export const setStickerMaskPosition = /* @__PURE__ */ botMethod<
   SetStickerMaskPosition,
   boolean
 >('setStickerMaskPosition');

@@ -1,6 +1,6 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
+import { botMethod } from '../method.js';
 
 export type SetChatTitle = {
   /**
@@ -17,4 +17,6 @@ export type SetChatTitle = {
 /**
  * Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
  */
-export const setChatTitle = botMethod<SetChatTitle, boolean>('setChatTitle');
+export const setChatTitle = /* @__PURE__ */ botMethod<SetChatTitle, boolean>(
+  'setChatTitle'
+);

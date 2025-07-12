@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InlineQueryResult, PreparedInlineMessage } from '../types';
+import { botMethod } from '../method.js';
+import { InlineQueryResult, PreparedInlineMessage } from '../types.js';
 
 export type SavePreparedInlineMessage = {
   /**
@@ -38,7 +38,7 @@ export type SavePreparedInlineMessage = {
 /**
  * Stores a message that can be sent by a user of a Mini App. Returns a {@link PreparedInlineMessage} object.
  */
-export const savePreparedInlineMessage = botMethod<
+export const savePreparedInlineMessage = /* @__PURE__ */ botMethod<
   SavePreparedInlineMessage,
   PreparedInlineMessage
 >('savePreparedInlineMessage');

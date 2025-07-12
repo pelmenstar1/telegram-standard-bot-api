@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
-import { botMethod } from '../method';
-import { InlineKeyboardMarkup, InputChecklist, Message } from '../types';
+import { botMethod } from '../method.js';
+import { InlineKeyboardMarkup, InputChecklist, Message } from '../types.js';
 
 export type EditMessageChecklist = {
   /**
@@ -33,6 +33,7 @@ export type EditMessageChecklist = {
 /**
  * Use this method to edit a checklist on behalf of a connected business account. On success, the edited {@link Message} is returned.
  */
-export const editMessageChecklist = botMethod<EditMessageChecklist, Message>(
-  'editMessageChecklist'
-);
+export const editMessageChecklist = /* @__PURE__ */ botMethod<
+  EditMessageChecklist,
+  Message
+>('editMessageChecklist');
