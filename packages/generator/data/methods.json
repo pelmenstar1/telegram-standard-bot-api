@@ -150,5 +150,9 @@
   "setPassportDataErrors": "boolean",
   "sendGame": "Message",
   "setGameScore": "boolean",
-  "getGameHighScores": "GameHighScore[]"
+  "getGameHighScores": "GameHighScore[]",
+  "getUpdates": "Update[]",
+  "setWebhook": "boolean",
+  "deleteWebhook": "boolean",
+  "getWebhookInfo": "WebhookInfo" 
 }

@@ -101,6 +101,8 @@ import { deleteStickerSet } from './deleteStickerSet.js';
 export { DeleteStickerSet, deleteStickerSet } from './deleteStickerSet.js';
 import { deleteStory } from './deleteStory.js';
 export { DeleteStory, deleteStory } from './deleteStory.js';
+import { deleteWebhook } from './deleteWebhook.js';
+export { DeleteWebhook, deleteWebhook } from './deleteWebhook.js';
 import { editChatInviteLink } from './editChatInviteLink.js';
 export {
   EditChatInviteLink,
@@ -229,6 +231,8 @@ export {
 } from './getStarTransactions.js';
 import { getStickerSet } from './getStickerSet.js';
 export { GetStickerSet, getStickerSet } from './getStickerSet.js';
+import { getUpdates } from './getUpdates.js';
+export { GetUpdates, getUpdates } from './getUpdates.js';
 import { getUserChatBoosts } from './getUserChatBoosts.js';
 export { GetUserChatBoosts, getUserChatBoosts } from './getUserChatBoosts.js';
 import { getUserProfilePhotos } from './getUserProfilePhotos.js';
@@ -236,6 +240,8 @@ export {
   GetUserProfilePhotos,
   getUserProfilePhotos,
 } from './getUserProfilePhotos.js';
+import { getWebhookInfo } from './getWebhookInfo.js';
+export { getWebhookInfo } from './getWebhookInfo.js';
 import { giftPremiumSubscription } from './giftPremiumSubscription.js';
 export {
   GiftPremiumSubscription,
@@ -463,6 +469,8 @@ export {
   SetUserEmojiStatus,
   setUserEmojiStatus,
 } from './setUserEmojiStatus.js';
+import { setWebhook } from './setWebhook.js';
+export { SetWebhook, setWebhook } from './setWebhook.js';
 import { stopMessageLiveLocation } from './stopMessageLiveLocation.js';
 export {
   StopMessageLiveLocation,
@@ -546,6 +554,7 @@ export default {
   deleteStickerFromSet,
   deleteStickerSet,
   deleteStory,
+  deleteWebhook,
   editChatInviteLink,
   editChatSubscriptionInviteLink,
   editForumTopic,
@@ -583,8 +592,10 @@ export default {
   getMyStarBalance,
   getStarTransactions,
   getStickerSet,
+  getUpdates,
   getUserChatBoosts,
   getUserProfilePhotos,
+  getWebhookInfo,
   giftPremiumSubscription,
   hideGeneralForumTopic,
   leaveChat,
@@ -652,6 +663,7 @@ export default {
   setStickerSetThumbnail,
   setStickerSetTitle,
   setUserEmojiStatus,
+  setWebhook,
   stopMessageLiveLocation,
   stopPoll,
   transferBusinessAccountStars,

@@ -12,6 +12,7 @@ const exceptions = new Set([
 ]);
 
 const sections = [
+  ['getting-updates', 'available-types'],
   ['available-types', 'available-methods'],
   ['stickers', 'inline-mode'],
   ['inline-mode', 'payments'],

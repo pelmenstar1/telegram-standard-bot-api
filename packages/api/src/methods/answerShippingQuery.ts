@@ -26,7 +26,7 @@ export type AnswerShippingQuery = {
 };
 
 /**
- * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. Use this method to reply to shipping queries. On success, True is returned.
+ * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an {@link Update} with a shipping_query field to the bot. Use this method to reply to shipping queries. On success, True is returned.
  */
 export const answerShippingQuery = /* @__PURE__ */ botMethod<
   AnswerShippingQuery,

@@ -3,9 +3,10 @@ import { ParsedMethod, ValueType } from '../types';
 import { isCapitalized } from '../utils/string';
 import { parseMethodTableToFields } from './fields';
 import { sliceSection, splitByHeader } from './misc';
-import { parseMethodDataToType as parseMethodDataToType } from './valueType';
+import { parseMethodDataToType } from './valueType';
 
 const sections = [
+  ['getting-updates', 'available-types'],
   ['available-methods', 'stickers'],
   ['stickers', 'inline-mode'],
   ['inline-mode', 'payments'],
