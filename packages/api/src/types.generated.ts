@@ -4467,7 +4467,7 @@ export type BotCommandScopeDefault = {
   /**
    * Scope type, must be default
    */
-  type: string;
+  type: 'default';
 };
 
 /**
@@ -4477,7 +4477,7 @@ export type BotCommandScopeAllPrivateChats = {
   /**
    * Scope type, must be all_private_chats
    */
-  type: string;
+  type: 'all_private_chats';
 };
 
 /**
@@ -4487,7 +4487,7 @@ export type BotCommandScopeAllGroupChats = {
   /**
    * Scope type, must be all_group_chats
    */
-  type: string;
+  type: 'all_group_chats';
 };
 
 /**
@@ -4497,7 +4497,7 @@ export type BotCommandScopeAllChatAdministrators = {
   /**
    * Scope type, must be all_chat_administrators
    */
-  type: string;
+  type: 'all_chat_administrators';
 };
 
 /**
@@ -4507,7 +4507,7 @@ export type BotCommandScopeChat = {
   /**
    * Scope type, must be chat
    */
-  type: string;
+  type: 'chat';
 
   /**
    * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername )
@@ -4522,7 +4522,7 @@ export type BotCommandScopeChatAdministrators = {
   /**
    * Scope type, must be chat_administrators
    */
-  type: string;
+  type: 'chat_administrators';
 
   /**
    * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername )
@@ -4537,7 +4537,7 @@ export type BotCommandScopeChatMember = {
   /**
    * Scope type, must be chat_member
    */
-  type: string;
+  type: 'chat_member';
 
   /**
    * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername )
@@ -4587,7 +4587,7 @@ export type MenuButtonCommands = {
   /**
    * Type of the button, must be commands
    */
-  type: string;
+  type: 'commands';
 };
 
 /**
@@ -4597,7 +4597,7 @@ export type MenuButtonWebApp = {
   /**
    * Type of the button, must be web_app
    */
-  type: string;
+  type: 'web_app';
 
   /**
    * Text on the button
@@ -4617,7 +4617,7 @@ export type MenuButtonDefault = {
   /**
    * Type of the button, must be default
    */
-  type: string;
+  type: 'default';
 };
 
 /**
@@ -4907,7 +4907,7 @@ export type InputMediaPhoto = {
   /**
    * Type of the result, must be photo
    */
-  type: string;
+  type: 'photo';
 
   /**
    * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
@@ -4947,7 +4947,7 @@ export type InputMediaVideo = {
   /**
    * Type of the result, must be video
    */
-  type: string;
+  type: 'video';
 
   /**
    * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
@@ -5022,7 +5022,7 @@ export type InputMediaAnimation = {
   /**
    * Type of the result, must be animation
    */
-  type: string;
+  type: 'animation';
 
   /**
    * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
@@ -5082,7 +5082,7 @@ export type InputMediaAudio = {
   /**
    * Type of the result, must be audio
    */
-  type: string;
+  type: 'audio';
 
   /**
    * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
@@ -5132,7 +5132,7 @@ export type InputMediaDocument = {
   /**
    * Type of the result, must be document
    */
-  type: string;
+  type: 'document';
 
   /**
    * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
@@ -5172,7 +5172,7 @@ export type InputPaidMediaPhoto = {
   /**
    * Type of the media, must be photo
    */
-  type: string;
+  type: 'photo';
 
   /**
    * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
@@ -5187,7 +5187,7 @@ export type InputPaidMediaVideo = {
   /**
    * Type of the media, must be video
    */
-  type: string;
+  type: 'video';
 
   /**
    * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
@@ -5237,7 +5237,7 @@ export type InputProfilePhotoStatic = {
   /**
    * Type of the profile photo, must be static
    */
-  type: string;
+  type: 'static';
 
   /**
    * The static profile photo. Profile photos can't be reused and can only be uploaded as a new file, so you can pass “attach://<file_attach_name>” if the photo was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
@@ -5252,7 +5252,7 @@ export type InputProfilePhotoAnimated = {
   /**
    * Type of the profile photo, must be animated
    */
-  type: string;
+  type: 'animated';
 
   /**
    * The animated profile photo. Profile photos can't be reused and can only be uploaded as a new file, so you can pass “attach://<file_attach_name>” if the photo was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
@@ -5272,7 +5272,7 @@ export type InputStoryContentPhoto = {
   /**
    * Type of the content, must be photo
    */
-  type: string;
+  type: 'photo';
 
   /**
    * The photo to post as a story. The photo must be of the size 1080x1920 and must not exceed 10 MB. The photo can't be reused and can only be uploaded as a new file, so you can pass “attach://<file_attach_name>” if the photo was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
@@ -5287,7 +5287,7 @@ export type InputStoryContentVideo = {
   /**
    * Type of the content, must be video
    */
-  type: string;
+  type: 'video';
 
   /**
    * The video to post as a story. The video must be of the size 720x1280, streamable, encoded with H.265 codec, with key frames added each second in the MPEG4 format, and must not exceed 30 MB. The video can't be reused and can only be uploaded as a new file, so you can pass “attach://<file_attach_name>” if the video was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
@@ -5614,7 +5614,7 @@ export type InlineQueryResultArticle = {
   /**
    * Type of the result, must be article
    */
-  type: string;
+  type: 'article';
 
   /**
    * Unique identifier for this result, 1-64 Bytes
@@ -5669,7 +5669,7 @@ export type InlineQueryResultPhoto = {
   /**
    * Type of the result, must be photo
    */
-  type: string;
+  type: 'photo';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -5744,7 +5744,7 @@ export type InlineQueryResultGif = {
   /**
    * Type of the result, must be gif
    */
-  type: string;
+  type: 'gif';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -5779,7 +5779,7 @@ export type InlineQueryResultGif = {
   /**
    * MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
    */
-  thumbnail_mime_type?: string;
+  thumbnail_mime_type?: 'image/jpeg' | 'image/gif' | 'video/mp4';
 
   /**
    * Title for the result
@@ -5824,7 +5824,7 @@ export type InlineQueryResultMpeg4Gif = {
   /**
    * Type of the result, must be mpeg4_gif
    */
-  type: string;
+  type: 'mpeg4_gif';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -5859,7 +5859,7 @@ export type InlineQueryResultMpeg4Gif = {
   /**
    * MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
    */
-  thumbnail_mime_type?: string;
+  thumbnail_mime_type?: 'image/jpeg' | 'image/gif' | 'video/mp4';
 
   /**
    * Title for the result
@@ -5904,7 +5904,7 @@ export type InlineQueryResultVideo = {
   /**
    * Type of the result, must be video
    */
-  type: string;
+  type: 'video';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -5989,7 +5989,7 @@ export type InlineQueryResultAudio = {
   /**
    * Type of the result, must be audio
    */
-  type: string;
+  type: 'audio';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -6049,7 +6049,7 @@ export type InlineQueryResultVoice = {
   /**
    * Type of the result, must be voice
    */
-  type: string;
+  type: 'voice';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -6104,7 +6104,7 @@ export type InlineQueryResultDocument = {
   /**
    * Type of the result, must be document
    */
-  type: string;
+  type: 'document';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -6179,7 +6179,7 @@ export type InlineQueryResultLocation = {
   /**
    * Type of the result, must be location
    */
-  type: string;
+  type: 'location';
 
   /**
    * Unique identifier for this result, 1-64 Bytes
@@ -6254,7 +6254,7 @@ export type InlineQueryResultVenue = {
   /**
    * Type of the result, must be venue
    */
-  type: string;
+  type: 'venue';
 
   /**
    * Unique identifier for this result, 1-64 Bytes
@@ -6334,7 +6334,7 @@ export type InlineQueryResultContact = {
   /**
    * Type of the result, must be contact
    */
-  type: string;
+  type: 'contact';
 
   /**
    * Unique identifier for this result, 1-64 Bytes
@@ -6394,7 +6394,7 @@ export type InlineQueryResultGame = {
   /**
    * Type of the result, must be game
    */
-  type: string;
+  type: 'game';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -6419,7 +6419,7 @@ export type InlineQueryResultCachedPhoto = {
   /**
    * Type of the result, must be photo
    */
-  type: string;
+  type: 'photo';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -6479,7 +6479,7 @@ export type InlineQueryResultCachedGif = {
   /**
    * Type of the result, must be gif
    */
-  type: string;
+  type: 'gif';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -6534,7 +6534,7 @@ export type InlineQueryResultCachedMpeg4Gif = {
   /**
    * Type of the result, must be mpeg4_gif
    */
-  type: string;
+  type: 'mpeg4_gif';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -6589,7 +6589,7 @@ export type InlineQueryResultCachedSticker = {
   /**
    * Type of the result, must be sticker
    */
-  type: string;
+  type: 'sticker';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -6619,7 +6619,7 @@ export type InlineQueryResultCachedDocument = {
   /**
    * Type of the result, must be document
    */
-  type: string;
+  type: 'document';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -6674,7 +6674,7 @@ export type InlineQueryResultCachedVideo = {
   /**
    * Type of the result, must be video
    */
-  type: string;
+  type: 'video';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -6734,7 +6734,7 @@ export type InlineQueryResultCachedVoice = {
   /**
    * Type of the result, must be voice
    */
-  type: string;
+  type: 'voice';
 
   /**
    * Unique identifier for this result, 1-64 bytes
@@ -6784,7 +6784,7 @@ export type InlineQueryResultCachedAudio = {
   /**
    * Type of the result, must be audio
    */
-  type: string;
+  type: 'audio';
 
   /**
    * Unique identifier for this result, 1-64 bytes

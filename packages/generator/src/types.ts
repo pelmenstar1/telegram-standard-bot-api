@@ -25,6 +25,10 @@ export type ValueType =
       type: PrimitiveTypeName;
     }
   | {
+      type: 'string-literal';
+      value: string;
+    }
+  | {
       type: 'array';
       element: ValueType;
     }

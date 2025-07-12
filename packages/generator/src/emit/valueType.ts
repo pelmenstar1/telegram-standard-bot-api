@@ -10,6 +10,10 @@ export function valueTypeToString(
       return `${valueTypeToString(value.element)}[]`;
     }
     case 'union': {
+      if (value.types.length === 0) {
+        throw new Error('No types in union');
+      }
+
       return value.types.map((type) => valueTypeToString(type)).join(' | ');
     }
     case 'object': {
@@ -42,6 +46,9 @@ export function valueTypeToString(
     }
     case 'string': {
       return 'string';
+    }
+    case 'string-literal': {
+      return `'${value.value}'`;
     }
     case 'true': {
       return 'true';
