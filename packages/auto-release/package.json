@@ -1,0 +1,14 @@
+{
+  "name": "auto-release",
+  "packageManager": "yarn@4.9.2",
+  "type": "module",
+  "private": "true",
+  "scripts": {
+    "release": "tsx ./src/main.ts"
+  },
+  "dependencies": {
+    "@types/node": "24.0.13",
+    "tsx": "4.20.3",
+    "typescript": "5.8.3"
+  }
+}

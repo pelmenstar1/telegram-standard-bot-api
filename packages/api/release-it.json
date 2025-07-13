@@ -1,11 +1,15 @@
 {
   "$schema": "https://unpkg.com/release-it@19/schema/release-it.json",
+  "hooks": {
+    "before:init": ["yarn lint", "yarn test", "yarn build"],
+    "after:release:github": ["yarn npm publish"]
+  },
   "git": {
     "commitMessage": "Release v${version}",
     "requireBranch": "main"
   },
   "npm": {
-    "publish": true
+    "publish": false
   },
   "github": {
     "release": true

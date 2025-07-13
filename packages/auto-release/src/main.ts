@@ -1,0 +1,81 @@
+import {
+  execFile,
+  ExecFileOptionsWithStringEncoding,
+} from 'node:child_process';
+import fsp from 'node:fs/promises';
+import path from 'node:path';
+
+import {
+  compareDirectorySnapshots,
+  takeDirectorySnapshot,
+} from './directorySnapshot';
+import { bumpMajorVersion } from './version';
+
+const apiPackagePath = path.join(import.meta.dirname, '../../api');
+const apiSourcePath = path.join(apiPackagePath, 'src');
+const generatorPackagePath = path.join(import.meta.dirname, '../../generator');
+
+function execFileAsync(
+  file: string,
+  args: string[],
+  options: ExecFileOptionsWithStringEncoding
+): Promise<string> {
+  return new Promise((resolve, reject) => {
+    execFile(file, args, options, (error, stdout, stderr) => {
+      if (error) {
+        reject(new Error(`${stdout}\n${stderr}`, { cause: error }));
+      }
+
+      resolve(stdout);
+    });
+  });
+}
+
+async function runGenerate() {
+  await execFileAsync('npm', ['run', 'generate'], {
+    cwd: generatorPackagePath,
+    shell: true,
+    encoding: 'utf8',
+  });
+}
+
+async function resolveNewReleaseVersion(): Promise<string> {
+  type PackageInfo = { version: string };
+
+  const apiPackageContent = await fsp.readFile(
+    path.join(apiPackagePath, 'package.json'),
+    'utf8'
+  );
+
+  const apiPackageInfo = JSON.parse(apiPackageContent) as PackageInfo;
+
+  return bumpMajorVersion(apiPackageInfo.version);
+}
+
+async function releaseIt() {
+  const newVersion = await resolveNewReleaseVersion();
+  console.log(`Releasing version ${newVersion}`);
+
+  await execFileAsync('node', ['release', newVersion], {
+    cwd: apiPackagePath,
+    encoding: 'utf8',
+    shell: true,
+    env: process.env,
+  });
+}
+
+async function main() {
+  const oldSnapshot = await takeDirectorySnapshot(apiSourcePath);
+  await runGenerate();
+
+  const newSnapshot = await takeDirectorySnapshot(apiSourcePath);
+
+  if (compareDirectorySnapshots(oldSnapshot, newSnapshot)) {
+    console.log('Nothing changed.');
+    return;
+  }
+
+  await releaseIt();
+}
+
+void main();
