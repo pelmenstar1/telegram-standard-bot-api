@@ -1,6 +1,15 @@
 import { LiteralValueType, ValueType, ValueTypeKind } from '../types';
 
-const IMPLICIT_STRING_PREFIX_ENUM = 'must be one of';
+const IMPLICIT_STRING_PREFIX_ENUM_1 = 'must be one of';
+const IMPLICIT_STRING_PREFIX_ENUM_2 = 'Entities other than';
+
+const parseMode: ValueType = {
+  kind: ValueTypeKind.UNION,
+  types: ['HTML', 'Markdown', 'MarkdownV2'].map((value) => ({
+    kind: ValueTypeKind.LITERAL,
+    value,
+  })),
+};
 
 function parseMaybeNumbers(parts: string[]): ValueType[] {
   return parts
@@ -46,11 +55,19 @@ function parseEnum(text: string): ValueType | null {
 export function getImplicitStringLiteralType(
   content: string
 ): ValueType | null {
-  const startIndex = content.indexOf(IMPLICIT_STRING_PREFIX_ENUM);
+  if (content.includes('Mode for parsing entities')) {
+    return parseMode;
+  }
+
+  let matchString = IMPLICIT_STRING_PREFIX_ENUM_1;
+  let startIndex = content.indexOf(matchString);
+  if (startIndex === -1) {
+    matchString = IMPLICIT_STRING_PREFIX_ENUM_2;
+    startIndex = content.indexOf(matchString);
+  }
+
   if (startIndex !== -1) {
-    return parseEnum(
-      content.slice(startIndex + IMPLICIT_STRING_PREFIX_ENUM.length)
-    );
+    return parseEnum(content.slice(startIndex + matchString.length));
   }
 
   const match = content.match(/(?:type|Error source).+must be <em>([\w_]+)/i);

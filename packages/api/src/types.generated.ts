@@ -1237,7 +1237,7 @@ export type ReplyParameters = {
   /**
    * Mode for parsing entities in the quote. See formatting options for more details.
    */
-  quote_parse_mode?: string;
+  quote_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the quote. It can be specified instead of quote_parse_mode.
@@ -1797,7 +1797,7 @@ export type InputPollOption = {
   /**
    * Mode for parsing entities in the text. See formatting options for more details. Currently, only custom emoji entities are allowed
    */
-  text_parse_mode?: string;
+  text_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of text_parse_mode
@@ -1982,7 +1982,7 @@ export type InputChecklistTask = {
   /**
    * Mode for parsing entities in the text. See formatting options for more details.
    */
-  parse_mode: string;
+  parse_mode: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the text, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, and custom_emoji entities are allowed.
@@ -2002,7 +2002,7 @@ export type InputChecklist = {
   /**
    * Mode for parsing entities in the title. See formatting options for more details.
    */
-  parse_mode: string;
+  parse_mode: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the title, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, and custom_emoji entities are allowed.
@@ -5097,7 +5097,7 @@ export type InputMediaPhoto = {
   /**
    * Mode for parsing entities in the photo caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -5152,7 +5152,7 @@ export type InputMediaVideo = {
   /**
    * Mode for parsing entities in the video caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -5217,7 +5217,7 @@ export type InputMediaAnimation = {
   /**
    * Mode for parsing entities in the animation caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -5277,7 +5277,7 @@ export type InputMediaAudio = {
   /**
    * Mode for parsing entities in the audio caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -5327,7 +5327,7 @@ export type InputMediaDocument = {
   /**
    * Mode for parsing entities in the document caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -5889,7 +5889,7 @@ export type InlineQueryResultPhoto = {
   /**
    * Mode for parsing entities in the photo caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -5969,7 +5969,7 @@ export type InlineQueryResultGif = {
   /**
    * Mode for parsing entities in the caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -6049,7 +6049,7 @@ export type InlineQueryResultMpeg4Gif = {
   /**
    * Mode for parsing entities in the caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -6114,7 +6114,7 @@ export type InlineQueryResultVideo = {
   /**
    * Mode for parsing entities in the video caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -6189,7 +6189,7 @@ export type InlineQueryResultAudio = {
   /**
    * Mode for parsing entities in the audio caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -6249,7 +6249,7 @@ export type InlineQueryResultVoice = {
   /**
    * Mode for parsing entities in the voice message caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -6299,7 +6299,7 @@ export type InlineQueryResultDocument = {
   /**
    * Mode for parsing entities in the document caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -6624,7 +6624,7 @@ export type InlineQueryResultCachedPhoto = {
   /**
    * Mode for parsing entities in the photo caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -6679,7 +6679,7 @@ export type InlineQueryResultCachedGif = {
   /**
    * Mode for parsing entities in the caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -6734,7 +6734,7 @@ export type InlineQueryResultCachedMpeg4Gif = {
   /**
    * Mode for parsing entities in the caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -6824,7 +6824,7 @@ export type InlineQueryResultCachedDocument = {
   /**
    * Mode for parsing entities in the document caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -6879,7 +6879,7 @@ export type InlineQueryResultCachedVideo = {
   /**
    * Mode for parsing entities in the video caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -6934,7 +6934,7 @@ export type InlineQueryResultCachedVoice = {
   /**
    * Mode for parsing entities in the voice message caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -6979,7 +6979,7 @@ export type InlineQueryResultCachedAudio = {
   /**
    * Mode for parsing entities in the audio caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -7009,7 +7009,7 @@ export type InputTextMessageContent = {
   /**
    * Mode for parsing entities in the message text. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in message text, which can be specified instead of parse_mode

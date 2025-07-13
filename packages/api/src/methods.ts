@@ -182,7 +182,7 @@ export type SendMessage = {
   /**
    * Mode for parsing entities in the message text. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
@@ -355,7 +355,7 @@ export type CopyMessage = {
   /**
    * Mode for parsing entities in the new caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of parse_mode
@@ -477,7 +477,7 @@ export type SendPhoto = {
   /**
    * Mode for parsing entities in the photo caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -566,7 +566,7 @@ export type SendAudio = {
   /**
    * Mode for parsing entities in the audio caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -670,7 +670,7 @@ export type SendDocument = {
   /**
    * Mode for parsing entities in the document caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -784,7 +784,7 @@ export type SendVideo = {
   /**
    * Mode for parsing entities in the video caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -898,7 +898,7 @@ export type SendAnimation = {
   /**
    * Mode for parsing entities in the animation caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -987,7 +987,7 @@ export type SendVoice = {
   /**
    * Mode for parsing entities in the voice message caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -1155,7 +1155,7 @@ export type SendPaidMedia = {
   /**
    * Mode for parsing entities in the media caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -1547,7 +1547,7 @@ export type SendPoll = {
   /**
    * Mode for parsing entities in the question. See formatting options for more details. Currently, only custom emoji entities are allowed
    */
-  question_parse_mode?: string;
+  question_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of question_parse_mode
@@ -1587,7 +1587,7 @@ export type SendPoll = {
   /**
    * Mode for parsing entities in the explanation. See formatting options for more details.
    */
-  explanation_parse_mode?: string;
+  explanation_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of explanation_parse_mode
@@ -3202,7 +3202,7 @@ export type EditMessageText = {
   /**
    * Mode for parsing entities in the message text. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
@@ -3257,7 +3257,7 @@ export type EditMessageCaption = {
   /**
    * Mode for parsing entities in the message caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -3591,12 +3591,18 @@ export type SendGift = {
   /**
    * Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
    */
-  text_parse_mode?: string;
+  text_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
    */
-  text_entities?: MessageEntity[];
+  text_entities?:
+    | 'bold'
+    | 'italic'
+    | 'underline'
+    | 'strikethrough'
+    | 'spoiler'
+    | 'custom_emoji';
 };
 
 /**
@@ -3630,12 +3636,18 @@ export type GiftPremiumSubscription = {
   /**
    * Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
    */
-  text_parse_mode?: string;
+  text_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
    */
-  text_entities?: MessageEntity[];
+  text_entities?:
+    | 'bold'
+    | 'italic'
+    | 'underline'
+    | 'strikethrough'
+    | 'spoiler'
+    | 'custom_emoji';
 };
 
 /**
@@ -4086,7 +4098,7 @@ export type PostStory = {
   /**
    * Mode for parsing entities in the story caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -4140,7 +4152,7 @@ export type EditStory = {
   /**
    * Mode for parsing entities in the story caption. See formatting options for more details.
    */
-  parse_mode?: string;
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
@@ -4285,7 +4297,7 @@ export type UploadStickerFile = {
   user_id: number;
 
   /**
-   * A file with the sticker in.WEBP,.PNG,.TGS, or.WEBM format. See {@link https://core.telegram.org/stickers | }https://core.telegram.org/stickers for technical requirements. More information on Sending Files »
+   * A file with the sticker in.WEBP,.PNG,.TGS, or.WEBM format. See {@link https://core.telegram.org/stickers} for technical requirements. More information on Sending Files »
    */
   sticker: InputFile;
 
@@ -4525,7 +4537,7 @@ export type SetStickerSetThumbnail = {
   user_id: number;
 
   /**
-   * A.WEBP or.PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a.TGS animation with a thumbnail up to 32 kilobytes in size (see {@link https://core.telegram.org/stickers#animation-requirements | }https://core.telegram.org/stickers#animation-requirements for animated sticker technical requirements), or a.WEBM video with the thumbnail up to 32 kilobytes in size; see {@link https://core.telegram.org/stickers#video-requirements | }https://core.telegram.org/stickers#video-requirements for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.
+   * A.WEBP or.PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a.TGS animation with a thumbnail up to 32 kilobytes in size (see {@link https://core.telegram.org/stickers#animation-requirements} for animated sticker technical requirements), or a.WEBM video with the thumbnail up to 32 kilobytes in size; see {@link https://core.telegram.org/stickers#video-requirements} for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.
    */
   thumbnail?: InputFile | string;
 

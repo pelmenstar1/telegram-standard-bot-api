@@ -21,6 +21,15 @@ function normalizeSpaces(text: string): string {
   return text;
 }
 
+function link(href: string, title?: string): string {
+  let result = `{@link ${href}`;
+  if (title !== undefined && title.length > 0) {
+    result += ` | ${title}`;
+  }
+
+  return `${result}}`;
+}
+
 function htmlNodesToDocString(nodes: DefaultTreeAdapterTypes.Node[]): string {
   return nodes.map((child) => htmlNodeToDocString(child)).join('');
 }
@@ -34,8 +43,14 @@ function htmlNodeToDocString(node: DefaultTreeAdapterTypes.Node): string {
       const href = node.attrs.find(({ name }) => name === 'href')?.value;
       const content = htmlNodesToDocString(node.childNodes);
 
-      if (href !== undefined && href.startsWith('/')) {
-        return `{@link https://core.telegram.org${href} | ${content}}`;
+      if (href !== undefined) {
+        if (href.startsWith('https://core.telegram.org/stickers')) {
+          return '';
+        }
+
+        if (href.startsWith('/')) {
+          return link(`https://core.telegram.org${href}`, content);
+        }
       }
 
       return content;
@@ -107,19 +122,13 @@ function replaceFieldMentionsToLinks(
   typeName: string,
   fieldNames: string[]
 ): string {
-  return replaceMentions(
-    value,
-    fieldNames,
-    (fieldName) => `{@link ${typeName}.${fieldName} | ${fieldName}}`
+  return replaceMentions(value, fieldNames, (fieldName) =>
+    link(`${typeName}.${fieldName}`, fieldName)
   );
 }
 
 function replaceTypeMentionsToLinks(value: string, namedTypes: string[]) {
-  return replaceMentions(
-    value,
-    namedTypes,
-    (typeName) => `{@link ${typeName}}`
-  );
+  return replaceMentions(value, namedTypes, (typeName) => link(typeName));
 }
 
 function removeUnnecessaryParts(value: string) {
@@ -128,6 +137,7 @@ function removeUnnecessaryParts(value: string) {
   for (const part of parts) {
     if (value.startsWith(part)) {
       value = value.slice(part.length);
+      break;
     }
   }
 
