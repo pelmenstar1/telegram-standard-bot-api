@@ -5,6 +5,7 @@ import {
   ParsedField,
   ParsedMethod,
   ValueType,
+  ValueTypeKind,
 } from '../types';
 import { prettify } from '../utils/prettify';
 import { capitalize } from '../utils/string';
@@ -20,23 +21,25 @@ function applyToType<T>(
   apply: (type: ValueType) => T,
   reduce: (values: T[]) => T
 ): T {
-  if (value.type === 'array') {
-    return applyToType(value.element, apply, reduce);
+  switch (value.kind) {
+    case ValueTypeKind.ARRAY: {
+      return applyToType(value.element, apply, reduce);
+    }
+    case ValueTypeKind.UNION: {
+      return reduce(
+        value.types.flatMap((type) => applyToType(type, apply, reduce))
+      );
+    }
+    default: {
+      return apply(value);
+    }
   }
-
-  if (value.type === 'union') {
-    return reduce(
-      value.types.flatMap((type) => applyToType(type, apply, reduce))
-    );
-  }
-
-  return apply(value);
 }
 
 function findRefs(value: ValueType): string[] {
   return applyToType(
     value,
-    (value) => (value.type === 'ref' ? [value.name] : []),
+    (value) => (value.kind === ValueTypeKind.REF ? [value.name] : []),
     (values) => values.flat()
   );
 }
@@ -44,7 +47,7 @@ function findRefs(value: ValueType): string[] {
 function fieldHasFiles(value: ValueType): boolean {
   return applyToType(
     value,
-    (value) => value.type === 'ref' && value.name === 'InputFile',
+    (value) => value.kind === ValueTypeKind.REF && value.name === 'InputFile',
     (values) => values.includes(true)
   );
 }
@@ -96,7 +99,7 @@ function methodToFileContent(
   result += '\n';
 
   if (fields.length > 0) {
-    result += `export type ${payloadName} = ${valueTypeToString({ type: 'object', fields }, meta)};\n\n`;
+    result += `export type ${payloadName} = ${valueTypeToString({ kind: ValueTypeKind.OBJECT, fields }, meta)};\n\n`;
   }
 
   result += `${textToTsDocComment(description, { meta })}\n`;

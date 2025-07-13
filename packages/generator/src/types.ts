@@ -12,38 +12,46 @@ export type ParsedMethod = {
   returnType: ValueType;
 };
 
-export type PrimitiveTypeName =
-  | 'int'
-  | 'float'
-  | 'string'
-  | 'boolean'
-  | 'true'
-  | 'false';
+export const enum ValueTypeKind {
+  INT = 0,
+  FLOAT = 1,
+  STRING = 2,
+  BOOLEAN = 3,
+  TRUE = 4,
+  FALSE = 5,
+  LITERAL = 6,
+  ARRAY = 7,
+  REF = 8,
+  UNION = 9,
+  OBJECT = 10,
+}
+
+export type PrimitiveTypeKind = 0 | 1 | 2 | 3 | 4 | 5;
 
 export type LiteralValueType = {
-  type: 'literal';
+  kind: ValueTypeKind.LITERAL;
   value: number | string;
 };
 
 export type ValueType =
   | LiteralValueType
   | {
-      type: PrimitiveTypeName;
+      kind: PrimitiveTypeKind;
     }
   | {
-      type: 'array';
+      kind: ValueTypeKind.ARRAY;
       element: ValueType;
     }
   | {
-      type: 'ref';
+      kind: ValueTypeKind.REF;
       name: string;
     }
   | {
-      type: 'union';
+      kind: ValueTypeKind.UNION;
       types: ValueType[];
     }
   | {
-      type: 'object';
+      kind: ValueTypeKind.OBJECT;
       fields: ParsedField[];
     };
 

@@ -2,7 +2,7 @@
   "name": "@telegram-standard-bot-api/mono-repo",
   "packageManager": "yarn@4.9.2",
   "scripts": {
-    "lint": "eslint . --cache && tsc --noEmit",
+    "lint": "eslint . --cache && yarn workspaces foreach --all run build:no-emit",
     "test": "vitest --run"
   },
   "devDependencies": {

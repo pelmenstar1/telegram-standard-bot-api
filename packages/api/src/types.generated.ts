@@ -2136,7 +2136,7 @@ export type Venue = {
 };
 
 /**
- * Describes {@link WebAppData.data | data} sent from a Web App to the bot.
+ * Describes {@link WebAppData.data | data} sent from a {@link https://core.telegram.org/bots/webapps | Web App} to the bot.
  */
 export type WebAppData = {
   /**
@@ -2474,7 +2474,7 @@ export type ChatShared = {
 };
 
 /**
- * This object represents a service message about a user allowing a bot to write messages after adding it to the attachment menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method requestWriteAccess.
+ * This object represents a service message about a user allowing a bot to write messages after adding it to the attachment menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method {@link https://core.telegram.org/bots/webapps#initializing-mini-apps | requestWriteAccess}.
  */
 export type WriteAccessAllowed = {
   /**
@@ -2746,7 +2746,7 @@ export type UserProfilePhotos = {
 };
 
 /**
- * This object represents a file ready to be downloaded. The file can be downloaded via the link https://api.telegram.org/file/bot/. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile. The maximum file size to download is 20 MB
+ * This object represents a file ready to be downloaded. The file can be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile. The maximum file size to download is 20 MB
  */
 export type File = {
   /**
@@ -2771,7 +2771,7 @@ export type File = {
 };
 
 /**
- * Describes a Web App.
+ * Describes a {@link https://core.telegram.org/bots/webapps | Web App}.
  */
 export type WebAppInfo = {
   /**
@@ -2781,7 +2781,7 @@ export type WebAppInfo = {
 };
 
 /**
- * This object represents a custom {@link ReplyKeyboardMarkup.keyboard | keyboard} with reply options (see Introduction to bots for details and examples). Not supported in channels and for messages sent on behalf of a Telegram Business account.
+ * This object represents a {@link https://core.telegram.org/bots/features#keyboards | custom keyboard} with reply options (see {@link https://core.telegram.org/bots/features#keyboards | Introduction to bots} for details and examples). Not supported in channels and for messages sent on behalf of a Telegram Business account.
  */
 export type ReplyKeyboardMarkup = {
   /**
@@ -2856,7 +2856,7 @@ export type KeyboardButton = {
 };
 
 /**
- * This object defines the criteria used to request suitable users. Information about the selected users will be shared with the bot when the corresponding button is pressed. More about requesting users »
+ * This object defines the criteria used to request suitable users. Information about the selected users will be shared with the bot when the corresponding button is pressed. {@link https://core.telegram.org/bots/features#chat-and-user-selection | More about requesting users »}
  */
 export type KeyboardButtonRequestUsers = {
   /**
@@ -2896,7 +2896,7 @@ export type KeyboardButtonRequestUsers = {
 };
 
 /**
- * This object defines the criteria used to request a suitable chat. Information about the selected chat will be shared with the bot when the corresponding button is pressed. The bot will be granted requested rights in the chat if appropriate. More about requesting chats ».
+ * This object defines the criteria used to request a suitable chat. Information about the selected chat will be shared with the bot when the corresponding button is pressed. The bot will be granted requested rights in the chat if appropriate. {@link https://core.telegram.org/bots/features#chat-and-user-selection | More about requesting chats »}.
  */
 export type KeyboardButtonRequestChat = {
   /**
@@ -2981,7 +2981,7 @@ export type ReplyKeyboardRemove = {
 };
 
 /**
- * This object represents an inline keyboard that appears right next to the message it belongs to.
+ * This object represents an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard} that appears right next to the message it belongs to.
  */
 export type InlineKeyboardMarkup = {
   /**
@@ -3051,7 +3051,7 @@ export type InlineKeyboardButton = {
 };
 
 /**
- * This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the Telegram Login Widget when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in: Telegram apps support these buttons as of version 5.7. Sample bot: @discussbot
+ * This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the {@link https://core.telegram.org/widgets/login | Telegram Login Widget} when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in: {@link https://core.telegram.org/file/811140015/1734/8VZFkwWXalM.97872/6127fa62d8a0bf2b3c | TITLE} Telegram apps support these buttons as of version 5.7. Sample bot: @discussbot
  */
 export type LoginUrl = {
   /**
@@ -3116,7 +3116,7 @@ export type CopyTextButton = {
 };
 
 /**
- * This object represents an incoming callback query {@link CallbackQuery.from | from} a callback button in an inline keyboard. If the button that originated the query was attached to a {@link CallbackQuery.message | message} sent by the bot, the field {@link CallbackQuery.message | message} will be present. If the button was attached to a {@link CallbackQuery.message | message} sent via the bot (in inline mode), the field {@link CallbackQuery.inline_message_id | inline_message_id} will be present. Exactly one of the fields {@link CallbackQuery.data | data} or {@link CallbackQuery.game_short_name | game_short_name} will be present.
+ * This object represents an incoming callback query {@link CallbackQuery.from | from} a callback button in an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}. If the button that originated the query was attached to a {@link CallbackQuery.message | message} sent by the bot, the field {@link CallbackQuery.message | message} will be present. If the button was attached to a {@link CallbackQuery.message | message} sent via the bot (in inline mode), the field {@link CallbackQuery.inline_message_id | inline_message_id} will be present. Exactly one of the fields {@link CallbackQuery.data | data} or {@link CallbackQuery.game_short_name | game_short_name} will be present.
  */
 export type CallbackQuery = {
   /**
@@ -3156,7 +3156,7 @@ export type CallbackQuery = {
 };
 
 /**
- * Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice privacy mode. Not supported in channels and for messages sent on behalf of a Telegram Business account.
+ * Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice {@link https://core.telegram.org/bots/features#privacy-mode | privacy mode}. Not supported in channels and for messages sent on behalf of a Telegram Business account.
  */
 export type ForceReply = {
   /**
@@ -4766,7 +4766,7 @@ export type MenuButtonCommands = {
 };
 
 /**
- * Represents a menu button, which launches a Web App.
+ * Represents a menu button, which launches a {@link https://core.telegram.org/bots/webapps | Web App}.
  */
 export type MenuButtonWebApp = {
   /**
@@ -7357,7 +7357,7 @@ export type ChosenInlineResult = {
 };
 
 /**
- * Describes an inline message sent by a Web App on behalf of a user.
+ * Describes an inline message sent by a {@link https://core.telegram.org/bots/webapps | Web App} on behalf of a user.
  */
 export type SentWebAppMessage = {
   /**
@@ -8446,7 +8446,7 @@ export type EncryptedPassportElement = {
 };
 
 /**
- * Describes {@link EncryptedCredentials.data | data} required for decrypting and authenticating {@link EncryptedPassportElement}. See the Telegram Passport Documentation for a complete description of the {@link EncryptedCredentials.data | data} decryption and authentication processes.
+ * Describes {@link EncryptedCredentials.data | data} required for decrypting and authenticating {@link EncryptedPassportElement}. See the {@link https://core.telegram.org/passport#receiving-information | Telegram Passport Documentation} for a complete description of the {@link EncryptedCredentials.data | data} decryption and authentication processes.
  */
 export type EncryptedCredentials = {
   /**

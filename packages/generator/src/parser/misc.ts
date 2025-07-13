@@ -32,7 +32,7 @@ export function sliceSection(
 
   const startIndex = content.indexOf(tag(startName));
   if (startIndex === -1) {
-    throw new Error('Invalid content');
+    throwInvalidContent();
   }
 
   if (endName === undefined) {
@@ -41,8 +41,12 @@ export function sliceSection(
 
   const endIndex = content.indexOf(tag(endName), startIndex);
   if (endIndex === -1) {
-    throw new Error('Invalid content');
+    throwInvalidContent();
   }
 
   return content.slice(startIndex, endIndex);
+}
+
+function throwInvalidContent(): never {
+  throw new Error('Invalid content');
 }

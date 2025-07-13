@@ -1,4 +1,4 @@
-import { ParsedField, ValueType } from '../types';
+import { ParsedField, ValueType, ValueTypeKind } from '../types';
 import { getImplicitStringLiteralType } from './implicitType';
 import { ParserMeta } from './meta';
 import { parseValueType } from './valueType';
@@ -15,8 +15,11 @@ function parseFieldType(
 ): ValueType {
   if (name === 'currency') {
     return {
-      type: 'union',
-      types: meta.currencies.map((code) => ({ type: 'literal', value: code })),
+      kind: ValueTypeKind.UNION,
+      types: meta.currencies.map((value) => ({
+        kind: ValueTypeKind.LITERAL,
+        value,
+      })),
     };
   }
 

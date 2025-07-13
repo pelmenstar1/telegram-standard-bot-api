@@ -1,26 +1,35 @@
 import { expect, test } from 'vitest';
 
-import { ValueType } from '../types';
+import { ValueType, ValueTypeKind } from '../types';
 import { parseValueType } from './valueType';
 
 test.each<[string, ValueType]>([
-  ['String', { type: 'string' }],
-  ['Boolean', { type: 'boolean' }],
-  ['Integer', { type: 'int' }],
-  ['Float', { type: 'float' }],
-  ['True', { type: 'true' }],
-  ['False', { type: 'false' }],
-  ['  Array of String ', { type: 'array', element: { type: 'string' } }],
-  ['<a>Some_Object</a>', { type: 'ref', name: 'Some_Object' }],
+  ['String', { kind: ValueTypeKind.STRING }],
+  ['Boolean', { kind: ValueTypeKind.BOOLEAN }],
+  ['Integer', { kind: ValueTypeKind.INT }],
+  ['Float', { kind: ValueTypeKind.FLOAT }],
+  ['True', { kind: ValueTypeKind.TRUE }],
+  ['False', { kind: ValueTypeKind.FALSE }],
+  [
+    '  Array of String ',
+    { kind: ValueTypeKind.ARRAY, element: { kind: ValueTypeKind.STRING } },
+  ],
+  ['<a>Some_Object</a>', { kind: ValueTypeKind.REF, name: 'Some_Object' }],
   [
     'String or Integer',
-    { type: 'union', types: [{ type: 'string' }, { type: 'int' }] },
+    {
+      kind: ValueTypeKind.UNION,
+      types: [{ kind: ValueTypeKind.STRING }, { kind: ValueTypeKind.INT }],
+    },
   ],
   [
     'String or <a>InputFile</a>',
     {
-      type: 'union',
-      types: [{ type: 'string' }, { type: 'ref', name: 'InputFile' }],
+      kind: ValueTypeKind.UNION,
+      types: [
+        { kind: ValueTypeKind.STRING },
+        { kind: ValueTypeKind.REF, name: 'InputFile' },
+      ],
     },
   ],
 ])('parseValueType', (input, expected) => {

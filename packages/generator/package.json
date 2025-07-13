@@ -3,6 +3,7 @@
   "private": true,
   "packageManager": "yarn@4.9.2",
   "scripts": {
+    "build:no-emit": "tsc --noEmit",
     "generate": "tsx src/main.ts"
   },
   "devDependencies": {
@@ -11,8 +12,6 @@
     "typescript": "5.8.3"
   },
   "dependencies": {
-    "cheerio": "1.1.0",
-    "domhandler": "5.0.3",
     "parse5": "8.0.0",
     "prettier": "3.6.2",
     "zod": "4.0.5"

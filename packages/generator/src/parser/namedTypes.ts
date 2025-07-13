@@ -1,6 +1,4 @@
-import { load } from 'cheerio';
-
-import { NamedType, ValueType } from '../types';
+import { NamedType, ValueType, ValueTypeKind } from '../types';
 import { isCapitalized } from '../utils/string';
 import { parseTypeTableToFields } from './fields';
 import { ParserMeta } from './meta';
@@ -97,7 +95,7 @@ function parseObjectNamedTypes(parts: string[], meta: ParserMeta): NamedType[] {
         types.push({
           name: groups.name,
           description: '',
-          underlyingType: { type: 'object', fields: [] },
+          underlyingType: { kind: ValueTypeKind.OBJECT, fields: [] },
         });
       }
     }
@@ -113,14 +111,13 @@ function parseObjectNamedTypes(parts: string[], meta: ParserMeta): NamedType[] {
       continue;
     }
 
-    const plainDescription = load(description).text();
     const fields = parseTypeTableToFields(table, meta);
 
     types.push({
       name,
-      description: plainDescription,
+      description,
       underlyingType: {
-        type: 'object',
+        kind: ValueTypeKind.OBJECT,
         fields,
       },
     });
@@ -160,7 +157,7 @@ function parseUnionNamedTypes(parts: string[]): NamedType[] {
     for (const match of matches) {
       const refName = match[1];
 
-      result.push({ type: 'ref', name: refName });
+      result.push({ kind: ValueTypeKind.REF, name: refName });
     }
 
     return result;
@@ -185,7 +182,7 @@ function parseUnionNamedTypes(parts: string[]): NamedType[] {
       name,
       description: '',
       underlyingType: {
-        type: 'union',
+        kind: ValueTypeKind.UNION,
         types,
       },
     });

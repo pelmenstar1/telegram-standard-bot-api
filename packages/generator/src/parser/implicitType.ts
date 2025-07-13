@@ -1,4 +1,4 @@
-import { LiteralValueType, ValueType } from '../types';
+import { LiteralValueType, ValueType, ValueTypeKind } from '../types';
 
 const IMPLICIT_STRING_PREFIX_ENUM = 'must be one of';
 
@@ -6,7 +6,7 @@ function parseMaybeNumbers(parts: string[]): ValueType[] {
   return parts
     .map(
       (part): LiteralValueType => ({
-        type: 'literal',
+        kind: ValueTypeKind.LITERAL,
         value: part.includes('x') ? Number.NaN : Number.parseInt(part),
       })
     )
@@ -14,16 +14,10 @@ function parseMaybeNumbers(parts: string[]): ValueType[] {
 }
 
 function parseStringPart(text: string): ValueType {
-  const imgMatch = text.match(/<img .*? alt="(.*?)">/);
+  const imgMatch = text.match(/<img .*? alt="(.*?)" \/>/);
+  const value = imgMatch !== null ? imgMatch[1] : text;
 
-  if (imgMatch !== null) {
-    return {
-      type: 'literal',
-      value: imgMatch[1],
-    };
-  }
-
-  return { type: 'literal', value: text };
+  return { kind: ValueTypeKind.LITERAL, value };
 }
 
 function parseEnum(text: string): ValueType | null {
@@ -35,7 +29,7 @@ function parseEnum(text: string): ValueType | null {
     const parts = [...text.matchAll(/(\d+)\s*\*\s*(\d+)/g)];
 
     types = parts.map((match) => ({
-      type: 'literal',
+      kind: ValueTypeKind.LITERAL,
       value: Number.parseInt(match[1]) * Number.parseInt(match[2]),
     }));
   }
@@ -46,7 +40,7 @@ function parseEnum(text: string): ValueType | null {
     );
   }
 
-  return { type: 'union', types };
+  return { kind: ValueTypeKind.UNION, types };
 }
 
 export function getImplicitStringLiteralType(
@@ -62,7 +56,7 @@ export function getImplicitStringLiteralType(
   const match = content.match(/(?:type|Error source).+must be <em>([\w_]+)/i);
 
   if (match !== null) {
-    return { type: 'literal', value: match[1] };
+    return { kind: ValueTypeKind.LITERAL, value: match[1] };
   }
 
   return null;

@@ -1,7 +1,7 @@
 import fsp from 'node:fs/promises';
 import path from 'node:path';
 
-import { FullParseResult, NamedType, ValueType } from '../types';
+import { FullParseResult, NamedType, ValueType, ValueTypeKind } from '../types';
 import { prettify } from '../utils/prettify';
 import { textToTsDocComment } from './comment';
 import { GENERATED_HEADER } from './constants';
@@ -9,7 +9,9 @@ import { EmitMeta } from './meta';
 import { valueTypeToString } from './valueType';
 
 function getTypeFieldNames(type: ValueType): string[] {
-  return type.type === 'object' ? type.fields.map(({ name }) => name) : [];
+  return type.kind === ValueTypeKind.OBJECT
+    ? type.fields.map(({ name }) => name)
+    : [];
 }
 
 function namedTypeToString(type: NamedType, meta: EmitMeta): string {

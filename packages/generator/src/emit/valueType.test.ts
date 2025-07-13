@@ -1,10 +1,10 @@
 import { expect, test } from 'vitest';
 
-import { ValueType } from '../types';
+import { ValueType, ValueTypeKind } from '../types';
 import { valueTypeToString } from './valueType';
 
 function literal(value: string | number): ValueType {
-  return { type: 'literal', value };
+  return { kind: ValueTypeKind.LITERAL, value };
 }
 
 test.each<[ValueType, string]>([

@@ -1,10 +1,8 @@
 import { DefaultTreeAdapterTypes, parseFragment } from 'parse5';
 
-import { ind } from './indent';
 import { EmitMeta } from './meta';
 
 interface BaseCommentOptions {
-  indent?: number;
   meta: EmitMeta;
 }
 
@@ -140,8 +138,6 @@ export function textToTsDocComment(
   value: string,
   options: CommentOptions
 ): string {
-  const indent = options.indent ?? 0;
-
   if (value.length === 0) {
     return '';
   }
@@ -162,8 +158,8 @@ export function textToTsDocComment(
     .split('\n')
     .map((part) => part.trim())
     .filter(Boolean)
-    .map((part) => `${ind(indent + 1)}* ${part}`)
+    .map((part) => `* ${part}`)
     .join('\n');
 
-  return `/**\n${content}\n${ind(indent + 1)}*/`;
+  return `/**\n${content}\n*/`;
 }

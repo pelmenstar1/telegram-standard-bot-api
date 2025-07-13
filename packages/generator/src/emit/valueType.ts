@@ -1,4 +1,4 @@
-import { ValueType } from '../types';
+import { ValueType, ValueTypeKind } from '../types';
 import { fieldToString } from './field';
 import { EmitMeta } from './meta';
 
@@ -20,14 +20,13 @@ function formatNumberNotation(value: string): string {
 
 export function valueTypeToString(
   valueType: ValueType,
-  meta: EmitMeta,
-  indent: number = 0
+  meta: EmitMeta
 ): string {
-  switch (valueType.type) {
-    case 'array': {
+  switch (valueType.kind) {
+    case ValueTypeKind.ARRAY: {
       return `${valueTypeToString(valueType.element, meta)}[]`;
     }
-    case 'union': {
+    case ValueTypeKind.UNION: {
       const { types } = valueType;
 
       if (types.length === 0) {
@@ -38,7 +37,7 @@ export function valueTypeToString(
 
       return [...new Set(parts)].join(' | ');
     }
-    case 'object': {
+    case ValueTypeKind.OBJECT: {
       const { fields } = valueType;
 
       if (fields.length === 0) {
@@ -46,29 +45,39 @@ export function valueTypeToString(
       }
 
       let result = `{\n`;
-      result += fields
-        .map((field) => fieldToString(field, meta, indent + 2))
-        .join('\n\n');
+      result += fields.map((field) => fieldToString(field, meta)).join('\n\n');
       result += '\n}';
 
       return result;
     }
-    case 'ref': {
+    case ValueTypeKind.REF: {
       return valueType.name;
     }
-    case 'int':
-    case 'float': {
-      return 'number';
-    }
-    case 'literal': {
+    case ValueTypeKind.LITERAL: {
       const { value } = valueType;
 
       return typeof value == 'string'
         ? `'${value}'`
         : formatNumberNotation(value.toString());
     }
+    case ValueTypeKind.BOOLEAN: {
+      return 'boolean';
+    }
+    case ValueTypeKind.TRUE: {
+      return 'true';
+    }
+    case ValueTypeKind.FALSE: {
+      return 'false';
+    }
+    case ValueTypeKind.STRING: {
+      return 'string';
+    }
+    case ValueTypeKind.INT:
+    case ValueTypeKind.FLOAT: {
+      return 'number';
+    }
     default: {
-      return valueType.type;
+      return '';
     }
   }
 }

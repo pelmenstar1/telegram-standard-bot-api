@@ -1,5 +1,3 @@
-import { load } from 'cheerio';
-
 import { FullParseResult } from '../types';
 import { parseCurrencyData } from './currency';
 import { ParserMeta } from './meta';
@@ -12,13 +10,17 @@ type ParserInput = {
 };
 
 function getDevPageContent(text: string) {
-  const document = load(text);
-  const devPageContent = document('div#dev_page_content').html();
-  if (devPageContent === null) {
-    throw new Error('Invalid page');
+  const DIV_PREFIX = '<div id="dev_page_content"';
+  const DIV_SUFFIX = '<div class="footer_wrap">';
+
+  const startIndex = text.indexOf(DIV_PREFIX);
+  const endIndex = text.lastIndexOf(DIV_SUFFIX);
+
+  if (startIndex !== -1) {
+    return text.slice(startIndex + DIV_PREFIX.length, endIndex);
   }
 
-  return devPageContent;
+  throw new Error('Invalid page');
 }
 
 export function parseApiPage(input: ParserInput): FullParseResult {

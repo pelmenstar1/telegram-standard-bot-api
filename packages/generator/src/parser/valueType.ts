@@ -1,22 +1,22 @@
-import { PrimitiveTypeName, ValueType } from '../types';
+import { PrimitiveTypeKind, ValueType, ValueTypeKind } from '../types';
 
-const primitiveTypes: Record<string, PrimitiveTypeName | undefined> = {
-  String: 'string',
-  Integer: 'int',
-  Float: 'float',
-  Boolean: 'boolean',
-  True: 'true',
-  False: 'false',
+const primitiveTypes: Record<string, PrimitiveTypeKind | undefined> = {
+  String: ValueTypeKind.STRING,
+  Integer: ValueTypeKind.INT,
+  Float: ValueTypeKind.FLOAT,
+  Boolean: ValueTypeKind.BOOLEAN,
+  True: ValueTypeKind.TRUE,
+  False: ValueTypeKind.FALSE,
 };
 
-const primitiveTypeNames = new Set<PrimitiveTypeName>([
-  'string',
-  'int',
-  'float',
-  'boolean',
-  'true',
-  'false',
-]);
+const primitiveTypeDataNames: Record<string, PrimitiveTypeKind | undefined> = {
+  string: ValueTypeKind.STRING,
+  int: ValueTypeKind.INT,
+  float: ValueTypeKind.FLOAT,
+  boolean: ValueTypeKind.BOOLEAN,
+  true: ValueTypeKind.TRUE,
+  false: ValueTypeKind.FALSE,
+};
 
 const ARRAY_PREFIX = 'Array of';
 
@@ -27,12 +27,12 @@ export function parseValueType(content: string): ValueType {
 
   const primitiveType = primitiveTypes[content];
   if (primitiveType !== undefined) {
-    return { type: primitiveType };
+    return { kind: primitiveType };
   }
 
   if (content.startsWith(ARRAY_PREFIX)) {
     return {
-      type: 'array',
+      kind: ValueTypeKind.ARRAY,
       element: parseValueType(content.slice(ARRAY_PREFIX.length)),
     };
   }
@@ -40,7 +40,7 @@ export function parseValueType(content: string): ValueType {
   const unionParts = content.split(' or ');
   if (unionParts.length > 1) {
     return {
-      type: 'union',
+      kind: ValueTypeKind.UNION,
       types: unionParts.map((part) => parseValueType(part)),
     };
   }
@@ -49,7 +49,7 @@ export function parseValueType(content: string): ValueType {
 
   if (refResult !== null) {
     return {
-      type: 'ref',
+      kind: ValueTypeKind.REF,
       name: refResult[1],
     };
   }
@@ -58,14 +58,15 @@ export function parseValueType(content: string): ValueType {
 }
 
 export function parseMethodDataToType(value: string): ValueType {
-  if (primitiveTypeNames.has(value as PrimitiveTypeName)) {
-    return { type: value as PrimitiveTypeName };
+  const primitiveTypeKind = primitiveTypeDataNames[value];
+  if (primitiveTypeKind !== undefined) {
+    return { kind: primitiveTypeKind };
   }
 
   const unionParts = value.split('|');
   if (unionParts.length > 1) {
     return {
-      type: 'union',
+      kind: ValueTypeKind.UNION,
       types: unionParts.map((part) => parseMethodDataToType(part.trim())),
     };
   }
@@ -77,5 +78,5 @@ export function parseMethodDataToType(value: string): ValueType {
     return parseMethodDataToType(elementName);
   }
 
-  return { type: 'ref', name: value };
+  return { kind: ValueTypeKind.REF, name: value };
 }
