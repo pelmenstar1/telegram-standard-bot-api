@@ -1,9 +1,7 @@
-import {
-  execFile,
-  ExecFileOptionsWithStringEncoding,
-} from 'node:child_process';
 import fsp from 'node:fs/promises';
 import path from 'node:path';
+
+import { execFileAsync } from '@telegram-standard-bot-api/shared';
 
 import {
   compareDirectorySnapshots,
@@ -14,22 +12,6 @@ import { bumpMajorVersion } from './version';
 const apiPackagePath = path.join(import.meta.dirname, '../../api');
 const apiSourcePath = path.join(apiPackagePath, 'src');
 const generatorPackagePath = path.join(import.meta.dirname, '../../generator');
-
-function execFileAsync(
-  file: string,
-  args: string[],
-  options: ExecFileOptionsWithStringEncoding
-): Promise<string> {
-  return new Promise((resolve, reject) => {
-    execFile(file, args, options, (error, stdout, stderr) => {
-      if (error) {
-        reject(new Error(`${stdout}\n${stderr}`, { cause: error }));
-      }
-
-      resolve(stdout);
-    });
-  });
-}
 
 async function runGenerate() {
   await execFileAsync('npm', ['run', 'generate'], {
@@ -56,7 +38,7 @@ async function releaseIt() {
   const newVersion = await resolveNewReleaseVersion();
   console.log(`Releasing version ${newVersion}`);
 
-  await execFileAsync('node', ['release', newVersion], {
+  await execFileAsync('npm', ['release', newVersion], {
     cwd: apiPackagePath,
     encoding: 'utf8',
     shell: true,

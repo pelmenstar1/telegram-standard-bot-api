@@ -1,0 +1,12 @@
+{
+  "name": "@telegram-standard-bot-api/shared",
+  "packageManager": "yarn@4.9.2",
+  "type": "module",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:no-emit": "tsc --noEmit"
+  }
+}

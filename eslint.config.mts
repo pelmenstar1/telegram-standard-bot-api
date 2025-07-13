@@ -12,6 +12,7 @@ export default tseslint.config(
       'prettier.config.mjs',
       'eslint.config.mts',
       'packages/api/dist',
+      'packages/shared/dist',
     ],
   },
   eslint.configs.recommended,
