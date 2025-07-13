@@ -2,6 +2,7 @@
   "name": "@telegram-standard-bot-api/generator",
   "private": true,
   "packageManager": "yarn@4.9.2",
+  "type": "module",
   "scripts": {
     "build:no-emit": "tsc --noEmit",
     "generate": "tsx src/main.ts"

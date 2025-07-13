@@ -36,8 +36,8 @@
       "types": "./dist/types.d.ts"
     },
     "./methods": {
-      "import": "./dist/methods/index.js",
-      "types": "./dist/methods/index.d.ts"
+      "import": "./dist/methods.js",
+      "types": "./dist/methods.d.ts"
     }
   }
 }

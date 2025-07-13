@@ -1,4 +1,5 @@
 import fsp from 'node:fs/promises';
+import path from 'node:path';
 
 import {
   FullParseResult,
@@ -14,7 +15,7 @@ import { GENERATED_HEADER } from './constants';
 import { EmitMeta } from './meta';
 import { valueTypeToString } from './valueType';
 
-const METHODS_PATH = '../api/src/methods';
+const SRC_PATH = path.join(import.meta.dirname, '../../../api/src');
 
 function applyToType<T>(
   value: ValueType,
@@ -56,10 +57,14 @@ function methodHasFiles(fields: ParsedField[]): boolean {
   return fields.some((field) => fieldHasFiles(field.type));
 }
 
-function resolveImports(types: ValueType[]): string[] {
+function resolveImports(types: ValueType[]): string {
   const result = types.flatMap((type) => findRefs(type));
 
-  return [...new Set(result)].sort((a, b) => a.localeCompare(b));
+  const content = [...new Set(result)]
+    .sort((a, b) => a.localeCompare(b))
+    .join(',');
+
+  return `import { ${content} } from './types.js';\n`;
 }
 
 function methodToFileContent(
@@ -67,11 +72,6 @@ function methodToFileContent(
   meta: EmitMeta
 ): string {
   const payloadName = capitalize(name);
-  const imports = resolveImports([
-    ...fields.map(({ type }) => type),
-    returnType,
-  ]);
-
   const returnTypeString = valueTypeToString(returnType, meta);
 
   const helperInvokation =
@@ -84,19 +84,7 @@ function methodToFileContent(
     ? `'${name}', formDataPayloadTransformer`
     : `'${name}'`;
 
-  let result = GENERATED_HEADER;
-
-  result += `import { botMethod } from '../method.js';\n`;
-
-  if (hasFiles) {
-    result += `import { formDataPayloadTransformer } from '../payload.js'\n`;
-  }
-
-  if (imports.length > 0) {
-    result += `import { ${imports.join(', ')} } from '../types.js';\n`;
-  }
-
-  result += '\n';
+  let result = '';
 
   if (fields.length > 0) {
     result += `export type ${payloadName} = ${valueTypeToString({ kind: ValueTypeKind.OBJECT, fields }, meta)};\n\n`;
@@ -108,11 +96,7 @@ function methodToFileContent(
   return result;
 }
 
-function getMethodFilePath(name: string) {
-  return `${METHODS_PATH}/${name}.ts`;
-}
-
-async function createIndexFile(methods: ParsedMethod[]): Promise<string> {
+function exportDefault(methods: ParsedMethod[]): string {
   const sortedMethods = [...methods].sort((a, b) =>
     a.name.localeCompare(b.name)
   );
@@ -121,34 +105,30 @@ async function createIndexFile(methods: ParsedMethod[]): Promise<string> {
     .map((method) => method.name)
     .join(', ');
 
-  let content = '// This file is generated. Do not edit.\n\n';
-  content += sortedMethods
-    .map(({ name, fields }) => {
-      const items = fields.length > 0 ? [capitalize(name), name] : [name];
-
-      return `import { ${name} } from './${name}.js';\nexport { ${items.join(', ')} } from './${name}.js';`;
-    })
-    .join('\n');
-  content += `export default { ${exportDefaultContent} };`;
-  content += '\n';
-
-  return prettify(content);
+  return `export default { ${exportDefaultContent} };`;
 }
 
-export async function emitMethods(result: FullParseResult, meta: EmitMeta) {
-  await fsp.mkdir(METHODS_PATH, { recursive: true });
+export async function emitMethods(
+  { methods }: FullParseResult,
+  meta: EmitMeta
+) {
+  const parts = methods.map((method) => methodToFileContent(method, meta));
 
-  await Promise.all(
-    result.methods.map(async (method) => {
-      let content = methodToFileContent(method, meta);
-      content = await prettify(content);
-
-      await fsp.writeFile(getMethodFilePath(method.name), content);
-    })
+  let content = `${GENERATED_HEADER}\n`;
+  content += `import { botMethod } from './method.js';\n`;
+  content += `import { formDataPayloadTransformer } from './payload.js';`;
+  content += resolveImports(
+    methods.flatMap((method) => [
+      ...method.fields.map((field) => field.type),
+      method.returnType,
+    ])
   );
+  content += '\n';
+  content += parts.join('\n');
+  content += '\n';
+  content += exportDefault(methods);
 
-  await fsp.writeFile(
-    getMethodFilePath('index'),
-    await createIndexFile(result.methods)
-  );
+  content = await prettify(content);
+
+  await fsp.writeFile(path.join(SRC_PATH, 'methods.ts'), content, 'utf8');
 }
