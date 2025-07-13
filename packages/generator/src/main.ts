@@ -1,11 +1,14 @@
 import { emitParsedResult } from './emit';
-import { fetchTelegramBotApiPage } from './fetch';
+import { fetchCurrenciesData, fetchTelegramBotApiPage } from './fetch';
 import { parseApiPage } from './parser';
 
 async function main() {
-  const apiPage = await fetchTelegramBotApiPage();
+  const [apiPage, currencyData] = await Promise.all([
+    fetchTelegramBotApiPage(),
+    fetchCurrenciesData(),
+  ]);
 
-  const parseResult = parseApiPage(apiPage);
+  const parseResult = parseApiPage({ api: apiPage, currency: currencyData });
 
   await emitParsedResult(parseResult);
 }

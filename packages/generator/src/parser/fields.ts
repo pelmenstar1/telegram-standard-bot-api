@@ -1,8 +1,32 @@
-import { ParsedField } from '../types';
+import { ParsedField, ValueType } from '../types';
 import { getImplicitStringLiteralType } from './implicitType';
+import { ParserMeta } from './meta';
 import { parseValueType } from './valueType';
 
-export function parseTypeTableToFields(content: string): ParsedField[] {
+type FieldInput = {
+  name: string;
+  description: string;
+  type: string;
+};
+
+function parseFieldType(
+  { name, description, type }: FieldInput,
+  meta: ParserMeta
+): ValueType {
+  if (name === 'currency') {
+    return {
+      type: 'union',
+      types: meta.currencies.map((code) => ({ type: 'literal', value: code })),
+    };
+  }
+
+  return getImplicitStringLiteralType(description) ?? parseValueType(type);
+}
+
+export function parseTypeTableToFields(
+  content: string,
+  meta: ParserMeta
+): ParsedField[] {
   const rows = [...content.matchAll(/<td>(.*?)<\/td>/gm)];
   const fields: ParsedField[] = [];
 
@@ -13,8 +37,7 @@ export function parseTypeTableToFields(content: string): ParsedField[] {
 
     const optional = description.startsWith('<em>Optional</em>');
 
-    const fieldType =
-      getImplicitStringLiteralType(description) ?? parseValueType(type);
+    const fieldType = parseFieldType({ name, description, type }, meta);
 
     fields.push({ name, type: fieldType, optional, description });
   }
@@ -22,7 +45,10 @@ export function parseTypeTableToFields(content: string): ParsedField[] {
   return fields;
 }
 
-export function parseMethodTableToFields(content: string): ParsedField[] {
+export function parseMethodTableToFields(
+  content: string,
+  meta: ParserMeta
+): ParsedField[] {
   const rows = [...content.matchAll(/<td>(.*?)<\/td>/gm)];
   const fields: ParsedField[] = [];
 
@@ -34,8 +60,7 @@ export function parseMethodTableToFields(content: string): ParsedField[] {
 
     const optional = required !== 'Yes';
 
-    const fieldType =
-      getImplicitStringLiteralType(description) ?? parseValueType(type);
+    const fieldType = parseFieldType({ name, description, type }, meta);
 
     fields.push({ name, type: fieldType, optional, description });
   }

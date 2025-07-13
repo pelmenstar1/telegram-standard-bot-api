@@ -2,6 +2,7 @@ import methods from '../../data/methods.json';
 import { ParsedMethod, ValueType } from '../types';
 import { isCapitalized } from '../utils/string';
 import { parseMethodTableToFields } from './fields';
+import { ParserMeta } from './meta';
 import { sliceSection, splitByHeader } from './misc';
 import { parseMethodDataToType } from './valueType';
 
@@ -19,18 +20,21 @@ function getMethodReturnType(name: string): ValueType {
   return parseMethodDataToType(methods[name as keyof typeof methods]);
 }
 
-export function parseMethods(content: string): ParsedMethod[] {
+export function parseMethods(
+  content: string,
+  meta: ParserMeta
+): ParsedMethod[] {
   return sections
     .flatMap(([startName, endName]) => {
       const section = sliceSection(content, startName, endName);
       const parts = splitByHeader(section);
 
-      return parts.map((part) => parsePart(part));
+      return parts.map((part) => parsePart(part, meta));
     })
     .filter((method) => method !== null);
 }
 
-export function parsePart(part: string): ParsedMethod | null {
+function parsePart(part: string, meta: ParserMeta): ParsedMethod | null {
   // eslint-disable-next-line unicorn/consistent-function-scoping
   function findInitialGroups(content: string) {
     const match = content.match(
@@ -84,6 +88,6 @@ export function parsePart(part: string): ParsedMethod | null {
     name,
     description,
     returnType: getMethodReturnType(name),
-    fields: parseMethodTableToFields(table),
+    fields: parseMethodTableToFields(table, meta),
   };
 }

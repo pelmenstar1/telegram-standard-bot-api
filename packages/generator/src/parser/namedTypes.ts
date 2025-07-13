@@ -3,6 +3,7 @@ import { load } from 'cheerio';
 import { NamedType, ValueType } from '../types';
 import { isCapitalized } from '../utils/string';
 import { parseTypeTableToFields } from './fields';
+import { ParserMeta } from './meta';
 import { sliceSection, splitByHeader } from './misc';
 
 const exceptions = new Set([
@@ -21,12 +22,18 @@ const sections = [
   ['games', undefined],
 ] as const;
 
-export function parseNamedTypes(content: string): NamedType[] {
+export function parseNamedTypes(
+  content: string,
+  meta: ParserMeta
+): NamedType[] {
   return sections.flatMap(([startName, endName]) => {
     const section = sliceSection(content, startName, endName);
     const parts = splitByHeader(section);
 
-    return [...parseObjectNamedTypes(parts), ...parseUnionNamedTypes(parts)];
+    return [
+      ...parseObjectNamedTypes(parts, meta),
+      ...parseUnionNamedTypes(parts),
+    ];
   });
 }
 
@@ -38,7 +45,7 @@ function isNamedUnionType(content: string): boolean {
   );
 }
 
-function parseObjectNamedTypes(parts: string[]): NamedType[] {
+function parseObjectNamedTypes(parts: string[], meta: ParserMeta): NamedType[] {
   // eslint-disable-next-line unicorn/consistent-function-scoping
   function findInitialGroups(content: string) {
     const match = content.match(
@@ -107,7 +114,7 @@ function parseObjectNamedTypes(parts: string[]): NamedType[] {
     }
 
     const plainDescription = load(description).text();
-    const fields = parseTypeTableToFields(table);
+    const fields = parseTypeTableToFields(table, meta);
 
     types.push({
       name,

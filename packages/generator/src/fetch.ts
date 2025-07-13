@@ -1,5 +1,5 @@
-export async function fetchTelegramBotApiPage(): Promise<string> {
-  const response = await fetch('https://core.telegram.org/bots/api', {
+async function fetchPageContent(url: string): Promise<string> {
+  const response = await fetch(url, {
     headers: {
       'Cache-Control': 'no-cache',
     },
@@ -9,5 +9,15 @@ export async function fetchTelegramBotApiPage(): Promise<string> {
     return await response.text();
   }
 
-  throw new Error(`Cannot fetch the API page: ${response.statusText}`);
+  throw new Error(`Cannot fetch the page: ${response.statusText}`);
+}
+
+export async function fetchTelegramBotApiPage(): Promise<string> {
+  return fetchPageContent('https://core.telegram.org/bots/api');
+}
+
+export async function fetchCurrenciesData(): Promise<string> {
+  return fetchPageContent(
+    'https://core.telegram.org/bots/payments/currencies.json'
+  );
 }
