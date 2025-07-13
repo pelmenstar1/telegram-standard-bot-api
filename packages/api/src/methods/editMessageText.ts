@@ -12,47 +12,47 @@ export type EditMessageText = {
   /**
    * Unique identifier of the business connection on behalf of which the message to be edited was sent
    */
-  business_connection_id: string;
+  business_connection_id?: string;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername )
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id: number | string;
+  chat_id?: number | string;
 
   /**
    * Required if inline_message_id is not specified. Identifier of the message to edit
    */
-  message_id: number;
+  message_id?: number;
 
   /**
    * Required if chat_id and message_id are not specified. Identifier of the inline message
    */
-  inline_message_id: string;
+  inline_message_id?: string;
 
   /**
    * New text of the message, 1-4096 characters after entities parsing
    */
-  text?: string;
+  text: string;
 
   /**
    * Mode for parsing entities in the message text. See formatting options for more details.
    */
-  parse_mode: string;
+  parse_mode?: string;
 
   /**
    * A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
    */
-  entities: MessageEntity[];
+  entities?: MessageEntity[];
 
   /**
    * Link preview generation options for the message
    */
-  link_preview_options: LinkPreviewOptions;
+  link_preview_options?: LinkPreviewOptions;
 
   /**
    * A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}.
    */
-  reply_markup: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup;
 };
 
 /**

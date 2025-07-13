@@ -2,31 +2,51 @@ import { ValueType } from '../types';
 import { fieldToString } from './field';
 import { EmitMeta } from './meta';
 
+function formatNumberNotation(value: string): string {
+  if (value.length <= 4) {
+    return value;
+  }
+
+  const parts: string[] = [];
+
+  let i = value.length;
+
+  for (; i >= 0; i -= 3) {
+    parts.push(value.slice(Math.max(0, i - 3), i));
+  }
+
+  return parts.reverse().filter(Boolean).join('_');
+}
+
 export function valueTypeToString(
-  value: ValueType,
+  valueType: ValueType,
   meta: EmitMeta,
   indent: number = 0
 ): string {
-  switch (value.type) {
+  switch (valueType.type) {
     case 'array': {
-      return `${valueTypeToString(value.element, meta)}[]`;
+      return `${valueTypeToString(valueType.element, meta)}[]`;
     }
     case 'union': {
-      if (value.types.length === 0) {
+      const { types } = valueType;
+
+      if (types.length === 0) {
         throw new Error('No types in union');
       }
 
-      return value.types
-        .map((type) => valueTypeToString(type, meta))
-        .join(' | ');
+      const parts = types.map((type) => valueTypeToString(type, meta));
+
+      return [...new Set(parts)].join(' | ');
     }
     case 'object': {
-      if (value.fields.length === 0) {
+      const { fields } = valueType;
+
+      if (fields.length === 0) {
         return `Record<string, never>`;
       }
 
       let result = `{\n`;
-      result += value.fields
+      result += fields
         .map((field) => fieldToString(field, meta, indent + 2))
         .join('\n\n');
       result += '\n}';
@@ -34,28 +54,21 @@ export function valueTypeToString(
       return result;
     }
     case 'ref': {
-      return value.name;
+      return valueType.name;
     }
-    case 'boolean': {
-      return 'boolean';
-    }
-    case 'false': {
-      return 'false';
-    }
+    case 'int':
     case 'float': {
       return 'number';
     }
-    case 'int': {
-      return 'number';
+    case 'literal': {
+      const { value } = valueType;
+
+      return typeof value == 'string'
+        ? `'${value}'`
+        : formatNumberNotation(value.toString());
     }
-    case 'string': {
-      return 'string';
-    }
-    case 'string-literal': {
-      return `'${value.value}'`;
-    }
-    case 'true': {
-      return 'true';
+    default: {
+      return valueType.type;
     }
   }
 }

@@ -7,47 +7,47 @@ export type EditMessageCaption = {
   /**
    * Unique identifier of the business connection on behalf of which the message to be edited was sent
    */
-  business_connection_id: string;
+  business_connection_id?: string;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername )
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id: number | string;
+  chat_id?: number | string;
 
   /**
    * Required if inline_message_id is not specified. Identifier of the message to edit
    */
-  message_id: number;
+  message_id?: number;
 
   /**
    * Required if chat_id and message_id are not specified. Identifier of the inline message
    */
-  inline_message_id: string;
+  inline_message_id?: string;
 
   /**
    * New caption of the message, 0-1024 characters after entities parsing
    */
-  caption: string;
+  caption?: string;
 
   /**
    * Mode for parsing entities in the message caption. See formatting options for more details.
    */
-  parse_mode: string;
+  parse_mode?: string;
 
   /**
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities: MessageEntity[];
+  caption_entities?: MessageEntity[];
 
   /**
    * Pass True, if the caption must be shown above the message media. Supported only for animation, photo and video messages.
    */
-  show_caption_above_media: boolean;
+  show_caption_above_media?: boolean;
 
   /**
    * A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}.
    */
-  reply_markup: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup;
 };
 
 /**

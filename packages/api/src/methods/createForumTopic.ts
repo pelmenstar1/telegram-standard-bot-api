@@ -5,24 +5,30 @@ import { ForumTopic } from '../types.js';
 
 export type CreateForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername )
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * Topic name, 1-128 characters
    */
-  name?: string;
+  name: string;
 
   /**
    * Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F)
    */
-  icon_color: number;
+  icon_color?:
+    | 7_322_096
+    | 16_766_590
+    | 13_338_331
+    | 9_367_192
+    | 16_749_490
+    | 16_478_047;
 
   /**
    * Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers.
    */
-  icon_custom_emoji_id: string;
+  icon_custom_emoji_id?: string;
 };
 
 /**

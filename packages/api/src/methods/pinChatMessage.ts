@@ -6,22 +6,22 @@ export type PinChatMessage = {
   /**
    * Unique identifier of the business connection on behalf of which the message will be pinned
    */
-  business_connection_id: string;
+  business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername )
+   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * Identifier of a message to pin
    */
-  message_id?: number;
+  message_id: number;
 
   /**
    * Pass True if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels and private chats.
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 };
 
 /**

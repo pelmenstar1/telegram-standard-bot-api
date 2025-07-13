@@ -8,17 +8,17 @@ export type UploadStickerFile = {
   /**
    * User identifier of sticker file owner
    */
-  user_id?: number;
+  user_id: number;
 
   /**
-   * A file with the sticker in.WEBP,.PNG,.TGS, or.WEBM format. See {@link https://core.telegram.org/stickers | } https://core.telegram.org/stickers for technical requirements. More information on Sending Files »
+   * A file with the sticker in.WEBP,.PNG,.TGS, or.WEBM format. See {@link https://core.telegram.org/stickers | }https://core.telegram.org/stickers for technical requirements. More information on Sending Files »
    */
-  sticker?: InputFile;
+  sticker: InputFile;
 
   /**
    * Format of the sticker, must be one of “static”, “animated”, “video”
    */
-  sticker_format?: string;
+  sticker_format: 'static' | 'animated' | 'video';
 };
 
 /**

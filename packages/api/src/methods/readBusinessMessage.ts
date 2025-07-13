@@ -6,17 +6,17 @@ export type ReadBusinessMessage = {
   /**
    * Unique identifier of the business connection on behalf of which to read the message
    */
-  business_connection_id?: string;
+  business_connection_id: string;
 
   /**
    * Unique identifier of the chat in which the message was received. The chat must have been active in the last 24 hours.
    */
-  chat_id?: number;
+  chat_id: number;
 
   /**
    * Unique identifier of the message to mark as read
    */
-  message_id?: number;
+  message_id: number;
 };
 
 /**

@@ -4,14 +4,14 @@ import { botMethod } from '../method.js';
 
 export type DeleteMessages = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername )
+   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * A JSON-serialized list of 1-100 identifiers of messages to delete. See deleteMessage for limitations on which messages can be deleted
    */
-  message_ids?: number[];
+  message_ids: number[];
 };
 
 /**

@@ -6,12 +6,12 @@ export type RefundStarPayment = {
   /**
    * Identifier of the user whose payment will be refunded
    */
-  user_id?: number;
+  user_id: number;
 
   /**
    * Telegram payment identifier
    */
-  telegram_payment_charge_id?: string;
+  telegram_payment_charge_id: string;
 };
 
 /**

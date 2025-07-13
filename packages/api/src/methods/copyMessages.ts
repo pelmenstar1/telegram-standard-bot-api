@@ -5,39 +5,39 @@ import { MessageId } from '../types.js';
 
 export type CopyMessages = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername )
+   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    */
-  message_thread_id: number;
+  message_thread_id?: number;
 
   /**
-   * Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername )
+   * Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
    */
-  from_chat_id?: number | string;
+  from_chat_id: number | string;
 
   /**
    * A JSON-serialized list of 1-100 identifiers of messages in the chat from_chat_id to copy. The identifiers must be specified in a strictly increasing order.
    */
-  message_ids?: number[];
+  message_ids: number[];
 
   /**
    * Sends the messages silently. Users will receive a notification with no sound.
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * Protects the contents of the sent messages from forwarding and saving
    */
-  protect_content: boolean;
+  protect_content?: boolean;
 
   /**
    * Pass True to copy the messages without their captions
    */
-  remove_caption: boolean;
+  remove_caption?: boolean;
 };
 
 /**

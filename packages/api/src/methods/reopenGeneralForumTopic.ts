@@ -4,9 +4,9 @@ import { botMethod } from '../method.js';
 
 export type ReopenGeneralForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername )
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 };
 
 /**

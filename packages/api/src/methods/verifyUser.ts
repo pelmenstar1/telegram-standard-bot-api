@@ -6,12 +6,12 @@ export type VerifyUser = {
   /**
    * Unique identifier of the target user
    */
-  user_id?: number;
+  user_id: number;
 
   /**
    * Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
    */
-  custom_description: string;
+  custom_description?: string;
 };
 
 /**

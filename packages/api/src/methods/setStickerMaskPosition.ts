@@ -7,12 +7,12 @@ export type SetStickerMaskPosition = {
   /**
    * File identifier of the sticker
    */
-  sticker?: string;
+  sticker: string;
 
   /**
    * A JSON-serialized object with the position where the mask should be placed on faces. Omit the parameter to remove the mask position.
    */
-  mask_position: MaskPosition;
+  mask_position?: MaskPosition;
 };
 
 /**

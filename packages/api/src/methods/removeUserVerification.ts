@@ -6,7 +6,7 @@ export type RemoveUserVerification = {
   /**
    * Unique identifier of the target user
    */
-  user_id?: number;
+  user_id: number;
 };
 
 /**

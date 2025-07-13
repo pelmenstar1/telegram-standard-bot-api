@@ -6,7 +6,7 @@ export type DeleteStickerSet = {
   /**
    * Sticker set name
    */
-  name?: string;
+  name: string;
 };
 
 /**

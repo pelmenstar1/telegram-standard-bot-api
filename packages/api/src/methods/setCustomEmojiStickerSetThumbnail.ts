@@ -6,12 +6,12 @@ export type SetCustomEmojiStickerSetThumbnail = {
   /**
    * Sticker set name
    */
-  name?: string;
+  name: string;
 
   /**
    * Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail.
    */
-  custom_emoji_id: string;
+  custom_emoji_id?: string;
 };
 
 /**

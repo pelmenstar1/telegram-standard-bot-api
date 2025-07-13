@@ -6,7 +6,7 @@ export type DeleteWebhook = {
   /**
    * Pass True to drop all pending updates
    */
-  drop_pending_updates: boolean;
+  drop_pending_updates?: boolean;
 };
 
 /**

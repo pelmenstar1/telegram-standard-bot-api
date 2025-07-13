@@ -6,12 +6,12 @@ export type DeleteStory = {
   /**
    * Unique identifier of the business connection
    */
-  business_connection_id?: string;
+  business_connection_id: string;
 
   /**
    * Unique identifier of the story to delete
    */
-  story_id?: number;
+  story_id: number;
 };
 
 /**

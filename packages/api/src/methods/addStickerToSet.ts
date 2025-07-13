@@ -7,17 +7,17 @@ export type AddStickerToSet = {
   /**
    * User identifier of sticker set owner
    */
-  user_id?: number;
+  user_id: number;
 
   /**
    * Sticker set name
    */
-  name?: string;
+  name: string;
 
   /**
    * A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set isn't changed.
    */
-  sticker?: InputSticker;
+  sticker: InputSticker;
 };
 
 /**

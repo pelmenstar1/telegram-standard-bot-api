@@ -7,12 +7,12 @@ export type SetPassportDataErrors = {
   /**
    * User identifier
    */
-  user_id?: number;
+  user_id: number;
 
   /**
    * A JSON-serialized array describing the errors
    */
-  errors?: PassportElementError[];
+  errors: PassportElementError[];
 };
 
 /**

@@ -5,14 +5,14 @@ import { UserChatBoosts } from '../types.js';
 
 export type GetUserChatBoosts = {
   /**
-   * Unique identifier for the chat or username of the channel (in the format @channelusername )
+   * Unique identifier for the chat or username of the channel (in the format @channelusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * Unique identifier of the target user
    */
-  user_id?: number;
+  user_id: number;
 };
 
 /**

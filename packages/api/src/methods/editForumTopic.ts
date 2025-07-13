@@ -4,24 +4,24 @@ import { botMethod } from '../method.js';
 
 export type EditForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername )
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * Unique identifier for the target message thread of the forum topic
    */
-  message_thread_id?: number;
+  message_thread_id: number;
 
   /**
    * New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept
    */
-  name: string;
+  name?: string;
 
   /**
    * New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept
    */
-  icon_custom_emoji_id: string;
+  icon_custom_emoji_id?: string;
 };
 
 /**

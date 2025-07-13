@@ -24,7 +24,7 @@ function normalizeSpaces(text: string): string {
 }
 
 function htmlNodesToDocString(nodes: DefaultTreeAdapterTypes.Node[]): string {
-  return nodes.map((child) => htmlNodeToDocString(child)).join(' ');
+  return nodes.map((child) => htmlNodeToDocString(child)).join('');
 }
 
 function htmlNodeToDocString(node: DefaultTreeAdapterTypes.Node): string {
@@ -41,6 +41,11 @@ function htmlNodeToDocString(node: DefaultTreeAdapterTypes.Node): string {
       }
 
       return content;
+    }
+    case 'img': {
+      const alt = node.attrs.find(({ name }) => name === 'alt')?.value;
+
+      return alt ?? '';
     }
     default: {
       if ('childNodes' in node) {

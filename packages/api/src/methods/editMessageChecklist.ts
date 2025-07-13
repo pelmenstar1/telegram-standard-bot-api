@@ -7,27 +7,27 @@ export type EditMessageChecklist = {
   /**
    * Unique identifier of the business connection on behalf of which the message will be sent
    */
-  business_connection_id?: string;
+  business_connection_id: string;
 
   /**
    * Unique identifier for the target chat
    */
-  chat_id?: number;
+  chat_id: number;
 
   /**
    * Unique identifier for the target message
    */
-  message_id?: number;
+  message_id: number;
 
   /**
    * A JSON-serialized object for the new checklist
    */
-  checklist?: InputChecklist;
+  checklist: InputChecklist;
 
   /**
    * A JSON-serialized object for the new inline keyboard for the message
    */
-  reply_markup: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup;
 };
 
 /**

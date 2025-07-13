@@ -4,14 +4,14 @@ import { botMethod } from '../method.js';
 
 export type EditGeneralForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername )
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * New topic name, 1-128 characters
    */
-  name?: string;
+  name: string;
 };
 
 /**

@@ -6,12 +6,12 @@ export type SetMyDescription = {
   /**
    * New bot description; 0-512 characters. Pass an empty string to remove the dedicated description for the given language.
    */
-  description: string;
+  description?: string;
 
   /**
    * A two-letter ISO 639-1 language code. If empty, the description will be applied to all users for whose language there is no dedicated description.
    */
-  language_code: string;
+  language_code?: string;
 };
 
 /**

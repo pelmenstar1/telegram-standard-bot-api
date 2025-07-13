@@ -7,7 +7,7 @@ export type GetFile = {
   /**
    * File identifier to get information about
    */
-  file_id?: string;
+  file_id: string;
 };
 
 /**

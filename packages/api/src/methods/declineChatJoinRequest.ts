@@ -4,14 +4,14 @@ import { botMethod } from '../method.js';
 
 export type DeclineChatJoinRequest = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername )
+   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * Unique identifier of the target user
    */
-  user_id?: number;
+  user_id: number;
 };
 
 /**

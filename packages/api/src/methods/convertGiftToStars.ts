@@ -6,12 +6,12 @@ export type ConvertGiftToStars = {
   /**
    * Unique identifier of the business connection
    */
-  business_connection_id?: string;
+  business_connection_id: string;
 
   /**
    * Unique identifier of the regular gift that should be converted to Telegram Stars
    */
-  owned_gift_id?: string;
+  owned_gift_id: string;
 };
 
 /**

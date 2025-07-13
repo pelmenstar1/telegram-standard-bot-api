@@ -6,7 +6,7 @@ export type DeleteStickerFromSet = {
   /**
    * File identifier of the sticker
    */
-  sticker?: string;
+  sticker: string;
 };
 
 /**

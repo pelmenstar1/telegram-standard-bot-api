@@ -4,19 +4,19 @@ import { botMethod } from '../method.js';
 
 export type SetChatAdministratorCustomTitle = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername )
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * Unique identifier of the target user
    */
-  user_id?: number;
+  user_id: number;
 
   /**
    * New custom title for the administrator; 0-16 characters, emoji are not allowed
    */
-  custom_title?: string;
+  custom_title: string;
 };
 
 /**

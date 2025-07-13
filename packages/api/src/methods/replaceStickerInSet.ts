@@ -7,22 +7,22 @@ export type ReplaceStickerInSet = {
   /**
    * User identifier of the sticker set owner
    */
-  user_id?: number;
+  user_id: number;
 
   /**
    * Sticker set name
    */
-  name?: string;
+  name: string;
 
   /**
    * File identifier of the replaced sticker
    */
-  old_sticker?: string;
+  old_sticker: string;
 
   /**
    * A JSON-serialized object with information about the added sticker. If exactly the same sticker had already been added to the set, then the set remains unchanged.
    */
-  sticker?: InputSticker;
+  sticker: InputSticker;
 };
 
 /**

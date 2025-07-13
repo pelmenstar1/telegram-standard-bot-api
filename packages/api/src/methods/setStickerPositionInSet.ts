@@ -6,12 +6,12 @@ export type SetStickerPositionInSet = {
   /**
    * File identifier of the sticker
    */
-  sticker?: string;
+  sticker: string;
 
   /**
    * New sticker position in the set, zero-based
    */
-  position?: number;
+  position: number;
 };
 
 /**

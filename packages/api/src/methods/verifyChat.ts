@@ -4,14 +4,14 @@ import { botMethod } from '../method.js';
 
 export type VerifyChat = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername )
+   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
    */
-  custom_description: string;
+  custom_description?: string;
 };
 
 /**

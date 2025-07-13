@@ -7,7 +7,7 @@ export type GetBusinessConnection = {
   /**
    * Unique identifier of the business connection
    */
-  business_connection_id?: string;
+  business_connection_id: string;
 };
 
 /**

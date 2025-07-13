@@ -6,12 +6,12 @@ export type SetBusinessAccountBio = {
   /**
    * Unique identifier of the business connection
    */
-  business_connection_id?: string;
+  business_connection_id: string;
 
   /**
    * The new value of the bio for the business account; 0-140 characters
    */
-  bio: string;
+  bio?: string;
 };
 
 /**

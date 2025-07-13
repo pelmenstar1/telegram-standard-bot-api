@@ -7,22 +7,22 @@ export type StopPoll = {
   /**
    * Unique identifier of the business connection on behalf of which the message to be edited was sent
    */
-  business_connection_id: string;
+  business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername )
+   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * Identifier of the original message with the poll
    */
-  message_id?: number;
+  message_id: number;
 
   /**
    * A JSON-serialized object for a new message {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}.
    */
-  reply_markup: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup;
 };
 
 /**

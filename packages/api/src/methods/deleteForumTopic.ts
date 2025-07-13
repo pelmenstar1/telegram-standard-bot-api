@@ -4,14 +4,14 @@ import { botMethod } from '../method.js';
 
 export type DeleteForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername )
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * Unique identifier for the target message thread of the forum topic
    */
-  message_thread_id?: number;
+  message_thread_id: number;
 };
 
 /**

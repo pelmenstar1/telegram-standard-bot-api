@@ -7,32 +7,32 @@ export type EditMessageMedia = {
   /**
    * Unique identifier of the business connection on behalf of which the message to be edited was sent
    */
-  business_connection_id: string;
+  business_connection_id?: string;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername )
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id: number | string;
+  chat_id?: number | string;
 
   /**
    * Required if inline_message_id is not specified. Identifier of the message to edit
    */
-  message_id: number;
+  message_id?: number;
 
   /**
    * Required if chat_id and message_id are not specified. Identifier of the inline message
    */
-  inline_message_id: string;
+  inline_message_id?: string;
 
   /**
    * A JSON-serialized object for a new media content of the message
    */
-  media?: InputMedia;
+  media: InputMedia;
 
   /**
    * A JSON-serialized object for a new {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}.
    */
-  reply_markup: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup;
 };
 
 /**

@@ -6,12 +6,12 @@ export type SetStickerKeywords = {
   /**
    * File identifier of the sticker
    */
-  sticker?: string;
+  sticker: string;
 
   /**
    * A JSON-serialized list of 0-20 search keywords for the sticker with total length of up to 64 characters
    */
-  keywords: string[];
+  keywords?: string[];
 };
 
 /**

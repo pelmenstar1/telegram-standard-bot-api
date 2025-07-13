@@ -20,13 +20,15 @@ export type PrimitiveTypeName =
   | 'true'
   | 'false';
 
+export type LiteralValueType = {
+  type: 'literal';
+  value: number | string;
+};
+
 export type ValueType =
+  | LiteralValueType
   | {
       type: PrimitiveTypeName;
-    }
-  | {
-      type: 'string-literal';
-      value: string;
     }
   | {
       type: 'array';

@@ -6,17 +6,17 @@ export type SetBusinessAccountName = {
   /**
    * Unique identifier of the business connection
    */
-  business_connection_id?: string;
+  business_connection_id: string;
 
   /**
    * The new value of the first name for the business account; 1-64 characters
    */
-  first_name?: string;
+  first_name: string;
 
   /**
    * The new value of the last name for the business account; 0-64 characters
    */
-  last_name: string;
+  last_name?: string;
 };
 
 /**

@@ -4,14 +4,14 @@ import { botMethod } from '../method.js';
 
 export type SetChatStickerSet = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername )
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * Name of the sticker set to be set as the group sticker set
    */
-  sticker_set_name?: string;
+  sticker_set_name: string;
 };
 
 /**

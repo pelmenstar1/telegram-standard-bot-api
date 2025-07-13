@@ -7,17 +7,17 @@ export type SetBusinessAccountGiftSettings = {
   /**
    * Unique identifier of the business connection
    */
-  business_connection_id?: string;
+  business_connection_id: string;
 
   /**
    * Pass True, if a button for sending a gift to the user or by the business account must always be shown in the input field
    */
-  show_gift_button?: boolean;
+  show_gift_button: boolean;
 
   /**
    * Types of gifts accepted by the business account
    */
-  accepted_gift_types?: AcceptedGiftTypes;
+  accepted_gift_types: AcceptedGiftTypes;
 };
 
 /**

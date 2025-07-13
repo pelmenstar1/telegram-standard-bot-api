@@ -6,12 +6,12 @@ export type GetStarTransactions = {
   /**
    * Number of transactions to skip in the response
    */
-  offset: number;
+  offset?: number;
 
   /**
    * The maximum number of transactions to be retrieved. Values between 1-100 are accepted. Defaults to 100.
    */
-  limit: number;
+  limit?: number;
 };
 
 /**

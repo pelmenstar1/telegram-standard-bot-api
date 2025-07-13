@@ -7,12 +7,12 @@ export type AnswerWebAppQuery = {
   /**
    * Unique identifier for the query to be answered
    */
-  web_app_query_id?: string;
+  web_app_query_id: string;
 
   /**
    * A JSON-serialized object describing the message to be sent
    */
-  result?: InlineQueryResult;
+  result: InlineQueryResult;
 };
 
 /**

@@ -5,39 +5,39 @@ import { Message } from '../types.js';
 
 export type ForwardMessage = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername )
+   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
    */
-  message_thread_id: number;
+  message_thread_id?: number;
 
   /**
-   * Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername )
+   * Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
    */
-  from_chat_id?: number | string;
+  from_chat_id: number | string;
 
   /**
    * New start timestamp for the forwarded video in the message
    */
-  video_start_timestamp: number;
+  video_start_timestamp?: number;
 
   /**
    * Sends the message silently. Users will receive a notification with no sound.
    */
-  disable_notification: boolean;
+  disable_notification?: boolean;
 
   /**
    * Protects the contents of the forwarded message from forwarding and saving
    */
-  protect_content: boolean;
+  protect_content?: boolean;
 
   /**
    * Message identifier in the chat specified in from_chat_id
    */
-  message_id?: number;
+  message_id: number;
 };
 
 /**

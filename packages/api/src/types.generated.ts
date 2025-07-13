@@ -340,7 +340,7 @@ export type ChatFullInfo = {
   photo?: ChatPhoto;
 
   /**
-   * If non-empty, the list of all active chat usernames ; for private chats, supergroups and channels
+   * If non-empty, the list of all active chat usernames; for private chats, supergroups and channels
    */
   active_usernames?: string[];
 
@@ -1020,7 +1020,7 @@ export type InaccessibleMessage = {
  */
 export type MessageEntity = {
   /**
-   * Type of the entity. Currently, can be “mention” ( @username ), “hashtag” ( #hashtag or #hashtag@chatusername ), “cashtag” ( $USD or $USD@chatusername ), “bot_command” ( /start@jobs_bot ), “url” ( https://telegram.org ), “email” ( do-not-reply@telegram.org ), “phone_number” ( +1-212-555-0123 ), “bold” ( bold text ), “italic” ( italic text ), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames ), “custom_emoji” (for inline custom emoji stickers)
+   * Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag or #hashtag@chatusername), “cashtag” ($USD or $USD@chatusername), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers)
    */
   type: string;
 
@@ -1220,7 +1220,7 @@ export type ReplyParameters = {
   message_id: number;
 
   /**
-   * If the message to be replied to is from a different chat, unique identifier for the chat or username of the channel (in the format @channelusername ). Not supported for messages sent on behalf of a business account.
+   * If the message to be replied to is from a different chat, unique identifier for the chat or username of the channel (in the format @channelusername). Not supported for messages sent on behalf of a business account.
    */
   chat_id?: number | string;
 
@@ -1760,7 +1760,7 @@ export type Dice = {
   emoji: string;
 
   /**
-   * Value of the dice, 1-6 for “ ”, “ ” and “ ” base emoji, 1-5 for “ ” and “ ” base emoji, 1-64 for “ ” base emoji
+   * Value of the dice, 1-6 for “🎲”, “🎯” and “🎳” base emoji, 1-5 for “🏀” and “⚽” base emoji, 1-64 for “🎰” base emoji
    */
   value: number;
 };
@@ -2746,7 +2746,7 @@ export type UserProfilePhotos = {
 };
 
 /**
- * This object represents a file ready to be downloaded. The file can be downloaded via the link https://api.telegram.org/file/bot /. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile. The maximum file size to download is 20 MB
+ * This object represents a file ready to be downloaded. The file can be downloaded via the link https://api.telegram.org/file/bot/. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile. The maximum file size to download is 20 MB
  */
 export type File = {
   /**
@@ -2810,7 +2810,7 @@ export type ReplyKeyboardMarkup = {
   input_field_placeholder?: string;
 
   /**
-   * Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
+   * Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
    */
   selective?: boolean;
 };
@@ -2970,12 +2970,12 @@ export type KeyboardButtonPollType = {
  */
 export type ReplyKeyboardRemove = {
   /**
-   * Requests clients to remove the custom keyboard (user will not be able to summon this keyboard; if you want to hide the keyboard from sight but keep it accessible, use one_time_keyboard in {@link ReplyKeyboardMarkup} )
+   * Requests clients to remove the custom keyboard (user will not be able to summon this keyboard; if you want to hide the keyboard from sight but keep it accessible, use one_time_keyboard in ReplyKeyboardMarkup)
    */
   remove_keyboard: true;
 
   /**
-   * Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet.
+   * Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet.
    */
   selective?: boolean;
 };
@@ -3025,7 +3025,7 @@ export type InlineKeyboardButton = {
   switch_inline_query?: string;
 
   /**
-   * If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted. This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. Not supported in channels and for messages sent on behalf of a Telegram Business account.
+   * If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. Not supported in channels and for messages sent on behalf of a Telegram Business account.
    */
   switch_inline_query_current_chat?: string;
 
@@ -3040,12 +3040,12 @@ export type InlineKeyboardButton = {
   copy_text?: CopyTextButton;
 
   /**
-   * Description of the game that will be launched when the user presses the button. NOTE: This type of button must always be the first button in the first row.
+   * Description of the game that will be launched when the user presses the button.NOTE: This type of button must always be the first button in the first row.
    */
   callback_game?: CallbackGame;
 
   /**
-   * Specify True, to send a Pay button. Substrings “ ” and “XTR” in the buttons's text will be replaced with a Telegram Star icon. NOTE: This type of button must always be the first button in the first row and can only be used in invoice messages.
+   * Specify True, to send a Pay button. Substrings “⭐” and “XTR” in the buttons's text will be replaced with a Telegram Star icon.NOTE: This type of button must always be the first button in the first row and can only be used in invoice messages.
    */
   pay?: boolean;
 };
@@ -3055,7 +3055,7 @@ export type InlineKeyboardButton = {
  */
 export type LoginUrl = {
   /**
-   * An HTTPS URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in {@link https://core.telegram.org/widgets/login#receiving-authorization-data | Receiving authorization data}. NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in {@link https://core.telegram.org/widgets/login#checking-authorization | Checking authorization}.
+   * An HTTPS URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in {@link https://core.telegram.org/widgets/login#receiving-authorization-data | Receiving authorization data}.NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in {@link https://core.telegram.org/widgets/login#checking-authorization | Checking authorization}.
    */
   url: string;
 
@@ -3065,7 +3065,7 @@ export type LoginUrl = {
   forward_text?: string;
 
   /**
-   * Username of a bot, which will be used for user authorization. See {@link https://core.telegram.org/widgets/login#setting-up-a-bot | Setting up a bot} for more details. If not specified, the current bot's username will be assumed. The url 's domain must be the same as the domain linked with the bot. See {@link https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot | Linking your domain to the bot} for more details.
+   * Username of a bot, which will be used for user authorization. See {@link https://core.telegram.org/widgets/login#setting-up-a-bot | Setting up a bot} for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See {@link https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot | Linking your domain to the bot} for more details.
    */
   bot_username?: string;
 
@@ -4060,7 +4060,7 @@ export type ReactionTypeEmoji = {
   type: string;
 
   /**
-   * Reaction emoji. Currently, it can be one of " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "
+   * Reaction emoji. Currently, it can be one of "❤", "👍", "👎", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩", "🙏", "👌", "🕊", "🤡", "🥱", "🥴", "😍", "🐳", "❤‍🔥", "🌚", "🌭", "💯", "🤣", "⚡", "🍌", "🏆", "💔", "🤨", "😐", "🍓", "🍾", "💋", "🖕", "😈", "😴", "😭", "🤓", "👻", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨", "🤝", "✍", "🤗", "🫡", "🎅", "🎄", "☃", "💅", "🤪", "🗿", "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀", "😡"
    */
   emoji: string;
 };
@@ -4685,7 +4685,7 @@ export type BotCommandScopeChat = {
   type: 'chat';
 
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername )
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    */
   chat_id: number | string;
 };
@@ -4700,7 +4700,7 @@ export type BotCommandScopeChatAdministrators = {
   type: 'chat_administrators';
 
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername )
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    */
   chat_id: number | string;
 };
@@ -4715,7 +4715,7 @@ export type BotCommandScopeChatMember = {
   type: 'chat_member';
 
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername )
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
    */
   chat_id: number | string;
 
@@ -5709,7 +5709,7 @@ export type InputSticker = {
   /**
    * Format of the added sticker, must be one of “static” for a.WEBP or.PNG image, “animated” for a.TGS animation, “video” for a.WEBM video
    */
-  format: string;
+  format: 'static' | 'animated' | 'video';
 
   /**
    * List of 1-20 emoji associated with the sticker
@@ -5777,7 +5777,7 @@ export type InlineQueryResultsButton = {
   web_app?: WebAppInfo;
 
   /**
-   * {@link https://core.telegram.org/bots/features#deep-linking | Deep-linking} parameter for the /start message sent to the bot when a user presses the button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed. Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
+   * {@link https://core.telegram.org/bots/features#deep-linking | Deep-linking} parameter for the /start message sent to the bot when a user presses the button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
    */
   start_parameter?: string;
 };
@@ -8002,7 +8002,7 @@ export type PassportElementErrorDataField = {
   /**
    * Error source, must be data
    */
-  source: string;
+  source: 'data';
 
   /**
    * The section of the user's Telegram Passport which has the error, one of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”
@@ -8032,7 +8032,7 @@ export type PassportElementErrorFrontSide = {
   /**
    * Error source, must be front_side
    */
-  source: string;
+  source: 'front_side';
 
   /**
    * The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”
@@ -8057,7 +8057,7 @@ export type PassportElementErrorReverseSide = {
   /**
    * Error source, must be reverse_side
    */
-  source: string;
+  source: 'reverse_side';
 
   /**
    * The section of the user's Telegram Passport which has the issue, one of “driver_license”, “identity_card”
@@ -8082,7 +8082,7 @@ export type PassportElementErrorSelfie = {
   /**
    * Error source, must be selfie
    */
-  source: string;
+  source: 'selfie';
 
   /**
    * The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”
@@ -8107,7 +8107,7 @@ export type PassportElementErrorFile = {
   /**
    * Error source, must be file
    */
-  source: string;
+  source: 'file';
 
   /**
    * The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
@@ -8132,7 +8132,7 @@ export type PassportElementErrorFiles = {
   /**
    * Error source, must be files
    */
-  source: string;
+  source: 'files';
 
   /**
    * The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
@@ -8157,7 +8157,7 @@ export type PassportElementErrorTranslationFile = {
   /**
    * Error source, must be translation_file
    */
-  source: string;
+  source: 'translation_file';
 
   /**
    * Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
@@ -8182,7 +8182,7 @@ export type PassportElementErrorTranslationFiles = {
   /**
    * Error source, must be translation_files
    */
-  source: string;
+  source: 'translation_files';
 
   /**
    * Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
@@ -8207,7 +8207,7 @@ export type PassportElementErrorUnspecified = {
   /**
    * Error source, must be unspecified
    */
-  source: string;
+  source: 'unspecified';
 
   /**
    * Type of element of the user's Telegram Passport which has the issue

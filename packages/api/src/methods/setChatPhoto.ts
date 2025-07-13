@@ -6,14 +6,14 @@ import { InputFile } from '../types.js';
 
 export type SetChatPhoto = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername )
+   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * New chat photo, uploaded using multipart/form-data
    */
-  photo?: InputFile;
+  photo: InputFile;
 };
 
 /**

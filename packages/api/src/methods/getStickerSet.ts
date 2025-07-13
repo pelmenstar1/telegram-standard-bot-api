@@ -7,7 +7,7 @@ export type GetStickerSet = {
   /**
    * Name of the sticker set
    */
-  name?: string;
+  name: string;
 };
 
 /**

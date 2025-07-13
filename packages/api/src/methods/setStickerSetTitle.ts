@@ -6,12 +6,12 @@ export type SetStickerSetTitle = {
   /**
    * Sticker set name
    */
-  name?: string;
+  name: string;
 
   /**
    * Sticker set title, 1-64 characters
    */
-  title?: string;
+  title: string;
 };
 
 /**

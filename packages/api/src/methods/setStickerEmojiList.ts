@@ -6,12 +6,12 @@ export type SetStickerEmojiList = {
   /**
    * File identifier of the sticker
    */
-  sticker?: string;
+  sticker: string;
 
   /**
    * A JSON-serialized list of 1-20 emoji associated with the sticker
    */
-  emoji_list?: string[];
+  emoji_list: string[];
 };
 
 /**

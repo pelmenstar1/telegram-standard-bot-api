@@ -4,14 +4,14 @@ import { botMethod } from '../method.js';
 
 export type SetChatDescription = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername )
+   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * New chat description, 0-255 characters
    */
-  description: string;
+  description?: string;
 };
 
 /**

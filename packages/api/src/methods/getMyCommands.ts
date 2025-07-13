@@ -7,12 +7,12 @@ export type GetMyCommands = {
   /**
    * A JSON-serialized object, describing scope of users. Defaults to {@link BotCommandScopeDefault}.
    */
-  scope: BotCommandScope;
+  scope?: BotCommandScope;
 
   /**
    * A two-letter ISO 639-1 language code or an empty string
    */
-  language_code: string;
+  language_code?: string;
 };
 
 /**

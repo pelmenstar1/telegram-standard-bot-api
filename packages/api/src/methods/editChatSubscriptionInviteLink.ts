@@ -5,19 +5,19 @@ import { ChatInviteLink } from '../types.js';
 
 export type EditChatSubscriptionInviteLink = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername )
+   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
    */
-  chat_id?: number | string;
+  chat_id: number | string;
 
   /**
    * The invite link to edit
    */
-  invite_link?: string;
+  invite_link: string;
 
   /**
    * Invite link name; 0-32 characters
    */
-  name: string;
+  name?: string;
 };
 
 /**

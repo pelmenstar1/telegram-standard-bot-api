@@ -7,7 +7,7 @@ export type GetMyDescription = {
   /**
    * A two-letter ISO 639-1 language code or an empty string
    */
-  language_code: string;
+  language_code?: string;
 };
 
 /**
