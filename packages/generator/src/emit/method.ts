@@ -67,17 +67,32 @@ function resolveImports(types: ValueType[]): string {
   return `import { ${content} } from './types.js';\n`;
 }
 
+function createMethodReturnTypeFunction(
+  { name, fields, returnType }: Omit<ParsedMethod, 'description'>,
+  meta: EmitMeta
+) {
+  const payloadName = capitalize(name);
+  const returnTypeString = valueTypeToString(returnType, meta);
+
+  if (fields.length === 0) {
+    return `() => ${returnTypeString}`;
+  }
+
+  const payloadModifier = fields.every((field) => field.optional) ? '?' : '';
+
+  return `(payload${payloadModifier}: ${payloadName}) => ${returnTypeString}`;
+}
+
 function methodToFileContent(
   { name, fields, description, returnType }: ParsedMethod,
   meta: EmitMeta
 ): string {
   const payloadName = capitalize(name);
-  const returnTypeString = valueTypeToString(returnType, meta);
 
-  const helperInvokation =
-    fields.length > 0
-      ? `botMethod<${payloadName}, ${returnTypeString}>`
-      : `botMethod<${returnTypeString}>`;
+  const returnTypeFunc = createMethodReturnTypeFunction(
+    { name, fields, returnType },
+    meta
+  );
 
   const hasFiles = methodHasFiles(fields);
   const helperArgs = hasFiles
@@ -91,7 +106,7 @@ function methodToFileContent(
   }
 
   result += `${textToTsDocComment(description, { meta })}\n`;
-  result += `export const ${name} = /* @__PURE__ */ ${helperInvokation}(${helperArgs})\n`;
+  result += `export const ${name} = /* @__PURE__ */ botMethod<${returnTypeFunc}>(${helperArgs})\n`;
 
   return result;
 }
