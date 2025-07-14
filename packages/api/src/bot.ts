@@ -33,7 +33,7 @@ export function createTelegramBot(options?: TelegramBotOptions): TelegramBot {
     const fetchFn = options?.fetch ?? fetch;
 
     const response = await fetchFn(
-      `https://api.telegram.org/${apiKey}/${method.name}`,
+      `https://api.telegram.org/bot${apiKey}/${method.name}`,
       {
         method: 'POST',
         body: method.payload,
