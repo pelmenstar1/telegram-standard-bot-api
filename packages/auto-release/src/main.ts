@@ -7,7 +7,7 @@ import {
   compareDirectorySnapshots,
   takeDirectorySnapshot,
 } from './directorySnapshot';
-import { bumpMajorVersion } from './version';
+import { bumpMinor } from './version';
 
 const apiPackagePath = path.join(import.meta.dirname, '../../api');
 const apiSourcePath = path.join(apiPackagePath, 'src');
@@ -31,7 +31,7 @@ async function resolveNewReleaseVersion(): Promise<string> {
 
   const apiPackageInfo = JSON.parse(apiPackageContent) as PackageInfo;
 
-  return bumpMajorVersion(apiPackageInfo.version);
+  return bumpMinor(apiPackageInfo.version);
 }
 
 async function releaseIt() {

@@ -1,12 +1,12 @@
-export function bumpMajorVersion(version: string): string {
-  const [major, minor, patch] = version.split('.', 3);
+export function bumpMinor(version: string): string {
+  const [major, minor] = version.split('.', 3);
 
-  const majorNumber = Number.parseInt(major);
-  if (Number.isNaN(majorNumber)) {
+  const minorNumber = Number.parseInt(minor);
+  if (Number.isNaN(minorNumber)) {
     throw new TypeError('Invalid version');
   }
 
-  const newMajor = majorNumber + 1;
+  const newMinor = minorNumber + 1;
 
-  return `${newMajor}.${minor}.${patch}`;
+  return `${major}.${newMinor}.0`;
 }

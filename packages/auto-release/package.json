@@ -1,5 +1,5 @@
 {
-  "name": "auto-release",
+  "name": "@telegram-standard-bot-api/auto-release",
   "packageManager": "yarn@4.9.2",
   "type": "module",
   "scripts": {

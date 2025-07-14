@@ -885,6 +885,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@telegram-standard-bot-api/auto-release@workspace:packages/auto-release":
+  version: 0.0.0-use.local
+  resolution: "@telegram-standard-bot-api/auto-release@workspace:packages/auto-release"
+  dependencies:
+    "@telegram-standard-bot-api/shared": "workspace:^"
+    "@types/node": "npm:24.0.13"
+    tsx: "npm:4.20.3"
+    typescript: "npm:5.8.3"
+  languageName: unknown
+  linkType: soft
+
 "@telegram-standard-bot-api/generator@workspace:packages/generator":
   version: 0.0.0-use.local
   resolution: "@telegram-standard-bot-api/generator@workspace:packages/generator"
@@ -1389,17 +1400,6 @@ __metadata:
   checksum: 10c0/669a32c2cb7e45091330c680e92eaeb791bc1d4132d827591e499cd1f776ff5a873e77e5f92d0ce795a8d60f10761dec9ddfe7225a5de680f5d357f67b1aac73
   languageName: node
   linkType: hard
-
-"auto-release@workspace:packages/auto-release":
-  version: 0.0.0-use.local
-  resolution: "auto-release@workspace:packages/auto-release"
-  dependencies:
-    "@telegram-standard-bot-api/shared": "workspace:^"
-    "@types/node": "npm:24.0.13"
-    tsx: "npm:4.20.3"
-    typescript: "npm:5.8.3"
-  languageName: unknown
-  linkType: soft
 
 "available-typed-arrays@npm:^1.0.7":
   version: 1.0.7
