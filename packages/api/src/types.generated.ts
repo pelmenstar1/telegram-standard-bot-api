@@ -172,7 +172,7 @@ export type WebhookInfo = {
   /**
    * A list of update types the bot is subscribed to. Defaults to all update types except chat_member
    */
-  allowed_updates?: string[];
+  allowed_updates?: Exclude<keyof Update, 'update_id'>[];
 };
 
 /**

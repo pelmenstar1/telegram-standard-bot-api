@@ -24,6 +24,7 @@ export const enum ValueTypeKind {
   REF = 8,
   UNION = 9,
   OBJECT = 10,
+  RAW = 11,
 }
 
 export type PrimitiveTypeKind = 0 | 1 | 2 | 3 | 4 | 5;
@@ -53,6 +54,10 @@ export type ValueType =
   | {
       kind: ValueTypeKind.OBJECT;
       fields: ParsedField[];
+    }
+  | {
+      kind: ValueTypeKind.RAW;
+      expression: string;
     };
 
 export type NamedType = {

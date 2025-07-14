@@ -13,17 +13,26 @@ function parseFieldType(
   { name, description, type }: FieldInput,
   meta: ParserMeta
 ): ValueType {
-  if (name === 'currency') {
-    return {
-      kind: ValueTypeKind.UNION,
-      types: [...meta.currencies, 'XTR'].map((value) => ({
-        kind: ValueTypeKind.LITERAL,
-        value,
-      })),
-    };
+  switch (name) {
+    case 'currency': {
+      return {
+        kind: ValueTypeKind.UNION,
+        types: [...meta.currencies, 'XTR'].map((value) => ({
+          kind: ValueTypeKind.LITERAL,
+          value,
+        })),
+      };
+    }
+    case 'allowed_updates': {
+      return {
+        kind: ValueTypeKind.RAW,
+        expression: `Exclude<keyof Update, 'update_id'>[]`,
+      };
+    }
+    default: {
+      return getImplicitStringLiteralType(description) ?? parseValueType(type);
+    }
   }
-
-  return getImplicitStringLiteralType(description) ?? parseValueType(type);
 }
 
 export function parseTypeTableToFields(

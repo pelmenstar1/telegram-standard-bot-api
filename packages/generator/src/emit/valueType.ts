@@ -76,6 +76,9 @@ export function valueTypeToString(
     case ValueTypeKind.FLOAT: {
       return 'number';
     }
+    case ValueTypeKind.RAW: {
+      return valueType.expression;
+    }
     default: {
       return '';
     }
