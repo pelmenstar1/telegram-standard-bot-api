@@ -1257,7 +1257,7 @@ export type MessageOriginUser = {
   /**
    * Type of the message origin, always “user”
    */
-  type: string;
+  type: 'user';
 
   /**
    * Date the message was sent originally in Unix time
@@ -1277,7 +1277,7 @@ export type MessageOriginHiddenUser = {
   /**
    * Type of the message origin, always “hidden_user”
    */
-  type: string;
+  type: 'hidden_user';
 
   /**
    * Date the message was sent originally in Unix time
@@ -1297,7 +1297,7 @@ export type MessageOriginChat = {
   /**
    * Type of the message origin, always “chat”
    */
-  type: string;
+  type: 'chat';
 
   /**
    * Date the message was sent originally in Unix time
@@ -1322,7 +1322,7 @@ export type MessageOriginChannel = {
   /**
    * Type of the message origin, always “channel”
    */
-  type: string;
+  type: 'channel';
 
   /**
    * Date the message was sent originally in Unix time
@@ -1672,7 +1672,7 @@ export type PaidMediaPreview = {
   /**
    * Type of the paid media, always “preview”
    */
-  type: string;
+  type: 'preview';
 
   /**
    * Media width as defined by the sender
@@ -1697,7 +1697,7 @@ export type PaidMediaPhoto = {
   /**
    * Type of the paid media, always “photo”
    */
-  type: string;
+  type: 'photo';
 
   /**
    * The photo
@@ -1712,7 +1712,7 @@ export type PaidMediaVideo = {
   /**
    * Type of the paid media, always “video”
    */
-  type: string;
+  type: 'video';
 
   /**
    * The video
@@ -2197,7 +2197,7 @@ export type BackgroundFillSolid = {
   /**
    * Type of the background fill, always “solid”
    */
-  type: string;
+  type: 'solid';
 
   /**
    * The color of the background fill in the RGB24 format
@@ -2212,7 +2212,7 @@ export type BackgroundFillGradient = {
   /**
    * Type of the background fill, always “gradient”
    */
-  type: string;
+  type: 'gradient';
 
   /**
    * Top color of the gradient in the RGB24 format
@@ -2237,7 +2237,7 @@ export type BackgroundFillFreeformGradient = {
   /**
    * Type of the background fill, always “freeform_gradient”
    */
-  type: string;
+  type: 'freeform_gradient';
 
   /**
    * A list of the 3 or 4 base colors that are used to generate the freeform gradient in the RGB24 format
@@ -2252,7 +2252,7 @@ export type BackgroundTypeFill = {
   /**
    * Type of the background, always “fill”
    */
-  type: string;
+  type: 'fill';
 
   /**
    * The background fill
@@ -2272,7 +2272,7 @@ export type BackgroundTypeWallpaper = {
   /**
    * Type of the background, always “wallpaper”
    */
-  type: string;
+  type: 'wallpaper';
 
   /**
    * Document with the wallpaper
@@ -2302,7 +2302,7 @@ export type BackgroundTypePattern = {
   /**
    * Type of the background, always “pattern”
    */
-  type: string;
+  type: 'pattern';
 
   /**
    * Document with the pattern
@@ -2337,7 +2337,7 @@ export type BackgroundTypeChatTheme = {
   /**
    * Type of the background, always “chat_theme”
    */
-  type: string;
+  type: 'chat_theme';
 
   /**
    * Name of the chat theme, which is usually an emoji
@@ -3392,7 +3392,7 @@ export type ChatMemberOwner = {
   /**
    * The member's status in the chat, always “creator”
    */
-  status: string;
+  status: 'creator';
 
   /**
    * Information about the user
@@ -3417,7 +3417,7 @@ export type ChatMemberAdministrator = {
   /**
    * The member's status in the chat, always “administrator”
    */
-  status: string;
+  status: 'administrator';
 
   /**
    * Information about the user
@@ -3517,7 +3517,7 @@ export type ChatMemberMember = {
   /**
    * The member's status in the chat, always “member”
    */
-  status: string;
+  status: 'member';
 
   /**
    * Information about the user
@@ -3537,7 +3537,7 @@ export type ChatMemberRestricted = {
   /**
    * The member's status in the chat, always “restricted”
    */
-  status: string;
+  status: 'restricted';
 
   /**
    * Information about the user
@@ -3632,7 +3632,7 @@ export type ChatMemberLeft = {
   /**
    * The member's status in the chat, always “left”
    */
-  status: string;
+  status: 'left';
 
   /**
    * Information about the user
@@ -3647,7 +3647,7 @@ export type ChatMemberBanned = {
   /**
    * The member's status in the chat, always “kicked”
    */
-  status: string;
+  status: 'kicked';
 
   /**
    * Information about the user
@@ -3922,7 +3922,7 @@ export type StoryAreaTypeLocation = {
   /**
    * Type of the area, always “location”
    */
-  type: string;
+  type: 'location';
 
   /**
    * Location latitude in degrees
@@ -3947,7 +3947,7 @@ export type StoryAreaTypeSuggestedReaction = {
   /**
    * Type of the area, always “suggested_reaction”
    */
-  type: string;
+  type: 'suggested_reaction';
 
   /**
    * Type of the reaction
@@ -3972,7 +3972,7 @@ export type StoryAreaTypeLink = {
   /**
    * Type of the area, always “link”
    */
-  type: string;
+  type: 'link';
 
   /**
    * HTTP or tg:// URL to be opened when the area is clicked
@@ -3987,7 +3987,7 @@ export type StoryAreaTypeWeather = {
   /**
    * Type of the area, always “weather”
    */
-  type: string;
+  type: 'weather';
 
   /**
    * Temperature, in degree Celsius
@@ -4012,7 +4012,7 @@ export type StoryAreaTypeUniqueGift = {
   /**
    * Type of the area, always “unique_gift”
    */
-  type: string;
+  type: 'unique_gift';
 
   /**
    * Unique name of the gift
@@ -4057,7 +4057,7 @@ export type ReactionTypeEmoji = {
   /**
    * Type of the reaction, always “emoji”
    */
-  type: string;
+  type: 'emoji';
 
   /**
    * Reaction emoji. Currently, it can be one of "❤", "👍", "👎", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩", "🙏", "👌", "🕊", "🤡", "🥱", "🥴", "😍", "🐳", "❤‍🔥", "🌚", "🌭", "💯", "🤣", "⚡", "🍌", "🏆", "💔", "🤨", "😐", "🍓", "🍾", "💋", "🖕", "😈", "😴", "😭", "🤓", "👻", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨", "🤝", "✍", "🤗", "🫡", "🎅", "🎄", "☃", "💅", "🤪", "🗿", "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀", "😡"
@@ -4072,7 +4072,7 @@ export type ReactionTypeCustomEmoji = {
   /**
    * Type of the reaction, always “custom_emoji”
    */
-  type: string;
+  type: 'custom_emoji';
 
   /**
    * Custom emoji identifier
@@ -4087,7 +4087,7 @@ export type ReactionTypePaid = {
   /**
    * Type of the reaction, always “paid”
    */
-  type: string;
+  type: 'paid';
 };
 
 /**
@@ -4447,7 +4447,7 @@ export type OwnedGiftRegular = {
   /**
    * Type of the gift, always “regular”
    */
-  type: string;
+  type: 'regular';
 
   /**
    * Information about the regular gift
@@ -4517,7 +4517,7 @@ export type OwnedGiftUnique = {
   /**
    * Type of the gift, always “unique”
    */
-  type: string;
+  type: 'unique';
 
   /**
    * Information about the unique gift
@@ -4802,7 +4802,7 @@ export type ChatBoostSourcePremium = {
   /**
    * Source of the boost, always “premium”
    */
-  source: string;
+  source: 'premium';
 
   /**
    * User that boosted the chat
@@ -4817,7 +4817,7 @@ export type ChatBoostSourceGiftCode = {
   /**
    * Source of the boost, always “gift_code”
    */
-  source: string;
+  source: 'gift_code';
 
   /**
    * User for which the gift code was created
@@ -4832,7 +4832,7 @@ export type ChatBoostSourceGiveaway = {
   /**
    * Source of the boost, always “giveaway”
    */
-  source: string;
+  source: 'giveaway';
 
   /**
    * Identifier of a message in the chat with the giveaway; the message could have been deleted already. May be 0 if the message isn't sent yet.
@@ -7248,7 +7248,8 @@ export type InputInvoiceMessageContent = {
     | 'UZS'
     | 'VND'
     | 'YER'
-    | 'ZAR';
+    | 'ZAR'
+    | 'XTR';
 
   /**
    * Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in Telegram Stars.
@@ -7541,7 +7542,8 @@ export type Invoice = {
     | 'UZS'
     | 'VND'
     | 'YER'
-    | 'ZAR';
+    | 'ZAR'
+    | 'XTR';
 
   /**
    * Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in {@link https://core.telegram.org/bots/payments/currencies.json | currencies.json}, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
@@ -7730,7 +7732,8 @@ export type SuccessfulPayment = {
     | 'UZS'
     | 'VND'
     | 'YER'
-    | 'ZAR';
+    | 'ZAR'
+    | 'XTR';
 
   /**
    * Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in {@link https://core.telegram.org/bots/payments/currencies.json | currencies.json}, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
@@ -7879,7 +7882,8 @@ export type RefundedPayment = {
     | 'UZS'
     | 'VND'
     | 'YER'
-    | 'ZAR';
+    | 'ZAR'
+    | 'XTR';
 
   /**
    * Total refunded price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45, total_amount = 145. See the exp parameter in {@link https://core.telegram.org/bots/payments/currencies.json | currencies.json}, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
@@ -8038,7 +8042,8 @@ export type PreCheckoutQuery = {
     | 'UZS'
     | 'VND'
     | 'YER'
-    | 'ZAR';
+    | 'ZAR'
+    | 'XTR';
 
   /**
    * Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in {@link https://core.telegram.org/bots/payments/currencies.json | currencies.json}, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
@@ -8083,7 +8088,7 @@ export type RevenueWithdrawalStatePending = {
   /**
    * Type of the state, always “pending”
    */
-  type: string;
+  type: 'pending';
 };
 
 /**
@@ -8093,7 +8098,7 @@ export type RevenueWithdrawalStateSucceeded = {
   /**
    * Type of the state, always “succeeded”
    */
-  type: string;
+  type: 'succeeded';
 
   /**
    * Date the withdrawal was completed in Unix time
@@ -8113,7 +8118,7 @@ export type RevenueWithdrawalStateFailed = {
   /**
    * Type of the state, always “failed”
    */
-  type: string;
+  type: 'failed';
 };
 
 /**
@@ -8153,7 +8158,7 @@ export type TransactionPartnerUser = {
   /**
    * Type of the transaction partner, always “user”
    */
-  type: string;
+  type: 'user';
 
   /**
    * Type of the transaction, currently one of “invoice_payment” for payments via invoices, “paid_media_payment” for payments for paid media, “gift_purchase” for gifts sent by the bot, “premium_purchase” for Telegram Premium subscriptions gifted by the bot, “business_account_transfer” for direct transfers from managed business accounts
@@ -8208,7 +8213,7 @@ export type TransactionPartnerChat = {
   /**
    * Type of the transaction partner, always “chat”
    */
-  type: string;
+  type: 'chat';
 
   /**
    * Information about the chat
@@ -8228,7 +8233,7 @@ export type TransactionPartnerAffiliateProgram = {
   /**
    * Type of the transaction partner, always “affiliate_program”
    */
-  type: string;
+  type: 'affiliate_program';
 
   /**
    * Information about the bot that sponsored the affiliate program
@@ -8248,7 +8253,7 @@ export type TransactionPartnerFragment = {
   /**
    * Type of the transaction partner, always “fragment”
    */
-  type: string;
+  type: 'fragment';
 
   /**
    * State of the transaction if the transaction is outgoing
@@ -8263,7 +8268,7 @@ export type TransactionPartnerTelegramAds = {
   /**
    * Type of the transaction partner, always “telegram_ads”
    */
-  type: string;
+  type: 'telegram_ads';
 };
 
 /**
@@ -8273,7 +8278,7 @@ export type TransactionPartnerTelegramApi = {
   /**
    * Type of the transaction partner, always “telegram_api”
    */
-  type: string;
+  type: 'telegram_api';
 
   /**
    * The number of successful requests that exceeded regular limits and were therefore billed
@@ -8288,7 +8293,7 @@ export type TransactionPartnerOther = {
   /**
    * Type of the transaction partner, always “other”
    */
-  type: string;
+  type: 'other';
 };
 
 /**

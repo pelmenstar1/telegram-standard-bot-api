@@ -1,7 +1,6 @@
 import { LiteralValueType, ValueType, ValueTypeKind } from '../types';
 
-const IMPLICIT_STRING_PREFIX_ENUM_1 = 'must be one of';
-const IMPLICIT_STRING_PREFIX_ENUM_2 = 'Entities other than';
+const IMPLICIT_STRING_ENUM_PREFIXES = ['must be one of', 'Entities other than'];
 
 const parseMode: ValueType = {
   kind: ValueTypeKind.UNION,
@@ -49,6 +48,10 @@ function parseEnum(text: string): ValueType | null {
     );
   }
 
+  if (types.length === 0) {
+    return null;
+  }
+
   return { kind: ValueTypeKind.UNION, types };
 }
 
@@ -59,18 +62,26 @@ export function getImplicitStringLiteralType(
     return parseMode;
   }
 
-  let matchString = IMPLICIT_STRING_PREFIX_ENUM_1;
-  let startIndex = content.indexOf(matchString);
-  if (startIndex === -1) {
-    matchString = IMPLICIT_STRING_PREFIX_ENUM_2;
+  let matchString = IMPLICIT_STRING_ENUM_PREFIXES[0];
+  let startIndex = -1;
+
+  for (const prefix of IMPLICIT_STRING_ENUM_PREFIXES) {
+    matchString = prefix;
+
     startIndex = content.indexOf(matchString);
+    if (startIndex !== -1) {
+      break;
+    }
   }
 
   if (startIndex !== -1) {
     return parseEnum(content.slice(startIndex + matchString.length));
   }
 
-  const match = content.match(/(?:type|Error source).+must be <em>([\w_]+)/i);
+  let match = content.match(/(?:type|Error source).+must be <em>([\w_]+)/i);
+  if (match === null) {
+    match = content.match(/always “(.*?)”/i);
+  }
 
   if (match !== null) {
     return { kind: ValueTypeKind.LITERAL, value: match[1] };

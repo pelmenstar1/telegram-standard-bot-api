@@ -16,7 +16,7 @@ function parseFieldType(
   if (name === 'currency') {
     return {
       kind: ValueTypeKind.UNION,
-      types: meta.currencies.map((value) => ({
+      types: [...meta.currencies, 'XTR'].map((value) => ({
         kind: ValueTypeKind.LITERAL,
         value,
       })),
