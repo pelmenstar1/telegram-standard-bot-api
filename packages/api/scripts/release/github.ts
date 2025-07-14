@@ -6,8 +6,8 @@ const octokit = new Octokit({
 
 export async function createGithubRelease(version: string) {
   await octokit.repos.createRelease({
-    repo: 'https://github.com/pelmenstar1/telegram-standard-bot-api',
-    owner: 'pelmenstar1@gmail.com',
+    repo: 'telegram-standard-bot-api',
+    owner: 'pelmenstar1',
     tag_name: version,
     generate_release_notes: true,
     make_latest: 'true',
