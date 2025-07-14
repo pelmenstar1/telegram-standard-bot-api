@@ -8,11 +8,11 @@ export interface BotMethodInfo<R> {
   payload?: BodyInit;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters, @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function botMethod<F extends (payload?: any) => unknown>(
   name: string,
   payloadTransformer?: PayloadTransformer
-): F;
+): (...args: Parameters<F>) => BotMethodInfo<ReturnType<F>>;
 
 export function botMethod<T extends PayloadType, R>(
   name: string,

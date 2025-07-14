@@ -5,7 +5,7 @@ export type TelegramBot = {
   setApiKey(value: string): void;
 };
 
-type FetchBodyInit = Pick<RequestInit, 'method' | 'body'>;
+type FetchBodyInit = Pick<RequestInit, 'method' | 'body' | 'headers'>;
 
 export type TelegramBotOptions = {
   apiKey: string;
@@ -25,18 +25,24 @@ type TelegramResponse<T> =
 export function createTelegramBot(options?: TelegramBotOptions): TelegramBot {
   let apiKey = options?.apiKey;
 
-  const result = async <R>(method: BotMethodInfo<R>): Promise<R> => {
+  const result = async <R>({ name, payload }: BotMethodInfo<R>): Promise<R> => {
     if (apiKey === undefined) {
       throw new Error('No bot API key');
     }
 
     const fetchFn = options?.fetch ?? fetch;
 
+    const headers: HeadersInit = {};
+    if (typeof payload === 'string') {
+      headers['Content-Type'] = 'application/json';
+    }
+
     const response = await fetchFn(
-      `https://api.telegram.org/bot${apiKey}/${method.name}`,
+      `https://api.telegram.org/bot${apiKey}/${name}`,
       {
         method: 'POST',
-        body: method.payload,
+        body: payload,
+        headers,
       }
     );
 
