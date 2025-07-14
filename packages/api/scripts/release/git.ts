@@ -1,10 +1,10 @@
 import { execFileAsync } from '@telegram-standard-bot-api/shared';
 
-import { apiPackagePath } from './utils.js';
+import { rootPackagePath } from './utils.js';
 
 function git(args: string[]) {
   return execFileAsync('git', args, {
-    cwd: apiPackagePath,
+    cwd: rootPackagePath,
     encoding: 'utf8',
     shell: true,
   });

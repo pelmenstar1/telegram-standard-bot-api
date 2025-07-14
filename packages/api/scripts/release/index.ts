@@ -1,12 +1,9 @@
-import path from 'node:path';
 import { argv } from 'node:process';
 
 import { gitRelease } from './git.js';
 import { createGithubRelease } from './github.js';
 import { npmRelease } from './npm.js';
-import { apiPackagePath, npm } from './utils.js';
-
-const rootPackagePath = path.join(apiPackagePath, '../../');
+import { npm, rootPackagePath } from './utils.js';
 
 async function main() {
   const version = argv[2] as string | undefined;
