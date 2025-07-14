@@ -1,10 +1,10 @@
-name: Auto release
+name: Lint & test
 on:
-  schedule:
-    - cron: "0 0 * * *"
+  - push
 
 jobs:
-  release:
+  lint-test:
+    name: Lint & test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -22,10 +22,10 @@ jobs:
 
     - name: Prebuild
       run: yarn prebuild
+
+    - name: Lint
+      run: yarn lint
     
-    - name: Auto release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: yarn auto-release
-      
+    - name: Test
+      run: yarn test
+

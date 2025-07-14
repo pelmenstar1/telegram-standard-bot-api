@@ -4,7 +4,8 @@
   "scripts": {
     "lint": "eslint . --cache && yarn workspaces foreach --all run build:no-emit",
     "test": "vitest --run",
-    "auto-release": "yarn workspace @telegram-standard-bot-api/shared build && yarn workspace @telegram-standard-bot-api/auto-release release"
+    "prebuild": "yarn workspace @telegram-standard-bot-api/shared build",
+    "auto-release": "yarn workspace @telegram-standard-bot-api/auto-release release"
   },
   "devDependencies": {
     "@eslint/js": "9.30.0",
