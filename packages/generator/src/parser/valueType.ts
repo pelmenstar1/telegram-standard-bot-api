@@ -75,7 +75,10 @@ export function parseMethodDataToType(value: string): ValueType {
   if (arraySpecIndex > 0) {
     const elementName = value.slice(0, arraySpecIndex);
 
-    return parseMethodDataToType(elementName);
+    return {
+      kind: ValueTypeKind.ARRAY,
+      element: parseMethodDataToType(elementName),
+    };
   }
 
   return { kind: ValueTypeKind.REF, name: value };

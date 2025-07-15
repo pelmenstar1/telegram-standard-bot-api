@@ -87,7 +87,7 @@ export type GetUpdates = {
  * Use this method to receive incoming updates using long polling (wiki). Returns an Array of {@link Update} objects.
  */
 export const getUpdates =
-  /* @__PURE__ */ botMethod<(payload?: GetUpdates) => Update>('getUpdates');
+  /* @__PURE__ */ botMethod<(payload?: GetUpdates) => Update[]>('getUpdates');
 
 export type SetWebhook = {
   /**
@@ -315,7 +315,7 @@ export type ForwardMessages = {
  * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an array of {@link MessageId} of the sent messages is returned.
  */
 export const forwardMessages =
-  /* @__PURE__ */ botMethod<(payload: ForwardMessages) => MessageId>(
+  /* @__PURE__ */ botMethod<(payload: ForwardMessages) => MessageId[]>(
     'forwardMessages'
   );
 
@@ -442,7 +442,7 @@ export type CopyMessages = {
  * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of {@link MessageId} of the sent messages is returned.
  */
 export const copyMessages =
-  /* @__PURE__ */ botMethod<(payload: CopyMessages) => MessageId>(
+  /* @__PURE__ */ botMethod<(payload: CopyMessages) => MessageId[]>(
     'copyMessages'
   );
 
@@ -1247,7 +1247,7 @@ export type SendMediaGroup = {
  * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Messages that were sent is returned.
  */
 export const sendMediaGroup =
-  /* @__PURE__ */ botMethod<(payload: SendMediaGroup) => Message>(
+  /* @__PURE__ */ botMethod<(payload: SendMediaGroup) => Message[]>(
     'sendMediaGroup'
   );
 
@@ -2522,7 +2522,7 @@ export type GetChatAdministrators = {
  * Use this method to get a list of administrators in a chat, which aren't bots. Returns an Array of {@link ChatMember} objects.
  */
 export const getChatAdministrators = /* @__PURE__ */ botMethod<
-  (payload: GetChatAdministrators) => ChatMember
+  (payload: GetChatAdministrators) => ChatMember[]
 >('getChatAdministrators');
 
 export type GetChatMemberCount = {
@@ -2595,7 +2595,7 @@ export const deleteChatStickerSet = /* @__PURE__ */ botMethod<
 >('deleteChatStickerSet');
 
 export const getForumTopicIconStickers = /* @__PURE__ */ botMethod<
-  () => Sticker
+  () => Sticker[]
 >('getForumTopicIconStickers');
 
 export type CreateForumTopic = {
@@ -2961,7 +2961,7 @@ export type GetMyCommands = {
  * Use this method to get the current list of the bot's commands for the given scope and user language. Returns an Array of {@link BotCommand} objects. If commands aren't set, an empty list is returned.
  */
 export const getMyCommands =
-  /* @__PURE__ */ botMethod<(payload?: GetMyCommands) => BotCommand>(
+  /* @__PURE__ */ botMethod<(payload?: GetMyCommands) => BotCommand[]>(
     'getMyCommands'
   );
 
@@ -4220,7 +4220,7 @@ export type GetCustomEmojiStickers = {
  * Use this method to get information about custom emoji stickers by their identifiers. Returns an Array of {@link Sticker} objects.
  */
 export const getCustomEmojiStickers = /* @__PURE__ */ botMethod<
-  (payload: GetCustomEmojiStickers) => Sticker
+  (payload: GetCustomEmojiStickers) => Sticker[]
 >('getCustomEmojiStickers');
 
 export type UploadStickerFile = {
@@ -5341,7 +5341,7 @@ export type GetGameHighScores = {
  * Use this method to get data for high score tables. Will return the score of the specified user and several of their neighbors in a game. Returns an Array of {@link GameHighScore} objects. This method will currently return scores for the target user, plus two of their closest neighbors on each side. Will also return the top three users if the user and their neighbors are not among them. Please note that this behavior is subject to change.
  */
 export const getGameHighScores =
-  /* @__PURE__ */ botMethod<(payload: GetGameHighScores) => GameHighScore>(
+  /* @__PURE__ */ botMethod<(payload: GetGameHighScores) => GameHighScore[]>(
     'getGameHighScores'
   );
 
