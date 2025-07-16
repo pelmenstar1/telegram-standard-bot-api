@@ -33,6 +33,11 @@ async function fetchPageContent(url: string): Promise<string> {
 
   throw new Error(`Cannot fetch the page: ${response.statusText}`);
 }
+async function fetchApiPage() {
+  const content = await fetchPageContent('https://core.telegram.org/bots/api');
+
+  return content.replace(/\n<!-- page generated in .*? -->/, '');
+}
 
 export async function getTelegramData(
   mode: Mode = 'local'
@@ -48,7 +53,7 @@ export async function getTelegramData(
   }
 
   if (api === undefined) {
-    api = await fetchPageContent('https://core.telegram.org/bots/api');
+    api = await fetchApiPage();
     await fsp.writeFile(localApiPath, api, 'utf8');
   }
 

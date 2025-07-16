@@ -1,10 +1,9 @@
-import methods from '../../data/methods.json';
-import { ParsedMethod, ValueType } from '../types';
+import { ParsedMethod, ValueType, ValueTypeKind } from '../types';
 import { isCapitalized } from '../utils/string';
 import { parseMethodTableToFields } from './fields';
 import { ParserMeta } from './meta';
 import { sliceSection, splitByHeader } from './misc';
-import { parseMethodDataToType } from './valueType';
+import { parseValueType } from './valueType';
 
 const sections = [
   ['getting-updates', 'available-types'],
@@ -16,8 +15,36 @@ const sections = [
   ['games', undefined],
 ] as const;
 
-function getMethodReturnType(name: string): ValueType {
-  return parseMethodDataToType(methods[name as keyof typeof methods]);
+function getMethodReturnType(description: string): ValueType {
+  const otherwiseMatch = description.match(
+    /On success, (.*?) is returned, otherwise (.*?) is returned/i
+  );
+
+  if (otherwiseMatch !== null) {
+    return {
+      kind: ValueTypeKind.UNION,
+      types: [otherwiseMatch[1], otherwiseMatch[2]].map((value) =>
+        parseValueType(value)
+      ),
+    };
+  }
+
+  const patterns = [
+    /\.(?:<br>)? ?Returns ((?:.)*?) on success/i,
+    /\.(?:<br>)? ?Returns ((?:.)*?) objects?/i,
+    /\.(?:<br>)? ?On success, ((?:.)*?) is returned/i,
+    /\.(?:<br>)? ?On success, returns ((?:.)*?) object/i,
+  ];
+
+  for (const pattern of patterns) {
+    const match = description.match(pattern);
+
+    if (match !== null) {
+      return parseValueType(match[1]);
+    }
+  }
+
+  throw new Error(`Cannot parse ${description}`);
 }
 
 export function parseMethods(
@@ -59,15 +86,16 @@ function parsePart(part: string, meta: ParserMeta): ParsedMethod | null {
   }
 
   if (part.includes('Requires no parameters')) {
-    const match = part.match(/<\/a>(.+)<\/h4>/m);
+    const match = part.match(/<\/a>(.+)<\/h4>((?:.|\n)+)/m);
 
     if (match !== null) {
       const name = match[1];
+      const description = match[2];
 
       return {
         name,
-        returnType: getMethodReturnType(name),
-        description: '',
+        returnType: getMethodReturnType(description),
+        description,
         fields: [],
       };
     }
@@ -87,7 +115,7 @@ function parsePart(part: string, meta: ParserMeta): ParsedMethod | null {
   return {
     name,
     description,
-    returnType: getMethodReturnType(name),
+    returnType: getMethodReturnType(description),
     fields: parseMethodTableToFields(table, meta),
   };
 }

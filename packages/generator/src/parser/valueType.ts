@@ -2,6 +2,7 @@ import { PrimitiveTypeKind, ValueType, ValueTypeKind } from '../types';
 
 const primitiveTypes: Record<string, PrimitiveTypeKind | undefined> = {
   String: ValueTypeKind.STRING,
+  Int: ValueTypeKind.INT,
   Integer: ValueTypeKind.INT,
   Float: ValueTypeKind.FLOAT,
   Boolean: ValueTypeKind.BOOLEAN,
@@ -9,31 +10,30 @@ const primitiveTypes: Record<string, PrimitiveTypeKind | undefined> = {
   False: ValueTypeKind.FALSE,
 };
 
-const primitiveTypeDataNames: Record<string, PrimitiveTypeKind | undefined> = {
-  string: ValueTypeKind.STRING,
-  int: ValueTypeKind.INT,
-  float: ValueTypeKind.FLOAT,
-  boolean: ValueTypeKind.BOOLEAN,
-  true: ValueTypeKind.TRUE,
-  false: ValueTypeKind.FALSE,
-};
+const ARRAY_PATTERN = /(?:an )?array of (.+)/i;
 
-const ARRAY_PREFIX = 'Array of';
-
-const REF_REGEX = /<a.*?>(.*?)<\/a>/;
+const REF_PATTERN = /<a.*?>(.*?)<\/a>/;
+const EM_PATTERN = /<em.*?>(.*?)<\/em>/;
 
 export function parseValueType(content: string): ValueType {
   content = content.trim();
+
+  const emMatch = content.match(EM_PATTERN);
+  if (emMatch !== null) {
+    return parseValueType(emMatch[1]);
+  }
 
   const primitiveType = primitiveTypes[content];
   if (primitiveType !== undefined) {
     return { kind: primitiveType };
   }
 
-  if (content.startsWith(ARRAY_PREFIX)) {
+  const arrayMatch = content.match(ARRAY_PATTERN);
+
+  if (arrayMatch !== null) {
     return {
       kind: ValueTypeKind.ARRAY,
-      element: parseValueType(content.slice(ARRAY_PREFIX.length)),
+      element: parseValueType(arrayMatch[1]),
     };
   }
 
@@ -45,41 +45,20 @@ export function parseValueType(content: string): ValueType {
     };
   }
 
-  const refResult = content.match(REF_REGEX);
+  const refResult = content.match(REF_PATTERN);
 
   if (refResult !== null) {
+    let name = refResult[1];
+
+    if (name === 'Messages') {
+      name = 'Message';
+    }
+
     return {
       kind: ValueTypeKind.REF,
-      name: refResult[1],
+      name,
     };
   }
 
   throw new Error(`Unknown type '${content}'`);
-}
-
-export function parseMethodDataToType(value: string): ValueType {
-  const primitiveTypeKind = primitiveTypeDataNames[value];
-  if (primitiveTypeKind !== undefined) {
-    return { kind: primitiveTypeKind };
-  }
-
-  const unionParts = value.split('|');
-  if (unionParts.length > 1) {
-    return {
-      kind: ValueTypeKind.UNION,
-      types: unionParts.map((part) => parseMethodDataToType(part.trim())),
-    };
-  }
-
-  const arraySpecIndex = value.indexOf('[]');
-  if (arraySpecIndex > 0) {
-    const elementName = value.slice(0, arraySpecIndex);
-
-    return {
-      kind: ValueTypeKind.ARRAY,
-      element: parseMethodDataToType(elementName),
-    };
-  }
-
-  return { kind: ValueTypeKind.REF, name: value };
 }

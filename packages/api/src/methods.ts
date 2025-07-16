@@ -50,6 +50,7 @@ import {
   SentWebAppMessage,
   ShippingOption,
   StarAmount,
+  StarTransactions,
   Sticker,
   StickerSet,
   Story,
@@ -130,7 +131,7 @@ export type SetWebhook = {
  * Use this method to specify a URL and receive incoming updates via an outgoing webhook. Whenever there is an update for the bot, we will send an HTTPS POST request to the specified URL, containing a JSON-serialized {@link Update}. In case of an unsuccessful request (a request with response HTTP status code different from 2XY), we will repeat the request and give up after a reasonable amount of attempts. Returns True on success. If you'd like to make sure that the webhook was set by you, you can specify secret data in the parameter secret_token. If specified, the request will contain a header “X-Telegram-Bot-Api-Secret-Token” with the secret token as content.
  */
 export const setWebhook = /* @__PURE__ */ botMethod<
-  (payload: SetWebhook) => boolean
+  (payload: SetWebhook) => true
 >('setWebhook', formDataPayloadTransformer);
 
 export type DeleteWebhook = {
@@ -144,18 +145,28 @@ export type DeleteWebhook = {
  * Use this method to remove webhook integration if you decide to switch back to getUpdates. Returns True on success.
  */
 export const deleteWebhook =
-  /* @__PURE__ */ botMethod<(payload?: DeleteWebhook) => boolean>(
-    'deleteWebhook'
-  );
+  /* @__PURE__ */ botMethod<(payload?: DeleteWebhook) => true>('deleteWebhook');
 
+/**
+ * Use this method to get current webhook status. Requires no parameters. On success, returns a {@link WebhookInfo} object. If the bot is using getUpdates, will return an object with the url field empty.
+ */
 export const getWebhookInfo =
   /* @__PURE__ */ botMethod<() => WebhookInfo>('getWebhookInfo');
 
+/**
+ * A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a {@link User} object.
+ */
 export const getMe = /* @__PURE__ */ botMethod<() => User>('getMe');
 
-export const logOut = /* @__PURE__ */ botMethod<() => boolean>('logOut');
+/**
+ * Use this method to log out from the cloud Bot API server before launching the bot locally. You must log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 minutes. Returns True on success. Requires no parameters.
+ */
+export const logOut = /* @__PURE__ */ botMethod<() => true>('logOut');
 
-export const close = /* @__PURE__ */ botMethod<() => boolean>('close');
+/**
+ * Use this method to close the bot instance before moving it from one local server to another. You need to delete the webhook before calling this method to ensure that the bot isn't launched again after server restart. The method will return error 429 in the first 10 minutes after the bot is launched. Returns True on success. Requires no parameters.
+ */
+export const close = /* @__PURE__ */ botMethod<() => true>('close');
 
 export type SendMessage = {
   /**
@@ -1777,7 +1788,7 @@ export type SendChatAction = {
  * Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status). Returns True on success. Example: The ImageBot needs some time to process a request and upload the image. Instead of sending a text message along the lines of “Retrieving image, please wait…”, the bot may use sendChatAction with action = upload_photo. The user will see a “sending photo” status for the bot. We only recommend using this method when a response from the bot will take a noticeable amount of time to arrive.
  */
 export const sendChatAction =
-  /* @__PURE__ */ botMethod<(payload: SendChatAction) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: SendChatAction) => true>(
     'sendChatAction'
   );
 
@@ -1807,7 +1818,7 @@ export type SetMessageReaction = {
  * Use this method to change the chosen reactions on a message. Service messages of some types can't be reacted to. Automatically forwarded messages from a channel to its discussion group have the same available reactions as messages in the channel. Bots can't use paid reactions. Returns True on success.
  */
 export const setMessageReaction =
-  /* @__PURE__ */ botMethod<(payload: SetMessageReaction) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: SetMessageReaction) => true>(
     'setMessageReaction'
   );
 
@@ -1856,7 +1867,7 @@ export type SetUserEmojiStatus = {
  * Changes the emoji status for a given user that previously allowed the bot to manage their emoji status via the Mini App method {@link https://core.telegram.org/bots/webapps#initializing-mini-apps | requestEmojiStatusAccess}. Returns True on success.
  */
 export const setUserEmojiStatus =
-  /* @__PURE__ */ botMethod<(payload: SetUserEmojiStatus) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: SetUserEmojiStatus) => true>(
     'setUserEmojiStatus'
   );
 
@@ -1899,9 +1910,7 @@ export type BanChatMember = {
  * Use this method to ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links, etc., unless unbanned first. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
  */
 export const banChatMember =
-  /* @__PURE__ */ botMethod<(payload: BanChatMember) => boolean>(
-    'banChatMember'
-  );
+  /* @__PURE__ */ botMethod<(payload: BanChatMember) => true>('banChatMember');
 
 export type UnbanChatMember = {
   /**
@@ -1924,7 +1933,7 @@ export type UnbanChatMember = {
  * Use this method to unban a previously banned user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. By default, this method guarantees that after the call the user is not a member of the chat, but will be able to join it. So if the user is a member of the chat they will also be removed from the chat. If you don't want this, use the parameter only_if_banned. Returns True on success.
  */
 export const unbanChatMember =
-  /* @__PURE__ */ botMethod<(payload: UnbanChatMember) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: UnbanChatMember) => true>(
     'unbanChatMember'
   );
 
@@ -1959,7 +1968,7 @@ export type RestrictChatMember = {
  * Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate administrator rights. Pass True for all permissions to lift restrictions from a user. Returns True on success.
  */
 export const restrictChatMember =
-  /* @__PURE__ */ botMethod<(payload: RestrictChatMember) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: RestrictChatMember) => true>(
     'restrictChatMember'
   );
 
@@ -2054,7 +2063,7 @@ export type PromoteChatMember = {
  * Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Pass False for all boolean parameters to demote a user. Returns True on success.
  */
 export const promoteChatMember =
-  /* @__PURE__ */ botMethod<(payload: PromoteChatMember) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: PromoteChatMember) => true>(
     'promoteChatMember'
   );
 
@@ -2079,7 +2088,7 @@ export type SetChatAdministratorCustomTitle = {
  * Use this method to set a custom title for an administrator in a supergroup promoted by the bot. Returns True on success.
  */
 export const setChatAdministratorCustomTitle = /* @__PURE__ */ botMethod<
-  (payload: SetChatAdministratorCustomTitle) => boolean
+  (payload: SetChatAdministratorCustomTitle) => true
 >('setChatAdministratorCustomTitle');
 
 export type BanChatSenderChat = {
@@ -2098,7 +2107,7 @@ export type BanChatSenderChat = {
  * Use this method to ban a channel chat in a supergroup or a channel. Until the chat is unbanned, the owner of the banned chat won't be able to send messages on behalf of any of their channels. The bot must be an administrator in the supergroup or channel for this to work and must have the appropriate administrator rights. Returns True on success.
  */
 export const banChatSenderChat =
-  /* @__PURE__ */ botMethod<(payload: BanChatSenderChat) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: BanChatSenderChat) => true>(
     'banChatSenderChat'
   );
 
@@ -2118,7 +2127,7 @@ export type UnbanChatSenderChat = {
  * Use this method to unban a previously banned channel chat in a supergroup or channel. The bot must be an administrator for this to work and must have the appropriate administrator rights. Returns True on success.
  */
 export const unbanChatSenderChat = /* @__PURE__ */ botMethod<
-  (payload: UnbanChatSenderChat) => boolean
+  (payload: UnbanChatSenderChat) => true
 >('unbanChatSenderChat');
 
 export type SetChatPermissions = {
@@ -2142,7 +2151,7 @@ export type SetChatPermissions = {
  * Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members administrator rights. Returns True on success.
  */
 export const setChatPermissions =
-  /* @__PURE__ */ botMethod<(payload: SetChatPermissions) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: SetChatPermissions) => true>(
     'setChatPermissions'
   );
 
@@ -2322,7 +2331,7 @@ export type ApproveChatJoinRequest = {
  * Use this method to approve a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right. Returns True on success.
  */
 export const approveChatJoinRequest = /* @__PURE__ */ botMethod<
-  (payload: ApproveChatJoinRequest) => boolean
+  (payload: ApproveChatJoinRequest) => true
 >('approveChatJoinRequest');
 
 export type DeclineChatJoinRequest = {
@@ -2341,7 +2350,7 @@ export type DeclineChatJoinRequest = {
  * Use this method to decline a chat join request. The bot must be an administrator in the chat for this to work and must have the can_invite_users administrator right. Returns True on success.
  */
 export const declineChatJoinRequest = /* @__PURE__ */ botMethod<
-  (payload: DeclineChatJoinRequest) => boolean
+  (payload: DeclineChatJoinRequest) => true
 >('declineChatJoinRequest');
 
 export type SetChatPhoto = {
@@ -2360,7 +2369,7 @@ export type SetChatPhoto = {
  * Use this method to set a new profile photo for the chat. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
  */
 export const setChatPhoto = /* @__PURE__ */ botMethod<
-  (payload: SetChatPhoto) => boolean
+  (payload: SetChatPhoto) => true
 >('setChatPhoto', formDataPayloadTransformer);
 
 export type DeleteChatPhoto = {
@@ -2374,7 +2383,7 @@ export type DeleteChatPhoto = {
  * Use this method to delete a chat photo. Photos can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
  */
 export const deleteChatPhoto =
-  /* @__PURE__ */ botMethod<(payload: DeleteChatPhoto) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: DeleteChatPhoto) => true>(
     'deleteChatPhoto'
   );
 
@@ -2394,7 +2403,7 @@ export type SetChatTitle = {
  * Use this method to change the title of a chat. Titles can't be changed for private chats. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
  */
 export const setChatTitle =
-  /* @__PURE__ */ botMethod<(payload: SetChatTitle) => boolean>('setChatTitle');
+  /* @__PURE__ */ botMethod<(payload: SetChatTitle) => true>('setChatTitle');
 
 export type SetChatDescription = {
   /**
@@ -2412,7 +2421,7 @@ export type SetChatDescription = {
  * Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Returns True on success.
  */
 export const setChatDescription =
-  /* @__PURE__ */ botMethod<(payload: SetChatDescription) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: SetChatDescription) => true>(
     'setChatDescription'
   );
 
@@ -2442,7 +2451,7 @@ export type PinChatMessage = {
  * Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns True on success.
  */
 export const pinChatMessage =
-  /* @__PURE__ */ botMethod<(payload: PinChatMessage) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: PinChatMessage) => true>(
     'pinChatMessage'
   );
 
@@ -2467,7 +2476,7 @@ export type UnpinChatMessage = {
  * Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns True on success.
  */
 export const unpinChatMessage =
-  /* @__PURE__ */ botMethod<(payload: UnpinChatMessage) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: UnpinChatMessage) => true>(
     'unpinChatMessage'
   );
 
@@ -2482,7 +2491,7 @@ export type UnpinAllChatMessages = {
  * Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns True on success.
  */
 export const unpinAllChatMessages = /* @__PURE__ */ botMethod<
-  (payload: UnpinAllChatMessages) => boolean
+  (payload: UnpinAllChatMessages) => true
 >('unpinAllChatMessages');
 
 export type LeaveChat = {
@@ -2496,7 +2505,7 @@ export type LeaveChat = {
  * Use this method for your bot to leave a group, supergroup or channel. Returns True on success.
  */
 export const leaveChat =
-  /* @__PURE__ */ botMethod<(payload: LeaveChat) => boolean>('leaveChat');
+  /* @__PURE__ */ botMethod<(payload: LeaveChat) => true>('leaveChat');
 
 export type GetChat = {
   /**
@@ -2576,7 +2585,7 @@ export type SetChatStickerSet = {
  * Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success.
  */
 export const setChatStickerSet =
-  /* @__PURE__ */ botMethod<(payload: SetChatStickerSet) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: SetChatStickerSet) => true>(
     'setChatStickerSet'
   );
 
@@ -2591,9 +2600,12 @@ export type DeleteChatStickerSet = {
  * Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate administrator rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success.
  */
 export const deleteChatStickerSet = /* @__PURE__ */ botMethod<
-  (payload: DeleteChatStickerSet) => boolean
+  (payload: DeleteChatStickerSet) => true
 >('deleteChatStickerSet');
 
+/**
+ * Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user. Requires no parameters. Returns an Array of {@link Sticker} objects.
+ */
 export const getForumTopicIconStickers = /* @__PURE__ */ botMethod<
   () => Sticker[]
 >('getForumTopicIconStickers');
@@ -2660,7 +2672,7 @@ export type EditForumTopic = {
  * Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
  */
 export const editForumTopic =
-  /* @__PURE__ */ botMethod<(payload: EditForumTopic) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: EditForumTopic) => true>(
     'editForumTopic'
   );
 
@@ -2680,7 +2692,7 @@ export type CloseForumTopic = {
  * Use this method to close an open topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
  */
 export const closeForumTopic =
-  /* @__PURE__ */ botMethod<(payload: CloseForumTopic) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: CloseForumTopic) => true>(
     'closeForumTopic'
   );
 
@@ -2700,7 +2712,7 @@ export type ReopenForumTopic = {
  * Use this method to reopen a closed topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
  */
 export const reopenForumTopic =
-  /* @__PURE__ */ botMethod<(payload: ReopenForumTopic) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: ReopenForumTopic) => true>(
     'reopenForumTopic'
   );
 
@@ -2720,7 +2732,7 @@ export type DeleteForumTopic = {
  * Use this method to delete a forum topic along with all its messages in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_delete_messages administrator rights. Returns True on success.
  */
 export const deleteForumTopic =
-  /* @__PURE__ */ botMethod<(payload: DeleteForumTopic) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: DeleteForumTopic) => true>(
     'deleteForumTopic'
   );
 
@@ -2740,7 +2752,7 @@ export type UnpinAllForumTopicMessages = {
  * Use this method to clear the list of pinned messages in a forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success.
  */
 export const unpinAllForumTopicMessages = /* @__PURE__ */ botMethod<
-  (payload: UnpinAllForumTopicMessages) => boolean
+  (payload: UnpinAllForumTopicMessages) => true
 >('unpinAllForumTopicMessages');
 
 export type EditGeneralForumTopic = {
@@ -2759,7 +2771,7 @@ export type EditGeneralForumTopic = {
  * Use this method to edit the name of the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success.
  */
 export const editGeneralForumTopic = /* @__PURE__ */ botMethod<
-  (payload: EditGeneralForumTopic) => boolean
+  (payload: EditGeneralForumTopic) => true
 >('editGeneralForumTopic');
 
 export type CloseGeneralForumTopic = {
@@ -2773,7 +2785,7 @@ export type CloseGeneralForumTopic = {
  * Use this method to close an open 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success.
  */
 export const closeGeneralForumTopic = /* @__PURE__ */ botMethod<
-  (payload: CloseGeneralForumTopic) => boolean
+  (payload: CloseGeneralForumTopic) => true
 >('closeGeneralForumTopic');
 
 export type ReopenGeneralForumTopic = {
@@ -2787,7 +2799,7 @@ export type ReopenGeneralForumTopic = {
  * Use this method to reopen a closed 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. The topic will be automatically unhidden if it was hidden. Returns True on success.
  */
 export const reopenGeneralForumTopic = /* @__PURE__ */ botMethod<
-  (payload: ReopenGeneralForumTopic) => boolean
+  (payload: ReopenGeneralForumTopic) => true
 >('reopenGeneralForumTopic');
 
 export type HideGeneralForumTopic = {
@@ -2801,7 +2813,7 @@ export type HideGeneralForumTopic = {
  * Use this method to hide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. The topic will be automatically closed if it was open. Returns True on success.
  */
 export const hideGeneralForumTopic = /* @__PURE__ */ botMethod<
-  (payload: HideGeneralForumTopic) => boolean
+  (payload: HideGeneralForumTopic) => true
 >('hideGeneralForumTopic');
 
 export type UnhideGeneralForumTopic = {
@@ -2815,7 +2827,7 @@ export type UnhideGeneralForumTopic = {
  * Use this method to unhide the 'General' topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns True on success.
  */
 export const unhideGeneralForumTopic = /* @__PURE__ */ botMethod<
-  (payload: UnhideGeneralForumTopic) => boolean
+  (payload: UnhideGeneralForumTopic) => true
 >('unhideGeneralForumTopic');
 
 export type UnpinAllGeneralForumTopicMessages = {
@@ -2829,7 +2841,7 @@ export type UnpinAllGeneralForumTopicMessages = {
  * Use this method to clear the list of pinned messages in a General forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success.
  */
 export const unpinAllGeneralForumTopicMessages = /* @__PURE__ */ botMethod<
-  (payload: UnpinAllGeneralForumTopicMessages) => boolean
+  (payload: UnpinAllGeneralForumTopicMessages) => true
 >('unpinAllGeneralForumTopicMessages');
 
 export type AnswerCallbackQuery = {
@@ -2863,7 +2875,7 @@ export type AnswerCallbackQuery = {
  * Use this method to send answers to callback queries sent from {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboards}. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned. Alternatively, the user can be redirected to the specified {@link Game} URL. For this option to work, you must first create a game for your bot via @BotFather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
  */
 export const answerCallbackQuery = /* @__PURE__ */ botMethod<
-  (payload: AnswerCallbackQuery) => boolean
+  (payload: AnswerCallbackQuery) => true
 >('answerCallbackQuery');
 
 export type GetUserChatBoosts = {
@@ -2921,9 +2933,7 @@ export type SetMyCommands = {
  * Use this method to change the list of the bot's commands. See {@link https://core.telegram.org/bots/features#commands | this manual} for more details about bot commands. Returns True on success.
  */
 export const setMyCommands =
-  /* @__PURE__ */ botMethod<(payload: SetMyCommands) => boolean>(
-    'setMyCommands'
-  );
+  /* @__PURE__ */ botMethod<(payload: SetMyCommands) => true>('setMyCommands');
 
 export type DeleteMyCommands = {
   /**
@@ -2941,7 +2951,7 @@ export type DeleteMyCommands = {
  * Use this method to delete the list of the bot's commands for the given scope and user language. After deletion, higher level commands will be shown to affected users. Returns True on success.
  */
 export const deleteMyCommands =
-  /* @__PURE__ */ botMethod<(payload?: DeleteMyCommands) => boolean>(
+  /* @__PURE__ */ botMethod<(payload?: DeleteMyCommands) => true>(
     'deleteMyCommands'
   );
 
@@ -2981,7 +2991,7 @@ export type SetMyName = {
  * Use this method to change the bot's name. Returns True on success.
  */
 export const setMyName =
-  /* @__PURE__ */ botMethod<(payload?: SetMyName) => boolean>('setMyName');
+  /* @__PURE__ */ botMethod<(payload?: SetMyName) => true>('setMyName');
 
 export type GetMyName = {
   /**
@@ -3012,7 +3022,7 @@ export type SetMyDescription = {
  * Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty. Returns True on success.
  */
 export const setMyDescription =
-  /* @__PURE__ */ botMethod<(payload?: SetMyDescription) => boolean>(
+  /* @__PURE__ */ botMethod<(payload?: SetMyDescription) => true>(
     'setMyDescription'
   );
 
@@ -3047,7 +3057,7 @@ export type SetMyShortDescription = {
  * Use this method to change the bot's short description, which is shown on the bot's profile page and is sent together with the link when users share the bot. Returns True on success.
  */
 export const setMyShortDescription = /* @__PURE__ */ botMethod<
-  (payload?: SetMyShortDescription) => boolean
+  (payload?: SetMyShortDescription) => true
 >('setMyShortDescription');
 
 export type GetMyShortDescription = {
@@ -3080,7 +3090,7 @@ export type SetChatMenuButton = {
  * Use this method to change the bot's menu button in a private chat, or the default menu button. Returns True on success.
  */
 export const setChatMenuButton =
-  /* @__PURE__ */ botMethod<(payload?: SetChatMenuButton) => boolean>(
+  /* @__PURE__ */ botMethod<(payload?: SetChatMenuButton) => true>(
     'setChatMenuButton'
   );
 
@@ -3115,7 +3125,7 @@ export type SetMyDefaultAdministratorRights = {
  * Use this method to change the default administrator rights requested by the bot when it's added as an administrator to groups or channels. These rights will be suggested to users, but they are free to modify the list before adding the bot. Returns True on success.
  */
 export const setMyDefaultAdministratorRights = /* @__PURE__ */ botMethod<
-  (payload?: SetMyDefaultAdministratorRights) => boolean
+  (payload?: SetMyDefaultAdministratorRights) => true
 >('setMyDefaultAdministratorRights');
 
 export type GetMyDefaultAdministratorRights = {
@@ -3492,9 +3502,7 @@ export type DeleteMessage = {
  * Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Service messages about a supergroup, channel, or forum topic creation can't be deleted.- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.Returns True on success.
  */
 export const deleteMessage =
-  /* @__PURE__ */ botMethod<(payload: DeleteMessage) => boolean>(
-    'deleteMessage'
-  );
+  /* @__PURE__ */ botMethod<(payload: DeleteMessage) => true>('deleteMessage');
 
 export type DeleteMessages = {
   /**
@@ -3512,10 +3520,13 @@ export type DeleteMessages = {
  * Use this method to delete multiple messages simultaneously. If some of the specified messages can't be found, they are skipped. Returns True on success.
  */
 export const deleteMessages =
-  /* @__PURE__ */ botMethod<(payload: DeleteMessages) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: DeleteMessages) => true>(
     'deleteMessages'
   );
 
+/**
+ * Returns the list of gifts that can be sent by the bot to users and channel chats. Requires no parameters. Returns a {@link Gifts} object.
+ */
 export const getAvailableGifts =
   /* @__PURE__ */ botMethod<() => Gifts>('getAvailableGifts');
 
@@ -3566,7 +3577,7 @@ export type SendGift = {
  * Sends a gift to the given user or channel chat. The gift can't be converted to Telegram Stars by the receiver. Returns True on success.
  */
 export const sendGift =
-  /* @__PURE__ */ botMethod<(payload: SendGift) => boolean>('sendGift');
+  /* @__PURE__ */ botMethod<(payload: SendGift) => true>('sendGift');
 
 export type GiftPremiumSubscription = {
   /**
@@ -3610,7 +3621,7 @@ export type GiftPremiumSubscription = {
  * {@link Gifts} a Telegram Premium subscription to the given user. Returns True on success.
  */
 export const giftPremiumSubscription = /* @__PURE__ */ botMethod<
-  (payload: GiftPremiumSubscription) => boolean
+  (payload: GiftPremiumSubscription) => true
 >('giftPremiumSubscription');
 
 export type VerifyUser = {
@@ -3629,7 +3640,7 @@ export type VerifyUser = {
  * Verifies a user on behalf of the organization which is represented by the bot. Returns True on success.
  */
 export const verifyUser =
-  /* @__PURE__ */ botMethod<(payload: VerifyUser) => boolean>('verifyUser');
+  /* @__PURE__ */ botMethod<(payload: VerifyUser) => true>('verifyUser');
 
 export type VerifyChat = {
   /**
@@ -3647,7 +3658,7 @@ export type VerifyChat = {
  * Verifies a chat on behalf of the organization which is represented by the bot. Returns True on success.
  */
 export const verifyChat =
-  /* @__PURE__ */ botMethod<(payload: VerifyChat) => boolean>('verifyChat');
+  /* @__PURE__ */ botMethod<(payload: VerifyChat) => true>('verifyChat');
 
 export type RemoveUserVerification = {
   /**
@@ -3660,7 +3671,7 @@ export type RemoveUserVerification = {
  * Removes verification from a user who is currently verified on behalf of the organization represented by the bot. Returns True on success.
  */
 export const removeUserVerification = /* @__PURE__ */ botMethod<
-  (payload: RemoveUserVerification) => boolean
+  (payload: RemoveUserVerification) => true
 >('removeUserVerification');
 
 export type RemoveChatVerification = {
@@ -3674,7 +3685,7 @@ export type RemoveChatVerification = {
  * Removes verification from a chat that is currently verified on behalf of the organization represented by the bot. Returns True on success.
  */
 export const removeChatVerification = /* @__PURE__ */ botMethod<
-  (payload: RemoveChatVerification) => boolean
+  (payload: RemoveChatVerification) => true
 >('removeChatVerification');
 
 export type ReadBusinessMessage = {
@@ -3698,7 +3709,7 @@ export type ReadBusinessMessage = {
  * Marks incoming message as read on behalf of a business account. Requires the can_read_messages business bot right. Returns True on success.
  */
 export const readBusinessMessage = /* @__PURE__ */ botMethod<
-  (payload: ReadBusinessMessage) => boolean
+  (payload: ReadBusinessMessage) => true
 >('readBusinessMessage');
 
 export type DeleteBusinessMessages = {
@@ -3717,7 +3728,7 @@ export type DeleteBusinessMessages = {
  * Delete messages on behalf of a business account. Requires the can_delete_sent_messages business bot right to delete messages sent by the bot itself, or the can_delete_all_messages business bot right to delete any message. Returns True on success.
  */
 export const deleteBusinessMessages = /* @__PURE__ */ botMethod<
-  (payload: DeleteBusinessMessages) => boolean
+  (payload: DeleteBusinessMessages) => true
 >('deleteBusinessMessages');
 
 export type SetBusinessAccountName = {
@@ -3741,7 +3752,7 @@ export type SetBusinessAccountName = {
  * Changes the first and last name of a managed business account. Requires the can_change_name business bot right. Returns True on success.
  */
 export const setBusinessAccountName = /* @__PURE__ */ botMethod<
-  (payload: SetBusinessAccountName) => boolean
+  (payload: SetBusinessAccountName) => true
 >('setBusinessAccountName');
 
 export type SetBusinessAccountUsername = {
@@ -3760,7 +3771,7 @@ export type SetBusinessAccountUsername = {
  * Changes the username of a managed business account. Requires the can_change_username business bot right. Returns True on success.
  */
 export const setBusinessAccountUsername = /* @__PURE__ */ botMethod<
-  (payload: SetBusinessAccountUsername) => boolean
+  (payload: SetBusinessAccountUsername) => true
 >('setBusinessAccountUsername');
 
 export type SetBusinessAccountBio = {
@@ -3779,7 +3790,7 @@ export type SetBusinessAccountBio = {
  * Changes the bio of a managed business account. Requires the can_change_bio business bot right. Returns True on success.
  */
 export const setBusinessAccountBio = /* @__PURE__ */ botMethod<
-  (payload: SetBusinessAccountBio) => boolean
+  (payload: SetBusinessAccountBio) => true
 >('setBusinessAccountBio');
 
 export type SetBusinessAccountProfilePhoto = {
@@ -3803,7 +3814,7 @@ export type SetBusinessAccountProfilePhoto = {
  * Changes the profile photo of a managed business account. Requires the can_edit_profile_photo business bot right. Returns True on success.
  */
 export const setBusinessAccountProfilePhoto = /* @__PURE__ */ botMethod<
-  (payload: SetBusinessAccountProfilePhoto) => boolean
+  (payload: SetBusinessAccountProfilePhoto) => true
 >('setBusinessAccountProfilePhoto');
 
 export type RemoveBusinessAccountProfilePhoto = {
@@ -3822,7 +3833,7 @@ export type RemoveBusinessAccountProfilePhoto = {
  * Removes the current profile photo of a managed business account. Requires the can_edit_profile_photo business bot right. Returns True on success.
  */
 export const removeBusinessAccountProfilePhoto = /* @__PURE__ */ botMethod<
-  (payload: RemoveBusinessAccountProfilePhoto) => boolean
+  (payload: RemoveBusinessAccountProfilePhoto) => true
 >('removeBusinessAccountProfilePhoto');
 
 export type SetBusinessAccountGiftSettings = {
@@ -3846,7 +3857,7 @@ export type SetBusinessAccountGiftSettings = {
  * Changes the privacy settings pertaining to incoming gifts in a managed business account. Requires the can_change_gift_settings business bot right. Returns True on success.
  */
 export const setBusinessAccountGiftSettings = /* @__PURE__ */ botMethod<
-  (payload: SetBusinessAccountGiftSettings) => boolean
+  (payload: SetBusinessAccountGiftSettings) => true
 >('setBusinessAccountGiftSettings');
 
 export type GetBusinessAccountStarBalance = {
@@ -3860,7 +3871,7 @@ export type GetBusinessAccountStarBalance = {
  * Returns the amount of Telegram Stars owned by a managed business account. Requires the can_view_gifts_and_stars business bot right. Returns {@link StarAmount} on success.
  */
 export const getBusinessAccountStarBalance = /* @__PURE__ */ botMethod<
-  (payload: GetBusinessAccountStarBalance) => boolean
+  (payload: GetBusinessAccountStarBalance) => StarAmount
 >('getBusinessAccountStarBalance');
 
 export type TransferBusinessAccountStars = {
@@ -3879,7 +3890,7 @@ export type TransferBusinessAccountStars = {
  * Transfers Telegram Stars from the business account balance to the bot's balance. Requires the can_transfer_stars business bot right. Returns True on success.
  */
 export const transferBusinessAccountStars = /* @__PURE__ */ botMethod<
-  (payload: TransferBusinessAccountStars) => boolean
+  (payload: TransferBusinessAccountStars) => true
 >('transferBusinessAccountStars');
 
 export type GetBusinessAccountGifts = {
@@ -3952,7 +3963,7 @@ export type ConvertGiftToStars = {
  * Converts a given regular gift to Telegram Stars. Requires the can_convert_gifts_to_stars business bot right. Returns True on success.
  */
 export const convertGiftToStars =
-  /* @__PURE__ */ botMethod<(payload: ConvertGiftToStars) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: ConvertGiftToStars) => true>(
     'convertGiftToStars'
   );
 
@@ -3982,7 +3993,7 @@ export type UpgradeGift = {
  * Upgrades a given regular gift to a unique gift. Requires the can_transfer_and_upgrade_gifts business bot right. Additionally requires the can_transfer_stars business bot right if the upgrade is paid. Returns True on success.
  */
 export const upgradeGift =
-  /* @__PURE__ */ botMethod<(payload: UpgradeGift) => boolean>('upgradeGift');
+  /* @__PURE__ */ botMethod<(payload: UpgradeGift) => true>('upgradeGift');
 
 export type TransferGift = {
   /**
@@ -4010,7 +4021,7 @@ export type TransferGift = {
  * Transfers an owned unique gift to another user. Requires the can_transfer_and_upgrade_gifts business bot right. Requires can_transfer_stars business bot right if the transfer is paid. Returns True on success.
  */
 export const transferGift =
-  /* @__PURE__ */ botMethod<(payload: TransferGift) => boolean>('transferGift');
+  /* @__PURE__ */ botMethod<(payload: TransferGift) => true>('transferGift');
 
 export type PostStory = {
   /**
@@ -4124,7 +4135,7 @@ export type DeleteStory = {
  * Deletes a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns True on success.
  */
 export const deleteStory =
-  /* @__PURE__ */ botMethod<(payload: DeleteStory) => boolean>('deleteStory');
+  /* @__PURE__ */ botMethod<(payload: DeleteStory) => true>('deleteStory');
 
 export type SendSticker = {
   /**
@@ -4283,7 +4294,7 @@ export type CreateNewStickerSet = {
  * Use this method to create a new sticker set owned by a user. The bot will be able to edit the sticker set thus created. Returns True on success.
  */
 export const createNewStickerSet = /* @__PURE__ */ botMethod<
-  (payload: CreateNewStickerSet) => boolean
+  (payload: CreateNewStickerSet) => true
 >('createNewStickerSet');
 
 export type AddStickerToSet = {
@@ -4307,7 +4318,7 @@ export type AddStickerToSet = {
  * Use this method to add a new sticker to a set created by the bot. Emoji sticker sets can have up to 200 stickers. Other sticker sets can have up to 120 stickers. Returns True on success.
  */
 export const addStickerToSet =
-  /* @__PURE__ */ botMethod<(payload: AddStickerToSet) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: AddStickerToSet) => true>(
     'addStickerToSet'
   );
 
@@ -4327,7 +4338,7 @@ export type SetStickerPositionInSet = {
  * Use this method to move a sticker in a set created by the bot to a specific position. Returns True on success.
  */
 export const setStickerPositionInSet = /* @__PURE__ */ botMethod<
-  (payload: SetStickerPositionInSet) => boolean
+  (payload: SetStickerPositionInSet) => true
 >('setStickerPositionInSet');
 
 export type DeleteStickerFromSet = {
@@ -4341,7 +4352,7 @@ export type DeleteStickerFromSet = {
  * Use this method to delete a sticker from a set created by the bot. Returns True on success.
  */
 export const deleteStickerFromSet = /* @__PURE__ */ botMethod<
-  (payload: DeleteStickerFromSet) => boolean
+  (payload: DeleteStickerFromSet) => true
 >('deleteStickerFromSet');
 
 export type ReplaceStickerInSet = {
@@ -4370,7 +4381,7 @@ export type ReplaceStickerInSet = {
  * Use this method to replace an existing sticker in a sticker set with a new one. The method is equivalent to calling deleteStickerFromSet, then addStickerToSet, then setStickerPositionInSet. Returns True on success.
  */
 export const replaceStickerInSet = /* @__PURE__ */ botMethod<
-  (payload: ReplaceStickerInSet) => boolean
+  (payload: ReplaceStickerInSet) => true
 >('replaceStickerInSet');
 
 export type SetStickerEmojiList = {
@@ -4389,7 +4400,7 @@ export type SetStickerEmojiList = {
  * Use this method to change the list of emoji assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns True on success.
  */
 export const setStickerEmojiList = /* @__PURE__ */ botMethod<
-  (payload: SetStickerEmojiList) => boolean
+  (payload: SetStickerEmojiList) => true
 >('setStickerEmojiList');
 
 export type SetStickerKeywords = {
@@ -4408,7 +4419,7 @@ export type SetStickerKeywords = {
  * Use this method to change search keywords assigned to a regular or custom emoji sticker. The sticker must belong to a sticker set created by the bot. Returns True on success.
  */
 export const setStickerKeywords =
-  /* @__PURE__ */ botMethod<(payload: SetStickerKeywords) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: SetStickerKeywords) => true>(
     'setStickerKeywords'
   );
 
@@ -4428,7 +4439,7 @@ export type SetStickerMaskPosition = {
  * Use this method to change the mask position of a mask sticker. The sticker must belong to a sticker set that was created by the bot. Returns True on success.
  */
 export const setStickerMaskPosition = /* @__PURE__ */ botMethod<
-  (payload: SetStickerMaskPosition) => boolean
+  (payload: SetStickerMaskPosition) => true
 >('setStickerMaskPosition');
 
 export type SetStickerSetTitle = {
@@ -4447,7 +4458,7 @@ export type SetStickerSetTitle = {
  * Use this method to set the title of a created sticker set. Returns True on success.
  */
 export const setStickerSetTitle =
-  /* @__PURE__ */ botMethod<(payload: SetStickerSetTitle) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: SetStickerSetTitle) => true>(
     'setStickerSetTitle'
   );
 
@@ -4477,7 +4488,7 @@ export type SetStickerSetThumbnail = {
  * Use this method to set the thumbnail of a regular or mask sticker set. The format of the thumbnail file must match the format of the stickers in the set. Returns True on success.
  */
 export const setStickerSetThumbnail = /* @__PURE__ */ botMethod<
-  (payload: SetStickerSetThumbnail) => boolean
+  (payload: SetStickerSetThumbnail) => true
 >('setStickerSetThumbnail', formDataPayloadTransformer);
 
 export type SetCustomEmojiStickerSetThumbnail = {
@@ -4496,7 +4507,7 @@ export type SetCustomEmojiStickerSetThumbnail = {
  * Use this method to set the thumbnail of a custom emoji sticker set. Returns True on success.
  */
 export const setCustomEmojiStickerSetThumbnail = /* @__PURE__ */ botMethod<
-  (payload: SetCustomEmojiStickerSetThumbnail) => boolean
+  (payload: SetCustomEmojiStickerSetThumbnail) => true
 >('setCustomEmojiStickerSetThumbnail');
 
 export type DeleteStickerSet = {
@@ -4510,7 +4521,7 @@ export type DeleteStickerSet = {
  * Use this method to delete a sticker set that was created by the bot. Returns True on success.
  */
 export const deleteStickerSet =
-  /* @__PURE__ */ botMethod<(payload: DeleteStickerSet) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: DeleteStickerSet) => true>(
     'deleteStickerSet'
   );
 
@@ -4550,7 +4561,7 @@ export type AnswerInlineQuery = {
  * Use this method to send answers to an inline query. On success, True is returned.No more than 50 results per query are allowed.
  */
 export const answerInlineQuery =
-  /* @__PURE__ */ botMethod<(payload: AnswerInlineQuery) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: AnswerInlineQuery) => true>(
     'answerInlineQuery'
   );
 
@@ -5102,7 +5113,7 @@ export type AnswerShippingQuery = {
  * If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an {@link Update} with a shipping_query field to the bot. Use this method to reply to shipping queries. On success, True is returned.
  */
 export const answerShippingQuery = /* @__PURE__ */ botMethod<
-  (payload: AnswerShippingQuery) => boolean
+  (payload: AnswerShippingQuery) => true
 >('answerShippingQuery');
 
 export type AnswerPreCheckoutQuery = {
@@ -5126,9 +5137,12 @@ export type AnswerPreCheckoutQuery = {
  * Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form of an {@link Update} with the field pre_checkout_query. Use this method to respond to such pre-checkout queries. On success, True is returned. Note: The Bot API must receive an answer within 10 seconds after the pre-checkout query was sent.
  */
 export const answerPreCheckoutQuery = /* @__PURE__ */ botMethod<
-  (payload: AnswerPreCheckoutQuery) => boolean
+  (payload: AnswerPreCheckoutQuery) => true
 >('answerPreCheckoutQuery');
 
+/**
+ * A method to get the current Telegram Stars balance of the bot. Requires no parameters. On success, returns a {@link StarAmount} object.
+ */
 export const getMyStarBalance =
   /* @__PURE__ */ botMethod<() => StarAmount>('getMyStarBalance');
 
@@ -5148,7 +5162,7 @@ export type GetStarTransactions = {
  * Returns the bot's Telegram Star transactions in chronological order. On success, returns a {@link StarTransactions} object.
  */
 export const getStarTransactions = /* @__PURE__ */ botMethod<
-  (payload?: GetStarTransactions) => boolean
+  (payload?: GetStarTransactions) => StarTransactions
 >('getStarTransactions');
 
 export type RefundStarPayment = {
@@ -5167,7 +5181,7 @@ export type RefundStarPayment = {
  * Refunds a successful payment in Telegram Stars. Returns True on success.
  */
 export const refundStarPayment =
-  /* @__PURE__ */ botMethod<(payload: RefundStarPayment) => boolean>(
+  /* @__PURE__ */ botMethod<(payload: RefundStarPayment) => true>(
     'refundStarPayment'
   );
 
@@ -5192,7 +5206,7 @@ export type EditUserStarSubscription = {
  * Allows the bot to cancel or re-enable extension of a subscription paid in Telegram Stars. Returns True on success.
  */
 export const editUserStarSubscription = /* @__PURE__ */ botMethod<
-  (payload: EditUserStarSubscription) => boolean
+  (payload: EditUserStarSubscription) => true
 >('editUserStarSubscription');
 
 export type SetPassportDataErrors = {
@@ -5211,7 +5225,7 @@ export type SetPassportDataErrors = {
  * Informs a user that some of the Telegram Passport elements they provided contains errors. The user will not be able to re-submit their Passport to you until the errors are fixed (the contents of the field for which you returned the error must change). Returns True on success. Use this if the data submitted by the user doesn't satisfy the standards your service requires for any reason. For example, if a birthday date seems invalid, a submitted document is blurry, a scan shows evidence of tampering, etc. Supply some details in the error message to make sure the user knows how to correct the issues.
  */
 export const setPassportDataErrors = /* @__PURE__ */ botMethod<
-  (payload: SetPassportDataErrors) => boolean
+  (payload: SetPassportDataErrors) => true
 >('setPassportDataErrors');
 
 export type SendGame = {
@@ -5313,7 +5327,9 @@ export type SetGameScore = {
  * Use this method to set the score of the specified user in a game message. On success, if the message is not an inline message, the {@link Message} is returned, otherwise True is returned. Returns an error, if the new score is not greater than the user's current score in the chat and force is False.
  */
 export const setGameScore =
-  /* @__PURE__ */ botMethod<(payload: SetGameScore) => boolean>('setGameScore');
+  /* @__PURE__ */ botMethod<(payload: SetGameScore) => Message | true>(
+    'setGameScore'
+  );
 
 export type GetGameHighScores = {
   /**

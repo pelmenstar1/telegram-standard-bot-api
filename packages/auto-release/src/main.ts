@@ -14,7 +14,7 @@ const apiSourcePath = path.join(apiPackagePath, 'src');
 const generatorPackagePath = path.join(import.meta.dirname, '../../generator');
 
 async function runGenerate() {
-  await execFileAsync('npm', ['run', 'generate'], {
+  await execFileAsync('npm', ['run', 'generate', '--remote'], {
     cwd: generatorPackagePath,
     shell: true,
     encoding: 'utf8',
