@@ -1,16 +1,15 @@
+import { getTelegramData } from './data';
 import { emitParsedResult } from './emit';
-import { fetchCurrenciesData, fetchTelegramBotApiPage } from './fetch';
 import { parseApiPage } from './parser';
 
 async function main() {
+  const mode = process.argv[2] === '--remote' ? 'remote' : 'local';
+
   console.log('Fething Telegram data...');
-  const [apiPage, currencyData] = await Promise.all([
-    fetchTelegramBotApiPage(),
-    fetchCurrenciesData(),
-  ]);
+  const data = await getTelegramData(mode);
 
   console.log('Parsing...');
-  const parseResult = parseApiPage({ api: apiPage, currency: currencyData });
+  const parseResult = parseApiPage(data);
 
   console.log('Emitting...');
   await emitParsedResult(parseResult);
