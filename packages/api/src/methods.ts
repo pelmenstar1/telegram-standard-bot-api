@@ -55,9 +55,11 @@ import {
   StickerSet,
   Story,
   StoryArea,
+  SuggestedPostParameters,
   Update,
   User,
   UserChatBoosts,
+  UserProfileAudios,
   UserProfilePhotos,
   WebhookInfo,
 } from './types.js';
@@ -180,9 +182,14 @@ export type SendMessage = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Text of the message to be sent, 1-4096 characters after entities parsing
@@ -225,6 +232,11 @@ export type SendMessage = {
   message_effect_id?: string;
 
   /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Description of the message to reply to
    */
   reply_parameters?: ReplyParameters;
@@ -252,9 +264,14 @@ export type ForwardMessage = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be forwarded; required if the message is forwarded to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
@@ -277,6 +294,16 @@ export type ForwardMessage = {
   protect_content?: boolean;
 
   /**
+   * Unique identifier of the message effect to be added to the message; only available when forwarding to private chats
+   */
+  message_effect_id?: string;
+
+  /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Message identifier in the chat specified in from_chat_id
    */
   message_id: number;
@@ -297,9 +324,14 @@ export type ForwardMessages = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the messages will be forwarded; required if the messages are forwarded to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
@@ -337,9 +369,14 @@ export type CopyMessage = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
@@ -392,6 +429,16 @@ export type CopyMessage = {
   allow_paid_broadcast?: boolean;
 
   /**
+   * Unique identifier of the message effect to be added to the message; only available when copying to private chats
+   */
+  message_effect_id?: string;
+
+  /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Description of the message to reply to
    */
   reply_parameters?: ReplyParameters;
@@ -419,9 +466,14 @@ export type CopyMessages = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
@@ -469,9 +521,14 @@ export type SendPhoto = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. More information on Sending Files »
@@ -524,6 +581,11 @@ export type SendPhoto = {
   message_effect_id?: string;
 
   /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Description of the message to reply to
    */
   reply_parameters?: ReplyParameters;
@@ -557,9 +619,14 @@ export type SendAudio = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
@@ -622,6 +689,11 @@ export type SendAudio = {
   message_effect_id?: string;
 
   /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Description of the message to reply to
    */
   reply_parameters?: ReplyParameters;
@@ -655,9 +727,14 @@ export type SendDocument = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
@@ -710,6 +787,11 @@ export type SendDocument = {
   message_effect_id?: string;
 
   /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Description of the message to reply to
    */
   reply_parameters?: ReplyParameters;
@@ -743,9 +825,14 @@ export type SendVideo = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. More information on Sending Files »
@@ -833,6 +920,11 @@ export type SendVideo = {
   message_effect_id?: string;
 
   /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Description of the message to reply to
    */
   reply_parameters?: ReplyParameters;
@@ -866,9 +958,14 @@ export type SendAnimation = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. More information on Sending Files »
@@ -941,6 +1038,11 @@ export type SendAnimation = {
   message_effect_id?: string;
 
   /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Description of the message to reply to
    */
   reply_parameters?: ReplyParameters;
@@ -974,9 +1076,14 @@ export type SendVoice = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
@@ -1024,6 +1131,11 @@ export type SendVoice = {
   message_effect_id?: string;
 
   /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Description of the message to reply to
    */
   reply_parameters?: ReplyParameters;
@@ -1057,9 +1169,14 @@ export type SendVideoNote = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported
@@ -1102,6 +1219,11 @@ export type SendVideoNote = {
   message_effect_id?: string;
 
   /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Description of the message to reply to
    */
   reply_parameters?: ReplyParameters;
@@ -1135,7 +1257,17 @@ export type SendPaidMedia = {
   chat_id: number | string;
 
   /**
-   * The number of Telegram Stars that must be paid to buy access to the media; 1-10000
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+   */
+  message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
+
+  /**
+   * The number of Telegram Stars that must be paid to buy access to the media; 1-25000
    */
   star_count: number;
 
@@ -1185,6 +1317,11 @@ export type SendPaidMedia = {
   allow_paid_broadcast?: boolean;
 
   /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Description of the message to reply to
    */
   reply_parameters?: ReplyParameters;
@@ -1219,9 +1356,14 @@ export type SendMediaGroup = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the messages will be sent; required if the messages are sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * A JSON-serialized array describing messages to be sent, must include 2-10 items
@@ -1255,7 +1397,7 @@ export type SendMediaGroup = {
 };
 
 /**
- * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of Messages that were sent is returned.
+ * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of {@link Message} objects that were sent is returned.
  */
 export const sendMediaGroup =
   /* @__PURE__ */ botMethod<(payload: SendMediaGroup) => Message[]>(
@@ -1274,9 +1416,14 @@ export type SendLocation = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Latitude of the location
@@ -1329,6 +1476,11 @@ export type SendLocation = {
   message_effect_id?: string;
 
   /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Description of the message to reply to
    */
   reply_parameters?: ReplyParameters;
@@ -1361,9 +1513,14 @@ export type SendVenue = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Latitude of the venue
@@ -1426,6 +1583,11 @@ export type SendVenue = {
   message_effect_id?: string;
 
   /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Description of the message to reply to
    */
   reply_parameters?: ReplyParameters;
@@ -1458,9 +1620,14 @@ export type SendContact = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Contact's phone number
@@ -1503,6 +1670,11 @@ export type SendContact = {
   message_effect_id?: string;
 
   /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Description of the message to reply to
    */
   reply_parameters?: ReplyParameters;
@@ -1530,12 +1702,12 @@ export type SendPoll = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel (in the format @channelusername). Polls can't be sent to channel direct messages chats.
    */
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
 
@@ -1712,9 +1884,14 @@ export type SendDice = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. {@link Dice} can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”
@@ -1742,6 +1919,11 @@ export type SendDice = {
   message_effect_id?: string;
 
   /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
    * Description of the message to reply to
    */
   reply_parameters?: ReplyParameters;
@@ -1762,6 +1944,46 @@ export type SendDice = {
 export const sendDice =
   /* @__PURE__ */ botMethod<(payload: SendDice) => Message>('sendDice');
 
+export type SendMessageDraft = {
+  /**
+   * Unique identifier for the target private chat
+   */
+  chat_id: number;
+
+  /**
+   * Unique identifier for the target message thread
+   */
+  message_thread_id?: number;
+
+  /**
+   * Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated
+   */
+  draft_id: number;
+
+  /**
+   * Text of the message to be sent, 1-4096 characters after entities parsing
+   */
+  text: string;
+
+  /**
+   * Mode for parsing entities in the message text. See formatting options for more details.
+   */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+
+  /**
+   * A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
+   */
+  entities?: MessageEntity[];
+};
+
+/**
+ * Use this method to stream a partial message to a user while the message is being generated; supported only for bots with forum topic mode enabled. Returns True on success.
+ */
+export const sendMessageDraft =
+  /* @__PURE__ */ botMethod<(payload: SendMessageDraft) => true>(
+    'sendMessageDraft'
+  );
+
 export type SendChatAction = {
   /**
    * Unique identifier of the business connection on behalf of which the action will be sent
@@ -1769,12 +1991,12 @@ export type SendChatAction = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername). Channel chats and channel direct messages chats aren't supported.
    */
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread; for supergroups only
+   * Unique identifier for the target message thread or topic of a forum; for supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
 
@@ -1845,6 +2067,30 @@ export type GetUserProfilePhotos = {
 export const getUserProfilePhotos = /* @__PURE__ */ botMethod<
   (payload: GetUserProfilePhotos) => UserProfilePhotos
 >('getUserProfilePhotos');
+
+export type GetUserProfileAudios = {
+  /**
+   * Unique identifier of the target user
+   */
+  user_id: number;
+
+  /**
+   * Sequential number of the first audio to be returned. By default, all audios are returned.
+   */
+  offset?: number;
+
+  /**
+   * Limits the number of audios to be retrieved. Values between 1-100 are accepted. Defaults to 100.
+   */
+  limit?: number;
+};
+
+/**
+ * Use this method to get a list of profile audios for a user. Returns a {@link UserProfileAudios} object.
+ */
+export const getUserProfileAudios = /* @__PURE__ */ botMethod<
+  (payload: GetUserProfileAudios) => UserProfileAudios
+>('getUserProfileAudios');
 
 export type SetUserEmojiStatus = {
   /**
@@ -2004,7 +2250,7 @@ export type PromoteChatMember = {
   can_manage_video_chats?: boolean;
 
   /**
-   * Pass True if the administrator can restrict, ban or unban chat members, or access supergroup statistics
+   * Pass True if the administrator can restrict, ban or unban chat members, or access supergroup statistics. For backward compatibility, defaults to True for promotions of channel administrators
    */
   can_restrict_members?: boolean;
 
@@ -2057,6 +2303,11 @@ export type PromoteChatMember = {
    * Pass True if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
    */
   can_manage_topics?: boolean;
+
+  /**
+   * Pass True if the administrator can manage direct messages within the channel and decline suggested posts; for channels only
+   */
+  can_manage_direct_messages?: boolean;
 };
 
 /**
@@ -2448,7 +2699,7 @@ export type PinChatMessage = {
 };
 
 /**
- * Use this method to add a message to the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns True on success.
+ * Use this method to add a message to the list of pinned messages in a chat. In private chats and channel direct messages chats, all non-service messages can be pinned. Conversely, the bot must be an administrator with the 'can_pin_messages' right or the 'can_edit_messages' right to pin messages in groups and channels respectively. Returns True on success.
  */
 export const pinChatMessage =
   /* @__PURE__ */ botMethod<(payload: PinChatMessage) => true>(
@@ -2473,7 +2724,7 @@ export type UnpinChatMessage = {
 };
 
 /**
- * Use this method to remove a message from the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns True on success.
+ * Use this method to remove a message from the list of pinned messages in a chat. In private chats and channel direct messages chats, all messages can be unpinned. Conversely, the bot must be an administrator with the 'can_pin_messages' right or the 'can_edit_messages' right to unpin messages in groups and channels respectively. Returns True on success.
  */
 export const unpinChatMessage =
   /* @__PURE__ */ botMethod<(payload: UnpinChatMessage) => true>(
@@ -2488,7 +2739,7 @@ export type UnpinAllChatMessages = {
 };
 
 /**
- * Use this method to clear the list of pinned messages in a chat. If the chat is not a private chat, the bot must be an administrator in the chat for this to work and must have the 'can_pin_messages' administrator right in a supergroup or 'can_edit_messages' administrator right in a channel. Returns True on success.
+ * Use this method to clear the list of pinned messages in a chat. In private chats and channel direct messages chats, no additional rights are required to unpin all pinned messages. Conversely, the bot must be an administrator with the 'can_pin_messages' right or the 'can_edit_messages' right to unpin all pinned messages in groups and channels respectively. Returns True on success.
  */
 export const unpinAllChatMessages = /* @__PURE__ */ botMethod<
   (payload: UnpinAllChatMessages) => true
@@ -2496,7 +2747,7 @@ export const unpinAllChatMessages = /* @__PURE__ */ botMethod<
 
 export type LeaveChat = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername). Channel direct messages chats aren't supported; leave the corresponding channel instead.
    */
   chat_id: number | string;
 };
@@ -2639,7 +2890,7 @@ export type CreateForumTopic = {
 };
 
 /**
- * Use this method to create a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights. Returns information about the created topic as a {@link ForumTopic} object.
+ * Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator right. Returns information about the created topic as a {@link ForumTopic} object.
  */
 export const createForumTopic =
   /* @__PURE__ */ botMethod<(payload: CreateForumTopic) => ForumTopic>(
@@ -2669,7 +2920,7 @@ export type EditForumTopic = {
 };
 
 /**
- * Use this method to edit name and icon of a topic in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
+ * Use this method to edit name and icon of a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator rights, unless it is the creator of the topic. Returns True on success.
  */
 export const editForumTopic =
   /* @__PURE__ */ botMethod<(payload: EditForumTopic) => true>(
@@ -2729,7 +2980,7 @@ export type DeleteForumTopic = {
 };
 
 /**
- * Use this method to delete a forum topic along with all its messages in a forum supergroup chat. The bot must be an administrator in the chat for this to work and must have the can_delete_messages administrator rights. Returns True on success.
+ * Use this method to delete a forum topic along with all its messages in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_delete_messages administrator rights. Returns True on success.
  */
 export const deleteForumTopic =
   /* @__PURE__ */ botMethod<(payload: DeleteForumTopic) => true>(
@@ -2749,7 +3000,7 @@ export type UnpinAllForumTopicMessages = {
 };
 
 /**
- * Use this method to clear the list of pinned messages in a forum topic. The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success.
+ * Use this method to clear the list of pinned messages in a forum topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup. Returns True on success.
  */
 export const unpinAllForumTopicMessages = /* @__PURE__ */ botMethod<
   (payload: UnpinAllForumTopicMessages) => true
@@ -3074,6 +3325,28 @@ export const getMyShortDescription = /* @__PURE__ */ botMethod<
   (payload?: GetMyShortDescription) => BotShortDescription
 >('getMyShortDescription');
 
+export type SetMyProfilePhoto = {
+  /**
+   * The new profile photo to set
+   */
+  photo: InputProfilePhoto;
+};
+
+/**
+ * Changes the profile photo of the bot. Returns True on success.
+ */
+export const setMyProfilePhoto =
+  /* @__PURE__ */ botMethod<(payload: SetMyProfilePhoto) => true>(
+    'setMyProfilePhoto'
+  );
+
+/**
+ * Removes the profile photo of the bot. Requires no parameters. Returns True on success.
+ */
+export const removeMyProfilePhoto = /* @__PURE__ */ botMethod<() => true>(
+  'removeMyProfilePhoto'
+);
+
 export type SetChatMenuButton = {
   /**
    * Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
@@ -3141,6 +3414,787 @@ export type GetMyDefaultAdministratorRights = {
 export const getMyDefaultAdministratorRights = /* @__PURE__ */ botMethod<
   (payload?: GetMyDefaultAdministratorRights) => ChatAdministratorRights
 >('getMyDefaultAdministratorRights');
+
+/**
+ * Returns the list of gifts that can be sent by the bot to users and channel chats. Requires no parameters. Returns a {@link Gifts} object.
+ */
+export const getAvailableGifts =
+  /* @__PURE__ */ botMethod<() => Gifts>('getAvailableGifts');
+
+export type SendGift = {
+  /**
+   * Required if chat_id is not specified. Unique identifier of the target user who will receive the gift.
+   */
+  user_id?: number;
+
+  /**
+   * Required if user_id is not specified. Unique identifier for the chat or username of the channel (in the format @channelusername) that will receive the gift.
+   */
+  chat_id?: number | string;
+
+  /**
+   * Identifier of the gift; limited gifts can't be sent to channel chats
+   */
+  gift_id: string;
+
+  /**
+   * Pass True to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver
+   */
+  pay_for_upgrade?: boolean;
+
+  /**
+   * Text that will be shown along with the gift; 0-128 characters
+   */
+  text?: string;
+
+  /**
+   * Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+   */
+  text_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+
+  /**
+   * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+   */
+  text_entities?:
+    | 'bold'
+    | 'italic'
+    | 'underline'
+    | 'strikethrough'
+    | 'spoiler'
+    | 'custom_emoji';
+};
+
+/**
+ * Sends a gift to the given user or channel chat. The gift can't be converted to Telegram Stars by the receiver. Returns True on success.
+ */
+export const sendGift =
+  /* @__PURE__ */ botMethod<(payload: SendGift) => true>('sendGift');
+
+export type GiftPremiumSubscription = {
+  /**
+   * Unique identifier of the target user who will receive a Telegram Premium subscription
+   */
+  user_id: number;
+
+  /**
+   * Number of months the Telegram Premium subscription will be active for the user; must be one of 3, 6, or 12
+   */
+  month_count: 3 | 6 | 12;
+
+  /**
+   * Number of Telegram Stars to pay for the Telegram Premium subscription; must be 1000 for 3 months, 1500 for 6 months, and 2500 for 12 months
+   */
+  star_count: number;
+
+  /**
+   * Text that will be shown along with the service message about the subscription; 0-128 characters
+   */
+  text?: string;
+
+  /**
+   * Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+   */
+  text_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+
+  /**
+   * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+   */
+  text_entities?:
+    | 'bold'
+    | 'italic'
+    | 'underline'
+    | 'strikethrough'
+    | 'spoiler'
+    | 'custom_emoji';
+};
+
+/**
+ * {@link Gifts} a Telegram Premium subscription to the given user. Returns True on success.
+ */
+export const giftPremiumSubscription = /* @__PURE__ */ botMethod<
+  (payload: GiftPremiumSubscription) => true
+>('giftPremiumSubscription');
+
+export type VerifyUser = {
+  /**
+   * Unique identifier of the target user
+   */
+  user_id: number;
+
+  /**
+   * Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
+   */
+  custom_description?: string;
+};
+
+/**
+ * Verifies a user on behalf of the organization which is represented by the bot. Returns True on success.
+ */
+export const verifyUser =
+  /* @__PURE__ */ botMethod<(payload: VerifyUser) => true>('verifyUser');
+
+export type VerifyChat = {
+  /**
+   * Unique identifier for the target chat or username of the target channel (in the format @channelusername). Channel direct messages chats can't be verified.
+   */
+  chat_id: number | string;
+
+  /**
+   * Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
+   */
+  custom_description?: string;
+};
+
+/**
+ * Verifies a chat on behalf of the organization which is represented by the bot. Returns True on success.
+ */
+export const verifyChat =
+  /* @__PURE__ */ botMethod<(payload: VerifyChat) => true>('verifyChat');
+
+export type RemoveUserVerification = {
+  /**
+   * Unique identifier of the target user
+   */
+  user_id: number;
+};
+
+/**
+ * Removes verification from a user who is currently verified on behalf of the organization represented by the bot. Returns True on success.
+ */
+export const removeUserVerification = /* @__PURE__ */ botMethod<
+  (payload: RemoveUserVerification) => true
+>('removeUserVerification');
+
+export type RemoveChatVerification = {
+  /**
+   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   */
+  chat_id: number | string;
+};
+
+/**
+ * Removes verification from a chat that is currently verified on behalf of the organization represented by the bot. Returns True on success.
+ */
+export const removeChatVerification = /* @__PURE__ */ botMethod<
+  (payload: RemoveChatVerification) => true
+>('removeChatVerification');
+
+export type ReadBusinessMessage = {
+  /**
+   * Unique identifier of the business connection on behalf of which to read the message
+   */
+  business_connection_id: string;
+
+  /**
+   * Unique identifier of the chat in which the message was received. The chat must have been active in the last 24 hours.
+   */
+  chat_id: number;
+
+  /**
+   * Unique identifier of the message to mark as read
+   */
+  message_id: number;
+};
+
+/**
+ * Marks incoming message as read on behalf of a business account. Requires the can_read_messages business bot right. Returns True on success.
+ */
+export const readBusinessMessage = /* @__PURE__ */ botMethod<
+  (payload: ReadBusinessMessage) => true
+>('readBusinessMessage');
+
+export type DeleteBusinessMessages = {
+  /**
+   * Unique identifier of the business connection on behalf of which to delete the messages
+   */
+  business_connection_id: string;
+
+  /**
+   * A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See deleteMessage for limitations on which messages can be deleted
+   */
+  message_ids: number[];
+};
+
+/**
+ * Delete messages on behalf of a business account. Requires the can_delete_sent_messages business bot right to delete messages sent by the bot itself, or the can_delete_all_messages business bot right to delete any message. Returns True on success.
+ */
+export const deleteBusinessMessages = /* @__PURE__ */ botMethod<
+  (payload: DeleteBusinessMessages) => true
+>('deleteBusinessMessages');
+
+export type SetBusinessAccountName = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * The new value of the first name for the business account; 1-64 characters
+   */
+  first_name: string;
+
+  /**
+   * The new value of the last name for the business account; 0-64 characters
+   */
+  last_name?: string;
+};
+
+/**
+ * Changes the first and last name of a managed business account. Requires the can_change_name business bot right. Returns True on success.
+ */
+export const setBusinessAccountName = /* @__PURE__ */ botMethod<
+  (payload: SetBusinessAccountName) => true
+>('setBusinessAccountName');
+
+export type SetBusinessAccountUsername = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * The new value of the username for the business account; 0-32 characters
+   */
+  username?: string;
+};
+
+/**
+ * Changes the username of a managed business account. Requires the can_change_username business bot right. Returns True on success.
+ */
+export const setBusinessAccountUsername = /* @__PURE__ */ botMethod<
+  (payload: SetBusinessAccountUsername) => true
+>('setBusinessAccountUsername');
+
+export type SetBusinessAccountBio = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * The new value of the bio for the business account; 0-140 characters
+   */
+  bio?: string;
+};
+
+/**
+ * Changes the bio of a managed business account. Requires the can_change_bio business bot right. Returns True on success.
+ */
+export const setBusinessAccountBio = /* @__PURE__ */ botMethod<
+  (payload: SetBusinessAccountBio) => true
+>('setBusinessAccountBio');
+
+export type SetBusinessAccountProfilePhoto = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * The new profile photo to set
+   */
+  photo: InputProfilePhoto;
+
+  /**
+   * Pass True to set the public photo, which will be visible even if the main photo is hidden by the business account's privacy settings. An account can have only one public photo.
+   */
+  is_public?: boolean;
+};
+
+/**
+ * Changes the profile photo of a managed business account. Requires the can_edit_profile_photo business bot right. Returns True on success.
+ */
+export const setBusinessAccountProfilePhoto = /* @__PURE__ */ botMethod<
+  (payload: SetBusinessAccountProfilePhoto) => true
+>('setBusinessAccountProfilePhoto');
+
+export type RemoveBusinessAccountProfilePhoto = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * Pass True to remove the public photo, which is visible even if the main photo is hidden by the business account's privacy settings. After the main photo is removed, the previous profile photo (if present) becomes the main photo.
+   */
+  is_public?: boolean;
+};
+
+/**
+ * Removes the current profile photo of a managed business account. Requires the can_edit_profile_photo business bot right. Returns True on success.
+ */
+export const removeBusinessAccountProfilePhoto = /* @__PURE__ */ botMethod<
+  (payload: RemoveBusinessAccountProfilePhoto) => true
+>('removeBusinessAccountProfilePhoto');
+
+export type SetBusinessAccountGiftSettings = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * Pass True, if a button for sending a gift to the user or by the business account must always be shown in the input field
+   */
+  show_gift_button: boolean;
+
+  /**
+   * Types of gifts accepted by the business account
+   */
+  accepted_gift_types: AcceptedGiftTypes;
+};
+
+/**
+ * Changes the privacy settings pertaining to incoming gifts in a managed business account. Requires the can_change_gift_settings business bot right. Returns True on success.
+ */
+export const setBusinessAccountGiftSettings = /* @__PURE__ */ botMethod<
+  (payload: SetBusinessAccountGiftSettings) => true
+>('setBusinessAccountGiftSettings');
+
+export type GetBusinessAccountStarBalance = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+};
+
+/**
+ * Returns the amount of Telegram Stars owned by a managed business account. Requires the can_view_gifts_and_stars business bot right. Returns {@link StarAmount} on success.
+ */
+export const getBusinessAccountStarBalance = /* @__PURE__ */ botMethod<
+  (payload: GetBusinessAccountStarBalance) => StarAmount
+>('getBusinessAccountStarBalance');
+
+export type TransferBusinessAccountStars = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * Number of Telegram Stars to transfer; 1-10000
+   */
+  star_count: number;
+};
+
+/**
+ * Transfers Telegram Stars from the business account balance to the bot's balance. Requires the can_transfer_stars business bot right. Returns True on success.
+ */
+export const transferBusinessAccountStars = /* @__PURE__ */ botMethod<
+  (payload: TransferBusinessAccountStars) => true
+>('transferBusinessAccountStars');
+
+export type GetBusinessAccountGifts = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * Pass True to exclude gifts that aren't saved to the account's profile page
+   */
+  exclude_unsaved?: boolean;
+
+  /**
+   * Pass True to exclude gifts that are saved to the account's profile page
+   */
+  exclude_saved?: boolean;
+
+  /**
+   * Pass True to exclude gifts that can be purchased an unlimited number of times
+   */
+  exclude_unlimited?: boolean;
+
+  /**
+   * Pass True to exclude gifts that can be purchased a limited number of times and can be upgraded to unique
+   */
+  exclude_limited_upgradable?: boolean;
+
+  /**
+   * Pass True to exclude gifts that can be purchased a limited number of times and can't be upgraded to unique
+   */
+  exclude_limited_non_upgradable?: boolean;
+
+  /**
+   * Pass True to exclude unique gifts
+   */
+  exclude_unique?: boolean;
+
+  /**
+   * Pass True to exclude gifts that were assigned from the TON blockchain and can't be resold or transferred in Telegram
+   */
+  exclude_from_blockchain?: boolean;
+
+  /**
+   * Pass True to sort results by gift price instead of send date. Sorting is applied before pagination.
+   */
+  sort_by_price?: boolean;
+
+  /**
+   * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results
+   */
+  offset?: string;
+
+  /**
+   * The maximum number of gifts to be returned; 1-100. Defaults to 100
+   */
+  limit?: number;
+};
+
+/**
+ * Returns the gifts received and owned by a managed business account. Requires the can_view_gifts_and_stars business bot right. Returns {@link OwnedGifts} on success.
+ */
+export const getBusinessAccountGifts = /* @__PURE__ */ botMethod<
+  (payload: GetBusinessAccountGifts) => OwnedGifts
+>('getBusinessAccountGifts');
+
+export type GetUserGifts = {
+  /**
+   * Unique identifier of the user
+   */
+  user_id: number;
+
+  /**
+   * Pass True to exclude gifts that can be purchased an unlimited number of times
+   */
+  exclude_unlimited?: boolean;
+
+  /**
+   * Pass True to exclude gifts that can be purchased a limited number of times and can be upgraded to unique
+   */
+  exclude_limited_upgradable?: boolean;
+
+  /**
+   * Pass True to exclude gifts that can be purchased a limited number of times and can't be upgraded to unique
+   */
+  exclude_limited_non_upgradable?: boolean;
+
+  /**
+   * Pass True to exclude gifts that were assigned from the TON blockchain and can't be resold or transferred in Telegram
+   */
+  exclude_from_blockchain?: boolean;
+
+  /**
+   * Pass True to exclude unique gifts
+   */
+  exclude_unique?: boolean;
+
+  /**
+   * Pass True to sort results by gift price instead of send date. Sorting is applied before pagination.
+   */
+  sort_by_price?: boolean;
+
+  /**
+   * Offset of the first entry to return as received from the previous request; use an empty string to get the first chunk of results
+   */
+  offset?: string;
+
+  /**
+   * The maximum number of gifts to be returned; 1-100. Defaults to 100
+   */
+  limit?: number;
+};
+
+/**
+ * Returns the gifts owned and hosted by a user. Returns {@link OwnedGifts} on success.
+ */
+export const getUserGifts =
+  /* @__PURE__ */ botMethod<(payload: GetUserGifts) => OwnedGifts>(
+    'getUserGifts'
+  );
+
+export type GetChatGifts = {
+  /**
+   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   */
+  chat_id: number | string;
+
+  /**
+   * Pass True to exclude gifts that aren't saved to the chat's profile page. Always True, unless the bot has the can_post_messages administrator right in the channel.
+   */
+  exclude_unsaved?: boolean;
+
+  /**
+   * Pass True to exclude gifts that are saved to the chat's profile page. Always False, unless the bot has the can_post_messages administrator right in the channel.
+   */
+  exclude_saved?: boolean;
+
+  /**
+   * Pass True to exclude gifts that can be purchased an unlimited number of times
+   */
+  exclude_unlimited?: boolean;
+
+  /**
+   * Pass True to exclude gifts that can be purchased a limited number of times and can be upgraded to unique
+   */
+  exclude_limited_upgradable?: boolean;
+
+  /**
+   * Pass True to exclude gifts that can be purchased a limited number of times and can't be upgraded to unique
+   */
+  exclude_limited_non_upgradable?: boolean;
+
+  /**
+   * Pass True to exclude gifts that were assigned from the TON blockchain and can't be resold or transferred in Telegram
+   */
+  exclude_from_blockchain?: boolean;
+
+  /**
+   * Pass True to exclude unique gifts
+   */
+  exclude_unique?: boolean;
+
+  /**
+   * Pass True to sort results by gift price instead of send date. Sorting is applied before pagination.
+   */
+  sort_by_price?: boolean;
+
+  /**
+   * Offset of the first entry to return as received from the previous request; use an empty string to get the first chunk of results
+   */
+  offset?: string;
+
+  /**
+   * The maximum number of gifts to be returned; 1-100. Defaults to 100
+   */
+  limit?: number;
+};
+
+/**
+ * Returns the gifts owned by a chat. Returns {@link OwnedGifts} on success.
+ */
+export const getChatGifts =
+  /* @__PURE__ */ botMethod<(payload: GetChatGifts) => OwnedGifts>(
+    'getChatGifts'
+  );
+
+export type ConvertGiftToStars = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * Unique identifier of the regular gift that should be converted to Telegram Stars
+   */
+  owned_gift_id: string;
+};
+
+/**
+ * Converts a given regular gift to Telegram Stars. Requires the can_convert_gifts_to_stars business bot right. Returns True on success.
+ */
+export const convertGiftToStars =
+  /* @__PURE__ */ botMethod<(payload: ConvertGiftToStars) => true>(
+    'convertGiftToStars'
+  );
+
+export type UpgradeGift = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * Unique identifier of the regular gift that should be upgraded to a unique one
+   */
+  owned_gift_id: string;
+
+  /**
+   * Pass True to keep the original gift text, sender and receiver in the upgraded gift
+   */
+  keep_original_details?: boolean;
+
+  /**
+   * The amount of Telegram Stars that will be paid for the upgrade from the business account balance. If gift.prepaid_upgrade_star_count > 0, then pass 0, otherwise, the can_transfer_stars business bot right is required and gift.upgrade_star_count must be passed.
+   */
+  star_count?: number;
+};
+
+/**
+ * Upgrades a given regular gift to a unique gift. Requires the can_transfer_and_upgrade_gifts business bot right. Additionally requires the can_transfer_stars business bot right if the upgrade is paid. Returns True on success.
+ */
+export const upgradeGift =
+  /* @__PURE__ */ botMethod<(payload: UpgradeGift) => true>('upgradeGift');
+
+export type TransferGift = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * Unique identifier of the regular gift that should be transferred
+   */
+  owned_gift_id: string;
+
+  /**
+   * Unique identifier of the chat which will own the gift. The chat must be active in the last 24 hours.
+   */
+  new_owner_chat_id: number;
+
+  /**
+   * The amount of Telegram Stars that will be paid for the transfer from the business account balance. If positive, then the can_transfer_stars business bot right is required.
+   */
+  star_count?: number;
+};
+
+/**
+ * Transfers an owned unique gift to another user. Requires the can_transfer_and_upgrade_gifts business bot right. Requires can_transfer_stars business bot right if the transfer is paid. Returns True on success.
+ */
+export const transferGift =
+  /* @__PURE__ */ botMethod<(payload: TransferGift) => true>('transferGift');
+
+export type PostStory = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * Content of the story
+   */
+  content: InputStoryContent;
+
+  /**
+   * Period after which the story is moved to the archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400
+   */
+  active_period: 21_600 | 43_200 | 172_800;
+
+  /**
+   * Caption of the story, 0-2048 characters after entities parsing
+   */
+  caption?: string;
+
+  /**
+   * Mode for parsing entities in the story caption. See formatting options for more details.
+   */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+
+  /**
+   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
+   * A JSON-serialized list of clickable areas to be shown on the story
+   */
+  areas?: StoryArea[];
+
+  /**
+   * Pass True to keep the story accessible after it expires
+   */
+  post_to_chat_page?: boolean;
+
+  /**
+   * Pass True if the content of the story must be protected from forwarding and screenshotting
+   */
+  protect_content?: boolean;
+};
+
+/**
+ * Posts a story on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns {@link Story} on success.
+ */
+export const postStory =
+  /* @__PURE__ */ botMethod<(payload: PostStory) => Story>('postStory');
+
+export type RepostStory = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * Unique identifier of the chat which posted the story that should be reposted
+   */
+  from_chat_id: number;
+
+  /**
+   * Unique identifier of the story that should be reposted
+   */
+  from_story_id: number;
+
+  /**
+   * Period after which the story is moved to the archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400
+   */
+  active_period: 21_600 | 43_200 | 172_800;
+
+  /**
+   * Pass True to keep the story accessible after it expires
+   */
+  post_to_chat_page?: boolean;
+
+  /**
+   * Pass True if the content of the story must be protected from forwarding and screenshotting
+   */
+  protect_content?: boolean;
+};
+
+/**
+ * Reposts a story on behalf of a business account from another business account. Both business accounts must be managed by the same bot, and the story on the source account must have been posted (or reposted) by the bot. Requires the can_manage_stories business bot right for both business accounts. Returns {@link Story} on success.
+ */
+export const repostStory =
+  /* @__PURE__ */ botMethod<(payload: RepostStory) => Story>('repostStory');
+
+export type EditStory = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * Unique identifier of the story to edit
+   */
+  story_id: number;
+
+  /**
+   * Content of the story
+   */
+  content: InputStoryContent;
+
+  /**
+   * Caption of the story, 0-2048 characters after entities parsing
+   */
+  caption?: string;
+
+  /**
+   * Mode for parsing entities in the story caption. See formatting options for more details.
+   */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+
+  /**
+   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
+   * A JSON-serialized list of clickable areas to be shown on the story
+   */
+  areas?: StoryArea[];
+};
+
+/**
+ * Edits a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns {@link Story} on success.
+ */
+export const editStory =
+  /* @__PURE__ */ botMethod<(payload: EditStory) => Story>('editStory');
+
+export type DeleteStory = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * Unique identifier of the story to delete
+   */
+  story_id: number;
+};
+
+/**
+ * Deletes a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns True on success.
+ */
+export const deleteStory =
+  /* @__PURE__ */ botMethod<(payload: DeleteStory) => true>('deleteStory');
 
 export type EditMessageText = {
   /**
@@ -3486,6 +4540,54 @@ export type StopPoll = {
 export const stopPoll =
   /* @__PURE__ */ botMethod<(payload: StopPoll) => Poll>('stopPoll');
 
+export type ApproveSuggestedPost = {
+  /**
+   * Unique identifier for the target direct messages chat
+   */
+  chat_id: number;
+
+  /**
+   * Identifier of a suggested post message to approve
+   */
+  message_id: number;
+
+  /**
+   * Point in time (Unix timestamp) when the post is expected to be published; omit if the date has already been specified when the suggested post was created. If specified, then the date must be not more than 2678400 seconds (30 days) in the future
+   */
+  send_date?: number;
+};
+
+/**
+ * Use this method to approve a suggested post in a direct messages chat. The bot must have the 'can_post_messages' administrator right in the corresponding channel chat. Returns True on success.
+ */
+export const approveSuggestedPost = /* @__PURE__ */ botMethod<
+  (payload: ApproveSuggestedPost) => true
+>('approveSuggestedPost');
+
+export type DeclineSuggestedPost = {
+  /**
+   * Unique identifier for the target direct messages chat
+   */
+  chat_id: number;
+
+  /**
+   * Identifier of a suggested post message to decline
+   */
+  message_id: number;
+
+  /**
+   * Comment for the creator of the suggested post; 0-128 characters
+   */
+  comment?: string;
+};
+
+/**
+ * Use this method to decline a suggested post in a direct messages chat. The bot must have the 'can_manage_direct_messages' administrator right in the corresponding channel chat. Returns True on success.
+ */
+export const declineSuggestedPost = /* @__PURE__ */ botMethod<
+  (payload: DeclineSuggestedPost) => true
+>('declineSuggestedPost');
+
 export type DeleteMessage = {
   /**
    * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -3499,7 +4601,7 @@ export type DeleteMessage = {
 };
 
 /**
- * Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Service messages about a supergroup, channel, or forum topic creation can't be deleted.- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.Returns True on success.
+ * Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Service messages about a supergroup, channel, or forum topic creation can't be deleted.- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has can_delete_messages administrator right in a supergroup or a channel, it can delete any message there.- If the bot has can_manage_direct_messages administrator right in a channel, it can delete any message in the corresponding direct messages chat.Returns True on success.
  */
 export const deleteMessage =
   /* @__PURE__ */ botMethod<(payload: DeleteMessage) => true>('deleteMessage');
@@ -3524,619 +4626,6 @@ export const deleteMessages =
     'deleteMessages'
   );
 
-/**
- * Returns the list of gifts that can be sent by the bot to users and channel chats. Requires no parameters. Returns a {@link Gifts} object.
- */
-export const getAvailableGifts =
-  /* @__PURE__ */ botMethod<() => Gifts>('getAvailableGifts');
-
-export type SendGift = {
-  /**
-   * Required if chat_id is not specified. Unique identifier of the target user who will receive the gift.
-   */
-  user_id?: number;
-
-  /**
-   * Required if user_id is not specified. Unique identifier for the chat or username of the channel (in the format @channelusername) that will receive the gift.
-   */
-  chat_id?: number | string;
-
-  /**
-   * Identifier of the gift
-   */
-  gift_id: string;
-
-  /**
-   * Pass True to pay for the gift upgrade from the bot's balance, thereby making the upgrade free for the receiver
-   */
-  pay_for_upgrade?: boolean;
-
-  /**
-   * Text that will be shown along with the gift; 0-128 characters
-   */
-  text?: string;
-
-  /**
-   * Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
-   */
-  text_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
-
-  /**
-   * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
-   */
-  text_entities?:
-    | 'bold'
-    | 'italic'
-    | 'underline'
-    | 'strikethrough'
-    | 'spoiler'
-    | 'custom_emoji';
-};
-
-/**
- * Sends a gift to the given user or channel chat. The gift can't be converted to Telegram Stars by the receiver. Returns True on success.
- */
-export const sendGift =
-  /* @__PURE__ */ botMethod<(payload: SendGift) => true>('sendGift');
-
-export type GiftPremiumSubscription = {
-  /**
-   * Unique identifier of the target user who will receive a Telegram Premium subscription
-   */
-  user_id: number;
-
-  /**
-   * Number of months the Telegram Premium subscription will be active for the user; must be one of 3, 6, or 12
-   */
-  month_count: 3 | 6 | 12;
-
-  /**
-   * Number of Telegram Stars to pay for the Telegram Premium subscription; must be 1000 for 3 months, 1500 for 6 months, and 2500 for 12 months
-   */
-  star_count: number;
-
-  /**
-   * Text that will be shown along with the service message about the subscription; 0-128 characters
-   */
-  text?: string;
-
-  /**
-   * Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
-   */
-  text_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
-
-  /**
-   * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
-   */
-  text_entities?:
-    | 'bold'
-    | 'italic'
-    | 'underline'
-    | 'strikethrough'
-    | 'spoiler'
-    | 'custom_emoji';
-};
-
-/**
- * {@link Gifts} a Telegram Premium subscription to the given user. Returns True on success.
- */
-export const giftPremiumSubscription = /* @__PURE__ */ botMethod<
-  (payload: GiftPremiumSubscription) => true
->('giftPremiumSubscription');
-
-export type VerifyUser = {
-  /**
-   * Unique identifier of the target user
-   */
-  user_id: number;
-
-  /**
-   * Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
-   */
-  custom_description?: string;
-};
-
-/**
- * Verifies a user on behalf of the organization which is represented by the bot. Returns True on success.
- */
-export const verifyUser =
-  /* @__PURE__ */ botMethod<(payload: VerifyUser) => true>('verifyUser');
-
-export type VerifyChat = {
-  /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   */
-  chat_id: number | string;
-
-  /**
-   * Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
-   */
-  custom_description?: string;
-};
-
-/**
- * Verifies a chat on behalf of the organization which is represented by the bot. Returns True on success.
- */
-export const verifyChat =
-  /* @__PURE__ */ botMethod<(payload: VerifyChat) => true>('verifyChat');
-
-export type RemoveUserVerification = {
-  /**
-   * Unique identifier of the target user
-   */
-  user_id: number;
-};
-
-/**
- * Removes verification from a user who is currently verified on behalf of the organization represented by the bot. Returns True on success.
- */
-export const removeUserVerification = /* @__PURE__ */ botMethod<
-  (payload: RemoveUserVerification) => true
->('removeUserVerification');
-
-export type RemoveChatVerification = {
-  /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
-   */
-  chat_id: number | string;
-};
-
-/**
- * Removes verification from a chat that is currently verified on behalf of the organization represented by the bot. Returns True on success.
- */
-export const removeChatVerification = /* @__PURE__ */ botMethod<
-  (payload: RemoveChatVerification) => true
->('removeChatVerification');
-
-export type ReadBusinessMessage = {
-  /**
-   * Unique identifier of the business connection on behalf of which to read the message
-   */
-  business_connection_id: string;
-
-  /**
-   * Unique identifier of the chat in which the message was received. The chat must have been active in the last 24 hours.
-   */
-  chat_id: number;
-
-  /**
-   * Unique identifier of the message to mark as read
-   */
-  message_id: number;
-};
-
-/**
- * Marks incoming message as read on behalf of a business account. Requires the can_read_messages business bot right. Returns True on success.
- */
-export const readBusinessMessage = /* @__PURE__ */ botMethod<
-  (payload: ReadBusinessMessage) => true
->('readBusinessMessage');
-
-export type DeleteBusinessMessages = {
-  /**
-   * Unique identifier of the business connection on behalf of which to delete the messages
-   */
-  business_connection_id: string;
-
-  /**
-   * A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See deleteMessage for limitations on which messages can be deleted
-   */
-  message_ids: number[];
-};
-
-/**
- * Delete messages on behalf of a business account. Requires the can_delete_sent_messages business bot right to delete messages sent by the bot itself, or the can_delete_all_messages business bot right to delete any message. Returns True on success.
- */
-export const deleteBusinessMessages = /* @__PURE__ */ botMethod<
-  (payload: DeleteBusinessMessages) => true
->('deleteBusinessMessages');
-
-export type SetBusinessAccountName = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-
-  /**
-   * The new value of the first name for the business account; 1-64 characters
-   */
-  first_name: string;
-
-  /**
-   * The new value of the last name for the business account; 0-64 characters
-   */
-  last_name?: string;
-};
-
-/**
- * Changes the first and last name of a managed business account. Requires the can_change_name business bot right. Returns True on success.
- */
-export const setBusinessAccountName = /* @__PURE__ */ botMethod<
-  (payload: SetBusinessAccountName) => true
->('setBusinessAccountName');
-
-export type SetBusinessAccountUsername = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-
-  /**
-   * The new value of the username for the business account; 0-32 characters
-   */
-  username?: string;
-};
-
-/**
- * Changes the username of a managed business account. Requires the can_change_username business bot right. Returns True on success.
- */
-export const setBusinessAccountUsername = /* @__PURE__ */ botMethod<
-  (payload: SetBusinessAccountUsername) => true
->('setBusinessAccountUsername');
-
-export type SetBusinessAccountBio = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-
-  /**
-   * The new value of the bio for the business account; 0-140 characters
-   */
-  bio?: string;
-};
-
-/**
- * Changes the bio of a managed business account. Requires the can_change_bio business bot right. Returns True on success.
- */
-export const setBusinessAccountBio = /* @__PURE__ */ botMethod<
-  (payload: SetBusinessAccountBio) => true
->('setBusinessAccountBio');
-
-export type SetBusinessAccountProfilePhoto = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-
-  /**
-   * The new profile photo to set
-   */
-  photo: InputProfilePhoto;
-
-  /**
-   * Pass True to set the public photo, which will be visible even if the main photo is hidden by the business account's privacy settings. An account can have only one public photo.
-   */
-  is_public?: boolean;
-};
-
-/**
- * Changes the profile photo of a managed business account. Requires the can_edit_profile_photo business bot right. Returns True on success.
- */
-export const setBusinessAccountProfilePhoto = /* @__PURE__ */ botMethod<
-  (payload: SetBusinessAccountProfilePhoto) => true
->('setBusinessAccountProfilePhoto');
-
-export type RemoveBusinessAccountProfilePhoto = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-
-  /**
-   * Pass True to remove the public photo, which is visible even if the main photo is hidden by the business account's privacy settings. After the main photo is removed, the previous profile photo (if present) becomes the main photo.
-   */
-  is_public?: boolean;
-};
-
-/**
- * Removes the current profile photo of a managed business account. Requires the can_edit_profile_photo business bot right. Returns True on success.
- */
-export const removeBusinessAccountProfilePhoto = /* @__PURE__ */ botMethod<
-  (payload: RemoveBusinessAccountProfilePhoto) => true
->('removeBusinessAccountProfilePhoto');
-
-export type SetBusinessAccountGiftSettings = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-
-  /**
-   * Pass True, if a button for sending a gift to the user or by the business account must always be shown in the input field
-   */
-  show_gift_button: boolean;
-
-  /**
-   * Types of gifts accepted by the business account
-   */
-  accepted_gift_types: AcceptedGiftTypes;
-};
-
-/**
- * Changes the privacy settings pertaining to incoming gifts in a managed business account. Requires the can_change_gift_settings business bot right. Returns True on success.
- */
-export const setBusinessAccountGiftSettings = /* @__PURE__ */ botMethod<
-  (payload: SetBusinessAccountGiftSettings) => true
->('setBusinessAccountGiftSettings');
-
-export type GetBusinessAccountStarBalance = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-};
-
-/**
- * Returns the amount of Telegram Stars owned by a managed business account. Requires the can_view_gifts_and_stars business bot right. Returns {@link StarAmount} on success.
- */
-export const getBusinessAccountStarBalance = /* @__PURE__ */ botMethod<
-  (payload: GetBusinessAccountStarBalance) => StarAmount
->('getBusinessAccountStarBalance');
-
-export type TransferBusinessAccountStars = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-
-  /**
-   * Number of Telegram Stars to transfer; 1-10000
-   */
-  star_count: number;
-};
-
-/**
- * Transfers Telegram Stars from the business account balance to the bot's balance. Requires the can_transfer_stars business bot right. Returns True on success.
- */
-export const transferBusinessAccountStars = /* @__PURE__ */ botMethod<
-  (payload: TransferBusinessAccountStars) => true
->('transferBusinessAccountStars');
-
-export type GetBusinessAccountGifts = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-
-  /**
-   * Pass True to exclude gifts that aren't saved to the account's profile page
-   */
-  exclude_unsaved?: boolean;
-
-  /**
-   * Pass True to exclude gifts that are saved to the account's profile page
-   */
-  exclude_saved?: boolean;
-
-  /**
-   * Pass True to exclude gifts that can be purchased an unlimited number of times
-   */
-  exclude_unlimited?: boolean;
-
-  /**
-   * Pass True to exclude gifts that can be purchased a limited number of times
-   */
-  exclude_limited?: boolean;
-
-  /**
-   * Pass True to exclude unique gifts
-   */
-  exclude_unique?: boolean;
-
-  /**
-   * Pass True to sort results by gift price instead of send date. Sorting is applied before pagination.
-   */
-  sort_by_price?: boolean;
-
-  /**
-   * Offset of the first entry to return as received from the previous request; use empty string to get the first chunk of results
-   */
-  offset?: string;
-
-  /**
-   * The maximum number of gifts to be returned; 1-100. Defaults to 100
-   */
-  limit?: number;
-};
-
-/**
- * Returns the gifts received and owned by a managed business account. Requires the can_view_gifts_and_stars business bot right. Returns {@link OwnedGifts} on success.
- */
-export const getBusinessAccountGifts = /* @__PURE__ */ botMethod<
-  (payload: GetBusinessAccountGifts) => OwnedGifts
->('getBusinessAccountGifts');
-
-export type ConvertGiftToStars = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-
-  /**
-   * Unique identifier of the regular gift that should be converted to Telegram Stars
-   */
-  owned_gift_id: string;
-};
-
-/**
- * Converts a given regular gift to Telegram Stars. Requires the can_convert_gifts_to_stars business bot right. Returns True on success.
- */
-export const convertGiftToStars =
-  /* @__PURE__ */ botMethod<(payload: ConvertGiftToStars) => true>(
-    'convertGiftToStars'
-  );
-
-export type UpgradeGift = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-
-  /**
-   * Unique identifier of the regular gift that should be upgraded to a unique one
-   */
-  owned_gift_id: string;
-
-  /**
-   * Pass True to keep the original gift text, sender and receiver in the upgraded gift
-   */
-  keep_original_details?: boolean;
-
-  /**
-   * The amount of Telegram Stars that will be paid for the upgrade from the business account balance. If gift.prepaid_upgrade_star_count > 0, then pass 0, otherwise, the can_transfer_stars business bot right is required and gift.upgrade_star_count must be passed.
-   */
-  star_count?: number;
-};
-
-/**
- * Upgrades a given regular gift to a unique gift. Requires the can_transfer_and_upgrade_gifts business bot right. Additionally requires the can_transfer_stars business bot right if the upgrade is paid. Returns True on success.
- */
-export const upgradeGift =
-  /* @__PURE__ */ botMethod<(payload: UpgradeGift) => true>('upgradeGift');
-
-export type TransferGift = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-
-  /**
-   * Unique identifier of the regular gift that should be transferred
-   */
-  owned_gift_id: string;
-
-  /**
-   * Unique identifier of the chat which will own the gift. The chat must be active in the last 24 hours.
-   */
-  new_owner_chat_id: number;
-
-  /**
-   * The amount of Telegram Stars that will be paid for the transfer from the business account balance. If positive, then the can_transfer_stars business bot right is required.
-   */
-  star_count?: number;
-};
-
-/**
- * Transfers an owned unique gift to another user. Requires the can_transfer_and_upgrade_gifts business bot right. Requires can_transfer_stars business bot right if the transfer is paid. Returns True on success.
- */
-export const transferGift =
-  /* @__PURE__ */ botMethod<(payload: TransferGift) => true>('transferGift');
-
-export type PostStory = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-
-  /**
-   * Content of the story
-   */
-  content: InputStoryContent;
-
-  /**
-   * Period after which the story is moved to the archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400
-   */
-  active_period: 21_600 | 43_200 | 172_800;
-
-  /**
-   * Caption of the story, 0-2048 characters after entities parsing
-   */
-  caption?: string;
-
-  /**
-   * Mode for parsing entities in the story caption. See formatting options for more details.
-   */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
-
-  /**
-   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
-   */
-  caption_entities?: MessageEntity[];
-
-  /**
-   * A JSON-serialized list of clickable areas to be shown on the story
-   */
-  areas?: StoryArea[];
-
-  /**
-   * Pass True to keep the story accessible after it expires
-   */
-  post_to_chat_page?: boolean;
-
-  /**
-   * Pass True if the content of the story must be protected from forwarding and screenshotting
-   */
-  protect_content?: boolean;
-};
-
-/**
- * Posts a story on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns {@link Story} on success.
- */
-export const postStory =
-  /* @__PURE__ */ botMethod<(payload: PostStory) => Story>('postStory');
-
-export type EditStory = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-
-  /**
-   * Unique identifier of the story to edit
-   */
-  story_id: number;
-
-  /**
-   * Content of the story
-   */
-  content: InputStoryContent;
-
-  /**
-   * Caption of the story, 0-2048 characters after entities parsing
-   */
-  caption?: string;
-
-  /**
-   * Mode for parsing entities in the story caption. See formatting options for more details.
-   */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
-
-  /**
-   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
-   */
-  caption_entities?: MessageEntity[];
-
-  /**
-   * A JSON-serialized list of clickable areas to be shown on the story
-   */
-  areas?: StoryArea[];
-};
-
-/**
- * Edits a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns {@link Story} on success.
- */
-export const editStory =
-  /* @__PURE__ */ botMethod<(payload: EditStory) => Story>('editStory');
-
-export type DeleteStory = {
-  /**
-   * Unique identifier of the business connection
-   */
-  business_connection_id: string;
-
-  /**
-   * Unique identifier of the story to delete
-   */
-  story_id: number;
-};
-
-/**
- * Deletes a story previously posted by the bot on behalf of a managed business account. Requires the can_manage_stories business bot right. Returns True on success.
- */
-export const deleteStory =
-  /* @__PURE__ */ botMethod<(payload: DeleteStory) => true>('deleteStory');
-
 export type SendSticker = {
   /**
    * Unique identifier of the business connection on behalf of which the message will be sent
@@ -4149,9 +4638,14 @@ export type SendSticker = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a.WEBP sticker from the Internet, or upload a new.WEBP,.TGS, or.WEBM sticker using multipart/form-data. More information on Sending Files ». {@link Video} and animated stickers can't be sent via an HTTP URL.
@@ -4182,6 +4676,11 @@ export type SendSticker = {
    * Unique identifier of the message effect to be added to the message; for private chats only
    */
   message_effect_id?: string;
+
+  /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
 
   /**
    * Description of the message to reply to
@@ -4631,9 +5130,14 @@ export type SendInvoice = {
   chat_id: number | string;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
 
   /**
    * Product name, 1-32 characters
@@ -4854,6 +5358,11 @@ export type SendInvoice = {
    * Unique identifier of the message effect to be added to the message; for private chats only
    */
   message_effect_id?: string;
+
+  /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
 
   /**
    * Description of the message to reply to
@@ -5235,12 +5744,12 @@ export type SendGame = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat
+   * Unique identifier for the target chat. Games can't be sent to channel direct messages chats and channel chats.
    */
   chat_id: number;
 
   /**
-   * Unique identifier for the target message thread (topic) of the forum; for forum supergroups only
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
    */
   message_thread_id?: number;
 
@@ -5369,6 +5878,7 @@ export default {
   answerShippingQuery,
   answerWebAppQuery,
   approveChatJoinRequest,
+  approveSuggestedPost,
   banChatMember,
   banChatSenderChat,
   close,
@@ -5383,6 +5893,7 @@ export default {
   createInvoiceLink,
   createNewStickerSet,
   declineChatJoinRequest,
+  declineSuggestedPost,
   deleteBusinessMessages,
   deleteChatPhoto,
   deleteChatStickerSet,
@@ -5415,6 +5926,7 @@ export default {
   getBusinessConnection,
   getChat,
   getChatAdministrators,
+  getChatGifts,
   getChatMember,
   getChatMemberCount,
   getChatMenuButton,
@@ -5433,6 +5945,8 @@ export default {
   getStickerSet,
   getUpdates,
   getUserChatBoosts,
+  getUserGifts,
+  getUserProfileAudios,
   getUserProfilePhotos,
   getWebhookInfo,
   giftPremiumSubscription,
@@ -5446,10 +5960,12 @@ export default {
   refundStarPayment,
   removeBusinessAccountProfilePhoto,
   removeChatVerification,
+  removeMyProfilePhoto,
   removeUserVerification,
   reopenForumTopic,
   reopenGeneralForumTopic,
   replaceStickerInSet,
+  repostStory,
   restrictChatMember,
   revokeChatInviteLink,
   savePreparedInlineMessage,
@@ -5466,6 +5982,7 @@ export default {
   sendLocation,
   sendMediaGroup,
   sendMessage,
+  sendMessageDraft,
   sendPaidMedia,
   sendPhoto,
   sendPoll,
@@ -5493,6 +6010,7 @@ export default {
   setMyDefaultAdministratorRights,
   setMyDescription,
   setMyName,
+  setMyProfilePhoto,
   setMyShortDescription,
   setPassportDataErrors,
   setStickerEmojiList,

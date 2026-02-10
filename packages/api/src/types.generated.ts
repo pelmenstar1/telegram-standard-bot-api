@@ -243,6 +243,16 @@ export type User = {
    * True, if the bot has a main Web App. Returned only in getMe.
    */
   has_main_web_app?: boolean;
+
+  /**
+   * True, if the bot has forum topic mode enabled in private chats. Returned only in getMe.
+   */
+  has_topics_enabled?: boolean;
+
+  /**
+   * True, if the bot allows users to create and delete topics in private chats. Returned only in getMe.
+   */
+  allows_users_to_create_topics?: boolean;
 };
 
 /**
@@ -283,6 +293,11 @@ export type Chat = {
    * True, if the supergroup chat is a forum (has topics enabled)
    */
   is_forum?: true;
+
+  /**
+   * True, if the chat is the direct messages chat of a channel
+   */
+  is_direct_messages?: true;
 };
 
 /**
@@ -323,6 +338,11 @@ export type ChatFullInfo = {
    * True, if the supergroup chat is a forum (has topics enabled)
    */
   is_forum?: true;
+
+  /**
+   * True, if the chat is the direct messages chat of a channel
+   */
+  is_direct_messages?: true;
 
   /**
    * Identifier of the accent color for the chat name and backgrounds of the chat photo, reply header, and link preview. See accent colors for more details.
@@ -368,6 +388,11 @@ export type ChatFullInfo = {
    * For private chats, the personal channel of the user
    */
   personal_chat?: Chat;
+
+  /**
+   * Information about the corresponding channel chat; for direct messages chats only
+   */
+  parent_chat?: Chat;
 
   /**
    * List of available reactions allowed in the chat. If omitted, then all emoji reactions are allowed.
@@ -513,6 +538,26 @@ export type ChatFullInfo = {
    * For supergroups, the location to which the supergroup is connected
    */
   location?: ChatLocation;
+
+  /**
+   * For private chats, the rating of the user if any
+   */
+  rating?: UserRating;
+
+  /**
+   * For private chats, the first audio added to the profile of the user
+   */
+  first_profile_audio?: Audio;
+
+  /**
+   * The color scheme based on a unique gift that must be used for the chat's name, message replies and link previews
+   */
+  unique_gift_colors?: UniqueGiftColors;
+
+  /**
+   * The number of Telegram Stars a general user have to pay to send a message to the chat
+   */
+  paid_message_star_count?: number;
 };
 
 /**
@@ -525,9 +570,14 @@ export type Message = {
   message_id: number;
 
   /**
-   * Unique identifier of a message thread to which the message belongs; for supergroups only
+   * Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
    */
   message_thread_id?: number;
+
+  /**
+   * Information about the direct messages chat topic that contains the message
+   */
+  direct_messages_topic?: DirectMessagesTopic;
 
   /**
    * Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
@@ -570,7 +620,7 @@ export type Message = {
   forward_origin?: MessageOrigin;
 
   /**
-   * True, if the message is sent to a forum topic
+   * True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
    */
   is_topic_message?: true;
 
@@ -600,6 +650,11 @@ export type Message = {
   reply_to_story?: Story;
 
   /**
+   * Identifier of the specific checklist task that is being replied to
+   */
+  reply_to_checklist_task_id?: number;
+
+  /**
    * Bot through which the message was sent
    */
   via_bot?: User;
@@ -618,6 +673,11 @@ export type Message = {
    * True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
    */
   is_from_offline?: true;
+
+  /**
+   * True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
+   */
+  is_paid_post?: true;
 
   /**
    * The unique identifier of a media message group this message belongs to
@@ -648,6 +708,11 @@ export type Message = {
    * Options used for link preview generation for the message, if it is a text message and link preview options were changed
    */
   link_preview_options?: LinkPreviewOptions;
+
+  /**
+   * Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
+   */
+  suggested_post_info?: SuggestedPostInfo;
 
   /**
    * Unique identifier of the message effect added to the message
@@ -770,6 +835,16 @@ export type Message = {
   left_chat_member?: User;
 
   /**
+   * Service message: chat owner has left
+   */
+  chat_owner_left?: ChatOwnerLeft;
+
+  /**
+   * Service message: chat owner has changed
+   */
+  chat_owner_changed?: ChatOwnerChanged;
+
+  /**
    * A chat title was changed to this value
    */
   new_chat_title?: string;
@@ -853,6 +928,11 @@ export type Message = {
    * Service message: a unique gift was sent or received
    */
   unique_gift?: UniqueGiftInfo;
+
+  /**
+   * Service message: upgrade of a gift was purchased after the gift was sent
+   */
+  gift_upgrade_sent?: GiftInfo;
 
   /**
    * The domain name of the website on which the user has logged in. {@link https://core.telegram.org/widgets/login | More about Telegram Login »}
@@ -953,6 +1033,31 @@ export type Message = {
    * Service message: the price for paid messages has changed in the chat
    */
   paid_message_price_changed?: PaidMessagePriceChanged;
+
+  /**
+   * Service message: a suggested post was approved
+   */
+  suggested_post_approved?: SuggestedPostApproved;
+
+  /**
+   * Service message: approval of a suggested post has failed
+   */
+  suggested_post_approval_failed?: SuggestedPostApprovalFailed;
+
+  /**
+   * Service message: a suggested post was declined
+   */
+  suggested_post_declined?: SuggestedPostDeclined;
+
+  /**
+   * Service message: payment for a suggested post was received
+   */
+  suggested_post_paid?: SuggestedPostPaid;
+
+  /**
+   * Service message: payment for a suggested post was refunded
+   */
+  suggested_post_refunded?: SuggestedPostRefunded;
 
   /**
    * Service message: video chat scheduled
@@ -1220,7 +1325,7 @@ export type ReplyParameters = {
   message_id: number;
 
   /**
-   * If the message to be replied to is from a different chat, unique identifier for the chat or username of the channel (in the format @channelusername). Not supported for messages sent on behalf of a business account.
+   * If the message to be replied to is from a different chat, unique identifier for the chat or username of the channel (in the format @channelusername). Not supported for messages sent on behalf of a business account and messages from channel direct messages chats.
    */
   chat_id?: number | string;
 
@@ -1248,6 +1353,11 @@ export type ReplyParameters = {
    * Position of the quote in the original message in UTF-16 code units
    */
   quote_position?: number;
+
+  /**
+   * Identifier of the specific checklist task to be replied to
+   */
+  checklist_task_id?: number;
 };
 
 /**
@@ -1526,6 +1636,41 @@ export type Story = {
 };
 
 /**
+ * This object represents a video file of a specific quality.
+ */
+export type VideoQuality = {
+  /**
+   * Identifier for this file, which can be used to download or reuse the file
+   */
+  file_id: string;
+
+  /**
+   * Unique identifier for this file, which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+   */
+  file_unique_id: string;
+
+  /**
+   * Video width
+   */
+  width: number;
+
+  /**
+   * Video height
+   */
+  height: number;
+
+  /**
+   * Codec that was used to encode the video, for example, “h264”, “h265”, or “av01”
+   */
+  codec: string;
+
+  /**
+   * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+   */
+  file_size?: number;
+};
+
+/**
  * This object represents a video file.
  */
 export type Video = {
@@ -1568,6 +1713,11 @@ export type Video = {
    * Timestamp in seconds from which the video will play in the message
    */
   start_timestamp?: number;
+
+  /**
+   * List of available qualities of the video
+   */
+  qualities?: VideoQuality[];
 
   /**
    * Original filename as defined by the sender
@@ -1925,9 +2075,14 @@ export type ChecklistTask = {
   text_entities?: MessageEntity[];
 
   /**
-   * {@link User} that completed the task; omitted if the task wasn't completed
+   * {@link User} that completed the task; omitted if the task wasn't completed by a user
    */
   completed_by_user?: User;
+
+  /**
+   * {@link Chat} that completed the task; omitted if the task wasn't completed by a chat
+   */
+  completed_by_chat?: Chat;
 
   /**
    * Point in time (Unix timestamp) when the task was completed; 0 if the task wasn't completed
@@ -1982,7 +2137,7 @@ export type InputChecklistTask = {
   /**
    * Mode for parsing entities in the text. See formatting options for more details.
    */
-  parse_mode: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the text, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, and custom_emoji entities are allowed.
@@ -2002,7 +2157,7 @@ export type InputChecklist = {
   /**
    * Mode for parsing entities in the title. See formatting options for more details.
    */
-  parse_mode: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
    * List of special entities that appear in the title, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, and custom_emoji entities are allowed.
@@ -2373,6 +2528,11 @@ export type ForumTopicCreated = {
    * Unique identifier of the custom emoji shown as the topic icon
    */
   icon_custom_emoji_id?: string;
+
+  /**
+   * True, if the name of the topic wasn't specified explicitly by its creator and likely needs to be changed by the bot
+   */
+  is_name_implicit?: true;
 };
 
 export type ForumTopicClosed = Record<string, never>;
@@ -2548,6 +2708,191 @@ export type DirectMessagePriceChanged = {
    * The new number of Telegram Stars that must be paid by users for each direct message sent to the channel. Does not apply to users who have been exempted by administrators. Defaults to 0.
    */
   direct_message_star_count?: number;
+};
+
+/**
+ * Describes a service message about the approval of a suggested post.
+ */
+export type SuggestedPostApproved = {
+  /**
+   * {@link Message} containing the suggested post. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
+   */
+  suggested_post_message?: Message;
+
+  /**
+   * Amount paid for the post
+   */
+  price?: SuggestedPostPrice;
+
+  /**
+   * Date when the post will be published
+   */
+  send_date: number;
+};
+
+/**
+ * Describes a service message about the failed approval of a suggested post. Currently, only caused by insufficient user funds at the time of approval.
+ */
+export type SuggestedPostApprovalFailed = {
+  /**
+   * {@link Message} containing the suggested post whose approval has failed. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
+   */
+  suggested_post_message?: Message;
+
+  /**
+   * Expected price of the post
+   */
+  price: SuggestedPostPrice;
+};
+
+/**
+ * Describes a service message about the rejection of a suggested post.
+ */
+export type SuggestedPostDeclined = {
+  /**
+   * {@link Message} containing the suggested post. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
+   */
+  suggested_post_message?: Message;
+
+  /**
+   * Comment with which the post was declined
+   */
+  comment?: string;
+};
+
+/**
+ * Describes a service message about a successful payment for a suggested post.
+ */
+export type SuggestedPostPaid = {
+  /**
+   * {@link Message} containing the suggested post. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
+   */
+  suggested_post_message?: Message;
+
+  /**
+   * Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins
+   */
+  currency:
+    | 'AED'
+    | 'AFN'
+    | 'ALL'
+    | 'AMD'
+    | 'ARS'
+    | 'AUD'
+    | 'AZN'
+    | 'BAM'
+    | 'BDT'
+    | 'BGN'
+    | 'BHD'
+    | 'BND'
+    | 'BOB'
+    | 'BRL'
+    | 'BYN'
+    | 'CAD'
+    | 'CHF'
+    | 'CLP'
+    | 'CNY'
+    | 'COP'
+    | 'CRC'
+    | 'CZK'
+    | 'DKK'
+    | 'DOP'
+    | 'DZD'
+    | 'EGP'
+    | 'ETB'
+    | 'EUR'
+    | 'GBP'
+    | 'GEL'
+    | 'GHS'
+    | 'GTQ'
+    | 'HKD'
+    | 'HNL'
+    | 'HRK'
+    | 'HUF'
+    | 'IDR'
+    | 'ILS'
+    | 'INR'
+    | 'IQD'
+    | 'IRR'
+    | 'ISK'
+    | 'JMD'
+    | 'JOD'
+    | 'JPY'
+    | 'KES'
+    | 'KGS'
+    | 'KRW'
+    | 'KZT'
+    | 'LBP'
+    | 'LKR'
+    | 'MAD'
+    | 'MDL'
+    | 'MMK'
+    | 'MNT'
+    | 'MOP'
+    | 'MUR'
+    | 'MVR'
+    | 'MXN'
+    | 'MYR'
+    | 'MZN'
+    | 'NGN'
+    | 'NIO'
+    | 'NOK'
+    | 'NPR'
+    | 'NZD'
+    | 'PAB'
+    | 'PEN'
+    | 'PHP'
+    | 'PKR'
+    | 'PLN'
+    | 'PYG'
+    | 'QAR'
+    | 'RON'
+    | 'RSD'
+    | 'RUB'
+    | 'SAR'
+    | 'SEK'
+    | 'SGD'
+    | 'SYP'
+    | 'THB'
+    | 'TJS'
+    | 'TRY'
+    | 'TTD'
+    | 'TWD'
+    | 'TZS'
+    | 'UAH'
+    | 'UGX'
+    | 'USD'
+    | 'UYU'
+    | 'UZS'
+    | 'VND'
+    | 'YER'
+    | 'ZAR'
+    | 'XTR';
+
+  /**
+   * The amount of the currency that was received by the channel in nanotoncoins; for payments in toncoins only
+   */
+  amount?: number;
+
+  /**
+   * The amount of Telegram Stars that was received by the channel; for payments in Telegram Stars only
+   */
+  star_amount?: StarAmount;
+};
+
+/**
+ * Describes a service message about a payment refund for a suggested post.
+ */
+export type SuggestedPostRefunded = {
+  /**
+   * {@link Message} containing the suggested post. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
+   */
+  suggested_post_message?: Message;
+
+  /**
+   * Reason for the refund. Currently, one of “post_deleted” if the post was deleted within 24 hours of being posted or removed from scheduled messages without being posted, or “payment_refunded” if the payer refunded their payment.
+   */
+  reason: string;
 };
 
 /**
@@ -2731,6 +3076,166 @@ export type LinkPreviewOptions = {
 };
 
 /**
+ * Describes the price of a suggested post.
+ */
+export type SuggestedPostPrice = {
+  /**
+   * Currency in which the post will be paid. Currently, must be one of “XTR” for Telegram Stars or “TON” for toncoins
+   */
+  currency:
+    | 'AED'
+    | 'AFN'
+    | 'ALL'
+    | 'AMD'
+    | 'ARS'
+    | 'AUD'
+    | 'AZN'
+    | 'BAM'
+    | 'BDT'
+    | 'BGN'
+    | 'BHD'
+    | 'BND'
+    | 'BOB'
+    | 'BRL'
+    | 'BYN'
+    | 'CAD'
+    | 'CHF'
+    | 'CLP'
+    | 'CNY'
+    | 'COP'
+    | 'CRC'
+    | 'CZK'
+    | 'DKK'
+    | 'DOP'
+    | 'DZD'
+    | 'EGP'
+    | 'ETB'
+    | 'EUR'
+    | 'GBP'
+    | 'GEL'
+    | 'GHS'
+    | 'GTQ'
+    | 'HKD'
+    | 'HNL'
+    | 'HRK'
+    | 'HUF'
+    | 'IDR'
+    | 'ILS'
+    | 'INR'
+    | 'IQD'
+    | 'IRR'
+    | 'ISK'
+    | 'JMD'
+    | 'JOD'
+    | 'JPY'
+    | 'KES'
+    | 'KGS'
+    | 'KRW'
+    | 'KZT'
+    | 'LBP'
+    | 'LKR'
+    | 'MAD'
+    | 'MDL'
+    | 'MMK'
+    | 'MNT'
+    | 'MOP'
+    | 'MUR'
+    | 'MVR'
+    | 'MXN'
+    | 'MYR'
+    | 'MZN'
+    | 'NGN'
+    | 'NIO'
+    | 'NOK'
+    | 'NPR'
+    | 'NZD'
+    | 'PAB'
+    | 'PEN'
+    | 'PHP'
+    | 'PKR'
+    | 'PLN'
+    | 'PYG'
+    | 'QAR'
+    | 'RON'
+    | 'RSD'
+    | 'RUB'
+    | 'SAR'
+    | 'SEK'
+    | 'SGD'
+    | 'SYP'
+    | 'THB'
+    | 'TJS'
+    | 'TRY'
+    | 'TTD'
+    | 'TWD'
+    | 'TZS'
+    | 'UAH'
+    | 'UGX'
+    | 'USD'
+    | 'UYU'
+    | 'UZS'
+    | 'VND'
+    | 'YER'
+    | 'ZAR'
+    | 'XTR';
+
+  /**
+   * The amount of the currency that will be paid for the post in the smallest units of the currency, i.e. Telegram Stars or nanotoncoins. Currently, price in Telegram Stars must be between 5 and 100000, and price in nanotoncoins must be between 10000000 and 10000000000000.
+   */
+  amount: number;
+};
+
+/**
+ * Contains information about a suggested post.
+ */
+export type SuggestedPostInfo = {
+  /**
+   * State of the suggested post. Currently, it can be one of “pending”, “approved”, “declined”.
+   */
+  state: string;
+
+  /**
+   * Proposed price of the post. If the field is omitted, then the post is unpaid.
+   */
+  price?: SuggestedPostPrice;
+
+  /**
+   * Proposed send date of the post. If the field is omitted, then the post can be published at any time within 30 days at the sole discretion of the user or administrator who approves it.
+   */
+  send_date?: number;
+};
+
+/**
+ * Contains parameters of a post that is being suggested by the bot.
+ */
+export type SuggestedPostParameters = {
+  /**
+   * Proposed price for the post. If the field is omitted, then the post is unpaid.
+   */
+  price?: SuggestedPostPrice;
+
+  /**
+   * Proposed send date of the post. If specified, then the date must be between 300 second and 2678400 seconds (30 days) in the future. If the field is omitted, then the post can be published at any time within 30 days at the sole discretion of the user who approves it.
+   */
+  send_date?: number;
+};
+
+/**
+ * Describes a topic of a direct messages chat.
+ */
+export type DirectMessagesTopic = {
+  /**
+   * Unique identifier of the topic. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
+   */
+  topic_id: number;
+
+  /**
+   * Information about the user that created the topic. Currently, it is always present
+   */
+  user?: User;
+};
+
+/**
  * This object represent a user's profile pictures.
  */
 export type UserProfilePhotos = {
@@ -2743,6 +3248,21 @@ export type UserProfilePhotos = {
    * Requested profile pictures (in up to 4 sizes each)
    */
   photos: PhotoSize[][];
+};
+
+/**
+ * This object represents the {@link UserProfileAudios.audios | audios} displayed on a user's profile.
+ */
+export type UserProfileAudios = {
+  /**
+   * Total number of profile audios for the target user
+   */
+  total_count: number;
+
+  /**
+   * Requested profile audios
+   */
+  audios: Audio[];
 };
 
 /**
@@ -2816,23 +3336,33 @@ export type ReplyKeyboardMarkup = {
 };
 
 /**
- * This object represents one button of the reply keyboard. At most one of the optional fields must be used to specify type of the button. For simple {@link KeyboardButton.text | text} buttons, String can be used instead of this object to specify the button {@link KeyboardButton.text | text}.
+ * This object represents one button of the reply keyboard. At most one of the fields other than {@link KeyboardButton.text | text}, {@link KeyboardButton.icon_custom_emoji_id | icon_custom_emoji_id}, and {@link KeyboardButton.style | style} must be used to specify the type of the button. For simple {@link KeyboardButton.text | text} buttons, String can be used instead of this object to specify the button {@link KeyboardButton.text | text}.
  */
 export type KeyboardButton = {
   /**
-   * Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed
+   * Text of the button. If none of the fields other than text, icon_custom_emoji_id, and style are used, it will be sent as a message when the button is pressed
    */
   text: string;
 
   /**
+   * Unique identifier of the custom emoji shown before the text of the button. Can only be used by bots that purchased additional usernames on Fragment or in the messages directly sent by the bot to private, group and supergroup chats if the owner of the bot has a Telegram Premium subscription.
+   */
+  icon_custom_emoji_id?: string;
+
+  /**
+   * Style of the button. Must be one of “danger” (red), “success” (green) or “primary” (blue). If omitted, then an app-specific style is used.
+   */
+  style?: string;
+
+  /**
    * If specified, pressing the button will open a list of suitable users. Identifiers of selected users will be sent to the bot in a “users_shared” service message. Available in private chats only.
    */
-  request_users: KeyboardButtonRequestUsers;
+  request_users?: KeyboardButtonRequestUsers;
 
   /**
    * If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a “chat_shared” service message. Available in private chats only.
    */
-  request_chat: KeyboardButtonRequestChat;
+  request_chat?: KeyboardButtonRequestChat;
 
   /**
    * If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only.
@@ -2991,13 +3521,23 @@ export type InlineKeyboardMarkup = {
 };
 
 /**
- * This object represents one button of an inline keyboard. Exactly one of the optional fields must be used to specify type of the button.
+ * This object represents one button of an inline keyboard. Exactly one of the fields other than {@link InlineKeyboardButton.text | text}, {@link InlineKeyboardButton.icon_custom_emoji_id | icon_custom_emoji_id}, and {@link InlineKeyboardButton.style | style} must be used to specify the type of the button.
  */
 export type InlineKeyboardButton = {
   /**
    * Label text on the button
    */
   text: string;
+
+  /**
+   * Unique identifier of the custom emoji shown before the text of the button. Can only be used by bots that purchased additional usernames on Fragment or in the messages directly sent by the bot to private, group and supergroup chats if the owner of the bot has a Telegram Premium subscription.
+   */
+  icon_custom_emoji_id?: string;
+
+  /**
+   * Style of the button. Must be one of “danger” (red), “success” (green) or “primary” (blue). If omitted, then an app-specific style is used.
+   */
+  style?: string;
 
   /**
    * HTTP or tg:// URL to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings.
@@ -3020,17 +3560,17 @@ export type InlineKeyboardButton = {
   login_url?: LoginUrl;
 
   /**
-   * If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted. Not supported for messages sent on behalf of a Telegram Business account.
+   * If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted. Not supported for messages sent in channel direct messages chats and on behalf of a Telegram Business account.
    */
   switch_inline_query?: string;
 
   /**
-   * If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. Not supported in channels and for messages sent on behalf of a Telegram Business account.
+   * If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. Not supported in channels and for messages sent in channel direct messages chats and on behalf of a Telegram Business account.
    */
   switch_inline_query_current_chat?: string;
 
   /**
-   * If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field. Not supported for messages sent on behalf of a Telegram Business account.
+   * If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field. Not supported for messages sent in channel direct messages chats and on behalf of a Telegram Business account.
    */
   switch_inline_query_chosen_chat?: SwitchInlineQueryChosenChat;
 
@@ -3338,6 +3878,11 @@ export type ChatAdministratorRights = {
    * True, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
    */
   can_manage_topics?: boolean;
+
+  /**
+   * True, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only
+   */
+  can_manage_direct_messages?: boolean;
 };
 
 /**
@@ -3503,6 +4048,11 @@ export type ChatMemberAdministrator = {
    * True, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
    */
   can_manage_topics?: boolean;
+
+  /**
+   * True, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only
+   */
+  can_manage_direct_messages?: boolean;
 
   /**
    * Custom title for this user
@@ -3856,6 +4406,31 @@ export type BusinessOpeningHours = {
 };
 
 /**
+ * This object describes the {@link UserRating.rating | rating} of a user based on their Telegram Star spendings.
+ */
+export type UserRating = {
+  /**
+   * Current level of the user, indicating their reliability when purchasing digital goods and services. A higher level suggests a more trustworthy customer; a negative level is likely reason for concern.
+   */
+  level: number;
+
+  /**
+   * Numerical value of the user's rating; the higher the rating, the better
+   */
+  rating: number;
+
+  /**
+   * The rating value required to get the current level
+   */
+  current_level_rating: number;
+
+  /**
+   * The rating value required to get to the next level; omitted if the maximum level was reached
+   */
+  next_level_rating?: number;
+};
+
+/**
  * Describes the position of a clickable area within a story.
  */
 export type StoryAreaPosition = {
@@ -4193,6 +4768,31 @@ export type ForumTopic = {
    * Unique identifier of the custom emoji shown as the topic icon
    */
   icon_custom_emoji_id?: string;
+
+  /**
+   * True, if the name of the topic wasn't specified explicitly by its creator and likely needs to be changed by the bot
+   */
+  is_name_implicit?: true;
+};
+
+/**
+ * This object describes the background of a gift.
+ */
+export type GiftBackground = {
+  /**
+   * Center color of the background in RGB format
+   */
+  center_color: number;
+
+  /**
+   * Edge color of the background in RGB format
+   */
+  edge_color: number;
+
+  /**
+   * Text color of the background in RGB format
+   */
+  text_color: number;
 };
 
 /**
@@ -4220,14 +4820,49 @@ export type Gift = {
   upgrade_star_count?: number;
 
   /**
-   * The total number of the gifts of this type that can be sent; for limited gifts only
+   * True, if the gift can only be purchased by Telegram Premium subscribers
+   */
+  is_premium?: true;
+
+  /**
+   * True, if the gift can be used (after being upgraded) to customize a user's appearance
+   */
+  has_colors?: true;
+
+  /**
+   * The total number of gifts of this type that can be sent by all users; for limited gifts only
    */
   total_count?: number;
 
   /**
-   * The number of remaining gifts of this type that can be sent; for limited gifts only
+   * The number of remaining gifts of this type that can be sent by all users; for limited gifts only
    */
   remaining_count?: number;
+
+  /**
+   * The total number of gifts of this type that can be sent by the bot; for limited gifts only
+   */
+  personal_total_count?: number;
+
+  /**
+   * The number of remaining gifts of this type that can be sent by the bot; for limited gifts only
+   */
+  personal_remaining_count?: number;
+
+  /**
+   * Background of the gift
+   */
+  background?: GiftBackground;
+
+  /**
+   * The total number of different unique gifts that can be obtained by upgrading the gift
+   */
+  unique_gift_variant_count?: number;
+
+  /**
+   * Information about the chat that published the gift
+   */
+  publisher_chat?: Chat;
 };
 
 /**
@@ -4255,9 +4890,14 @@ export type UniqueGiftModel = {
   sticker: Sticker;
 
   /**
-   * The number of unique gifts that receive this model for every 1000 gifts upgraded
+   * The number of unique gifts that receive this model for every 1000 gift upgrades. Always 0 for crafted gifts.
    */
   rarity_per_mille: number;
+
+  /**
+   * Rarity of the model if it is a crafted model. Currently, can be “uncommon”, “rare”, “epic”, or “legendary”.
+   */
+  rarity?: string;
 };
 
 /**
@@ -4326,9 +4966,49 @@ export type UniqueGiftBackdrop = {
 };
 
 /**
+ * This object contains information about the color scheme for a user's name, message replies and link previews based on a unique gift.
+ */
+export type UniqueGiftColors = {
+  /**
+   * Custom emoji identifier of the unique gift's model
+   */
+  model_custom_emoji_id: string;
+
+  /**
+   * Custom emoji identifier of the unique gift's symbol
+   */
+  symbol_custom_emoji_id: string;
+
+  /**
+   * Main color used in light themes; RGB format
+   */
+  light_theme_main_color: number;
+
+  /**
+   * List of 1-3 additional colors used in light themes; RGB format
+   */
+  light_theme_other_colors: number[];
+
+  /**
+   * Main color used in dark themes; RGB format
+   */
+  dark_theme_main_color: number;
+
+  /**
+   * List of 1-3 additional colors used in dark themes; RGB format
+   */
+  dark_theme_other_colors: number[];
+};
+
+/**
  * This object describes a unique gift that was upgraded from a regular gift.
  */
 export type UniqueGift = {
+  /**
+   * Identifier of the regular gift from which the gift was upgraded
+   */
+  gift_id: string;
+
   /**
    * Human-readable name of the regular gift from which this unique gift was upgraded
    */
@@ -4358,6 +5038,31 @@ export type UniqueGift = {
    * Backdrop of the gift
    */
   backdrop: UniqueGiftBackdrop;
+
+  /**
+   * True, if the original regular gift was exclusively purchaseable by Telegram Premium subscribers
+   */
+  is_premium?: true;
+
+  /**
+   * True, if the gift was used to craft another gift and isn't available anymore
+   */
+  is_burned?: true;
+
+  /**
+   * True, if the gift is assigned from the TON blockchain and can't be resold or transferred in Telegram
+   */
+  is_from_blockchain?: true;
+
+  /**
+   * The color scheme that can be used by the gift's owner for the chat's name, replies to messages and link previews; for business account gifts and gifts that are currently on sale only
+   */
+  colors?: UniqueGiftColors;
+
+  /**
+   * Information about the chat that published the gift
+   */
+  publisher_chat?: Chat;
 };
 
 /**
@@ -4380,9 +5085,14 @@ export type GiftInfo = {
   convert_star_count?: number;
 
   /**
-   * Number of Telegram Stars that were prepaid by the sender for the ability to upgrade the gift
+   * Number of Telegram Stars that were prepaid for the ability to upgrade the gift
    */
   prepaid_upgrade_star_count?: number;
+
+  /**
+   * True, if the gift's upgrade was purchased after the gift was sent
+   */
+  is_upgrade_separate?: true;
 
   /**
    * True, if the gift can be upgraded to a unique gift
@@ -4403,6 +5113,11 @@ export type GiftInfo = {
    * True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them
    */
   is_private?: true;
+
+  /**
+   * Unique number reserved for this gift when upgraded. See the number field in UniqueGift
+   */
+  unique_gift_number?: number;
 };
 
 /**
@@ -4415,14 +5130,19 @@ export type UniqueGiftInfo = {
   gift: UniqueGift;
 
   /**
-   * Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, or “resale” for gifts bought from other users
+   * Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, “resale” for gifts bought from other users, “gifted_upgrade” for upgrades purchased after the gift was sent, or “offer” for gifts bought or sold through gift purchase offers
    */
   origin: string;
 
   /**
-   * For gifts bought from other users, the price paid for the gift
+   * For gifts bought from other users, the currency in which the payment for the gift was done. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins.
    */
-  last_resale_star_count?: number;
+  last_resale_currency?: string;
+
+  /**
+   * For gifts bought from other users, the price paid for the gift in either Telegram Stars or nanotoncoins
+   */
+  last_resale_amount?: number;
 
   /**
    * Unique identifier of the received gift for the bot; only present for gifts received on behalf of business accounts
@@ -4500,14 +5220,24 @@ export type OwnedGiftRegular = {
   was_refunded?: true;
 
   /**
-   * Number of Telegram Stars that can be claimed by the receiver instead of the gift; omitted if the gift cannot be converted to Telegram Stars
+   * Number of Telegram Stars that can be claimed by the receiver instead of the gift; omitted if the gift cannot be converted to Telegram Stars; for gifts received on behalf of business accounts only
    */
   convert_star_count?: number;
 
   /**
-   * Number of Telegram Stars that were paid by the sender for the ability to upgrade the gift
+   * Number of Telegram Stars that were paid for the ability to upgrade the gift
    */
   prepaid_upgrade_star_count?: number;
+
+  /**
+   * True, if the gift's upgrade was purchased after the gift was sent; for gifts received on behalf of business accounts only
+   */
+  is_upgrade_separate?: true;
+
+  /**
+   * Unique number reserved for this gift when upgraded. See the number field in UniqueGift
+   */
+  unique_gift_number?: number;
 };
 
 /**
@@ -4603,6 +5333,11 @@ export type AcceptedGiftTypes = {
    * True, if a Telegram Premium subscription is accepted
    */
   premium_subscription: boolean;
+
+  /**
+   * True, if transfers of unique gifts from channels are accepted
+   */
+  gifts_from_channels: boolean;
 };
 
 /**
@@ -4685,7 +5420,7 @@ export type BotCommandScopeChat = {
   type: 'chat';
 
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername). Channel direct messages chats and channel chats aren't supported.
    */
   chat_id: number | string;
 };
@@ -4700,7 +5435,7 @@ export type BotCommandScopeChatAdministrators = {
   type: 'chat_administrators';
 
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername). Channel direct messages chats and channel chats aren't supported.
    */
   chat_id: number | string;
 };
@@ -4715,7 +5450,7 @@ export type BotCommandScopeChatMember = {
   type: 'chat_member';
 
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername). Channel direct messages chats and channel chats aren't supported.
    */
   chat_id: number | string;
 
@@ -4918,6 +5653,26 @@ export type ChatBoostRemoved = {
    * Source of the removed boost
    */
   source: ChatBoostSource;
+};
+
+/**
+ * Describes a service message about the chat owner leaving the chat.
+ */
+export type ChatOwnerLeft = {
+  /**
+   * The user which will be the new owner of the chat if the previous owner does not return to the chat
+   */
+  new_owner?: User;
+};
+
+/**
+ * Describes a service message about an ownership change in the chat.
+ */
+export type ChatOwnerChanged = {
+  /**
+   * The new owner of the chat
+   */
+  new_owner: User;
 };
 
 /**
