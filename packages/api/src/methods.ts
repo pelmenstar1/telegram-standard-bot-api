@@ -1859,7 +1859,7 @@ export type SendChecklist = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * A JSON-serialized object for an inline keyboard
+   * A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}
    */
   reply_markup?: InlineKeyboardMarkup;
 };
@@ -1977,7 +1977,7 @@ export type SendMessageDraft = {
 };
 
 /**
- * Use this method to stream a partial message to a user while the message is being generated; supported only for bots with forum topic mode enabled. Returns True on success.
+ * Use this method to stream a partial message to a user while the message is being generated. Returns True on success.
  */
 export const sendMessageDraft =
   /* @__PURE__ */ botMethod<(payload: SendMessageDraft) => true>(
@@ -2308,6 +2308,11 @@ export type PromoteChatMember = {
    * Pass True if the administrator can manage direct messages within the channel and decline suggested posts; for channels only
    */
   can_manage_direct_messages?: boolean;
+
+  /**
+   * Pass True if the administrator can edit the tags of regular members; for groups and supergroups only
+   */
+  can_manage_tags?: boolean;
 };
 
 /**
@@ -2341,6 +2346,31 @@ export type SetChatAdministratorCustomTitle = {
 export const setChatAdministratorCustomTitle = /* @__PURE__ */ botMethod<
   (payload: SetChatAdministratorCustomTitle) => true
 >('setChatAdministratorCustomTitle');
+
+export type SetChatMemberTag = {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   */
+  chat_id: number | string;
+
+  /**
+   * Unique identifier of the target user
+   */
+  user_id: number;
+
+  /**
+   * New tag for the member; 0-16 characters, emoji are not allowed
+   */
+  tag?: string;
+};
+
+/**
+ * Use this method to set a tag for a regular member in a group or a supergroup. The bot must be an administrator in the chat for this to work and must have the can_manage_tags administrator right. Returns True on success.
+ */
+export const setChatMemberTag =
+  /* @__PURE__ */ botMethod<(payload: SetChatMemberTag) => true>(
+    'setChatMemberTag'
+  );
 
 export type BanChatSenderChat = {
   /**
@@ -4466,7 +4496,7 @@ export type EditMessageChecklist = {
   checklist: InputChecklist;
 
   /**
-   * A JSON-serialized object for the new inline keyboard for the message
+   * A JSON-serialized object for the new {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard} for the message
    */
   reply_markup?: InlineKeyboardMarkup;
 };
@@ -5998,6 +6028,7 @@ export default {
   setBusinessAccountUsername,
   setChatAdministratorCustomTitle,
   setChatDescription,
+  setChatMemberTag,
   setChatMenuButton,
   setChatPermissions,
   setChatPhoto,
