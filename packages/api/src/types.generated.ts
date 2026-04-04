@@ -123,6 +123,11 @@ export type Update = {
    * A boost was removed from a chat. The bot must be an administrator in the chat to receive these updates.
    */
   removed_chat_boost?: ChatBoostRemoved;
+
+  /**
+   * A new bot was created to be managed by the bot or token of a bot was changed
+   */
+  managed_bot?: ManagedBotUpdated;
 };
 
 /**
@@ -253,6 +258,11 @@ export type User = {
    * True, if the bot allows users to create and delete topics in private chats. Returned only in getMe.
    */
   allows_users_to_create_topics?: boolean;
+
+  /**
+   * True, if other bots can be created to be controlled by the bot. Returned only in getMe.
+   */
+  can_manage_bots?: boolean;
 };
 
 /**
@@ -660,6 +670,11 @@ export type Message = {
   reply_to_checklist_task_id?: number;
 
   /**
+   * Persistent identifier of the specific poll option that is being replied to
+   */
+  reply_to_poll_option_id?: string;
+
+  /**
    * Bot through which the message was sent
    */
   via_bot?: User;
@@ -1035,9 +1050,24 @@ export type Message = {
   giveaway_completed?: GiveawayCompleted;
 
   /**
+   * Service message: user created a bot that will be managed by the current bot
+   */
+  managed_bot_created?: ManagedBotCreated;
+
+  /**
    * Service message: the price for paid messages has changed in the chat
    */
   paid_message_price_changed?: PaidMessagePriceChanged;
+
+  /**
+   * Service message: answer option was added to a poll
+   */
+  poll_option_added?: PollOptionAdded;
+
+  /**
+   * Service message: answer option was deleted from a poll
+   */
+  poll_option_deleted?: PollOptionDeleted;
 
   /**
    * Service message: a suggested post was approved
@@ -1185,7 +1215,7 @@ export type TextQuote = {
   text: string;
 
   /**
-   * Special entities that appear in the quote. Currently, only bold, italic, underline, strikethrough, spoiler, and custom_emoji entities are kept in quotes.
+   * Special entities that appear in the quote. Currently, only bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities are kept in quotes.
    */
   entities?: MessageEntity[];
 
@@ -1350,7 +1380,7 @@ export type ReplyParameters = {
   allow_sending_without_reply?: boolean;
 
   /**
-   * Quoted part of the message to be replied to; 0-1024 characters after entities parsing. The quote must be an exact substring of the message to be replied to, including bold, italic, underline, strikethrough, spoiler, and custom_emoji entities. The message will fail to send if the quote isn't found in the original message.
+   * Quoted part of the message to be replied to; 0-1024 characters after entities parsing. The quote must be an exact substring of the message to be replied to, including bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities. The message will fail to send if the quote isn't found in the original message.
    */
   quote?: string;
 
@@ -1373,6 +1403,11 @@ export type ReplyParameters = {
    * Identifier of the specific checklist task to be replied to
    */
   checklist_task_id?: number;
+
+  /**
+   * Persistent identifier of the specific poll option to be replied to
+   */
+  poll_option_id?: string;
 };
 
 /**
@@ -1935,6 +1970,11 @@ export type Dice = {
  */
 export type PollOption = {
   /**
+   * Unique identifier of the option, persistent on option addition and deletion
+   */
+  persistent_id: string;
+
+  /**
    * Option text, 1-100 characters
    */
   text: string;
@@ -1945,9 +1985,24 @@ export type PollOption = {
   text_entities?: MessageEntity[];
 
   /**
-   * Number of users that voted for this option
+   * Number of users who voted for this option; may be 0 if unknown
    */
   voter_count: number;
+
+  /**
+   * {@link User} who added the option; omitted if the option wasn't added by a user after poll creation
+   */
+  added_by_user?: User;
+
+  /**
+   * {@link Chat} that added the option; omitted if the option wasn't added by a chat after poll creation
+   */
+  added_by_chat?: Chat;
+
+  /**
+   * Point in time (Unix timestamp) when the option was added; omitted if the option existed in the original poll
+   */
+  addition_date?: number;
 };
 
 /**
@@ -1993,6 +2048,11 @@ export type PollAnswer = {
    * 0-based identifiers of chosen answer options. May be empty if the vote was retracted.
    */
   option_ids: number[];
+
+  /**
+   * Persistent identifiers of the chosen answer options. May be empty if the vote was retracted.
+   */
+  option_persistent_ids: string[];
 };
 
 /**
@@ -2045,9 +2105,14 @@ export type Poll = {
   allows_multiple_answers: boolean;
 
   /**
-   * 0-based identifier of the correct answer option. Available only for polls in the quiz mode, which are closed, or was sent (not forwarded) by the bot or to the private chat with the bot.
+   * True, if the poll allows to change the chosen answer options
    */
-  correct_option_id?: number;
+  allows_revoting: boolean;
+
+  /**
+   * Array of 0-based identifiers of the correct answer options. Available only for polls in quiz mode which are closed or were sent (not forwarded) by the bot or to the private chat with the bot.
+   */
+  correct_option_ids?: number[];
 
   /**
    * Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters
@@ -2068,6 +2133,16 @@ export type Poll = {
    * Point in time (Unix timestamp) when the poll will be automatically closed
    */
   close_date?: number;
+
+  /**
+   * Description of the poll; for polls inside the {@link Message} object only
+   */
+  description?: string;
+
+  /**
+   * Special entities like usernames, URLs, bot commands, etc. that appear in the description
+   */
+  description_entities?: MessageEntity[];
 };
 
 /**
@@ -2155,7 +2230,7 @@ export type InputChecklistTask = {
   parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
-   * List of special entities that appear in the text, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, and custom_emoji entities are allowed.
+   * List of special entities that appear in the text, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities are allowed.
    */
   text_entities?: MessageEntity[];
 };
@@ -2175,7 +2250,7 @@ export type InputChecklist = {
   parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
-   * List of special entities that appear in the title, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, and custom_emoji entities are allowed.
+   * List of special entities that appear in the title, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities are allowed.
    */
   title_entities?: MessageEntity[];
 
@@ -2348,6 +2423,81 @@ export type MessageAutoDeleteTimerChanged = {
    * New auto-delete time for messages in the chat; in seconds
    */
   message_auto_delete_time: number;
+};
+
+/**
+ * This object contains information about the {@link ManagedBotCreated.bot | bot} that was created to be managed by the current {@link ManagedBotCreated.bot | bot}.
+ */
+export type ManagedBotCreated = {
+  /**
+   * Information about the bot. The bot's token can be fetched using the method getManagedBotToken.
+   */
+  bot: User;
+};
+
+/**
+ * This object contains information about the creation or token update of a {@link ManagedBotUpdated.bot | bot} that is managed by the current {@link ManagedBotUpdated.bot | bot}.
+ */
+export type ManagedBotUpdated = {
+  /**
+   * User that created the bot
+   */
+  user: User;
+
+  /**
+   * Information about the bot. Token of the bot can be fetched using the method getManagedBotToken.
+   */
+  bot: User;
+};
+
+/**
+ * Describes a service message about an option added to a poll.
+ */
+export type PollOptionAdded = {
+  /**
+   * {@link Message} containing the poll to which the option was added, if known. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
+   */
+  poll_message?: MaybeInaccessibleMessage;
+
+  /**
+   * Unique identifier of the added option
+   */
+  option_persistent_id: string;
+
+  /**
+   * Option text
+   */
+  option_text: string;
+
+  /**
+   * Special entities that appear in the option_text
+   */
+  option_text_entities?: MessageEntity[];
+};
+
+/**
+ * Describes a service message about an option deleted from a poll.
+ */
+export type PollOptionDeleted = {
+  /**
+   * {@link Message} containing the poll from which the option was deleted, if known. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
+   */
+  poll_message?: MaybeInaccessibleMessage;
+
+  /**
+   * Unique identifier of the deleted option
+   */
+  option_persistent_id: string;
+
+  /**
+   * Option text
+   */
+  option_text: string;
+
+  /**
+   * Special entities that appear in the option_text
+   */
+  option_text_entities?: MessageEntity[];
 };
 
 /**
@@ -3380,6 +3530,11 @@ export type KeyboardButton = {
   request_chat?: KeyboardButtonRequestChat;
 
   /**
+   * If specified, pressing the button will ask the user to create and share a bot that will be managed by the current bot. Available for bots that enabled management of other bots in the @BotFather Mini App. Available in private chats only.
+   */
+  request_managed_bot?: KeyboardButtonRequestManagedBot;
+
+  /**
    * If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only.
    */
   request_contact?: boolean;
@@ -3498,6 +3653,26 @@ export type KeyboardButtonRequestChat = {
    * Pass True to request the chat's photo
    */
   request_photo?: boolean;
+};
+
+/**
+ * This object defines the parameters for the creation of a managed bot. Information about the created bot will be shared with the bot using the update managed_bot and a {@link Message} with the field managed_bot_created.
+ */
+export type KeyboardButtonRequestManagedBot = {
+  /**
+   * Signed 32-bit identifier of the request. Must be unique within the message
+   */
+  request_id: number;
+
+  /**
+   * Suggested name for the bot
+   */
+  suggested_name?: string;
+
+  /**
+   * Suggested username for the bot
+   */
+  suggested_username?: string;
 };
 
 /**
@@ -5861,6 +6036,41 @@ export type BusinessMessagesDeleted = {
 };
 
 /**
+ * Describes an inline message sent by a {@link https://core.telegram.org/bots/webapps | Web App} on behalf of a user.
+ */
+export type SentWebAppMessage = {
+  /**
+   * Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message.
+   */
+  inline_message_id?: string;
+};
+
+/**
+ * Describes an inline message to be sent by a user of a Mini App.
+ */
+export type PreparedInlineMessage = {
+  /**
+   * Unique identifier of the prepared message
+   */
+  id: string;
+
+  /**
+   * Expiration date of the prepared message, in Unix time. Expired prepared messages can no longer be used
+   */
+  expiration_date: number;
+};
+
+/**
+ * Describes a keyboard button to be used by a user of a Mini App.
+ */
+export type PreparedKeyboardButton = {
+  /**
+   * Unique identifier of the keyboard button
+   */
+  id: string;
+};
+
+/**
  * Describes why a request was unsuccessful.
  */
 export type ResponseParameters = {
@@ -8155,31 +8365,6 @@ export type ChosenInlineResult = {
    * The query that was used to obtain the result
    */
   query: string;
-};
-
-/**
- * Describes an inline message sent by a {@link https://core.telegram.org/bots/webapps | Web App} on behalf of a user.
- */
-export type SentWebAppMessage = {
-  /**
-   * Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message.
-   */
-  inline_message_id?: string;
-};
-
-/**
- * Describes an inline message to be sent by a user of a Mini App.
- */
-export type PreparedInlineMessage = {
-  /**
-   * Unique identifier of the prepared message
-   */
-  id: string;
-
-  /**
-   * Expiration date of the prepared message, in Unix time. Expired prepared messages can no longer be used
-   */
-  expiration_date: number;
 };
 
 export type InlineQueryResult =

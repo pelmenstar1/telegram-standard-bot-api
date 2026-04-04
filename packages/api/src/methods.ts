@@ -32,6 +32,7 @@ import {
   InputProfilePhoto,
   InputSticker,
   InputStoryContent,
+  KeyboardButton,
   LabeledPrice,
   LinkPreviewOptions,
   MaskPosition,
@@ -43,6 +44,7 @@ import {
   PassportElementError,
   Poll,
   PreparedInlineMessage,
+  PreparedKeyboardButton,
   ReactionType,
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
@@ -1742,14 +1744,34 @@ export type SendPoll = {
   type?: string;
 
   /**
-   * True, if the poll allows multiple answers, ignored for polls in quiz mode, defaults to False
+   * Pass True, if the poll allows multiple answers, defaults to False
    */
   allows_multiple_answers?: boolean;
 
   /**
-   * 0-based identifier of the correct answer option, required for polls in quiz mode
+   * Pass True, if the poll allows to change chosen answer options, defaults to False for quizzes and to True for regular polls
    */
-  correct_option_id?: number;
+  allows_revoting?: boolean;
+
+  /**
+   * Pass True, if the poll options must be shown in random order
+   */
+  shuffle_options?: boolean;
+
+  /**
+   * Pass True, if answer options can be added to the poll after creation; not supported for anonymous polls and quizzes
+   */
+  allow_adding_options?: boolean;
+
+  /**
+   * Pass True, if poll results must be shown only after the poll closes
+   */
+  hide_results_until_closes?: boolean;
+
+  /**
+   * A JSON-serialized list of monotonically increasing 0-based identifiers of the correct answer options, required for polls in quiz mode
+   */
+  correct_option_ids?: number[];
 
   /**
    * Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters with at most 2 line feeds after entities parsing
@@ -1767,12 +1789,12 @@ export type SendPoll = {
   explanation_entities?: MessageEntity[];
 
   /**
-   * Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.
+   * Amount of time in seconds the poll will be active after creation, 5-2628000. Can't be used together with close_date.
    */
   open_period?: number;
 
   /**
-   * Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future. Can't be used together with open_period.
+   * Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 2628000 seconds in the future. Can't be used together with open_period.
    */
   close_date?: number;
 
@@ -1780,6 +1802,21 @@ export type SendPoll = {
    * Pass True if the poll needs to be immediately closed. This can be useful for poll preview.
    */
   is_closed?: boolean;
+
+  /**
+   * Description of the poll to be sent, 0-1024 characters after entities parsing
+   */
+  description?: string;
+
+  /**
+   * Mode for parsing entities in the poll description. See formatting options for more details.
+   */
+  description_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+
+  /**
+   * A JSON-serialized list of special entities that appear in the poll description, which can be specified instead of description_parse_mode
+   */
+  description_entities?: MessageEntity[];
 
   /**
    * Sends the message silently. Users will receive a notification with no sound.
@@ -3193,6 +3230,35 @@ export const getBusinessConnection = /* @__PURE__ */ botMethod<
   (payload: GetBusinessConnection) => BusinessConnection
 >('getBusinessConnection');
 
+export type GetManagedBotToken = {
+  /**
+   * User identifier of the managed bot whose token will be returned
+   */
+  user_id: number;
+};
+
+/**
+ * Use this method to get the token of a managed bot. Returns the token as String on success.
+ */
+export const getManagedBotToken =
+  /* @__PURE__ */ botMethod<(payload: GetManagedBotToken) => string>(
+    'getManagedBotToken'
+  );
+
+export type ReplaceManagedBotToken = {
+  /**
+   * User identifier of the managed bot whose token will be replaced
+   */
+  user_id: number;
+};
+
+/**
+ * Use this method to revoke the current token of a managed bot and generate a new one. Returns the new token as String on success.
+ */
+export const replaceManagedBotToken = /* @__PURE__ */ botMethod<
+  (payload: ReplaceManagedBotToken) => string
+>('replaceManagedBotToken');
+
 export type SetMyCommands = {
   /**
    * A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
@@ -3478,12 +3544,12 @@ export type SendGift = {
   text?: string;
 
   /**
-   * Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+   * Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
    */
   text_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
-   * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+   * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
    */
   text_entities?:
     | 'bold'
@@ -3491,7 +3557,8 @@ export type SendGift = {
     | 'underline'
     | 'strikethrough'
     | 'spoiler'
-    | 'custom_emoji';
+    | 'custom_emoji'
+    | 'date_time';
 };
 
 /**
@@ -3522,12 +3589,12 @@ export type GiftPremiumSubscription = {
   text?: string;
 
   /**
-   * Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+   * Mode for parsing entities in the text. See formatting options for more details. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
    */
   text_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
-   * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, and “custom_emoji” are ignored.
+   * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
    */
   text_entities?:
     | 'bold'
@@ -3535,7 +3602,8 @@ export type GiftPremiumSubscription = {
     | 'underline'
     | 'strikethrough'
     | 'spoiler'
-    | 'custom_emoji';
+    | 'custom_emoji'
+    | 'date_time';
 };
 
 /**
@@ -4225,6 +4293,84 @@ export type DeleteStory = {
  */
 export const deleteStory =
   /* @__PURE__ */ botMethod<(payload: DeleteStory) => true>('deleteStory');
+
+export type AnswerWebAppQuery = {
+  /**
+   * Unique identifier for the query to be answered
+   */
+  web_app_query_id: string;
+
+  /**
+   * A JSON-serialized object describing the message to be sent
+   */
+  result: InlineQueryResult;
+};
+
+/**
+ * Use this method to set the result of an interaction with a {@link https://core.telegram.org/bots/webapps | Web App} and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a {@link SentWebAppMessage} object is returned.
+ */
+export const answerWebAppQuery =
+  /* @__PURE__ */ botMethod<(payload: AnswerWebAppQuery) => SentWebAppMessage>(
+    'answerWebAppQuery'
+  );
+
+export type SavePreparedInlineMessage = {
+  /**
+   * Unique identifier of the target user that can use the prepared message
+   */
+  user_id: number;
+
+  /**
+   * A JSON-serialized object describing the message to be sent
+   */
+  result: InlineQueryResult;
+
+  /**
+   * Pass True if the message can be sent to private chats with users
+   */
+  allow_user_chats?: boolean;
+
+  /**
+   * Pass True if the message can be sent to private chats with bots
+   */
+  allow_bot_chats?: boolean;
+
+  /**
+   * Pass True if the message can be sent to group and supergroup chats
+   */
+  allow_group_chats?: boolean;
+
+  /**
+   * Pass True if the message can be sent to channel chats
+   */
+  allow_channel_chats?: boolean;
+};
+
+/**
+ * Stores a message that can be sent by a user of a Mini App. Returns a {@link PreparedInlineMessage} object.
+ */
+export const savePreparedInlineMessage = /* @__PURE__ */ botMethod<
+  (payload: SavePreparedInlineMessage) => PreparedInlineMessage
+>('savePreparedInlineMessage');
+
+export type SavePreparedKeyboardButton = {
+  /**
+   * Unique identifier of the target user that can use the button
+   */
+  user_id: number;
+
+  /**
+   * A JSON-serialized object describing the button to be saved. The button must be of the type request_users, request_chat, or request_managed_bot
+   */
+  button: KeyboardButton;
+};
+
+/**
+ * Stores a keyboard button that can be used by a user within a Mini App. Returns a {@link PreparedKeyboardButton} object.
+ */
+export const savePreparedKeyboardButton = /* @__PURE__ */ botMethod<
+  (payload: SavePreparedKeyboardButton) => PreparedKeyboardButton
+>('savePreparedKeyboardButton');
 
 export type EditMessageText = {
   /**
@@ -5094,65 +5240,6 @@ export const answerInlineQuery =
     'answerInlineQuery'
   );
 
-export type AnswerWebAppQuery = {
-  /**
-   * Unique identifier for the query to be answered
-   */
-  web_app_query_id: string;
-
-  /**
-   * A JSON-serialized object describing the message to be sent
-   */
-  result: InlineQueryResult;
-};
-
-/**
- * Use this method to set the result of an interaction with a {@link https://core.telegram.org/bots/webapps | Web App} and send a corresponding message on behalf of the user to the chat from which the query originated. On success, a {@link SentWebAppMessage} object is returned.
- */
-export const answerWebAppQuery =
-  /* @__PURE__ */ botMethod<(payload: AnswerWebAppQuery) => SentWebAppMessage>(
-    'answerWebAppQuery'
-  );
-
-export type SavePreparedInlineMessage = {
-  /**
-   * Unique identifier of the target user that can use the prepared message
-   */
-  user_id: number;
-
-  /**
-   * A JSON-serialized object describing the message to be sent
-   */
-  result: InlineQueryResult;
-
-  /**
-   * Pass True if the message can be sent to private chats with users
-   */
-  allow_user_chats?: boolean;
-
-  /**
-   * Pass True if the message can be sent to private chats with bots
-   */
-  allow_bot_chats?: boolean;
-
-  /**
-   * Pass True if the message can be sent to group and supergroup chats
-   */
-  allow_group_chats?: boolean;
-
-  /**
-   * Pass True if the message can be sent to channel chats
-   */
-  allow_channel_chats?: boolean;
-};
-
-/**
- * Stores a message that can be sent by a user of a Mini App. Returns a {@link PreparedInlineMessage} object.
- */
-export const savePreparedInlineMessage = /* @__PURE__ */ botMethod<
-  (payload: SavePreparedInlineMessage) => PreparedInlineMessage
->('savePreparedInlineMessage');
-
 export type SendInvoice = {
   /**
    * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
@@ -5964,6 +6051,7 @@ export default {
   getFile,
   getForumTopicIconStickers,
   getGameHighScores,
+  getManagedBotToken,
   getMe,
   getMyCommands,
   getMyDefaultAdministratorRights,
@@ -5994,11 +6082,13 @@ export default {
   removeUserVerification,
   reopenForumTopic,
   reopenGeneralForumTopic,
+  replaceManagedBotToken,
   replaceStickerInSet,
   repostStory,
   restrictChatMember,
   revokeChatInviteLink,
   savePreparedInlineMessage,
+  savePreparedKeyboardButton,
   sendAnimation,
   sendAudio,
   sendChatAction,
