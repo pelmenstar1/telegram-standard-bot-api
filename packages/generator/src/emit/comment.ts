@@ -18,9 +18,12 @@ const WHITESPACES = new Set([',', '.', ' ', ';', ':']);
 function normalizeSpaces(text: string): string {
   text = text.replaceAll(/\s+/g, ' ');
   text = text.replaceAll(/\s+,/g, ',');
-  text = text.replaceAll(/\s+\./g, '.');
 
-  return text;
+  // Only a period that ends a sentence is glued to the preceding word; a space
+  // before one that starts a word is meaningful, e.g. "in an .OGG file".
+  text = text.replaceAll(/\s+\.(?=\s|$)/g, '.');
+
+  return text.trim();
 }
 
 function link(href: string, title?: string): string {
@@ -61,6 +64,10 @@ function htmlNodeToDocString(node: DefaultTreeAdapterTypes.Node): string {
       const alt = node.attrs.find(({ name }) => name === 'alt')?.value;
 
       return alt ?? '';
+    }
+    // A line break separates sentences, dropping it glues them together.
+    case 'br': {
+      return ' ';
     }
     default: {
       if ('childNodes' in node) {

@@ -15,6 +15,12 @@ const ARRAY_PATTERN = /(?:an )?array of (.+)/i;
 const REF_PATTERN = /<a.*?>(.*?)<\/a>/;
 const EM_PATTERN = /<em.*?>(.*?)<\/em>/;
 
+// An enumeration of alternatives, e.g. "InputMediaAudio, InputMediaDocument
+// and InputMediaPhoto". Splitting it apart is only safe when every part is a
+// type on its own, as the separators are common in the surrounding prose too.
+const ENUM_SEPARATOR_PATTERN = /\s*,\s*|\s+(?:and|or)\s+/;
+const SIMPLE_TYPE_PATTERN = /^(?:<a.*?>.*?<\/a>|[A-Z]\w*)$/;
+
 export function parseValueType(content: string): ValueType {
   content = content.trim();
 
@@ -34,6 +40,17 @@ export function parseValueType(content: string): ValueType {
     return {
       kind: ValueTypeKind.ARRAY,
       element: parseValueType(arrayMatch[1]),
+    };
+  }
+
+  const enumParts = content.split(ENUM_SEPARATOR_PATTERN).filter(Boolean);
+  if (
+    enumParts.length > 1 &&
+    enumParts.every((part) => SIMPLE_TYPE_PATTERN.test(part))
+  ) {
+    return {
+      kind: ValueTypeKind.UNION,
+      types: enumParts.map((part) => parseValueType(part)),
     };
   }
 

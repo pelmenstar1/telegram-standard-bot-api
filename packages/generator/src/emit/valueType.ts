@@ -24,7 +24,7 @@ export function valueTypeToString(
 ): string {
   switch (valueType.kind) {
     case ValueTypeKind.ARRAY: {
-      return `${valueTypeToString(valueType.element, meta)}[]`;
+      return `(${valueTypeToString(valueType.element, meta)})[]`;
     }
     case ValueTypeKind.UNION: {
       const { types } = valueType;

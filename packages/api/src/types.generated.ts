@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
 /**
- * This object represents an incoming update.At most one of the optional fields can be present in any given update.
+ * This object represents an incoming update. At most one of the optional fields can be present in any given update.
  */
 export type Update = {
   /**
@@ -138,6 +138,11 @@ export type Update = {
    * {@link User} payment subscription has changed
    */
   subscription?: BotSubscriptionUpdated;
+
+  /**
+   * A user asked the bot to stop the generation of a message
+   */
+  stopped_message_generation?: MessageGenerationStopped;
 };
 
 /**
@@ -297,7 +302,7 @@ export type Chat = {
   /**
    * Type of the chat, can be either “private”, “group”, “supergroup” or “channel”
    */
-  type: string;
+  type: 'private' | 'group' | 'supergroup' | 'channel';
 
   /**
    * Title, for supergroups, channels and group chats
@@ -342,7 +347,7 @@ export type ChatFullInfo = {
   /**
    * Type of the chat, can be either “private”, “group”, “supergroup” or “channel”
    */
-  type: string;
+  type: 'private' | 'group' | 'supergroup' | 'channel';
 
   /**
    * Title, for supergroups, channels and group chats
@@ -1060,12 +1065,17 @@ export type Message = {
   checklist_tasks_added?: ChecklistTasksAdded;
 
   /**
-   * Service message: chat added to a Community
+   * Service message: chat or bot added to a Community
    */
   community_chat_added?: CommunityChatAdded;
 
   /**
-   * Service message: chat removed from a Community
+   * Service message: chat was joined by a user from a Community
+   */
+  community_chat_joined?: CommunityChatJoined;
+
+  /**
+   * Service message: chat or bot removed from a Community
    */
   community_chat_removed?: CommunityChatRemoved;
 
@@ -1237,7 +1247,27 @@ export type MessageEntity = {
   /**
    * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
    */
-  type: string;
+  type:
+    | 'mention'
+    | 'hashtag'
+    | 'cashtag'
+    | 'bot_command'
+    | 'url'
+    | 'email'
+    | 'phone_number'
+    | 'bold'
+    | 'italic'
+    | 'underline'
+    | 'strikethrough'
+    | 'spoiler'
+    | 'blockquote'
+    | 'expandable_blockquote'
+    | 'code'
+    | 'pre'
+    | 'text_link'
+    | 'text_mention'
+    | 'custom_emoji'
+    | 'date_time';
 
   /**
    * Offset in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units} to the start of the entity
@@ -1493,6 +1523,26 @@ export type ReplyParameters = {
    * Persistent identifier of the specific poll option to be replied to
    */
   poll_option_id?: string;
+};
+
+/**
+
+*/
+export type EphemeralMessageParameters = {
+  /**
+   * Identifier of the user who will receive the message. It is not guaranteed that the user will receive the message, especially if they are offline. See here for more details.
+   */
+  receiver_user_id: number;
+
+  /**
+   * Identifier of the callback query which triggered the message, if any
+   */
+  callback_query_id?: string;
+
+  /**
+   * Pass True if the ephemeral message must be shown in place of the original message. Must be False for callback queries from ephemeral messages, which must be edited using regular editEphemeralMessage… methods.
+   */
+  replace_callback_query_message?: boolean;
 };
 
 /**
@@ -1916,7 +1966,7 @@ export type Video = {
 };
 
 /**
- * This object represents a video message (available in Telegram apps as of v.4.0).
+ * This object represents a video message.
  */
 export type VideoNote = {
   /**
@@ -2317,7 +2367,7 @@ export type Poll = {
   /**
    * Poll type, currently can be “regular” or “quiz”
    */
-  type: string;
+  type: 'regular' | 'quiz';
 
   /**
    * True, if the poll allows multiple answers
@@ -2672,7 +2722,27 @@ export type BotSubscriptionUpdated = {
   /**
    * The new state of the subscription. Currently, it can be one of “canceled” if the user canceled the subscription, “active” if the user re-enabled a previously canceled subscription, or “failed” if payment for the subscription failed.
    */
-  state: string;
+  state: 'canceled' | 'active' | 'failed';
+};
+
+/**
+ * This object describes an update about a user stopping message generation.
+ */
+export type MessageGenerationStopped = {
+  /**
+   * Chat in which the message is generated
+   */
+  chat: Chat;
+
+  /**
+   * Unique identifier of the message thread in which the message is generated
+   */
+  message_thread_id?: number;
+
+  /**
+   * Unique identifier of the message draft which was stopped
+   */
+  draft_id: number;
 };
 
 /**
@@ -2841,7 +2911,7 @@ export type BackgroundTypeWallpaper = {
 };
 
 /**
- * The background is a.PNG or.TGV (gzipped subset of SVG with MIME {@link BackgroundTypePattern.type | type} “application/x-tgwallpattern”) pattern to be combined with the background {@link BackgroundTypePattern.fill | fill} chosen by the user.
+ * The background is a .PNG or .TGV (gzipped subset of SVG with MIME {@link BackgroundTypePattern.type | type} “application/x-tgwallpattern”) pattern to be combined with the background {@link BackgroundTypePattern.fill | fill} chosen by the user.
  */
 export type BackgroundTypePattern = {
   /**
@@ -2936,11 +3006,21 @@ export type ChecklistTasksAdded = {
 };
 
 /**
- * Describes a service message about a chat being added to a {@link CommunityChatAdded.community | community}.
+ * Describes a service message about a chat or a bot being added to a {@link CommunityChatAdded.community | community}.
  */
 export type CommunityChatAdded = {
   /**
-   * The new community to which the chat belongs
+   * The new community to which the chat or the bot belongs
+   */
+  community: Community;
+};
+
+/**
+ * Describes a service message about a chat being joined by a user from a {@link CommunityChatJoined.community | community}.
+ */
+export type CommunityChatJoined = {
+  /**
+   * The community from which the chat was joined
    */
   community: Community;
 };
@@ -3209,102 +3289,7 @@ export type SuggestedPostPaid = {
   /**
    * Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for TON grams.
    */
-  currency:
-    | 'AED'
-    | 'AFN'
-    | 'ALL'
-    | 'AMD'
-    | 'ARS'
-    | 'AUD'
-    | 'AZN'
-    | 'BAM'
-    | 'BDT'
-    | 'BGN'
-    | 'BHD'
-    | 'BND'
-    | 'BOB'
-    | 'BRL'
-    | 'BYN'
-    | 'CAD'
-    | 'CHF'
-    | 'CLP'
-    | 'CNY'
-    | 'COP'
-    | 'CRC'
-    | 'CZK'
-    | 'DKK'
-    | 'DOP'
-    | 'DZD'
-    | 'EGP'
-    | 'ETB'
-    | 'EUR'
-    | 'GBP'
-    | 'GEL'
-    | 'GHS'
-    | 'GTQ'
-    | 'HKD'
-    | 'HNL'
-    | 'HRK'
-    | 'HUF'
-    | 'IDR'
-    | 'ILS'
-    | 'INR'
-    | 'IQD'
-    | 'IRR'
-    | 'ISK'
-    | 'JMD'
-    | 'JOD'
-    | 'JPY'
-    | 'KES'
-    | 'KGS'
-    | 'KRW'
-    | 'KZT'
-    | 'LBP'
-    | 'LKR'
-    | 'MAD'
-    | 'MDL'
-    | 'MMK'
-    | 'MNT'
-    | 'MOP'
-    | 'MUR'
-    | 'MVR'
-    | 'MXN'
-    | 'MYR'
-    | 'MZN'
-    | 'NGN'
-    | 'NIO'
-    | 'NOK'
-    | 'NPR'
-    | 'NZD'
-    | 'PAB'
-    | 'PEN'
-    | 'PHP'
-    | 'PKR'
-    | 'PLN'
-    | 'PYG'
-    | 'QAR'
-    | 'RON'
-    | 'RSD'
-    | 'RUB'
-    | 'SAR'
-    | 'SEK'
-    | 'SGD'
-    | 'SYP'
-    | 'THB'
-    | 'TJS'
-    | 'TRY'
-    | 'TTD'
-    | 'TWD'
-    | 'TZS'
-    | 'UAH'
-    | 'UGX'
-    | 'USD'
-    | 'UYU'
-    | 'UZS'
-    | 'VND'
-    | 'YER'
-    | 'ZAR'
-    | 'XTR';
+  currency: 'XTR' | 'TON';
 
   /**
    * The amount of the currency that was received by the channel in nanograms; for payments in TON grams only
@@ -3329,7 +3314,7 @@ export type SuggestedPostRefunded = {
   /**
    * Reason for the refund. Currently, one of “post_deleted” if the post was deleted within 24 hours of being posted or removed from scheduled messages without being posted, or “payment_refunded” if the payer refunded their payment.
    */
-  reason: string;
+  reason: 'post_deleted' | 'payment_refunded';
 };
 
 /**
@@ -3519,102 +3504,7 @@ export type SuggestedPostPrice = {
   /**
    * Currency in which the post will be paid. Currently, must be one of “XTR” for Telegram Stars or “TON” for TON grams.
    */
-  currency:
-    | 'AED'
-    | 'AFN'
-    | 'ALL'
-    | 'AMD'
-    | 'ARS'
-    | 'AUD'
-    | 'AZN'
-    | 'BAM'
-    | 'BDT'
-    | 'BGN'
-    | 'BHD'
-    | 'BND'
-    | 'BOB'
-    | 'BRL'
-    | 'BYN'
-    | 'CAD'
-    | 'CHF'
-    | 'CLP'
-    | 'CNY'
-    | 'COP'
-    | 'CRC'
-    | 'CZK'
-    | 'DKK'
-    | 'DOP'
-    | 'DZD'
-    | 'EGP'
-    | 'ETB'
-    | 'EUR'
-    | 'GBP'
-    | 'GEL'
-    | 'GHS'
-    | 'GTQ'
-    | 'HKD'
-    | 'HNL'
-    | 'HRK'
-    | 'HUF'
-    | 'IDR'
-    | 'ILS'
-    | 'INR'
-    | 'IQD'
-    | 'IRR'
-    | 'ISK'
-    | 'JMD'
-    | 'JOD'
-    | 'JPY'
-    | 'KES'
-    | 'KGS'
-    | 'KRW'
-    | 'KZT'
-    | 'LBP'
-    | 'LKR'
-    | 'MAD'
-    | 'MDL'
-    | 'MMK'
-    | 'MNT'
-    | 'MOP'
-    | 'MUR'
-    | 'MVR'
-    | 'MXN'
-    | 'MYR'
-    | 'MZN'
-    | 'NGN'
-    | 'NIO'
-    | 'NOK'
-    | 'NPR'
-    | 'NZD'
-    | 'PAB'
-    | 'PEN'
-    | 'PHP'
-    | 'PKR'
-    | 'PLN'
-    | 'PYG'
-    | 'QAR'
-    | 'RON'
-    | 'RSD'
-    | 'RUB'
-    | 'SAR'
-    | 'SEK'
-    | 'SGD'
-    | 'SYP'
-    | 'THB'
-    | 'TJS'
-    | 'TRY'
-    | 'TTD'
-    | 'TWD'
-    | 'TZS'
-    | 'UAH'
-    | 'UGX'
-    | 'USD'
-    | 'UYU'
-    | 'UZS'
-    | 'VND'
-    | 'YER'
-    | 'ZAR'
-    | 'XTR';
+  currency: 'XTR' | 'TON';
 
   /**
    * The amount of the currency that will be paid for the post in the smallest units of the currency, i.e. Telegram Stars or nanograms. Currently, price in Telegram Stars must be between 5 and 100000, and price in nanograms must be between 10000000 and 10000000000000.
@@ -3629,7 +3519,7 @@ export type SuggestedPostInfo = {
   /**
    * State of the suggested post. Currently, it can be one of “pending”, “approved”, “declined”.
    */
-  state: string;
+  state: 'pending' | 'approved' | 'declined';
 
   /**
    * Proposed price of the post. If the field is omitted, then the post is unpaid.
@@ -3767,9 +3657,14 @@ export type ReplyKeyboardMarkup = {
   input_field_placeholder?: string;
 
   /**
-   * Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are `@mentioned` in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
+   * Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are `@mentioned` in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
    */
   selective?: boolean;
+
+  /**
+   * Pass True if the reply interface must be shown to the user, as if they had manually selected the bot's message and tapped 'Reply'
+   */
+  force_reply?: boolean;
 };
 
 /**
@@ -3789,7 +3684,7 @@ export type KeyboardButton = {
   /**
    * Style of the button. Must be one of “danger” (red), “success” (green) or “primary” (blue). If omitted, then an app-specific style is used.
    */
-  style?: string;
+  style?: 'danger' | 'success' | 'primary';
 
   /**
    * If specified, pressing the button will open a list of suitable users. Identifiers of selected users will be sent to the bot in a “users_shared” service message. Available in private chats only.
@@ -3967,7 +3862,7 @@ export type ReplyKeyboardRemove = {
   remove_keyboard: true;
 
   /**
-   * Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are `@mentioned` in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet.
+   * Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are `@mentioned` in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet.
    */
   selective?: boolean;
 };
@@ -3980,6 +3875,11 @@ export type InlineKeyboardMarkup = {
    * Array of button rows, each represented by an Array of {@link InlineKeyboardButton} objects
    */
   inline_keyboard: InlineKeyboardButton[][];
+
+  /**
+   * Pass True if the reply interface must be shown to the user, as if they had manually selected the bot's message and tapped 'Reply'. The value of the field can't be changed when the inline keyboard is edited.
+   */
+  force_reply?: boolean;
 };
 
 /**
@@ -3999,7 +3899,7 @@ export type InlineKeyboardButton = {
   /**
    * Style of the button. Must be one of “danger” (red), “success” (green) or “primary” (blue). If omitted, then an app-specific style is used.
    */
-  style?: string;
+  style?: 'danger' | 'success' | 'primary';
 
   /**
    * HTTP or tg:// URL to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings.
@@ -4017,7 +3917,7 @@ export type InlineKeyboardButton = {
   web_app?: WebAppInfo;
 
   /**
-   * An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the {@link https://core.telegram.org/widgets/login | Telegram Login Widget}.
+   * An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the {@link https://core.telegram.org/widgets/login | Telegram Login Widget}. Not supported for ephemeral messages.
    */
   login_url?: LoginUrl;
 
@@ -4027,7 +3927,7 @@ export type InlineKeyboardButton = {
   switch_inline_query?: string;
 
   /**
-   * If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. Not supported in channels and for messages sent in channel direct messages chats and on behalf of a business account.
+   * If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted. This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. Not supported in channels and for messages sent in channel direct messages chats and on behalf of a business account.
    */
   switch_inline_query_current_chat?: string;
 
@@ -4042,22 +3942,27 @@ export type InlineKeyboardButton = {
   copy_text?: CopyTextButton;
 
   /**
-   * Description of the game that will be launched when the user presses the button.NOTE: This type of button must always be the first button in the first row.
+   * Description of the game that will be launched when the user presses the button. NOTE: This type of button must always be the first button in the first row.
    */
   callback_game?: CallbackGame;
 
   /**
-   * Specify True, to send a Pay button. Substrings “⭐” and “XTR” in the buttons's text will be replaced with a Telegram Star icon.NOTE: This type of button must always be the first button in the first row and can only be used in invoice messages.
+   * Specify True, to send a Pay button. Substrings “⭐” and “XTR” in the buttons's text will be replaced with a Telegram Star icon. NOTE: This type of button must always be the first button in the first row and can only be used in invoice messages.
    */
   pay?: boolean;
+
+  /**
+   * If set, then the button is disabled and does nothing
+   */
+  disabled?: DisabledButton;
 };
 
 /**
- * This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the {@link https://core.telegram.org/widgets/login | Telegram Login Widget} when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in: {@link https://core.telegram.org/file/811140015/1734/8VZFkwWXalM.97872/6127fa62d8a0bf2b3c | TITLE} Telegram apps support these buttons as of version 5.7. Sample bot: `@discussbot`
+ * This object represents a parameter of the inline keyboard button used to automatically authorize a user. It serves as a great replacement for the {@link https://core.telegram.org/widgets/login | Telegram Login Widget} when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in: {@link https://core.telegram.org/file/811140015/1734/8VZFkwWXalM.97872/6127fa62d8a0bf2b3c | TITLE} Sample bot: `@DiscussBot`
  */
 export type LoginUrl = {
   /**
-   * An HTTPS URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in {@link https://core.telegram.org/widgets/login#receiving-authorization-data | Receiving authorization data}.NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in {@link https://core.telegram.org/widgets/login#checking-authorization | Checking authorization}.
+   * An HTTPS URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in {@link https://core.telegram.org/widgets/login#receiving-authorization-data | Receiving authorization data}. NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in {@link https://core.telegram.org/widgets/login#checking-authorization | Checking authorization}.
    */
   url: string;
 
@@ -4067,7 +3972,7 @@ export type LoginUrl = {
   forward_text?: string;
 
   /**
-   * Username of a bot, which will be used for user authorization. See {@link https://core.telegram.org/widgets/login#setting-up-a-bot | Setting up a bot} for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See {@link https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot | Linking your domain to the bot} for more details.
+   * Username of a bot, which will be used for user authorization; not supported in {@link RichMessageButton}. See {@link https://core.telegram.org/widgets/login#setting-up-a-bot | Setting up a bot} for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See {@link https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot | Linking your domain to the bot} for more details.
    */
   bot_username?: string;
 
@@ -4117,6 +4022,8 @@ export type CopyTextButton = {
   text: string;
 };
 
+export type DisabledButton = Record<string, never>;
+
 /**
  * This object represents an incoming callback query {@link CallbackQuery.from | from} a callback button in an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}. If the button that originated the query was attached to a {@link CallbackQuery.message | message} sent by the bot, the field {@link CallbackQuery.message | message} will be present. If the button was attached to a {@link CallbackQuery.message | message} sent via the bot (in inline mode), the field {@link CallbackQuery.inline_message_id | inline_message_id} will be present. Exactly one of the fields {@link CallbackQuery.data | data} or {@link CallbackQuery.game_short_name | game_short_name} will be present.
  */
@@ -4162,7 +4069,7 @@ export type CallbackQuery = {
  */
 export type ForceReply = {
   /**
-   * Shows reply interface to the user, as if they manually selected the bot's message and tapped 'Reply'
+   * Shows reply interface to the user, as if they had manually selected the bot's message and tapped 'Reply'
    */
   force_reply: true;
 
@@ -4362,9 +4269,14 @@ export type ChatAdministratorRights = {
   can_manage_direct_messages?: boolean;
 
   /**
-   * True, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted, defaults to the value of can_pin_messages.
+   * True, if the administrator can edit the tags of regular members; for groups and supergroups only
    */
   can_manage_tags?: boolean;
+
+  /**
+   * True, if the administrator can manage chat welcome messages or directly send them in the case of bots
+   */
+  can_send_welcome_messages: boolean;
 };
 
 /**
@@ -4537,9 +4449,14 @@ export type ChatMemberAdministrator = {
   can_manage_direct_messages?: boolean;
 
   /**
-   * True, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted, defaults to the value of can_pin_messages.
+   * True, if the administrator can edit the tags of regular members; for groups and supergroups only
    */
   can_manage_tags?: boolean;
+
+  /**
+   * True, if the administrator can manage chat welcome messages or directly send them in the case of bots
+   */
+  can_send_welcome_messages: boolean;
 
   /**
    * Custom title for this user
@@ -5419,7 +5336,7 @@ export type UniqueGiftModel = {
   /**
    * Rarity of the model if it is a crafted model. Currently, can be “uncommon”, “rare”, “epic”, or “legendary”.
    */
-  rarity?: string;
+  rarity?: 'uncommon' | 'rare' | 'epic' | 'legendary';
 };
 
 /**
@@ -5654,12 +5571,27 @@ export type UniqueGiftInfo = {
   /**
    * Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, “resale” for gifts bought from other users, “gifted_upgrade” for upgrades purchased after the gift was sent, or “offer” for gifts bought or sold through gift purchase offers.
    */
-  origin: string;
+  origin: 'upgrade' | 'transfer' | 'resale' | 'gifted_upgrade' | 'offer';
+
+  /**
+   * Text of the message that was added to the gift
+   */
+  text?: string;
+
+  /**
+   * Special entities that appear in the text
+   */
+  entities?: MessageEntity[];
+
+  /**
+   * True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them
+   */
+  is_private?: true;
 
   /**
    * For gifts bought from other users, the currency in which the payment for the gift was done. Currently, one of “XTR” for Telegram Stars or “TON” for TON grams.
    */
-  last_resale_currency?: string;
+  last_resale_currency?: 'XTR' | 'TON';
 
   /**
    * For gifts bought from other users, the price paid for the gift in either Telegram Stars or nanograms
@@ -6702,7 +6634,7 @@ export type InputMediaSticker = {
   type: 'sticker';
 
   /**
-   * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a.WEBP sticker from the Internet, or pass “attach://<file_attach_name>” to upload a new.WEBP,.TGS, or.WEBM sticker using multipart/form-data under <file_attach_name> name. More information on Sending Files »
+   * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a .WEBP sticker from the Internet, or pass “attach://<file_attach_name>” to upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data under <file_attach_name> name. More information on Sending Files »
    */
   media: string;
 
@@ -6958,7 +6890,7 @@ export type InputPaidMediaVideo = {
 };
 
 /**
- * A static profile {@link InputProfilePhotoStatic.photo | photo} in the.JPG format.
+ * A static profile {@link InputProfilePhotoStatic.photo | photo} in the .JPG format.
  */
 export type InputProfilePhotoStatic = {
   /**
@@ -7145,7 +7077,7 @@ export type Sticker = {
   /**
    * Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”. The type of the sticker is independent from its format, which is determined by the fields is_animated and is_video.
    */
-  type: string;
+  type: 'regular' | 'mask' | 'custom_emoji';
 
   /**
    * Sticker width
@@ -7168,7 +7100,7 @@ export type Sticker = {
   is_video: boolean;
 
   /**
-   * {@link Sticker} thumbnail in the.WEBP or.JPG format
+   * {@link Sticker} thumbnail in the .WEBP or .JPG format
    */
   thumbnail?: PhotoSize;
 
@@ -7225,7 +7157,7 @@ export type StickerSet = {
   /**
    * Type of stickers in the set, currently one of “regular”, “mask”, “custom_emoji”
    */
-  sticker_type: string;
+  sticker_type: 'regular' | 'mask' | 'custom_emoji';
 
   /**
    * List of all set stickers
@@ -7233,7 +7165,7 @@ export type StickerSet = {
   stickers: Sticker[];
 
   /**
-   * {@link Sticker} set thumbnail in the.WEBP,.TGS, or.WEBM format
+   * {@link Sticker} set thumbnail in the .WEBP, .TGS, or .WEBM format
    */
   thumbnail?: PhotoSize;
 };
@@ -7245,7 +7177,7 @@ export type MaskPosition = {
   /**
    * The part of the face relative to which the mask should be placed. One of “forehead”, “eyes”, “mouth”, or “chin”.
    */
-  point: string;
+  point: 'forehead' | 'eyes' | 'mouth' | 'chin';
 
   /**
    * Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. For example, choosing -1.0 will place mask just to the left of the default mask position.
@@ -7273,7 +7205,7 @@ export type InputSticker = {
   sticker: string;
 
   /**
-   * Format of the added sticker, must be one of “static” for a.WEBP or.PNG image, “animated” for a.TGS animation, “video” for a.WEBM video
+   * Format of the added sticker, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, “video” for a .WEBM video
    */
   format: 'static' | 'animated' | 'video';
 
@@ -7328,7 +7260,7 @@ export type InputRichMessage = {
   markdown?: string;
 
   /**
-   * List of media that are specified in the markdown or html fields using tg://photo?id=, tg://video?id=, and tg://audio?id= links
+   * List of media that are specified in the markdown or html fields using tg://photo?id=, tg://video?id=, tg://document?id=, and tg://audio?id= links
    */
   media?: InputRichMessageMedia[];
 
@@ -7348,7 +7280,7 @@ export type InputRichMessage = {
  */
 export type InputRichMessageMedia = {
   /**
-   * Unique identifier of the media used in a tg://photo?id=, tg://video?id=, or tg://audio?id= link. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.
+   * Unique identifier of the media used in a tg://photo?id=, tg://video?id=, tg://document?id=, or tg://audio?id= link. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.
    */
   id: string;
 
@@ -7358,9 +7290,70 @@ export type InputRichMessageMedia = {
   media:
     | InputMediaAnimation
     | InputMediaAudio
+    | InputMediaDocument
     | InputMediaPhoto
     | InputMediaVideo
     | InputMediaVoiceNote;
+};
+
+/**
+ * This object represents a button in a {@link RichMessage}. Exactly one of the fields other than {@link RichMessageButton.text | text} and {@link RichMessageButton.style | style} must be used to specify the type of the button.
+ */
+export type RichMessageButton = {
+  /**
+   * Text of the button. May contain only plain text, {@link RichTextCustomEmoji} and {@link RichTextDateTime} entities.
+   */
+  text: RichText;
+
+  /**
+   * Style of the button. Must be one of “danger” (red), “success” (green), “primary” (blue) or “link” (the button is shown as a regular link without borders). If omitted, then an app-specific style is used. The style “link” is allowed only for callback buttons.
+   */
+  style?: 'danger' | 'success' | 'primary' | 'link';
+
+  /**
+   * HTTP or tg:// URL to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings.
+   */
+  url?: string;
+
+  /**
+   * Data to be sent in a callback query to the bot when the button is pressed, 1-64 bytes
+   */
+  callback_data?: string;
+
+  /**
+   * Description of the {@link https://core.telegram.org/bots/webapps | Web App} that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a business account.
+   */
+  web_app?: WebAppInfo;
+
+  /**
+   * An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the {@link https://core.telegram.org/widgets/login | Telegram Login Widget}. Not supported for ephemeral messages.
+   */
+  login_url?: LoginUrl;
+
+  /**
+   * If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted. Not supported for messages sent in channel direct messages chats and on behalf of a business account.
+   */
+  switch_inline_query?: string;
+
+  /**
+   * If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted. Not supported in channels and for messages sent in channel direct messages chats and on behalf of a business account.
+   */
+  switch_inline_query_current_chat?: string;
+
+  /**
+   * If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field. Not supported for messages sent in channel direct messages chats and on behalf of a business account.
+   */
+  switch_inline_query_chosen_chat?: SwitchInlineQueryChosenChat;
+
+  /**
+   * A button that copies the specified text to the clipboard
+   */
+  copy_text?: CopyTextButton;
+
+  /**
+   * If set, then the button is disabled and does nothing
+   */
+  disabled?: DisabledButton;
 };
 
 /**
@@ -7739,6 +7732,21 @@ export type RichTextBotCommand = {
 };
 
 /**
+ * A {@link RichTextButton.button | button}.
+ */
+export type RichTextButton = {
+  /**
+   * Type of the rich text, always “button”
+   */
+  type: 'button';
+
+  /**
+   * The button
+   */
+  button: RichMessageButton;
+};
+
+/**
  * An anchor.
  */
 export type RichTextAnchor = {
@@ -8044,6 +8052,26 @@ export type RichBlockBlockQuotation = {
 };
 
 /**
+ * A block quotation, corresponding to the HTML tag <blockquote> with custom attribute "collapsed".
+ */
+export type RichBlockExpandableBlockQuotation = {
+  /**
+   * Type of the block, always “expandable_blockquote”
+   */
+  type: 'expandable_blockquote';
+
+  /**
+   * Content of the block
+   */
+  text: RichText;
+
+  /**
+   * Credit of the block
+   */
+  credit?: RichText;
+};
+
+/**
  * A quotation with centered {@link RichBlockPullQuotation.text | text}, loosely corresponding to the HTML tag <aside>.
  */
 export type RichBlockPullQuotation = {
@@ -8128,6 +8156,11 @@ export type RichBlockTable = {
   is_striped?: true;
 
   /**
+   * True, if table cells have smaller indents
+   */
+  is_compact?: true;
+
+  /**
    * Caption of the table
    */
   caption?: RichText;
@@ -8173,7 +8206,7 @@ export type RichBlockMap = {
   location: Location;
 
   /**
-   * Map zoom level; 13-20
+   * Map zoom level
    */
   zoom: number;
 
@@ -8191,6 +8224,26 @@ export type RichBlockMap = {
    * Caption of the block
    */
   caption?: RichBlockCaption;
+};
+
+/**
+ * A block containing a list of {@link RichBlockButtons.buttons | buttons} that are shown in one row, corresponding to the custom HTML tag <tg-button-row>.
+ */
+export type RichBlockButtons = {
+  /**
+   * Type of the block, always “buttons”
+   */
+  type: 'buttons';
+
+  /**
+   * The buttons
+   */
+  buttons: RichMessageButton[];
+
+  /**
+   * Horizontal alignment of the buttons. Currently, must be one of “left”, “center”, or “right”.
+   */
+  align?: 'left' | 'center' | 'right';
 };
 
 /**
@@ -8231,6 +8284,26 @@ export type RichBlockAudio = {
    * The audio
    */
   audio: Audio;
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A block with a general file, corresponding to the custom HTML tag <tg-document>.
+ */
+export type RichBlockDocument = {
+  /**
+   * Type of the block, always “document”
+   */
+  type: 'document';
+
+  /**
+   * The document
+   */
+  document: Document;
 
   /**
    * Caption of the block
@@ -8499,6 +8572,26 @@ export type InputRichBlockBlockQuotation = {
 };
 
 /**
+ * A block quotation, corresponding to the HTML tag <blockquote> with custom attribute "collapsed".
+ */
+export type InputRichBlockExpandableBlockQuotation = {
+  /**
+   * Type of the block, always “expandable_blockquote”
+   */
+  type: 'expandable_blockquote';
+
+  /**
+   * Content of the block
+   */
+  text: RichText;
+
+  /**
+   * Credit of the block
+   */
+  credit?: RichText;
+};
+
+/**
  * A quotation with centered {@link InputRichBlockPullQuotation.text | text}, loosely corresponding to the HTML tag <aside>.
  */
 export type InputRichBlockPullQuotation = {
@@ -8583,6 +8676,11 @@ export type InputRichBlockTable = {
   is_striped?: true;
 
   /**
+   * Pass True if table cells must have smaller indents
+   */
+  is_compact?: true;
+
+  /**
    * Caption of the table
    */
   caption?: RichText;
@@ -8630,22 +8728,42 @@ export type InputRichBlockMap = {
   /**
    * Map zoom level; 0-24
    */
-  zoom: number;
+  zoom?: number;
 
   /**
    * Map width; 0-10000
    */
-  width: number;
+  width?: number;
 
   /**
    * Map height; 0-10000
    */
-  height: number;
+  height?: number;
 
   /**
    * Caption of the block
    */
   caption?: RichBlockCaption;
+};
+
+/**
+ * A block containing a list of {@link InputRichBlockButtons.buttons | buttons} that are shown in one row, corresponding to the custom HTML tag <tg-button-row>.
+ */
+export type InputRichBlockButtons = {
+  /**
+   * Type of the block, always “buttons”
+   */
+  type: 'buttons';
+
+  /**
+   * List of 1-8 buttons to send
+   */
+  buttons: RichMessageButton[];
+
+  /**
+   * Horizontal alignment of the buttons. Currently, must be one of “left”, “center”, or “right”.
+   */
+  align?: 'left' | 'center' | 'right';
 };
 
 /**
@@ -8681,6 +8799,26 @@ export type InputRichBlockAudio = {
    * The audio. Caption is ignored.
    */
   audio: InputMediaAudio;
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A block with a general file, corresponding to the custom HTML tag <tg-document>.
+ */
+export type InputRichBlockDocument = {
+  /**
+   * Type of the block, always “document”
+   */
+  type: 'document';
+
+  /**
+   * The document. Caption is ignored.
+   */
+  document: InputMediaDocument;
 
   /**
    * Caption of the block
@@ -8785,10 +8923,13 @@ export type RichText =
   | RichTextHashtag
   | RichTextCashtag
   | RichTextBotCommand
+  | RichTextButton
   | RichTextAnchor
   | RichTextAnchorLink
   | RichTextReference
-  | RichTextReferenceLink;
+  | RichTextReferenceLink
+  | string
+  | RichText[];
 
 export type RichBlock =
   | RichBlockParagraph
@@ -8800,14 +8941,17 @@ export type RichBlock =
   | RichBlockAnchor
   | RichBlockList
   | RichBlockBlockQuotation
+  | RichBlockExpandableBlockQuotation
   | RichBlockPullQuotation
   | RichBlockCollage
   | RichBlockSlideshow
   | RichBlockTable
   | RichBlockDetails
   | RichBlockMap
+  | RichBlockButtons
   | RichBlockAnimation
   | RichBlockAudio
+  | RichBlockDocument
   | RichBlockPhoto
   | RichBlockVideo
   | RichBlockVoiceNote
@@ -8823,14 +8967,17 @@ export type InputRichBlock =
   | InputRichBlockAnchor
   | InputRichBlockList
   | InputRichBlockBlockQuotation
+  | InputRichBlockExpandableBlockQuotation
   | InputRichBlockPullQuotation
   | InputRichBlockCollage
   | InputRichBlockSlideshow
   | InputRichBlockTable
   | InputRichBlockDetails
   | InputRichBlockMap
+  | InputRichBlockButtons
   | InputRichBlockAnimation
   | InputRichBlockAudio
+  | InputRichBlockDocument
   | InputRichBlockPhoto
   | InputRichBlockVideo
   | InputRichBlockVoiceNote
@@ -8863,7 +9010,7 @@ export type InlineQuery = {
   /**
    * Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat.
    */
-  chat_type?: string;
+  chat_type?: 'sender' | 'private' | 'group' | 'supergroup' | 'channel';
 
   /**
    * Sender location, only for bots that request user location
@@ -8886,7 +9033,7 @@ export type InlineQueryResultsButton = {
   web_app?: WebAppInfo;
 
   /**
-   * {@link https://core.telegram.org/bots/features#deep-linking | Deep-linking} parameter for the /start message sent to the bot when a user presses the button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
+   * {@link https://core.telegram.org/bots/features#deep-linking | Deep-linking} parameter for the /start message sent to the bot when a user presses the button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed. Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
    */
   start_parameter?: string;
 };
@@ -9327,7 +9474,7 @@ export type InlineQueryResultAudio = {
 };
 
 /**
- * Represents a link to a voice recording in an.OGG container encoded with OPUS. By default, this voice recording will be sent by the user. Alternatively, you can use {@link InlineQueryResultVoice.input_message_content | input_message_content} to send a message with the specified content instead of the the voice message.
+ * Represents a link to a voice recording in an .OGG container encoded with OPUS. By default, this voice recording will be sent by the user. Alternatively, you can use {@link InlineQueryResultVoice.input_message_content | input_message_content} to send a message with the specified content instead of the the voice message.
  */
 export type InlineQueryResultVoice = {
   /**
@@ -9382,7 +9529,7 @@ export type InlineQueryResultVoice = {
 };
 
 /**
- * Represents a link to a file. By default, this file will be sent by the user with an optional {@link InlineQueryResultDocument.caption | caption}. Alternatively, you can use {@link InlineQueryResultDocument.input_message_content | input_message_content} to send a message with the specified content instead of the file. Currently, only.PDF and.ZIP files can be sent using this method.
+ * Represents a link to a file. By default, this file will be sent by the user with an optional {@link InlineQueryResultDocument.caption | caption}. Alternatively, you can use {@link InlineQueryResultDocument.input_message_content | input_message_content} to send a message with the specified content instead of the file. Currently, only .PDF and .ZIP files can be sent using this method.
  */
 export type InlineQueryResultDocument = {
   /**
@@ -9423,7 +9570,7 @@ export type InlineQueryResultDocument = {
   /**
    * MIME type of the content of the file, either “application/pdf” or “application/zip”
    */
-  mime_type: string;
+  mime_type: 'application/pdf' | 'application/zip';
 
   /**
    * Short description of the result
@@ -10136,7 +10283,7 @@ export type InputTextMessageContent = {
  */
 export type InputRichMessageContent = {
   /**
-   * The message to be sent
+   * The message to be sent. Only previously uploaded files may be used in the message.
    */
   rich_message: InputRichMessage;
 };
@@ -11258,7 +11405,12 @@ export type TransactionPartnerUser = {
   /**
    * Type of the transaction, currently one of “invoice_payment” for payments via invoices, “paid_media_payment” for payments for paid media, “gift_purchase” for gifts sent by the bot, “premium_purchase” for Telegram Premium subscriptions gifted by the bot, “business_account_transfer” for direct transfers from managed business accounts
    */
-  transaction_type: string;
+  transaction_type:
+    | 'invoice_payment'
+    | 'paid_media_payment'
+    | 'gift_purchase'
+    | 'premium_purchase'
+    | 'business_account_transfer';
 
   /**
    * Information about the user
@@ -11497,7 +11649,20 @@ export type EncryptedPassportElement = {
   /**
    * Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”.
    */
-  type: string;
+  type:
+    | 'personal_details'
+    | 'passport'
+    | 'driver_license'
+    | 'identity_card'
+    | 'internal_passport'
+    | 'address'
+    | 'utility_bill'
+    | 'bank_statement'
+    | 'rental_agreement'
+    | 'passport_registration'
+    | 'temporary_registration'
+    | 'phone_number'
+    | 'email';
 
   /**
    * Base64-encoded encrypted Telegram Passport element data provided by the user; available only for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
@@ -11577,7 +11742,13 @@ export type PassportElementErrorDataField = {
   /**
    * The section of the user's Telegram Passport which has the error, one of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”
    */
-  type: string;
+  type:
+    | 'personal_details'
+    | 'passport'
+    | 'driver_license'
+    | 'identity_card'
+    | 'internal_passport'
+    | 'address';
 
   /**
    * Name of the data field which has the error
@@ -11607,7 +11778,7 @@ export type PassportElementErrorFrontSide = {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”
    */
-  type: string;
+  type: 'passport' | 'driver_license' | 'identity_card' | 'internal_passport';
 
   /**
    * Base64-encoded hash of the file with the front side of the document
@@ -11632,7 +11803,7 @@ export type PassportElementErrorReverseSide = {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “driver_license”, “identity_card”
    */
-  type: string;
+  type: 'driver_license' | 'identity_card';
 
   /**
    * Base64-encoded hash of the file with the reverse side of the document
@@ -11657,7 +11828,7 @@ export type PassportElementErrorSelfie = {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”
    */
-  type: string;
+  type: 'passport' | 'driver_license' | 'identity_card' | 'internal_passport';
 
   /**
    * Base64-encoded hash of the file with the selfie
@@ -11682,7 +11853,12 @@ export type PassportElementErrorFile = {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
    */
-  type: string;
+  type:
+    | 'utility_bill'
+    | 'bank_statement'
+    | 'rental_agreement'
+    | 'passport_registration'
+    | 'temporary_registration';
 
   /**
    * Base64-encoded file hash
@@ -11707,7 +11883,12 @@ export type PassportElementErrorFiles = {
   /**
    * The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
    */
-  type: string;
+  type:
+    | 'utility_bill'
+    | 'bank_statement'
+    | 'rental_agreement'
+    | 'passport_registration'
+    | 'temporary_registration';
 
   /**
    * List of base64-encoded file hashes
@@ -11732,7 +11913,16 @@ export type PassportElementErrorTranslationFile = {
   /**
    * Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
    */
-  type: string;
+  type:
+    | 'passport'
+    | 'driver_license'
+    | 'identity_card'
+    | 'internal_passport'
+    | 'utility_bill'
+    | 'bank_statement'
+    | 'rental_agreement'
+    | 'passport_registration'
+    | 'temporary_registration';
 
   /**
    * Base64-encoded file hash
@@ -11757,7 +11947,16 @@ export type PassportElementErrorTranslationFiles = {
   /**
    * Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
    */
-  type: string;
+  type:
+    | 'passport'
+    | 'driver_license'
+    | 'identity_card'
+    | 'internal_passport'
+    | 'utility_bill'
+    | 'bank_statement'
+    | 'rental_agreement'
+    | 'passport_registration'
+    | 'temporary_registration';
 
   /**
    * List of base64-encoded file hashes

@@ -16,6 +16,7 @@ import {
   ChatInviteLink,
   ChatMember,
   ChatPermissions,
+  EphemeralMessageParameters,
   File,
   ForceReply,
   ForumTopic,
@@ -28,6 +29,10 @@ import {
   InputFile,
   InputMedia,
   InputMediaAudio,
+  InputMediaDocument,
+  InputMediaLivePhoto,
+  InputMediaPhoto,
+  InputMediaVideo,
   InputPaidMedia,
   InputPollMedia,
   InputPollOption,
@@ -87,7 +92,7 @@ export type GetUpdates = {
   timeout?: number;
 
   /**
-   * A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See {@link Update} for a complete list of available update types. Specify an empty list to receive all update types except chat_member, message_reaction, and message_reaction_count (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to getUpdates, so unwanted updates may be received for a short period of time.
+   * A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See {@link Update} for a complete list of available update types. Specify an empty list to receive all update types except chat_member, message_reaction, and message_reaction_count (default). If not specified, the previous setting will be used. Please note that this parameter doesn't affect updates created before the call to getUpdates, so unwanted updates may be received for a short period of time.
    */
   allowed_updates?: Exclude<keyof Update, 'update_id'>[];
 };
@@ -120,7 +125,7 @@ export type SetWebhook = {
   max_connections?: number;
 
   /**
-   * A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See {@link Update} for a complete list of available update types. Specify an empty list to receive all update types except chat_member, message_reaction, and message_reaction_count (default). If not specified, the previous setting will be used.Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
+   * A JSON-serialized list of the update types you want your bot to receive. For example, specify ["message", "edited_channel_post", "callback_query"] to only receive updates of these types. See {@link Update} for a complete list of available update types. Specify an empty list to receive all update types except chat_member, message_reaction, and message_reaction_count (default). If not specified, the previous setting will be used. Please note that this parameter doesn't affect updates created before the call to the setWebhook, so unwanted updates may be received for a short period of time.
    */
   allowed_updates?: Exclude<keyof Update, 'update_id'>[];
 
@@ -198,14 +203,9 @@ export type SendMessage = {
   direct_messages_topic_id?: number;
 
   /**
-   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   * A JSON-serialized object containing the parameters of the ephemeral message to send
    */
-  receiver_user_id?: number;
-
-  /**
-   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
-   */
-  callback_query_id?: string;
+  ephemeral_message_parameters?: EphemeralMessageParameters;
 
   /**
    * Text of the message to be sent, 1-4096 characters after entities parsing
@@ -547,14 +547,9 @@ export type SendPhoto = {
   direct_messages_topic_id?: number;
 
   /**
-   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   * A JSON-serialized object containing the parameters of the ephemeral message to send
    */
-  receiver_user_id?: number;
-
-  /**
-   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
-   */
-  callback_query_id?: string;
+  ephemeral_message_parameters?: EphemeralMessageParameters;
 
   /**
    * Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. More information on Sending Files »
@@ -655,14 +650,9 @@ export type SendLivePhoto = {
   direct_messages_topic_id?: number;
 
   /**
-   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   * A JSON-serialized object containing the parameters of the ephemeral message to send
    */
-  receiver_user_id?: number;
-
-  /**
-   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
-   */
-  callback_query_id?: string;
+  ephemeral_message_parameters?: EphemeralMessageParameters;
 
   /**
    * Live photo video to send. The video must be no longer than 10 seconds and must not exceed 10 MB in size. Pass a file_id as String to send a video that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending live photos by a URL is currently unsupported.
@@ -768,14 +758,9 @@ export type SendAudio = {
   direct_messages_topic_id?: number;
 
   /**
-   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   * A JSON-serialized object containing the parameters of the ephemeral message to send
    */
-  receiver_user_id?: number;
-
-  /**
-   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
-   */
-  callback_query_id?: string;
+  ephemeral_message_parameters?: EphemeralMessageParameters;
 
   /**
    * Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
@@ -858,7 +843,7 @@ export type SendAudio = {
 };
 
 /**
- * Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the.MP3 or.M4A format. On success, the sent {@link Message} is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future. For sending voice messages, use the sendVoice method instead.
+ * Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .MP3 or .M4A format. On success, the sent {@link Message} is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future. For sending voice messages, use the sendVoice method instead.
  */
 export const sendAudio = /* @__PURE__ */ botMethod<
   (payload: SendAudio) => Message
@@ -886,14 +871,9 @@ export type SendDocument = {
   direct_messages_topic_id?: number;
 
   /**
-   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   * A JSON-serialized object containing the parameters of the ephemeral message to send
    */
-  receiver_user_id?: number;
-
-  /**
-   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
-   */
-  callback_query_id?: string;
+  ephemeral_message_parameters?: EphemeralMessageParameters;
 
   /**
    * File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
@@ -994,14 +974,9 @@ export type SendVideo = {
   direct_messages_topic_id?: number;
 
   /**
-   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   * A JSON-serialized object containing the parameters of the ephemeral message to send
    */
-  receiver_user_id?: number;
-
-  /**
-   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
-   */
-  callback_query_id?: string;
+  ephemeral_message_parameters?: EphemeralMessageParameters;
 
   /**
    * Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. More information on Sending Files »
@@ -1137,14 +1112,9 @@ export type SendAnimation = {
   direct_messages_topic_id?: number;
 
   /**
-   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   * A JSON-serialized object containing the parameters of the ephemeral message to send
    */
-  receiver_user_id?: number;
-
-  /**
-   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
-   */
-  callback_query_id?: string;
+  ephemeral_message_parameters?: EphemeralMessageParameters;
 
   /**
    * Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. More information on Sending Files »
@@ -1265,14 +1235,9 @@ export type SendVoice = {
   direct_messages_topic_id?: number;
 
   /**
-   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   * A JSON-serialized object containing the parameters of the ephemeral message to send
    */
-  receiver_user_id?: number;
-
-  /**
-   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
-   */
-  callback_query_id?: string;
+  ephemeral_message_parameters?: EphemeralMessageParameters;
 
   /**
    * Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
@@ -1340,7 +1305,7 @@ export type SendVoice = {
 };
 
 /**
- * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an.OGG file encoded with OPUS, or in.MP3 format, or in.M4A format (other formats may be sent as {@link Audio} or Document). On success, the sent {@link Message} is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
+ * Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .OGG file encoded with OPUS, or in .MP3 format, or in .M4A format (other formats may be sent as {@link Audio} or Document). On success, the sent {@link Message} is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
  */
 export const sendVoice = /* @__PURE__ */ botMethod<
   (payload: SendVoice) => Message
@@ -1368,14 +1333,9 @@ export type SendVideoNote = {
   direct_messages_topic_id?: number;
 
   /**
-   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   * A JSON-serialized object containing the parameters of the ephemeral message to send
    */
-  receiver_user_id?: number;
-
-  /**
-   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
-   */
-  callback_query_id?: string;
+  ephemeral_message_parameters?: EphemeralMessageParameters;
 
   /**
    * Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported.
@@ -1438,7 +1398,7 @@ export type SendVideoNote = {
 };
 
 /**
- * As of v.4.0, Telegram clients support rounded square MPEG4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent {@link Message} is returned.
+ * Use this method to send a rounded square MPEG4 video of up to 1 minute long. On success, the sent {@link Message} is returned.
  */
 export const sendVideoNote = /* @__PURE__ */ botMethod<
   (payload: SendVideoNote) => Message
@@ -1567,7 +1527,13 @@ export type SendMediaGroup = {
   /**
    * A JSON-serialized Array describing messages to be sent, must include 2-10 items
    */
-  media: InputMediaAudio[];
+  media: (
+    | InputMediaAudio
+    | InputMediaDocument
+    | InputMediaLivePhoto
+    | InputMediaPhoto
+    | InputMediaVideo
+  )[];
 
   /**
    * Sends messages silently. Users will receive a notification with no sound.
@@ -1625,14 +1591,9 @@ export type SendLocation = {
   direct_messages_topic_id?: number;
 
   /**
-   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   * A JSON-serialized object containing the parameters of the ephemeral message to send
    */
-  receiver_user_id?: number;
-
-  /**
-   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
-   */
-  callback_query_id?: string;
+  ephemeral_message_parameters?: EphemeralMessageParameters;
 
   /**
    * Latitude of the location
@@ -1732,14 +1693,9 @@ export type SendVenue = {
   direct_messages_topic_id?: number;
 
   /**
-   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   * A JSON-serialized object containing the parameters of the ephemeral message to send
    */
-  receiver_user_id?: number;
-
-  /**
-   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
-   */
-  callback_query_id?: string;
+  ephemeral_message_parameters?: EphemeralMessageParameters;
 
   /**
    * Latitude of the venue
@@ -1849,14 +1805,9 @@ export type SendContact = {
   direct_messages_topic_id?: number;
 
   /**
-   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   * A JSON-serialized object containing the parameters of the ephemeral message to send
    */
-  receiver_user_id?: number;
-
-  /**
-   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
-   */
-  callback_query_id?: string;
+  ephemeral_message_parameters?: EphemeralMessageParameters;
 
   /**
    * Contact's phone number
@@ -1968,7 +1919,7 @@ export type SendPoll = {
   /**
    * Poll type, “quiz” or “regular”, defaults to “regular”
    */
-  type?: string;
+  type?: 'quiz' | 'regular';
 
   /**
    * Pass True if the poll allows multiple answers, defaults to False
@@ -2240,7 +2191,7 @@ export type SendMessageDraft = {
   message_thread_id?: number;
 
   /**
-   * Unique identifier of the message draft; must be non-zero. Changes to drafts with the same identifier are animated.
+   * Unique identifier of the message draft; must be non-zero. Changes to drafts with the same identifier are animated. Otherwise, the draft is replaced without animation.
    */
   draft_id: number;
 
@@ -2258,6 +2209,16 @@ export type SendMessageDraft = {
    * A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
    */
   entities?: MessageEntity[];
+
+  /**
+   * Pass True to show the user a button to stop further drafts. The bot will receive an {@link Update} “stopped_message_generation” if the user presses the button.
+   */
+  can_stop?: boolean;
+
+  /**
+   * Pass True to keep the draft in the chat when the button is pressed. The draft will still disappear after a short time or if the bot sends a message. To fully preserve the partial draft, the bot should send it as a new message.
+   */
+  keep_on_stop?: boolean;
 };
 
 /**
@@ -2597,6 +2558,11 @@ export type PromoteChatMember = {
    * Pass True if the administrator can edit the tags of regular members; for groups and supergroups only
    */
   can_manage_tags?: boolean;
+
+  /**
+   * Pass True if the administrator can manage chat welcome messages or directly send them in the case of bots
+   */
+  can_send_welcome_messages?: boolean;
 };
 
 /**
@@ -2927,7 +2893,7 @@ export type AnswerChatJoinRequestQuery = {
   /**
    * Result of the query. Must be either “approve” to allow the user to join the chat, “decline” to disallow the user to join the chat, or “queue” to leave the decision to other administrators.
    */
-  result: string;
+  result: 'approve' | 'decline' | 'queue';
 };
 
 /**
@@ -3483,12 +3449,12 @@ export type AnswerCallbackQuery = {
   show_alert?: boolean;
 
   /**
-   * URL that will be opened by the user's client. If you have created a {@link Game} and accepted the conditions via `@BotFather`, specify the URL that opens your game - note that this will only work if the query comes from a callback_game button.Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
+   * URL that will be opened by the user's client. If you have created a {@link Game} and accepted the conditions via `@BotFather`, specify the URL that opens your game - note that this will only work if the query comes from a callback_game button. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
    */
   url?: string;
 
   /**
-   * The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0.
+   * The maximum amount of time in seconds that the result of the callback query may be cached client-side. Defaults to 0.
    */
   cache_time?: number;
 };
@@ -3913,14 +3879,7 @@ export type SendGift = {
   /**
    * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
    */
-  text_entities?:
-    | 'bold'
-    | 'italic'
-    | 'underline'
-    | 'strikethrough'
-    | 'spoiler'
-    | 'custom_emoji'
-    | 'date_time';
+  text_entities?: MessageEntity[];
 };
 
 /**
@@ -3958,18 +3917,11 @@ export type GiftPremiumSubscription = {
   /**
    * A JSON-serialized list of special entities that appear in the gift text. It can be specified instead of text_parse_mode. Entities other than “bold”, “italic”, “underline”, “strikethrough”, “spoiler”, “custom_emoji”, and “date_time” are ignored.
    */
-  text_entities?:
-    | 'bold'
-    | 'italic'
-    | 'underline'
-    | 'strikethrough'
-    | 'spoiler'
-    | 'custom_emoji'
-    | 'date_time';
+  text_entities?: MessageEntity[];
 };
 
 /**
- * {@link Gifts} a Telegram Premium subscription to the given user. Returns True on success.
+ * Gifts a Telegram Premium subscription to the given user. Returns True on success.
  */
 export const giftPremiumSubscription = /* @__PURE__ */ botMethod<
   (payload: GiftPremiumSubscription) => true
@@ -4518,7 +4470,7 @@ export type PostStory = {
   /**
    * Period after which the story is moved to the archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400
    */
-  active_period: 21_600 | 43_200 | 172_800;
+  active_period: 21_600 | 43_200 | 86_400 | 172_800;
 
   /**
    * Caption of the story, 0-2048 characters after entities parsing
@@ -4576,7 +4528,7 @@ export type RepostStory = {
   /**
    * Period after which the story is moved to the archive, in seconds; must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400
    */
-  active_period: 21_600 | 43_200 | 172_800;
+  active_period: 21_600 | 43_200 | 86_400 | 172_800;
 
   /**
    * Pass True to keep the story accessible after it expires
@@ -4776,7 +4728,7 @@ export type EditMessageText = {
   link_preview_options?: LinkPreviewOptions;
 
   /**
-   * New rich content of the message; required if text isn't specified. Direct upload of new files isn't supported when an inline message is edited.
+   * New rich content of the message; required if text isn't specified. Direct upload of new files and explicit upload of files by a URL isn't supported when an inline message is edited.
    */
   rich_message?: InputRichMessage;
 
@@ -5100,9 +5052,9 @@ export type EditEphemeralMessageText = {
   ephemeral_message_id: number;
 
   /**
-   * New text of the message, 1-4096 characters after entity parsing
+   * New text of the message, 1-4096 characters after entity parsing; required if rich_message isn't specified
    */
-  text: string;
+  text?: string;
 
   /**
    * Mode for parsing entities in the message text. See formatting options for more details.
@@ -5113,6 +5065,11 @@ export type EditEphemeralMessageText = {
    * A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
    */
   entities?: MessageEntity[];
+
+  /**
+   * New rich content of the message; required if text isn't specified
+   */
+  rich_message?: InputRichMessage;
 
   /**
    * Link preview generation options for the message
@@ -5126,7 +5083,7 @@ export type EditEphemeralMessageText = {
 };
 
 /**
- * Use this method to edit an ephemeral text message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+ * Use this method to edit an ephemeral text or rich message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
  */
 export const editEphemeralMessageText = /* @__PURE__ */ botMethod<
   (payload: EditEphemeralMessageText) => true
@@ -5149,7 +5106,7 @@ export type EditEphemeralMessageMedia = {
   ephemeral_message_id: number;
 
   /**
-   * A JSON-serialized object for the new media content of the message. A new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL.
+   * A JSON-serialized object for the new media content of the message
    */
   media: InputMedia;
 
@@ -5196,6 +5153,11 @@ export type EditEphemeralMessageCaption = {
    * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
    */
   caption_entities?: MessageEntity[];
+
+  /**
+   * Pass True if the caption must be shown above the message media. Supported only for animation, photo and video messages.
+   */
+  show_caption_above_media?: boolean;
 
   /**
    * A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}
@@ -5300,7 +5262,7 @@ export type DeleteMessage = {
 };
 
 /**
- * Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Service messages about a supergroup, channel, or forum topic creation can't be deleted.- A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has can_delete_messages administrator right in a supergroup or a channel, it can delete any message there.- If the bot has can_manage_direct_messages administrator right in a channel, it can delete any message in the corresponding direct messages chat.Returns True on success.
+ * Use this method to delete a message, including service messages, with the following limitations: - A message can only be deleted if it was sent less than 48 hours ago. - Service messages about a supergroup, channel, or forum topic creation can't be deleted. - A dice message in a private chat can only be deleted if it was sent more than 24 hours ago. - Bots can delete outgoing messages in private chats, groups, and supergroups. - Bots can delete incoming messages in private chats. - Bots granted can_post_messages permissions can delete outgoing messages in channels. - If the bot is an administrator of a group, it can delete any message there. - If the bot has can_delete_messages administrator right in a supergroup or a channel, it can delete any message there. - If the bot has can_manage_direct_messages administrator right in a channel, it can delete any message in the corresponding direct messages chat. Returns True on success.
  */
 export const deleteMessage =
   /* @__PURE__ */ botMethod<(payload: DeleteMessage) => true>('deleteMessage');
@@ -5424,17 +5386,12 @@ export type SendSticker = {
   direct_messages_topic_id?: number;
 
   /**
-   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   * A JSON-serialized object containing the parameters of the ephemeral message to send
    */
-  receiver_user_id?: number;
+  ephemeral_message_parameters?: EphemeralMessageParameters;
 
   /**
-   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
-   */
-  callback_query_id?: string;
-
-  /**
-   * Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a.WEBP sticker from the Internet, or upload a new.WEBP,.TGS, or.WEBM sticker using multipart/form-data. More information on Sending Files ». {@link Video} and animated stickers can't be sent via an HTTP URL.
+   * Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a .WEBP sticker from the Internet, or upload a new .WEBP, .TGS, or .WEBM sticker using multipart/form-data. More information on Sending Files ». {@link Video} and animated stickers can't be sent via an HTTP URL.
    */
   sticker: InputFile | string;
 
@@ -5484,7 +5441,7 @@ export type SendSticker = {
 };
 
 /**
- * Use this method to send static.WEBP, animated.TGS, or video.WEBM stickers. On success, the sent {@link Message} is returned.
+ * Use this method to send static .WEBP, animated .TGS, or video .WEBM stickers. On success, the sent {@link Message} is returned.
  */
 export const sendSticker = /* @__PURE__ */ botMethod<
   (payload: SendSticker) => Message
@@ -5526,7 +5483,7 @@ export type UploadStickerFile = {
   user_id: number;
 
   /**
-   * A file with the sticker in.WEBP,.PNG,.TGS, or.WEBM format. See {@link https://core.telegram.org/stickers} for technical requirements. More information on Sending Files »
+   * A file with the sticker in .WEBP, .PNG, .TGS, or .WEBM format. See {@link https://core.telegram.org/stickers} for technical requirements. More information on Sending Files »
    */
   sticker: InputFile;
 
@@ -5759,12 +5716,12 @@ export type SetStickerSetThumbnail = {
   user_id: number;
 
   /**
-   * A.WEBP or.PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a.TGS animation with a thumbnail up to 32 kilobytes in size (see {@link https://core.telegram.org/stickers#animation-requirements} for animated sticker technical requirements), or a.WEBM video with the thumbnail up to 32 kilobytes in size; see {@link https://core.telegram.org/stickers#video-requirements} for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.
+   * A .WEBP or .PNG image with the thumbnail, must be up to 128 kilobytes in size and have a width and height of exactly 100px, or a .TGS animation with a thumbnail up to 32 kilobytes in size (see {@link https://core.telegram.org/stickers#animation-requirements} for animated sticker technical requirements), or a .WEBM video with the thumbnail up to 32 kilobytes in size; see {@link https://core.telegram.org/stickers#video-requirements} for video sticker technical requirements. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files ». Animated and video sticker set thumbnails can't be uploaded via HTTP URL. If omitted, then the thumbnail is dropped and the first sticker is used as the thumbnail.
    */
   thumbnail?: InputFile | string;
 
   /**
-   * Format of the thumbnail, must be one of “static” for a.WEBP or.PNG image, “animated” for a.TGS animation, or “video” for a.WEBM video
+   * Format of the thumbnail, must be one of “static” for a .WEBP or .PNG image, “animated” for a .TGS animation, or “video” for a .WEBM video
    */
   format: 'static' | 'animated' | 'video';
 };
@@ -5832,6 +5789,11 @@ export type SendRichMessage = {
   direct_messages_topic_id?: number;
 
   /**
+   * A JSON-serialized object containing the parameters of the ephemeral message to send
+   */
+  ephemeral_message_parameters?: EphemeralMessageParameters;
+
+  /**
    * The message to be sent
    */
   rich_message: InputRichMessage;
@@ -5896,14 +5858,24 @@ export type SendRichMessageDraft = {
   message_thread_id?: number;
 
   /**
-   * Unique identifier of the message draft; must be non-zero. Changes to drafts with the same identifier are animated.
+   * Unique identifier of the message draft; must be non-zero. Changes to drafts with the same identifier are animated. Otherwise, the draft is replaced without animation.
    */
   draft_id: number;
 
   /**
-   * The partial message to be streamed. Direct upload of new files isn't supported.
+   * The partial message to be streamed. Direct upload of new files and explicit upload of files by a URL isn't supported.
    */
   rich_message: InputRichMessage;
+
+  /**
+   * Pass True to show the user a button to stop further drafts. The bot will receive an {@link Update} “stopped_message_generation” if the user presses the button.
+   */
+  can_stop?: boolean;
+
+  /**
+   * Pass True to keep the draft in the chat when the button is pressed. The draft will still disappear after a short time or if the bot sends a message. To fully preserve the partial draft, the bot should send it as a new message.
+   */
+  keep_on_stop?: boolean;
 };
 
 /**
@@ -5946,7 +5918,7 @@ export type AnswerInlineQuery = {
 };
 
 /**
- * Use this method to send answers to an inline query. On success, True is returned.No more than 50 results per query are allowed.
+ * Use this method to send answers to an inline query. On success, True is returned. No more than 50 results per query are allowed.
  */
 export const answerInlineQuery =
   /* @__PURE__ */ botMethod<(payload: AnswerInlineQuery) => true>(

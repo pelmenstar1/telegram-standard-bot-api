@@ -9,19 +9,50 @@ type FieldInput = {
   type: string;
 };
 
+// Fields that accept only a few currencies list them instead of referring to
+// the whole set of supported ones, e.g. "must be one of “XTR” or “TON”".
+const CURRENCY_ENUM_PATTERN = /(?:must be )?one of (.+)/i;
+const QUOTED_PATTERN = /“(.*?)”/g;
+
+function parseCurrencyType(description: string, meta: ParserMeta): ValueType {
+  const enumMatch = description.match(CURRENCY_ENUM_PATTERN);
+  const listed =
+    enumMatch === null
+      ? []
+      : Array.from(enumMatch[1].matchAll(QUOTED_PATTERN), ([, value]) => value);
+
+  const values = listed.length > 0 ? listed : [...meta.currencies, 'XTR'];
+
+  return {
+    kind: ValueTypeKind.UNION,
+    types: values.map((value) => ({
+      kind: ValueTypeKind.LITERAL,
+      value,
+    })),
+  };
+}
+
+// A description that enumerates allowed values only narrows the declared type
+// when that type is a primitive. For example, `text_entities` is declared as
+// `Array of MessageEntity` while its description lists the entity types that
+// are not ignored.
+const narrowableKinds = new Set<ValueTypeKind>([
+  ValueTypeKind.STRING,
+  ValueTypeKind.INT,
+  ValueTypeKind.FLOAT,
+]);
+
+function isNarrowableByDescription({ kind }: ValueType): boolean {
+  return narrowableKinds.has(kind);
+}
+
 function parseFieldType(
   { name, description, type }: FieldInput,
   meta: ParserMeta
 ): ValueType {
   switch (name) {
     case 'currency': {
-      return {
-        kind: ValueTypeKind.UNION,
-        types: [...meta.currencies, 'XTR'].map((value) => ({
-          kind: ValueTypeKind.LITERAL,
-          value,
-        })),
-      };
+      return parseCurrencyType(description, meta);
     }
     case 'allowed_updates': {
       return {
@@ -30,7 +61,13 @@ function parseFieldType(
       };
     }
     default: {
-      return getImplicitStringLiteralType(description) ?? parseValueType(type);
+      const declaredType = parseValueType(type);
+
+      if (!isNarrowableByDescription(declaredType)) {
+        return declaredType;
+      }
+
+      return getImplicitStringLiteralType(description) ?? declaredType;
     }
   }
 }

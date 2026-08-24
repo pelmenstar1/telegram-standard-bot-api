@@ -32,6 +32,20 @@ test.each<[string, ValueType]>([
       ],
     },
   ],
+  [
+    'Array of <a>First</a>, <a>Second</a> and <a>Third</a>',
+    {
+      kind: ValueTypeKind.ARRAY,
+      element: {
+        kind: ValueTypeKind.UNION,
+        types: [
+          { kind: ValueTypeKind.REF, name: 'First' },
+          { kind: ValueTypeKind.REF, name: 'Second' },
+          { kind: ValueTypeKind.REF, name: 'Third' },
+        ],
+      },
+    },
+  ],
 ])('parseValueType', (input, expected) => {
   const actual = parseValueType(input);
 

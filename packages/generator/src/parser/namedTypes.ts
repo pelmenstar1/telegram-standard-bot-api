@@ -4,6 +4,18 @@ import { parseTypeTableToFields } from './fields';
 import { ParserMeta } from './meta';
 import { sliceSection, splitByHeader } from './misc';
 
+type PredefinedUnionExtensions = Record<string, ValueType[] | undefined>;
+
+const predefinedUnionExtensions: PredefinedUnionExtensions = {
+  RichText: [
+    { kind: ValueTypeKind.STRING },
+    {
+      kind: ValueTypeKind.ARRAY,
+      element: { kind: ValueTypeKind.REF, name: 'RichText' },
+    },
+  ],
+};
+
 const exceptions = new Set([
   'Sending files',
   'Accent colors',
@@ -178,6 +190,11 @@ function parseUnionNamedTypes(parts: string[]): NamedType[] {
     }
 
     const types = parseListToUnionTypes(list);
+
+    const extension = predefinedUnionExtensions[name];
+    if (extension !== undefined) {
+      types.push(...extension);
+    }
 
     result.push({
       name,

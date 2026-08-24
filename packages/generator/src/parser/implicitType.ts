@@ -2,6 +2,14 @@ import { LiteralValueType, ValueType, ValueTypeKind } from '../types';
 
 const IMPLICIT_STRING_ENUM_PREFIXES = ['must be one of', 'Entities other than'];
 
+// Wordings that introduce the closed set of values a field holds, e.g. "can be
+// “private”, “group”…", "Must be either “approve” or “decline”" or "Poll type,
+// “quiz” or “regular”". The quoted list has to follow right away, so that a
+// description merely mentioning some values, like "available only for
+// “personal_details”", is left alone.
+const ENUM_ANCHOR_PATTERN =
+  /(?:one of|either|can be|\btype,)\s*(?:the following)?[:,]?\s*(“.*)/is;
+
 const parseMode: ValueType = {
   kind: ValueTypeKind.UNION,
   types: ['HTML', 'Markdown', 'MarkdownV2'].map((value) => ({
@@ -19,6 +27,28 @@ function parseMaybeNumbers(parts: string[]): ValueType[] {
     .filter(({ value }) => !Number.isNaN(value));
 }
 
+const NUMBER_PRODUCT_PATTERN = /\d+\s*\*\s*\d+/;
+const NUMBER_TERM_PATTERN = /\d+(?:\s*\*\s*\d+)*/g;
+
+function parseNumberTerm(term: string): number {
+  const factors = term.split('*').map((factor) => Number.parseInt(factor));
+
+  return factors.reduce((result, factor) => result * factor);
+}
+
+// Such a list can mix products with plain numbers,
+// e.g. "must be one of 6 * 3600, 12 * 3600, 86400, or 2 * 86400".
+function parseNumberProducts(text: string): ValueType[] {
+  if (NUMBER_PRODUCT_PATTERN.test(text)) {
+    return Array.from(text.matchAll(NUMBER_TERM_PATTERN), ([term]) => ({
+      kind: ValueTypeKind.LITERAL,
+      value: parseNumberTerm(term),
+    }));
+  }
+
+  return [];
+}
+
 function parseStringPart(text: string): ValueType {
   const imgMatch = text.match(/<img .*? alt="(.*?)" \/>/);
   const value = imgMatch !== null ? imgMatch[1] : text;
@@ -27,22 +57,17 @@ function parseStringPart(text: string): ValueType {
 }
 
 function parseEnum(text: string): ValueType | null {
-  let types: ValueType[] = [...text.matchAll(/“(.*?)”/g)].map((part) =>
+  let types = Array.from(text.matchAll(/“(.*?)”/g), (part) =>
     parseStringPart(part[1])
   );
 
   if (types.length === 0) {
-    const parts = [...text.matchAll(/(\d+)\s*\*\s*(\d+)/g)];
-
-    types = parts.map((match) => ({
-      kind: ValueTypeKind.LITERAL,
-      value: Number.parseInt(match[1]) * Number.parseInt(match[2]),
-    }));
+    types = parseNumberProducts(text);
   }
 
   if (types.length === 0) {
     types = parseMaybeNumbers(
-      [...text.matchAll(/[\dabcdefx]+/gi)].map((match) => match[0])
+      Array.from(text.matchAll(/[\dabcdefx]+/gi), (match) => match[0])
     );
   }
 
@@ -74,6 +99,11 @@ export function getImplicitStringLiteralType(
 
   if (startIndex !== -1) {
     return parseEnum(content.slice(startIndex + matchString.length));
+  }
+
+  const anchorMatch = content.match(ENUM_ANCHOR_PATTERN);
+  if (anchorMatch !== null) {
+    return parseEnum(anchorMatch[1]);
   }
 
   let match = content.match(/(?:type|Error source).+must be <em>([\w_]+)/i);
