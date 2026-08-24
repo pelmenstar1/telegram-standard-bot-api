@@ -4,6 +4,7 @@ import { botMethod } from './method.js';
 import { formDataPayloadTransformer } from './payload.js';
 import {
   AcceptedGiftTypes,
+  BotAccessSettings,
   BotCommand,
   BotCommandScope,
   BotDescription,
@@ -28,8 +29,10 @@ import {
   InputMedia,
   InputMediaAudio,
   InputPaidMedia,
+  InputPollMedia,
   InputPollOption,
   InputProfilePhoto,
+  InputRichMessage,
   InputSticker,
   InputStoryContent,
   KeyboardButton,
@@ -49,6 +52,7 @@ import {
   ReplyKeyboardMarkup,
   ReplyKeyboardRemove,
   ReplyParameters,
+  SentGuestMessage,
   SentWebAppMessage,
   ShippingOption,
   StarAmount,
@@ -96,7 +100,7 @@ export const getUpdates =
 
 export type SetWebhook = {
   /**
-   * HTTPS URL to send updates to. Use an empty string to remove webhook integration
+   * HTTPS URL to send updates to. Use an empty string to remove webhook integration.
    */
   url: string;
 
@@ -179,7 +183,7 @@ export type SendMessage = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -192,6 +196,16 @@ export type SendMessage = {
    * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    */
   direct_messages_topic_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   */
+  receiver_user_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
+   */
+  callback_query_id?: string;
 
   /**
    * Text of the message to be sent, 1-4096 characters after entities parsing
@@ -224,7 +238,7 @@ export type SendMessage = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -244,7 +258,7 @@ export type SendMessage = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -261,7 +275,7 @@ export const sendMessage =
 
 export type ForwardMessage = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -276,7 +290,7 @@ export type ForwardMessage = {
   direct_messages_topic_id?: number;
 
   /**
-   * Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
+   * Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format `@username`)
    */
   from_chat_id: number | string;
 
@@ -321,7 +335,7 @@ export const forwardMessage =
 
 export type ForwardMessages = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -336,7 +350,7 @@ export type ForwardMessages = {
   direct_messages_topic_id?: number;
 
   /**
-   * Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
+   * Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format `@username`)
    */
   from_chat_id: number | string;
 
@@ -357,7 +371,7 @@ export type ForwardMessages = {
 };
 
 /**
- * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an array of {@link MessageId} of the sent messages is returned.
+ * Use this method to forward multiple messages of any kind. If some of the specified messages can't be found or forwarded, they are skipped. Service messages and messages with protected content can't be forwarded. Album grouping is kept for forwarded messages. On success, an Array of {@link MessageId} of the sent messages is returned.
  */
 export const forwardMessages =
   /* @__PURE__ */ botMethod<(payload: ForwardMessages) => MessageId[]>(
@@ -366,7 +380,7 @@ export const forwardMessages =
 
 export type CopyMessage = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -381,7 +395,7 @@ export type CopyMessage = {
   direct_messages_topic_id?: number;
 
   /**
-   * Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
+   * Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format `@username`)
    */
   from_chat_id: number | string;
 
@@ -396,7 +410,7 @@ export type CopyMessage = {
   video_start_timestamp?: number;
 
   /**
-   * New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept
+   * New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept.
    */
   caption?: string;
 
@@ -411,7 +425,7 @@ export type CopyMessage = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media. Ignored if a new caption isn't specified.
+   * Pass True if the caption must be shown above the message media. Ignored if a new caption isn't specified.
    */
   show_caption_above_media?: boolean;
 
@@ -426,7 +440,7 @@ export type CopyMessage = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -446,7 +460,7 @@ export type CopyMessage = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -456,14 +470,14 @@ export type CopyMessage = {
 };
 
 /**
- * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the {@link MessageId} of the sent message on success.
+ * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_ids is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the {@link MessageId} of the sent message on success.
  */
 export const copyMessage =
   /* @__PURE__ */ botMethod<(payload: CopyMessage) => MessageId>('copyMessage');
 
 export type CopyMessages = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -478,7 +492,7 @@ export type CopyMessages = {
   direct_messages_topic_id?: number;
 
   /**
-   * Unique identifier for the chat where the original messages were sent (or channel username in the format @channelusername)
+   * Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format `@username`)
    */
   from_chat_id: number | string;
 
@@ -504,7 +518,7 @@ export type CopyMessages = {
 };
 
 /**
- * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_id is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an array of {@link MessageId} of the sent messages is returned.
+ * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_ids is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of {@link MessageId} of the sent messages is returned.
  */
 export const copyMessages =
   /* @__PURE__ */ botMethod<(payload: CopyMessages) => MessageId[]>(
@@ -518,7 +532,7 @@ export type SendPhoto = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -531,6 +545,16 @@ export type SendPhoto = {
    * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    */
   direct_messages_topic_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   */
+  receiver_user_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
+   */
+  callback_query_id?: string;
 
   /**
    * Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. The photo must be at most 10 MB in size. The photo's width and height must not exceed 10000 in total. Width and height ratio must be at most 20. More information on Sending Files »
@@ -553,7 +577,7 @@ export type SendPhoto = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media
+   * Pass True if the caption must be shown above the message media
    */
   show_caption_above_media?: boolean;
 
@@ -573,7 +597,7 @@ export type SendPhoto = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -593,7 +617,7 @@ export type SendPhoto = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -609,14 +633,14 @@ export const sendPhoto = /* @__PURE__ */ botMethod<
   (payload: SendPhoto) => Message
 >('sendPhoto', formDataPayloadTransformer);
 
-export type SendAudio = {
+export type SendLivePhoto = {
   /**
    * Unique identifier of the business connection on behalf of which the message will be sent
    */
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
    */
   chat_id: number | string;
 
@@ -629,6 +653,129 @@ export type SendAudio = {
    * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    */
   direct_messages_topic_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   */
+  receiver_user_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
+   */
+  callback_query_id?: string;
+
+  /**
+   * Live photo video to send. The video must be no longer than 10 seconds and must not exceed 10 MB in size. Pass a file_id as String to send a video that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending live photos by a URL is currently unsupported.
+   */
+  live_photo: InputFile | string;
+
+  /**
+   * The static photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending live photos by a URL is currently unsupported.
+   */
+  photo: InputFile | string;
+
+  /**
+   * Video caption (may also be used when resending videos by file_id), 0-1024 characters after entities parsing
+   */
+  caption?: string;
+
+  /**
+   * Mode for parsing entities in the video caption. See formatting options for more details.
+   */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+
+  /**
+   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
+   * Pass True if the caption must be shown above the message media
+   */
+  show_caption_above_media?: boolean;
+
+  /**
+   * Pass True if the video needs to be covered with a spoiler animation
+   */
+  has_spoiler?: boolean;
+
+  /**
+   * Sends the message silently. Users will receive a notification with no sound.
+   */
+  disable_notification?: boolean;
+
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+
+  /**
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
+   */
+  allow_paid_broadcast?: boolean;
+
+  /**
+   * Unique identifier of the message effect to be added to the message; for private chats only
+   */
+  message_effect_id?: string;
+
+  /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
+   * Description of the message to reply to
+   */
+  reply_parameters?: ReplyParameters;
+
+  /**
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
+   */
+  reply_markup?:
+    | InlineKeyboardMarkup
+    | ReplyKeyboardMarkup
+    | ReplyKeyboardRemove
+    | ForceReply;
+};
+
+/**
+ * Use this method to send live photos. On success, the sent {@link Message} is returned.
+ */
+export const sendLivePhoto = /* @__PURE__ */ botMethod<
+  (payload: SendLivePhoto) => Message
+>('sendLivePhoto', formDataPayloadTransformer);
+
+export type SendAudio = {
+  /**
+   * Unique identifier of the business connection on behalf of which the message will be sent
+   */
+  business_connection_id?: string;
+
+  /**
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   */
+  chat_id: number | string;
+
+  /**
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+   */
+  message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   */
+  receiver_user_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
+   */
+  callback_query_id?: string;
 
   /**
    * Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
@@ -681,7 +828,7 @@ export type SendAudio = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -701,7 +848,7 @@ export type SendAudio = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -724,7 +871,7 @@ export type SendDocument = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -737,6 +884,16 @@ export type SendDocument = {
    * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    */
   direct_messages_topic_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   */
+  receiver_user_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
+   */
+  callback_query_id?: string;
 
   /**
    * File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
@@ -779,7 +936,7 @@ export type SendDocument = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -799,7 +956,7 @@ export type SendDocument = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -822,7 +979,7 @@ export type SendVideo = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -835,6 +992,16 @@ export type SendVideo = {
    * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    */
   direct_messages_topic_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   */
+  receiver_user_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
+   */
+  callback_query_id?: string;
 
   /**
    * Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. More information on Sending Files »
@@ -887,7 +1054,7 @@ export type SendVideo = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media
+   * Pass True if the caption must be shown above the message media
    */
   show_caption_above_media?: boolean;
 
@@ -912,7 +1079,7 @@ export type SendVideo = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -932,7 +1099,7 @@ export type SendVideo = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -955,7 +1122,7 @@ export type SendAnimation = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -968,6 +1135,16 @@ export type SendAnimation = {
    * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    */
   direct_messages_topic_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   */
+  receiver_user_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
+   */
+  callback_query_id?: string;
 
   /**
    * Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. More information on Sending Files »
@@ -1010,7 +1187,7 @@ export type SendAnimation = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media
+   * Pass True if the caption must be shown above the message media
    */
   show_caption_above_media?: boolean;
 
@@ -1030,7 +1207,7 @@ export type SendAnimation = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -1050,7 +1227,7 @@ export type SendAnimation = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -1073,7 +1250,7 @@ export type SendVoice = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -1086,6 +1263,16 @@ export type SendVoice = {
    * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    */
   direct_messages_topic_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   */
+  receiver_user_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
+   */
+  callback_query_id?: string;
 
   /**
    * Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More information on Sending Files »
@@ -1123,7 +1310,7 @@ export type SendVoice = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -1143,7 +1330,7 @@ export type SendVoice = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -1166,7 +1353,7 @@ export type SendVideoNote = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -1181,7 +1368,17 @@ export type SendVideoNote = {
   direct_messages_topic_id?: number;
 
   /**
-   * Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported
+   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   */
+  receiver_user_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
+   */
+  callback_query_id?: string;
+
+  /**
+   * Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More information on Sending Files ». Sending video notes by a URL is currently unsupported.
    */
   video_note: InputFile | string;
 
@@ -1211,7 +1408,7 @@ export type SendVideoNote = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -1231,7 +1428,7 @@ export type SendVideoNote = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -1254,7 +1451,7 @@ export type SendPaidMedia = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername). If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`. If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
    */
   chat_id: number | string;
 
@@ -1274,7 +1471,7 @@ export type SendPaidMedia = {
   star_count: number;
 
   /**
-   * A JSON-serialized array describing the media to be sent; up to 10 items
+   * A JSON-serialized Array describing the media to be sent; up to 10 items
    */
   media: InputPaidMedia[];
 
@@ -1299,7 +1496,7 @@ export type SendPaidMedia = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media
+   * Pass True if the caption must be shown above the message media
    */
   show_caption_above_media?: boolean;
 
@@ -1314,7 +1511,7 @@ export type SendPaidMedia = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -1329,7 +1526,7 @@ export type SendPaidMedia = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -1353,7 +1550,7 @@ export type SendMediaGroup = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -1368,7 +1565,7 @@ export type SendMediaGroup = {
   direct_messages_topic_id?: number;
 
   /**
-   * A JSON-serialized array describing messages to be sent, must include 2-10 items
+   * A JSON-serialized Array describing messages to be sent, must include 2-10 items
    */
   media: InputMediaAudio[];
 
@@ -1383,7 +1580,7 @@ export type SendMediaGroup = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -1399,7 +1596,7 @@ export type SendMediaGroup = {
 };
 
 /**
- * Use this method to send a group of photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an array of {@link Message} objects that were sent is returned.
+ * Use this method to send a group of photos, live photos, videos, documents or audios as an album. Documents and audio files can be only grouped in an album with messages of the same type. On success, an Array of {@link Message} objects that were sent is returned.
  */
 export const sendMediaGroup =
   /* @__PURE__ */ botMethod<(payload: SendMediaGroup) => Message[]>(
@@ -1413,7 +1610,7 @@ export type SendLocation = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -1426,6 +1623,16 @@ export type SendLocation = {
    * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    */
   direct_messages_topic_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   */
+  receiver_user_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
+   */
+  callback_query_id?: string;
 
   /**
    * Latitude of the location
@@ -1443,7 +1650,7 @@ export type SendLocation = {
   horizontal_accuracy?: number;
 
   /**
-   * Period in seconds during which the location will be updated (see Live Locations, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
+   * Period in seconds during which the location will be updated (see Live Locations), must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely. Must be 0 for ephemeral messages.
    */
   live_period?: number;
 
@@ -1468,7 +1675,7 @@ export type SendLocation = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -1488,7 +1695,7 @@ export type SendLocation = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -1510,7 +1717,7 @@ export type SendVenue = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -1523,6 +1730,16 @@ export type SendVenue = {
    * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    */
   direct_messages_topic_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   */
+  receiver_user_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
+   */
+  callback_query_id?: string;
 
   /**
    * Latitude of the venue
@@ -1575,7 +1792,7 @@ export type SendVenue = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -1595,7 +1812,7 @@ export type SendVenue = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -1617,7 +1834,7 @@ export type SendContact = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -1630,6 +1847,16 @@ export type SendContact = {
    * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    */
   direct_messages_topic_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   */
+  receiver_user_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
+   */
+  callback_query_id?: string;
 
   /**
    * Contact's phone number
@@ -1662,7 +1889,7 @@ export type SendContact = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -1682,7 +1909,7 @@ export type SendContact = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -1704,7 +1931,7 @@ export type SendPoll = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername). Polls can't be sent to channel direct messages chats.
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`. Polls can't be sent to channel direct messages chats.
    */
   chat_id: number | string;
 
@@ -1719,17 +1946,17 @@ export type SendPoll = {
   question: string;
 
   /**
-   * Mode for parsing entities in the question. See formatting options for more details. Currently, only custom emoji entities are allowed
+   * Mode for parsing entities in the question. See formatting options for more details. Currently, only custom emoji entities are allowed.
    */
   question_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
-   * A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of question_parse_mode
+   * A JSON-serialized list of special entities that appear in the poll question. It can be specified instead of question_parse_mode.
    */
   question_entities?: MessageEntity[];
 
   /**
-   * A JSON-serialized list of 2-12 answer options
+   * A JSON-serialized list of 1-12 answer options
    */
   options: InputPollOption[];
 
@@ -1744,29 +1971,39 @@ export type SendPoll = {
   type?: string;
 
   /**
-   * Pass True, if the poll allows multiple answers, defaults to False
+   * Pass True if the poll allows multiple answers, defaults to False
    */
   allows_multiple_answers?: boolean;
 
   /**
-   * Pass True, if the poll allows to change chosen answer options, defaults to False for quizzes and to True for regular polls
+   * Pass True if the poll allows to change chosen answer options, defaults to False for quizzes and to True for regular polls
    */
   allows_revoting?: boolean;
 
   /**
-   * Pass True, if the poll options must be shown in random order
+   * Pass True if the poll options must be shown in random order
    */
   shuffle_options?: boolean;
 
   /**
-   * Pass True, if answer options can be added to the poll after creation; not supported for anonymous polls and quizzes
+   * Pass True if answer options can be added to the poll after creation; not supported for anonymous polls and quizzes
    */
   allow_adding_options?: boolean;
 
   /**
-   * Pass True, if poll results must be shown only after the poll closes
+   * Pass True if poll results must be shown only after the poll closes
    */
   hide_results_until_closes?: boolean;
+
+  /**
+   * Pass True if voting is limited to users who have been members of the chat where the poll is being sent for more than 24 hours; for channel chats only
+   */
+  members_only?: boolean;
+
+  /**
+   * A JSON-serialized list of 0-12 two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll; for channel chats only. Use “FT” as a country code to allow users with anonymous numbers to vote. If omitted or empty, then users from any country can participate in the poll.
+   */
+  country_codes?: string[];
 
   /**
    * A JSON-serialized list of monotonically increasing 0-based identifiers of the correct answer options, required for polls in quiz mode
@@ -1784,9 +2021,14 @@ export type SendPoll = {
   explanation_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
-   * A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of explanation_parse_mode
+   * A JSON-serialized list of special entities that appear in the poll explanation. It can be specified instead of explanation_parse_mode.
    */
   explanation_entities?: MessageEntity[];
+
+  /**
+   * Media added to the quiz explanation
+   */
+  explanation_media?: InputPollMedia;
 
   /**
    * Amount of time in seconds the poll will be active after creation, 5-2628000. Can't be used together with close_date.
@@ -1819,6 +2061,11 @@ export type SendPoll = {
   description_entities?: MessageEntity[];
 
   /**
+   * Media added to the poll description
+   */
+  media?: InputPollMedia;
+
+  /**
    * Sends the message silently. Users will receive a notification with no sound.
    */
   disable_notification?: boolean;
@@ -1829,7 +2076,7 @@ export type SendPoll = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -1844,7 +2091,7 @@ export type SendPoll = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -1866,9 +2113,9 @@ export type SendChecklist = {
   business_connection_id: string;
 
   /**
-   * Unique identifier for the target chat
+   * Unique identifier for the target chat or username of the target bot in the format `@username`
    */
-  chat_id: number;
+  chat_id: number | string;
 
   /**
    * A JSON-serialized object for the checklist to send
@@ -1916,7 +2163,7 @@ export type SendDice = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -1931,7 +2178,7 @@ export type SendDice = {
   direct_messages_topic_id?: number;
 
   /**
-   * Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. {@link Dice} can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”
+   * Emoji on which the dice throw animation is based. Currently, must be one of “🎲”, “🎯”, “🏀”, “⚽”, “🎳”, or “🎰”. {@link Dice} can have values 1-6 for “🎲”, “🎯” and “🎳”, values 1-5 for “🏀” and “⚽”, and values 1-64 for “🎰”. Defaults to “🎲”.
    */
   emoji?: '🎲' | '🎯' | '🏀' | '⚽' | '🎳' | '🎰';
 
@@ -1946,7 +2193,7 @@ export type SendDice = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -1966,7 +2213,7 @@ export type SendDice = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -1993,14 +2240,14 @@ export type SendMessageDraft = {
   message_thread_id?: number;
 
   /**
-   * Unique identifier of the message draft; must be non-zero. Changes of drafts with the same identifier are animated
+   * Unique identifier of the message draft; must be non-zero. Changes to drafts with the same identifier are animated.
    */
   draft_id: number;
 
   /**
-   * Text of the message to be sent, 1-4096 characters after entities parsing
+   * Text of the message to be sent, 0-4096 characters after entities parsing. Pass an empty text to show a “Thinking…” placeholder.
    */
-  text: string;
+  text?: string;
 
   /**
    * Mode for parsing entities in the message text. See formatting options for more details.
@@ -2014,7 +2261,7 @@ export type SendMessageDraft = {
 };
 
 /**
- * Use this method to stream a partial message to a user while the message is being generated. Returns True on success.
+ * Use this method to stream a partial message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendMessage with the complete message to persist it in the user's chat. Returns True on success.
  */
 export const sendMessageDraft =
   /* @__PURE__ */ botMethod<(payload: SendMessageDraft) => true>(
@@ -2028,7 +2275,7 @@ export type SendChatAction = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername). Channel chats and channel direct messages chats aren't supported.
+   * Unique identifier for the target chat or username of the target bot or supergroup in the format `@username`. Channel chats and channel direct messages chats aren't supported.
    */
   chat_id: number | string;
 
@@ -2053,7 +2300,7 @@ export const sendChatAction =
 
 export type SetMessageReaction = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2169,7 +2416,7 @@ export const getFile =
 
 export type BanChatMember = {
   /**
-   * Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername)
+   * Unique identifier for the target group or username of the target supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2197,7 +2444,7 @@ export const banChatMember =
 
 export type UnbanChatMember = {
   /**
-   * Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername)
+   * Unique identifier for the target group or username of the target supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2222,7 +2469,7 @@ export const unbanChatMember =
 
 export type RestrictChatMember = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 
@@ -2242,7 +2489,7 @@ export type RestrictChatMember = {
   use_independent_chat_permissions?: boolean;
 
   /**
-   * Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
+   * Date when restrictions will be lifted for the user; Unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever.
    */
   until_date?: number;
 };
@@ -2257,7 +2504,7 @@ export const restrictChatMember =
 
 export type PromoteChatMember = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2287,7 +2534,7 @@ export type PromoteChatMember = {
   can_manage_video_chats?: boolean;
 
   /**
-   * Pass True if the administrator can restrict, ban or unban chat members, or access supergroup statistics. For backward compatibility, defaults to True for promotions of channel administrators
+   * Pass True if the administrator can restrict, ban or unban chat members, or access supergroup statistics. For backward compatibility, defaults to True for promotions of channel administrators.
    */
   can_restrict_members?: boolean;
 
@@ -2362,7 +2609,7 @@ export const promoteChatMember =
 
 export type SetChatAdministratorCustomTitle = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 
@@ -2386,7 +2633,7 @@ export const setChatAdministratorCustomTitle = /* @__PURE__ */ botMethod<
 
 export type SetChatMemberTag = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 
@@ -2411,7 +2658,7 @@ export const setChatMemberTag =
 
 export type BanChatSenderChat = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2431,7 +2678,7 @@ export const banChatSenderChat =
 
 export type UnbanChatSenderChat = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2450,7 +2697,7 @@ export const unbanChatSenderChat = /* @__PURE__ */ botMethod<
 
 export type SetChatPermissions = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 
@@ -2475,7 +2722,7 @@ export const setChatPermissions =
 
 export type ExportChatInviteLink = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 };
@@ -2489,7 +2736,7 @@ export const exportChatInviteLink = /* @__PURE__ */ botMethod<
 
 export type CreateChatInviteLink = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2509,7 +2756,7 @@ export type CreateChatInviteLink = {
   member_limit?: number;
 
   /**
-   * True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified
+   * True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified.
    */
   creates_join_request?: boolean;
 };
@@ -2523,7 +2770,7 @@ export const createChatInviteLink = /* @__PURE__ */ botMethod<
 
 export type EditChatInviteLink = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2548,7 +2795,7 @@ export type EditChatInviteLink = {
   member_limit?: number;
 
   /**
-   * True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified
+   * True, if users joining the chat via the link need to be approved by chat administrators. If True, member_limit can't be specified.
    */
   creates_join_request?: boolean;
 };
@@ -2563,7 +2810,7 @@ export const editChatInviteLink =
 
 export type CreateChatSubscriptionInviteLink = {
   /**
-   * Unique identifier for the target channel chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target channel chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2592,7 +2839,7 @@ export const createChatSubscriptionInviteLink = /* @__PURE__ */ botMethod<
 
 export type EditChatSubscriptionInviteLink = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2616,7 +2863,7 @@ export const editChatSubscriptionInviteLink = /* @__PURE__ */ botMethod<
 
 export type RevokeChatInviteLink = {
   /**
-   * Unique identifier of the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier of the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2635,7 +2882,7 @@ export const revokeChatInviteLink = /* @__PURE__ */ botMethod<
 
 export type ApproveChatJoinRequest = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2654,7 +2901,7 @@ export const approveChatJoinRequest = /* @__PURE__ */ botMethod<
 
 export type DeclineChatJoinRequest = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2671,9 +2918,47 @@ export const declineChatJoinRequest = /* @__PURE__ */ botMethod<
   (payload: DeclineChatJoinRequest) => true
 >('declineChatJoinRequest');
 
+export type AnswerChatJoinRequestQuery = {
+  /**
+   * Unique identifier of the join request query
+   */
+  chat_join_request_query_id: string;
+
+  /**
+   * Result of the query. Must be either “approve” to allow the user to join the chat, “decline” to disallow the user to join the chat, or “queue” to leave the decision to other administrators.
+   */
+  result: string;
+};
+
+/**
+ * Use this method to process a received chat join request query. Returns True on success.
+ */
+export const answerChatJoinRequestQuery = /* @__PURE__ */ botMethod<
+  (payload: AnswerChatJoinRequestQuery) => true
+>('answerChatJoinRequestQuery');
+
+export type SendChatJoinRequestWebApp = {
+  /**
+   * Unique identifier of the join request query
+   */
+  chat_join_request_query_id: string;
+
+  /**
+   * An HTTPS URL of a Web App to be opened with additional data as specified in {@link https://core.telegram.org/bots/webapps#initializing-mini-apps | Initializing Web Apps}
+   */
+  web_app_url: string;
+};
+
+/**
+ * Use this method to process a received chat join request query by showing a Mini App to the user before deciding the outcome. Call answerChatJoinRequestQuery to resolve the join request query based on the user interaction with the Mini App. Returns True on success.
+ */
+export const sendChatJoinRequestWebApp = /* @__PURE__ */ botMethod<
+  (payload: SendChatJoinRequestWebApp) => true
+>('sendChatJoinRequestWebApp');
+
 export type SetChatPhoto = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2692,7 +2977,7 @@ export const setChatPhoto = /* @__PURE__ */ botMethod<
 
 export type DeleteChatPhoto = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 };
@@ -2707,7 +2992,7 @@ export const deleteChatPhoto =
 
 export type SetChatTitle = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2725,7 +3010,7 @@ export const setChatTitle =
 
 export type SetChatDescription = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2750,7 +3035,7 @@ export type PinChatMessage = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2780,7 +3065,7 @@ export type UnpinChatMessage = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2800,7 +3085,7 @@ export const unpinChatMessage =
 
 export type UnpinAllChatMessages = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 };
@@ -2814,7 +3099,7 @@ export const unpinAllChatMessages = /* @__PURE__ */ botMethod<
 
 export type LeaveChat = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername). Channel direct messages chats aren't supported; leave the corresponding channel instead.
+   * Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`. Channel direct messages chats aren't supported; leave the corresponding channel instead.
    */
   chat_id: number | string;
 };
@@ -2827,7 +3112,7 @@ export const leaveChat =
 
 export type GetChat = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 };
@@ -2840,13 +3125,18 @@ export const getChat =
 
 export type GetChatAdministrators = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
    */
   chat_id: number | string;
+
+  /**
+   * Pass True to additionally receive all bots that are administrators of the chat. By default, bots other than the current bot are omitted.
+   */
+  return_bots?: boolean;
 };
 
 /**
- * Use this method to get a list of administrators in a chat, which aren't bots. Returns an Array of {@link ChatMember} objects.
+ * Use this method to get a list of administrators in a chat. Returns an Array of {@link ChatMember} objects.
  */
 export const getChatAdministrators = /* @__PURE__ */ botMethod<
   (payload: GetChatAdministrators) => ChatMember[]
@@ -2854,13 +3144,13 @@ export const getChatAdministrators = /* @__PURE__ */ botMethod<
 
 export type GetChatMemberCount = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 };
 
 /**
- * Use this method to get the number of members in a chat. Returns Int on success.
+ * Use this method to get the number of members in a chat. Returns Integer on success.
  */
 export const getChatMemberCount =
   /* @__PURE__ */ botMethod<(payload: GetChatMemberCount) => number>(
@@ -2869,7 +3159,7 @@ export const getChatMemberCount =
 
 export type GetChatMember = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2887,9 +3177,28 @@ export const getChatMember =
     'getChatMember'
   );
 
+export type GetUserPersonalChatMessages = {
+  /**
+   * Unique identifier for the target user
+   */
+  user_id: number;
+
+  /**
+   * The maximum number of messages to return; 1-20
+   */
+  limit: number;
+};
+
+/**
+ * Use this method to get the last messages from the personal chat (i.e., the chat currently added to their profile) of a given user. On success, an Array of {@link Message} objects is returned.
+ */
+export const getUserPersonalChatMessages = /* @__PURE__ */ botMethod<
+  (payload: GetUserPersonalChatMessages) => Message[]
+>('getUserPersonalChatMessages');
+
 export type SetChatStickerSet = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 
@@ -2909,7 +3218,7 @@ export const setChatStickerSet =
 
 export type DeleteChatStickerSet = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 };
@@ -2930,7 +3239,7 @@ export const getForumTopicIconStickers = /* @__PURE__ */ botMethod<
 
 export type CreateForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 
@@ -2940,15 +3249,10 @@ export type CreateForumTopic = {
   name: string;
 
   /**
-   * Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F)
+   * Color of the topic icon in RGB format. Currently, must be one of 7322096 (0x6FB9F0), 16766590 (0xFFD67E), 13338331 (0xCB86DB), 9367192 (0x8EEE98), 16749490 (0xFF93B2), or 16478047 (0xFB6F5F).
    */
   icon_color?:
-    | 7_322_096
-    | 16_766_590
-    | 13_338_331
-    | 9_367_192
-    | 16_749_490
-    | 16_478_047;
+    7_322_096 | 16_766_590 | 13_338_331 | 9_367_192 | 16_749_490 | 16_478_047;
 
   /**
    * Unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers.
@@ -2966,7 +3270,7 @@ export const createForumTopic =
 
 export type EditForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 
@@ -2976,12 +3280,12 @@ export type EditForumTopic = {
   message_thread_id: number;
 
   /**
-   * New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept
+   * New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept.
    */
   name?: string;
 
   /**
-   * New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept
+   * New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept.
    */
   icon_custom_emoji_id?: string;
 };
@@ -2996,7 +3300,7 @@ export const editForumTopic =
 
 export type CloseForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 
@@ -3016,7 +3320,7 @@ export const closeForumTopic =
 
 export type ReopenForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 
@@ -3036,7 +3340,7 @@ export const reopenForumTopic =
 
 export type DeleteForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 
@@ -3056,7 +3360,7 @@ export const deleteForumTopic =
 
 export type UnpinAllForumTopicMessages = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 
@@ -3075,7 +3379,7 @@ export const unpinAllForumTopicMessages = /* @__PURE__ */ botMethod<
 
 export type EditGeneralForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 
@@ -3094,7 +3398,7 @@ export const editGeneralForumTopic = /* @__PURE__ */ botMethod<
 
 export type CloseGeneralForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 };
@@ -3108,7 +3412,7 @@ export const closeGeneralForumTopic = /* @__PURE__ */ botMethod<
 
 export type ReopenGeneralForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 };
@@ -3122,7 +3426,7 @@ export const reopenGeneralForumTopic = /* @__PURE__ */ botMethod<
 
 export type HideGeneralForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 };
@@ -3136,7 +3440,7 @@ export const hideGeneralForumTopic = /* @__PURE__ */ botMethod<
 
 export type UnhideGeneralForumTopic = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 };
@@ -3150,7 +3454,7 @@ export const unhideGeneralForumTopic = /* @__PURE__ */ botMethod<
 
 export type UnpinAllGeneralForumTopicMessages = {
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
    */
   chat_id: number | string;
 };
@@ -3169,17 +3473,17 @@ export type AnswerCallbackQuery = {
   callback_query_id: string;
 
   /**
-   * Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters
+   * Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters.
    */
   text?: string;
 
   /**
-   * If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false.
+   * If True, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to False.
    */
   show_alert?: boolean;
 
   /**
-   * URL that will be opened by the user's client. If you have created a {@link Game} and accepted the conditions via @BotFather, specify the URL that opens your game - note that this will only work if the query comes from a callback_game button.Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
+   * URL that will be opened by the user's client. If you have created a {@link Game} and accepted the conditions via `@BotFather`, specify the URL that opens your game - note that this will only work if the query comes from a callback_game button.Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
    */
   url?: string;
 
@@ -3190,15 +3494,35 @@ export type AnswerCallbackQuery = {
 };
 
 /**
- * Use this method to send answers to callback queries sent from {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboards}. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned. Alternatively, the user can be redirected to the specified {@link Game} URL. For this option to work, you must first create a game for your bot via @BotFather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
+ * Use this method to send answers to callback queries sent from {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboards}. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned. Alternatively, the user can be redirected to the specified {@link Game} URL. For this option to work, you must first create a game for your bot via `@BotFather` and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
  */
 export const answerCallbackQuery = /* @__PURE__ */ botMethod<
   (payload: AnswerCallbackQuery) => true
 >('answerCallbackQuery');
 
+export type AnswerGuestQuery = {
+  /**
+   * Unique identifier for the query to be answered
+   */
+  guest_query_id: string;
+
+  /**
+   * A JSON-serialized object describing the message to be sent
+   */
+  result: InlineQueryResult;
+};
+
+/**
+ * Use this method to reply to a received guest message. On success, a {@link SentGuestMessage} object is returned.
+ */
+export const answerGuestQuery =
+  /* @__PURE__ */ botMethod<(payload: AnswerGuestQuery) => SentGuestMessage>(
+    'answerGuestQuery'
+  );
+
 export type GetUserChatBoosts = {
   /**
-   * Unique identifier for the chat or username of the channel (in the format @channelusername)
+   * Unique identifier for the chat or username of the channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -3259,6 +3583,44 @@ export const replaceManagedBotToken = /* @__PURE__ */ botMethod<
   (payload: ReplaceManagedBotToken) => string
 >('replaceManagedBotToken');
 
+export type GetManagedBotAccessSettings = {
+  /**
+   * User identifier of the managed bot whose access settings will be returned
+   */
+  user_id: number;
+};
+
+/**
+ * Use this method to get the access settings of a managed bot. Returns a {@link BotAccessSettings} object on success.
+ */
+export const getManagedBotAccessSettings = /* @__PURE__ */ botMethod<
+  (payload: GetManagedBotAccessSettings) => BotAccessSettings
+>('getManagedBotAccessSettings');
+
+export type SetManagedBotAccessSettings = {
+  /**
+   * User identifier of the managed bot whose access settings will be changed
+   */
+  user_id: number;
+
+  /**
+   * Pass True if only selected users can access the bot. The bot's owner can always access it.
+   */
+  is_access_restricted: boolean;
+
+  /**
+   * A JSON-serialized list of up to 10 identifiers of users who will have access to the bot in addition to its owner. Ignored if is_access_restricted is False.
+   */
+  added_user_ids?: number[];
+};
+
+/**
+ * Use this method to change the access settings of a managed bot. Returns True on success.
+ */
+export const setManagedBotAccessSettings = /* @__PURE__ */ botMethod<
+  (payload: SetManagedBotAccessSettings) => true
+>('setManagedBotAccessSettings');
+
 export type SetMyCommands = {
   /**
    * A JSON-serialized list of bot commands to be set as the list of the bot's commands. At most 100 commands can be specified.
@@ -3271,7 +3633,7 @@ export type SetMyCommands = {
   scope?: BotCommandScope;
 
   /**
-   * A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
+   * A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands.
    */
   language_code?: string;
 };
@@ -3289,7 +3651,7 @@ export type DeleteMyCommands = {
   scope?: BotCommandScope;
 
   /**
-   * A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands
+   * A two-letter ISO 639-1 language code. If empty, commands will be applied to all users from the given scope, for whose language there are no dedicated commands.
    */
   language_code?: string;
 };
@@ -3445,12 +3807,12 @@ export const removeMyProfilePhoto = /* @__PURE__ */ botMethod<() => true>(
 
 export type SetChatMenuButton = {
   /**
-   * Unique identifier for the target private chat. If not specified, default bot's menu button will be changed
+   * Unique identifier for the target private chat. If not specified, the bot's default menu button will be changed.
    */
   chat_id?: number;
 
   /**
-   * A JSON-serialized object for the bot's new menu button. Defaults to MenuButtonDefault
+   * A JSON-serialized object for the bot's new menu button. Defaults to {@link MenuButtonDefault}.
    */
   menu_button?: MenuButton;
 };
@@ -3465,7 +3827,7 @@ export const setChatMenuButton =
 
 export type GetChatMenuButton = {
   /**
-   * Unique identifier for the target private chat. If not specified, default bot's menu button will be returned
+   * Unique identifier for the target private chat. If not specified, the bot's default menu button will be returned.
    */
   chat_id?: number;
 };
@@ -3524,7 +3886,7 @@ export type SendGift = {
   user_id?: number;
 
   /**
-   * Required if user_id is not specified. Unique identifier for the chat or username of the channel (in the format @channelusername) that will receive the gift.
+   * Required if user_id is not specified. Unique identifier for the chat or username of the channel (in the format `@username`) that will receive the gift.
    */
   chat_id?: number | string;
 
@@ -3633,7 +3995,7 @@ export const verifyUser =
 
 export type VerifyChat = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername). Channel direct messages chats can't be verified.
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`. Channel direct messages chats can't be verified.
    */
   chat_id: number | string;
 
@@ -3665,7 +4027,7 @@ export const removeUserVerification = /* @__PURE__ */ botMethod<
 
 export type RemoveChatVerification = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot or channel in the format `@username`
    */
   chat_id: number | string;
 };
@@ -3708,7 +4070,7 @@ export type DeleteBusinessMessages = {
   business_connection_id: string;
 
   /**
-   * A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See deleteMessage for limitations on which messages can be deleted
+   * A JSON-serialized list of 1-100 identifiers of messages to delete. All messages must be from the same chat. See deleteMessage for limitations on which messages can be deleted.
    */
   message_ids: number[];
 };
@@ -3832,7 +4194,7 @@ export type SetBusinessAccountGiftSettings = {
   business_connection_id: string;
 
   /**
-   * Pass True, if a button for sending a gift to the user or by the business account must always be shown in the input field
+   * Pass True if a button for sending a gift to the user or by the business account must always be shown in the input field
    */
   show_gift_button: boolean;
 
@@ -3934,7 +4296,7 @@ export type GetBusinessAccountGifts = {
   offset?: string;
 
   /**
-   * The maximum number of gifts to be returned; 1-100. Defaults to 100
+   * The maximum number of gifts to be returned; 1-100. Defaults to 100.
    */
   limit?: number;
 };
@@ -3988,7 +4350,7 @@ export type GetUserGifts = {
   offset?: string;
 
   /**
-   * The maximum number of gifts to be returned; 1-100. Defaults to 100
+   * The maximum number of gifts to be returned; 1-100. Defaults to 100.
    */
   limit?: number;
 };
@@ -4003,7 +4365,7 @@ export const getUserGifts =
 
 export type GetChatGifts = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -4053,7 +4415,7 @@ export type GetChatGifts = {
   offset?: string;
 
   /**
-   * The maximum number of gifts to be returned; 1-100. Defaults to 100
+   * The maximum number of gifts to be returned; 1-100. Defaults to 100.
    */
   limit?: number;
 };
@@ -4360,7 +4722,7 @@ export type SavePreparedKeyboardButton = {
   user_id: number;
 
   /**
-   * A JSON-serialized object describing the button to be saved. The button must be of the type request_users, request_chat, or request_managed_bot
+   * A JSON-serialized object describing the button to be saved. The button must be of the type request_users, request_chat, or request_managed_bot.
    */
   button: KeyboardButton;
 };
@@ -4379,24 +4741,24 @@ export type EditMessageText = {
   business_connection_id?: string;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
    */
   chat_id?: number | string;
 
   /**
-   * Required if inline_message_id is not specified. Identifier of the message to edit
+   * Required if inline_message_id is not specified. Identifier of the message to edit.
    */
   message_id?: number;
 
   /**
-   * Required if chat_id and message_id are not specified. Identifier of the inline message
+   * Required if chat_id and message_id are not specified. Identifier of the inline message.
    */
   inline_message_id?: string;
 
   /**
-   * New text of the message, 1-4096 characters after entities parsing
+   * New text of the message, 1-4096 characters after entity parsing; required if rich_message isn't specified
    */
-  text: string;
+  text?: string;
 
   /**
    * Mode for parsing entities in the message text. See formatting options for more details.
@@ -4414,16 +4776,21 @@ export type EditMessageText = {
   link_preview_options?: LinkPreviewOptions;
 
   /**
-   * A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}.
+   * New rich content of the message; required if text isn't specified. Direct upload of new files isn't supported when an inline message is edited.
+   */
+  rich_message?: InputRichMessage;
+
+  /**
+   * A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}
    */
   reply_markup?: InlineKeyboardMarkup;
 };
 
 /**
- * Use this method to edit text and game messages. On success, if the edited message is not an inline message, the edited {@link Message} is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+ * Use this method to edit text, rich and game messages. On success, if the edited message is not an inline message, the edited {@link Message} is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
  */
 export const editMessageText =
-  /* @__PURE__ */ botMethod<(payload: EditMessageText) => Message | true>(
+  /* @__PURE__ */ botMethod<(payload?: EditMessageText) => Message | true>(
     'editMessageText'
   );
 
@@ -4434,17 +4801,17 @@ export type EditMessageCaption = {
   business_connection_id?: string;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
    */
   chat_id?: number | string;
 
   /**
-   * Required if inline_message_id is not specified. Identifier of the message to edit
+   * Required if inline_message_id is not specified. Identifier of the message to edit.
    */
   message_id?: number;
 
   /**
-   * Required if chat_id and message_id are not specified. Identifier of the inline message
+   * Required if chat_id and message_id are not specified. Identifier of the inline message.
    */
   inline_message_id?: string;
 
@@ -4464,12 +4831,12 @@ export type EditMessageCaption = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media. Supported only for animation, photo and video messages.
+   * Pass True if the caption must be shown above the message media. Supported only for animation, photo and video messages.
    */
   show_caption_above_media?: boolean;
 
   /**
-   * A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}.
+   * A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}
    */
   reply_markup?: InlineKeyboardMarkup;
 };
@@ -4489,33 +4856,33 @@ export type EditMessageMedia = {
   business_connection_id?: string;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
    */
   chat_id?: number | string;
 
   /**
-   * Required if inline_message_id is not specified. Identifier of the message to edit
+   * Required if inline_message_id is not specified. Identifier of the message to edit.
    */
   message_id?: number;
 
   /**
-   * Required if chat_id and message_id are not specified. Identifier of the inline message
+   * Required if chat_id and message_id are not specified. Identifier of the inline message.
    */
   inline_message_id?: string;
 
   /**
-   * A JSON-serialized object for a new media content of the message
+   * A JSON-serialized object for the new media content of the message
    */
   media: InputMedia;
 
   /**
-   * A JSON-serialized object for a new {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}.
+   * A JSON-serialized object for a new {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}
    */
   reply_markup?: InlineKeyboardMarkup;
 };
 
 /**
- * Use this method to edit animation, audio, document, photo, or video messages, or to add media to text messages. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited {@link Message} is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
+ * Use this method to edit animation, audio, document, live photo, photo, or video messages, or to replace a text or a rich message with a media. If a message is part of a message album, then it can be edited only to an audio for audio albums, only to a document for document albums and to a photo, a live photo, or a video otherwise. When an inline message is edited, a new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL. On success, if the edited message is not an inline message, the edited {@link Message} is returned, otherwise True is returned. Note that business messages that were not sent by the bot and do not contain an inline keyboard can only be edited within 48 hours from the time they were sent.
  */
 export const editMessageMedia =
   /* @__PURE__ */ botMethod<(payload: EditMessageMedia) => Message | true>(
@@ -4529,17 +4896,17 @@ export type EditMessageLiveLocation = {
   business_connection_id?: string;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
    */
   chat_id?: number | string;
 
   /**
-   * Required if inline_message_id is not specified. Identifier of the message to edit
+   * Required if inline_message_id is not specified. Identifier of the message to edit.
    */
   message_id?: number;
 
   /**
-   * Required if chat_id and message_id are not specified. Identifier of the inline message
+   * Required if chat_id and message_id are not specified. Identifier of the inline message.
    */
   inline_message_id?: string;
 
@@ -4554,7 +4921,7 @@ export type EditMessageLiveLocation = {
   longitude: number;
 
   /**
-   * New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current live_period by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then live_period remains unchanged
+   * New period in seconds during which the location can be updated, starting from the message send date. If 0x7FFFFFFF is specified, then the location can be updated forever. Otherwise, the new value must not exceed the current live_period by more than a day, and the live location expiration date must remain within the next 90 days. If not specified, then live_period remains unchanged.
    */
   live_period?: number;
 
@@ -4574,7 +4941,7 @@ export type EditMessageLiveLocation = {
   proximity_alert_radius?: number;
 
   /**
-   * A JSON-serialized object for a new {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}.
+   * A JSON-serialized object for a new {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}
    */
   reply_markup?: InlineKeyboardMarkup;
 };
@@ -4593,22 +4960,22 @@ export type StopMessageLiveLocation = {
   business_connection_id?: string;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
    */
   chat_id?: number | string;
 
   /**
-   * Required if inline_message_id is not specified. Identifier of the message with live location to stop
+   * Required if inline_message_id is not specified. Identifier of the message with live location to stop.
    */
   message_id?: number;
 
   /**
-   * Required if chat_id and message_id are not specified. Identifier of the inline message
+   * Required if chat_id and message_id are not specified. Identifier of the inline message.
    */
   inline_message_id?: string;
 
   /**
-   * A JSON-serialized object for a new {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}.
+   * A JSON-serialized object for a new {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}
    */
   reply_markup?: InlineKeyboardMarkup;
 };
@@ -4627,9 +4994,9 @@ export type EditMessageChecklist = {
   business_connection_id: string;
 
   /**
-   * Unique identifier for the target chat
+   * Unique identifier for the target chat or username of the target bot in the format `@username`
    */
-  chat_id: number;
+  chat_id: number | string;
 
   /**
    * Unique identifier for the target message
@@ -4661,22 +5028,22 @@ export type EditMessageReplyMarkup = {
   business_connection_id?: string;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
    */
   chat_id?: number | string;
 
   /**
-   * Required if inline_message_id is not specified. Identifier of the message to edit
+   * Required if inline_message_id is not specified. Identifier of the message to edit.
    */
   message_id?: number;
 
   /**
-   * Required if chat_id and message_id are not specified. Identifier of the inline message
+   * Required if chat_id and message_id are not specified. Identifier of the inline message.
    */
   inline_message_id?: string;
 
   /**
-   * A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}.
+   * A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}
    */
   reply_markup?: InlineKeyboardMarkup;
 };
@@ -4695,7 +5062,7 @@ export type StopPoll = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -4705,7 +5072,7 @@ export type StopPoll = {
   message_id: number;
 
   /**
-   * A JSON-serialized object for a new message {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}.
+   * A JSON-serialized object for a new message {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}
    */
   reply_markup?: InlineKeyboardMarkup;
 };
@@ -4715,6 +5082,162 @@ export type StopPoll = {
  */
 export const stopPoll =
   /* @__PURE__ */ botMethod<(payload: StopPoll) => Poll>('stopPoll');
+
+export type EditEphemeralMessageText = {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
+   */
+  chat_id: number | string;
+
+  /**
+   * Identifier of the user who received the message
+   */
+  receiver_user_id: number;
+
+  /**
+   * Identifier of the ephemeral message to edit
+   */
+  ephemeral_message_id: number;
+
+  /**
+   * New text of the message, 1-4096 characters after entity parsing
+   */
+  text: string;
+
+  /**
+   * Mode for parsing entities in the message text. See formatting options for more details.
+   */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+
+  /**
+   * A JSON-serialized list of special entities that appear in message text, which can be specified instead of parse_mode
+   */
+  entities?: MessageEntity[];
+
+  /**
+   * Link preview generation options for the message
+   */
+  link_preview_options?: LinkPreviewOptions;
+
+  /**
+   * A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}
+   */
+  reply_markup?: InlineKeyboardMarkup;
+};
+
+/**
+ * Use this method to edit an ephemeral text message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+ */
+export const editEphemeralMessageText = /* @__PURE__ */ botMethod<
+  (payload: EditEphemeralMessageText) => true
+>('editEphemeralMessageText');
+
+export type EditEphemeralMessageMedia = {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
+   */
+  chat_id: number | string;
+
+  /**
+   * Identifier of the user who received the message
+   */
+  receiver_user_id: number;
+
+  /**
+   * Identifier of the ephemeral message to edit
+   */
+  ephemeral_message_id: number;
+
+  /**
+   * A JSON-serialized object for the new media content of the message. A new file can't be uploaded; use a previously uploaded file via its file_id or specify a URL.
+   */
+  media: InputMedia;
+
+  /**
+   * A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}
+   */
+  reply_markup?: InlineKeyboardMarkup;
+};
+
+/**
+ * Use this method to edit the media of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+ */
+export const editEphemeralMessageMedia = /* @__PURE__ */ botMethod<
+  (payload: EditEphemeralMessageMedia) => true
+>('editEphemeralMessageMedia');
+
+export type EditEphemeralMessageCaption = {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
+   */
+  chat_id: number | string;
+
+  /**
+   * Identifier of the user who received the message
+   */
+  receiver_user_id: number;
+
+  /**
+   * Identifier of the ephemeral message to edit
+   */
+  ephemeral_message_id: number;
+
+  /**
+   * New caption of the message, 0-1024 characters after entities parsing
+   */
+  caption?: string;
+
+  /**
+   * Mode for parsing entities in the message caption. See formatting options for more details.
+   */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+
+  /**
+   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
+   * A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}
+   */
+  reply_markup?: InlineKeyboardMarkup;
+};
+
+/**
+ * Use this method to edit the caption of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+ */
+export const editEphemeralMessageCaption = /* @__PURE__ */ botMethod<
+  (payload: EditEphemeralMessageCaption) => true
+>('editEphemeralMessageCaption');
+
+export type EditEphemeralMessageReplyMarkup = {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
+   */
+  chat_id: number | string;
+
+  /**
+   * Identifier of the user who received the message
+   */
+  receiver_user_id: number;
+
+  /**
+   * Identifier of the ephemeral message to edit
+   */
+  ephemeral_message_id: number;
+
+  /**
+   * A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}
+   */
+  reply_markup?: InlineKeyboardMarkup;
+};
+
+/**
+ * Use this method to edit only the reply markup of an ephemeral message. Note that it is not guaranteed that the user will receive the message edit event, especially if they are offline. On success, True is returned.
+ */
+export const editEphemeralMessageReplyMarkup = /* @__PURE__ */ botMethod<
+  (payload: EditEphemeralMessageReplyMarkup) => true
+>('editEphemeralMessageReplyMarkup');
 
 export type ApproveSuggestedPost = {
   /**
@@ -4728,7 +5251,7 @@ export type ApproveSuggestedPost = {
   message_id: number;
 
   /**
-   * Point in time (Unix timestamp) when the post is expected to be published; omit if the date has already been specified when the suggested post was created. If specified, then the date must be not more than 2678400 seconds (30 days) in the future
+   * Point in time (Unix timestamp) when the post is expected to be published; omit if the date has already been specified when the suggested post was created. If specified, then the date must be not more than 2678400 seconds (30 days) in the future.
    */
   send_date?: number;
 };
@@ -4766,7 +5289,7 @@ export const declineSuggestedPost = /* @__PURE__ */ botMethod<
 
 export type DeleteMessage = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -4784,12 +5307,12 @@ export const deleteMessage =
 
 export type DeleteMessages = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
   /**
-   * A JSON-serialized list of 1-100 identifiers of messages to delete. See deleteMessage for limitations on which messages can be deleted
+   * A JSON-serialized list of 1-100 identifiers of messages to delete. See deleteMessage for limitations on which messages can be deleted.
    */
   message_ids: number[];
 };
@@ -4802,6 +5325,83 @@ export const deleteMessages =
     'deleteMessages'
   );
 
+export type DeleteEphemeralMessage = {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
+   */
+  chat_id: number | string;
+
+  /**
+   * Identifier of the user who received the message
+   */
+  receiver_user_id: number;
+
+  /**
+   * Identifier of the ephemeral message to delete
+   */
+  ephemeral_message_id: number;
+};
+
+/**
+ * Use this method to delete an ephemeral message. Note that it is not guaranteed that the user will receive the message deletion event, especially if they are offline. Returns True on success.
+ */
+export const deleteEphemeralMessage = /* @__PURE__ */ botMethod<
+  (payload: DeleteEphemeralMessage) => true
+>('deleteEphemeralMessage');
+
+export type DeleteMessageReaction = {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
+   */
+  chat_id: number | string;
+
+  /**
+   * Identifier of the target message
+   */
+  message_id: number;
+
+  /**
+   * Identifier of the user whose reaction will be removed, if the reaction was added by a user
+   */
+  user_id?: number;
+
+  /**
+   * Identifier of the chat whose reaction will be removed, if the reaction was added by a chat
+   */
+  actor_chat_id?: number;
+};
+
+/**
+ * Use this method to remove a reaction from a message in a group or a supergroup chat. The bot must have the 'can_delete_messages' administrator right in the chat. Returns True on success.
+ */
+export const deleteMessageReaction = /* @__PURE__ */ botMethod<
+  (payload: DeleteMessageReaction) => true
+>('deleteMessageReaction');
+
+export type DeleteAllMessageReactions = {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
+   */
+  chat_id: number | string;
+
+  /**
+   * Identifier of the user whose reactions will be removed, if the reactions were added by a user
+   */
+  user_id?: number;
+
+  /**
+   * Identifier of the chat whose reactions will be removed, if the reactions were added by a chat
+   */
+  actor_chat_id?: number;
+};
+
+/**
+ * Use this method to remove up to 10000 recent reactions in a group or a supergroup chat added by a given user or chat. The bot must have the 'can_delete_messages' administrator right in the chat. Returns True on success.
+ */
+export const deleteAllMessageReactions = /* @__PURE__ */ botMethod<
+  (payload: DeleteAllMessageReactions) => true
+>('deleteAllMessageReactions');
+
 export type SendSticker = {
   /**
    * Unique identifier of the business connection on behalf of which the message will be sent
@@ -4809,7 +5409,7 @@ export type SendSticker = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -4822,6 +5422,16 @@ export type SendSticker = {
    * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
    */
   direct_messages_topic_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, unique identifier of the user who will receive the message; for group and supergroup chats only. It is not guaranteed that the user will receive the message, especially if they are offline. See ephemeral message sending for more details.
+   */
+  receiver_user_id?: number;
+
+  /**
+   * For outgoing ephemeral messages, identifier of the callback query which triggered the message if any
+   */
+  callback_query_id?: string;
 
   /**
    * Sticker to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a.WEBP sticker from the Internet, or upload a new.WEBP,.TGS, or.WEBM sticker using multipart/form-data. More information on Sending Files ». {@link Video} and animated stickers can't be sent via an HTTP URL.
@@ -4844,7 +5454,7 @@ export type SendSticker = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -4864,7 +5474,7 @@ export type SendSticker = {
   reply_parameters?: ReplyParameters;
 
   /**
-   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
    */
   reply_markup?:
     | InlineKeyboardMarkup
@@ -5173,7 +5783,7 @@ export type SetCustomEmojiStickerSetThumbnail = {
   name: string;
 
   /**
-   * Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail.
+   * Custom emoji identifier of a sticker from the sticker set; pass an empty string to drop the thumbnail and use the first sticker as the thumbnail
    */
   custom_emoji_id?: string;
 };
@@ -5200,6 +5810,109 @@ export const deleteStickerSet =
     'deleteStickerSet'
   );
 
+export type SendRichMessage = {
+  /**
+   * Unique identifier of the business connection on behalf of which the message will be sent. Bot can send rich messages on behalf of a business account only if the corresponding user can send rich messages.
+   */
+  business_connection_id?: string;
+
+  /**
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   */
+  chat_id: number | string;
+
+  /**
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+   */
+  message_thread_id?: number;
+
+  /**
+   * Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat
+   */
+  direct_messages_topic_id?: number;
+
+  /**
+   * The message to be sent
+   */
+  rich_message: InputRichMessage;
+
+  /**
+   * Sends the message silently. Users will receive a notification with no sound.
+   */
+  disable_notification?: boolean;
+
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean;
+
+  /**
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
+   */
+  allow_paid_broadcast?: boolean;
+
+  /**
+   * Unique identifier of the message effect to be added to the message; for private chats only
+   */
+  message_effect_id?: string;
+
+  /**
+   * A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined.
+   */
+  suggested_post_parameters?: SuggestedPostParameters;
+
+  /**
+   * Description of the message to reply to
+   */
+  reply_parameters?: ReplyParameters;
+
+  /**
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
+   */
+  reply_markup?:
+    | InlineKeyboardMarkup
+    | ReplyKeyboardMarkup
+    | ReplyKeyboardRemove
+    | ForceReply;
+};
+
+/**
+ * Use this method to send rich messages. If the message contains a block with a media element, then the bot must have the right to send the media to the chat. On success, the sent {@link Message} is returned.
+ */
+export const sendRichMessage =
+  /* @__PURE__ */ botMethod<(payload: SendRichMessage) => Message>(
+    'sendRichMessage'
+  );
+
+export type SendRichMessageDraft = {
+  /**
+   * Unique identifier for the target private chat
+   */
+  chat_id: number;
+
+  /**
+   * Unique identifier for the target message thread
+   */
+  message_thread_id?: number;
+
+  /**
+   * Unique identifier of the message draft; must be non-zero. Changes to drafts with the same identifier are animated.
+   */
+  draft_id: number;
+
+  /**
+   * The partial message to be streamed. Direct upload of new files isn't supported.
+   */
+  rich_message: InputRichMessage;
+};
+
+/**
+ * Use this method to stream a partial rich message to a user while the message is being generated. Note that the streamed draft is ephemeral and acts as a temporary 30-second preview - once the output is finalized, you must call sendRichMessage with the complete message to persist it in the user's chat. Returns True on success.
+ */
+export const sendRichMessageDraft = /* @__PURE__ */ botMethod<
+  (payload: SendRichMessageDraft) => true
+>('sendRichMessageDraft');
+
 export type AnswerInlineQuery = {
   /**
    * Unique identifier for the answered query
@@ -5207,7 +5920,7 @@ export type AnswerInlineQuery = {
   inline_query_id: string;
 
   /**
-   * A JSON-serialized array of results for the inline query
+   * A JSON-serialized Array of results for the inline query
    */
   results: InlineQueryResult[];
 
@@ -5242,7 +5955,7 @@ export const answerInlineQuery =
 
 export type SendInvoice = {
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -5272,7 +5985,7 @@ export type SendInvoice = {
   payload: string;
 
   /**
-   * Payment provider token, obtained via @BotFather. Pass an empty string for payments in Telegram Stars.
+   * Payment provider token, obtained via `@BotFather`. Pass an empty string for payments in Telegram Stars.
    */
   provider_token?: string;
 
@@ -5387,12 +6100,12 @@ export type SendInvoice = {
   max_tip_amount?: number;
 
   /**
-   * A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
+   * A JSON-serialized Array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
    */
   suggested_tip_amounts?: number[];
 
   /**
-   * Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used as the start parameter
+   * Unique deep-linking parameter. If left empty, forwarded copies of the sent message will have a Pay button, allowing multiple users to pay directly from the forwarded message, using the same invoice. If non-empty, forwarded copies of the sent message will have a URL button with a deep link to the bot (instead of a Pay button), with the value used as the start parameter.
    */
   start_parameter?: string;
 
@@ -5467,7 +6180,7 @@ export type SendInvoice = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -5520,7 +6233,7 @@ export type CreateInvoiceLink = {
   payload: string;
 
   /**
-   * Payment provider token, obtained via @BotFather. Pass an empty string for payments in Telegram Stars.
+   * Payment provider token, obtained via `@BotFather`. Pass an empty string for payments in Telegram Stars.
    */
   provider_token?: string;
 
@@ -5640,7 +6353,7 @@ export type CreateInvoiceLink = {
   max_tip_amount?: number;
 
   /**
-   * A JSON-serialized array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
+   * A JSON-serialized Array of suggested amounts of tips in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
    */
   suggested_tip_amounts?: number[];
 
@@ -5725,7 +6438,7 @@ export type AnswerShippingQuery = {
   ok: boolean;
 
   /**
-   * Required if ok is True. A JSON-serialized array of available shipping options.
+   * Required if ok is True. A JSON-serialized Array of available shipping options.
    */
   shipping_options?: ShippingOption[];
 
@@ -5842,7 +6555,7 @@ export type SetPassportDataErrors = {
   user_id: number;
 
   /**
-   * A JSON-serialized array describing the errors
+   * A JSON-serialized Array describing the errors
    */
   errors: PassportElementError[];
 };
@@ -5861,9 +6574,9 @@ export type SendGame = {
   business_connection_id?: string;
 
   /**
-   * Unique identifier for the target chat. Games can't be sent to channel direct messages chats and channel chats.
+   * Unique identifier for the target chat or username of the target bot in the format `@username`. Games can't be sent to channel direct messages chats and channel chats.
    */
-  chat_id: number;
+  chat_id: number | string;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -5871,7 +6584,7 @@ export type SendGame = {
   message_thread_id?: number;
 
   /**
-   * Short name of the game, serves as the unique identifier for the game. Set up your games via @BotFather.
+   * Short name of the game, serves as the unique identifier for the game. Set up your games via `@BotFather`.
    */
   game_short_name: string;
 
@@ -5886,7 +6599,7 @@ export type SendGame = {
   protect_content?: boolean;
 
   /**
-   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
    */
   allow_paid_broadcast?: boolean;
 
@@ -5924,7 +6637,7 @@ export type SetGameScore = {
   score: number;
 
   /**
-   * Pass True if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
+   * Pass True if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters.
    */
   force?: boolean;
 
@@ -5934,17 +6647,17 @@ export type SetGameScore = {
   disable_edit_message?: boolean;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat
+   * Required if inline_message_id is not specified. Unique identifier for the target chat.
    */
   chat_id?: number;
 
   /**
-   * Required if inline_message_id is not specified. Identifier of the sent message
+   * Required if inline_message_id is not specified. Identifier of the sent message.
    */
   message_id?: number;
 
   /**
-   * Required if chat_id and message_id are not specified. Identifier of the inline message
+   * Required if chat_id and message_id are not specified. Identifier of the inline message.
    */
   inline_message_id?: string;
 };
@@ -5964,17 +6677,17 @@ export type GetGameHighScores = {
   user_id: number;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat
+   * Required if inline_message_id is not specified. Unique identifier for the target chat.
    */
   chat_id?: number;
 
   /**
-   * Required if inline_message_id is not specified. Identifier of the sent message
+   * Required if inline_message_id is not specified. Identifier of the sent message.
    */
   message_id?: number;
 
   /**
-   * Required if chat_id and message_id are not specified. Identifier of the inline message
+   * Required if chat_id and message_id are not specified. Identifier of the inline message.
    */
   inline_message_id?: string;
 };
@@ -5990,6 +6703,8 @@ export const getGameHighScores =
 export default {
   addStickerToSet,
   answerCallbackQuery,
+  answerChatJoinRequestQuery,
+  answerGuestQuery,
   answerInlineQuery,
   answerPreCheckoutQuery,
   answerShippingQuery,
@@ -6011,11 +6726,14 @@ export default {
   createNewStickerSet,
   declineChatJoinRequest,
   declineSuggestedPost,
+  deleteAllMessageReactions,
   deleteBusinessMessages,
   deleteChatPhoto,
   deleteChatStickerSet,
+  deleteEphemeralMessage,
   deleteForumTopic,
   deleteMessage,
+  deleteMessageReaction,
   deleteMessages,
   deleteMyCommands,
   deleteStickerFromSet,
@@ -6024,6 +6742,10 @@ export default {
   deleteWebhook,
   editChatInviteLink,
   editChatSubscriptionInviteLink,
+  editEphemeralMessageCaption,
+  editEphemeralMessageMedia,
+  editEphemeralMessageReplyMarkup,
+  editEphemeralMessageText,
   editForumTopic,
   editGeneralForumTopic,
   editMessageCaption,
@@ -6051,6 +6773,7 @@ export default {
   getFile,
   getForumTopicIconStickers,
   getGameHighScores,
+  getManagedBotAccessSettings,
   getManagedBotToken,
   getMe,
   getMyCommands,
@@ -6064,6 +6787,7 @@ export default {
   getUpdates,
   getUserChatBoosts,
   getUserGifts,
+  getUserPersonalChatMessages,
   getUserProfileAudios,
   getUserProfilePhotos,
   getWebhookInfo,
@@ -6092,6 +6816,7 @@ export default {
   sendAnimation,
   sendAudio,
   sendChatAction,
+  sendChatJoinRequestWebApp,
   sendChecklist,
   sendContact,
   sendDice,
@@ -6099,6 +6824,7 @@ export default {
   sendGame,
   sendGift,
   sendInvoice,
+  sendLivePhoto,
   sendLocation,
   sendMediaGroup,
   sendMessage,
@@ -6106,6 +6832,8 @@ export default {
   sendPaidMedia,
   sendPhoto,
   sendPoll,
+  sendRichMessage,
+  sendRichMessageDraft,
   sendSticker,
   sendVenue,
   sendVideo,
@@ -6126,6 +6854,7 @@ export default {
   setChatTitle,
   setCustomEmojiStickerSetThumbnail,
   setGameScore,
+  setManagedBotAccessSettings,
   setMessageReaction,
   setMyCommands,
   setMyDefaultAdministratorRights,

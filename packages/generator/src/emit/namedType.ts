@@ -15,18 +15,24 @@ function getTypeFieldNames(type: ValueType): string[] {
 }
 
 function namedTypeToString(type: NamedType, meta: EmitMeta): string {
-  const { name, underlyingType, description } = type;
+  try {
+    const { name, underlyingType, description } = type;
 
-  const comment = textToTsDocComment(description, {
-    meta,
-    typeName: name,
-    fieldNames: getTypeFieldNames(underlyingType),
-  });
+    const comment = textToTsDocComment(description, {
+      meta,
+      typeName: name,
+      fieldNames: getTypeFieldNames(underlyingType),
+    });
 
-  let result = `${comment}\n`;
-  result += `export type ${name} = ${valueTypeToString(underlyingType, meta)};`;
+    let result = `${comment}\n`;
+    result += `export type ${name} = ${valueTypeToString(underlyingType, meta)};`;
 
-  return result;
+    return result;
+  } catch (error) {
+    throw new Error(`Failed to emit named type "${type.name}"`, {
+      cause: error,
+    });
+  }
 }
 
 function emitToString(types: NamedType[], meta: EmitMeta): string {

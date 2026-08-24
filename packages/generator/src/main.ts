@@ -5,7 +5,7 @@ import { parseApiPage } from './parser';
 async function main() {
   const mode = process.argv[2] === '--remote' ? 'remote' : 'local';
 
-  console.log('Fething Telegram data...');
+  console.log('Fetching Telegram data...');
   const data = await getTelegramData(mode);
 
   console.log('Parsing...');

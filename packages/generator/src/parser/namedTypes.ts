@@ -8,6 +8,7 @@ const exceptions = new Set([
   'Sending files',
   'Accent colors',
   'Profile accent colors',
+  'Rich Message Formatting Options',
 ]);
 
 const sections = [

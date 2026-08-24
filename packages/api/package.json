@@ -1,6 +1,6 @@
 {
   "name": "telegram-standard-bot-api",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "type": "module",
   "scripts": {
     "build": "tsc --project tsconfig.build.json",
@@ -8,10 +8,10 @@
     "release": "tsx ./scripts/release"
   },
   "devDependencies": {
-    "@octokit/rest": "22.0.0",
+    "@octokit/rest": "22.0.1",
     "@telegram-standard-bot-api/shared": "workspace:^",
-    "@types/node": "24.0.10",
-    "tsx": "4.20.3",
+    "@types/node": "26.2.0",
+    "tsx": "4.23.12",
     "typescript": "5.8.3"
   },
   "author": "Oleh Khmaruk <pelmenstar1@gmail.com>",

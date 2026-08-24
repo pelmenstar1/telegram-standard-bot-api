@@ -12,12 +12,10 @@ const parseMode: ValueType = {
 
 function parseMaybeNumbers(parts: string[]): ValueType[] {
   return parts
-    .map(
-      (part): LiteralValueType => ({
-        kind: ValueTypeKind.LITERAL,
-        value: part.includes('x') ? Number.NaN : Number.parseInt(part),
-      })
-    )
+    .map((part): LiteralValueType => ({
+      kind: ValueTypeKind.LITERAL,
+      value: part.includes('x') ? Number.NaN : Number.parseInt(part),
+    }))
     .filter(({ value }) => !Number.isNaN(value));
 }
 

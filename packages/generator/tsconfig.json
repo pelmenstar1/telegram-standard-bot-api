@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2023",
+    "types": ["node"],
     "module": "preserve",
     "moduleResolution": "bundler",
     "skipLibCheck": true,

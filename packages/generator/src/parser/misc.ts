@@ -8,13 +8,13 @@ export function splitByHeader(content: string): string[] {
     if (nextOffset === -1) {
       parts.push(content.slice(offset));
       break;
-    } else {
-      if (offset > 0) {
-        parts.push(content.slice(offset, nextOffset));
-      }
-
-      offset = nextOffset + '<h4>'.length;
     }
+
+    if (offset > 0) {
+      parts.push(content.slice(offset, nextOffset));
+    }
+
+    offset = nextOffset + '<h4>'.length;
   }
 
   return parts;

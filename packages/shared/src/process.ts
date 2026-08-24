@@ -12,9 +12,9 @@ export function execFileAsync(
     execFile(file, args, options, (error, stdout, stderr) => {
       if (error) {
         reject(new Error(`${stdout}\n${stderr}`, { cause: error }));
+      } else {
+        resolve(stdout);
       }
-
-      resolve(stdout);
     });
   });
 }

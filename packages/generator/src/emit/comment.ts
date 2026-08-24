@@ -13,6 +13,8 @@ interface NamedTypeCommentOptions extends BaseCommentOptions {
 
 type CommentOptions = BaseCommentOptions | NamedTypeCommentOptions;
 
+const WHITESPACES = new Set([',', '.', ' ', ';', ':']);
+
 function normalizeSpaces(text: string): string {
   text = text.replaceAll(/\s+/g, ' ');
   text = text.replaceAll(/\s+,/g, ',');
@@ -81,8 +83,6 @@ function replaceMentions(
   values: string[],
   getReplacement: (value: string) => string
 ): string {
-  const WHITESPACES = new Set([',', '.', ' ', ';', ':']);
-
   function worker(text: string, value: string): string {
     let offset = 0;
     while (offset < text.length) {
@@ -144,6 +144,10 @@ function removeUnnecessaryParts(value: string) {
   return value;
 }
 
+function quoteAtText(value: string) {
+  return value.replaceAll(/(?<!\()@(\w+)/g, (_, name) => `\`@${name}\``);
+}
+
 export function textToTsDocComment(
   value: string,
   options: CommentOptions
@@ -152,7 +156,8 @@ export function textToTsDocComment(
     return '';
   }
 
-  let docString = htmlToDocString(value);
+  let docString = quoteAtText(value);
+  docString = htmlToDocString(docString);
   docString = removeUnnecessaryParts(docString);
   docString = replaceTypeMentionsToLinks(docString, options.meta.namedTypes);
 

@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
 /**
- * This object represents an incoming update.At most one of the optional parameters can be present in any given update.
+ * This object represents an incoming update.At most one of the optional fields can be present in any given update.
  */
 export type Update = {
   /**
@@ -50,6 +50,11 @@ export type Update = {
   deleted_business_messages?: BusinessMessagesDeleted;
 
   /**
+   * New guest message. The bot can use the field {@link Message}.guest_query_id and the method answerGuestQuery to send a message in response.
+   */
+  guest_message?: Message;
+
+  /**
    * A reaction to a message was changed by a user. The bot must be an administrator in the chat and must explicitly specify "message_reaction" in the list of allowed_updates to receive these updates. The update isn't received for reactions set by bots.
    */
   message_reaction?: MessageReactionUpdated;
@@ -75,12 +80,12 @@ export type Update = {
   callback_query?: CallbackQuery;
 
   /**
-   * New incoming shipping query. Only for invoices with flexible price
+   * New incoming shipping query. Only for invoices with flexible price.
    */
   shipping_query?: ShippingQuery;
 
   /**
-   * New incoming pre-checkout query. Contains full information about checkout
+   * New incoming pre-checkout query. Contains full information about checkout.
    */
   pre_checkout_query?: PreCheckoutQuery;
 
@@ -90,7 +95,7 @@ export type Update = {
   purchased_paid_media?: PaidMediaPurchased;
 
   /**
-   * New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot
+   * New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot.
    */
   poll?: Poll;
 
@@ -125,9 +130,14 @@ export type Update = {
   removed_chat_boost?: ChatBoostRemoved;
 
   /**
-   * A new bot was created to be managed by the bot or token of a bot was changed
+   * A new bot was created to be managed by the bot, or token or owner of a managed bot was changed
    */
   managed_bot?: ManagedBotUpdated;
+
+  /**
+   * {@link User} payment subscription has changed
+   */
+  subscription?: BotSubscriptionUpdated;
 };
 
 /**
@@ -175,7 +185,7 @@ export type WebhookInfo = {
   max_connections?: number;
 
   /**
-   * A list of update types the bot is subscribed to. Defaults to all update types except chat_member
+   * A list of update types the bot is subscribed to. Defaults to all update types except chat_member, message_reaction, and message_reaction_count.
    */
   allowed_updates?: Exclude<keyof Update, 'update_id'>[];
 };
@@ -235,12 +245,17 @@ export type User = {
   can_read_all_group_messages?: boolean;
 
   /**
+   * True, if the bot supports guest queries from chats it is not a member of. Returned only in getMe.
+   */
+  supports_guest_queries?: boolean;
+
+  /**
    * True, if the bot supports inline queries. Returned only in getMe.
    */
   supports_inline_queries?: boolean;
 
   /**
-   * True, if the bot can be connected to a Telegram Business account to receive its messages. Returned only in getMe.
+   * True, if the bot can be connected to a user account to manage it. Returned only in getMe.
    */
   can_connect_to_business?: boolean;
 
@@ -263,6 +278,11 @@ export type User = {
    * True, if other bots can be created to be controlled by the bot. Returned only in getMe.
    */
   can_manage_bots?: boolean;
+
+  /**
+   * True, if the bot supports join request queries and can be assigned to process them. Returned only in getMe.
+   */
+  supports_join_request_queries?: boolean;
 };
 
 /**
@@ -565,9 +585,19 @@ export type ChatFullInfo = {
   unique_gift_colors?: UniqueGiftColors;
 
   /**
-   * The number of Telegram Stars a general user have to pay to send a message to the chat
+   * The number of Telegram Stars a general user has to pay to send a message to the chat
    */
   paid_message_star_count?: number;
+
+  /**
+   * The bot that processes join request queries in the chat. The field is only available to chat administrators.
+   */
+  guard_bot?: User;
+
+  /**
+   * The {@link Community} to which the chat belongs
+   */
+  community?: Community;
 };
 
 /**
@@ -575,7 +605,7 @@ export type ChatFullInfo = {
  */
 export type Message = {
   /**
-   * Unique message identifier inside this chat. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+   * Unique message identifier inside this chat; 0 for ephemeral messages. In specific instances (e.g., a message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
    */
   message_id: number;
 
@@ -590,7 +620,7 @@ export type Message = {
   direct_messages_topic?: DirectMessagesTopic;
 
   /**
-   * Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats
+   * Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats.
    */
   from?: User;
 
@@ -615,9 +645,24 @@ export type Message = {
   sender_tag?: string;
 
   /**
+   * For ephemeral messages, the user who received the message
+   */
+  receiver_user?: User;
+
+  /**
+   * For ephemeral messages, identifier of the ephemeral message inside this chat. The identifier may be reused for another ephemeral message after the message is deleted or expires.
+   */
+  ephemeral_message_id?: number;
+
+  /**
    * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
    */
   date: number;
+
+  /**
+   * The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
+   */
+  guest_query_id?: string;
 
   /**
    * Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
@@ -645,7 +690,7 @@ export type Message = {
   is_automatic_forward?: true;
 
   /**
-   * For replies in the same chat and message thread, the original message. Note that the {@link Message} object in this field will not contain further reply_to_message fields even if it itself is a reply.
+   * For replies in the same chat and message thread, the original message. Note that the {@link Message} object in this field will not contain further reply_to_message fields even if it itself is a reply. If the message is a reply to an ephemeral message, then this field may be omitted.
    */
   reply_to_message?: Message;
 
@@ -678,6 +723,16 @@ export type Message = {
    * Bot through which the message was sent
    */
   via_bot?: User;
+
+  /**
+   * For a message sent by a guest bot, this is the user whose original message triggered the bot's response
+   */
+  guest_bot_caller_user?: User;
+
+  /**
+   * For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
+   */
+  guest_bot_caller_chat?: Chat;
 
   /**
    * Date the message was last edited in Unix time
@@ -740,7 +795,12 @@ export type Message = {
   effect_id?: string;
 
   /**
-   * {@link Message} is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+   * {@link Message} is a rich formatted message
+   */
+  rich_message?: RichMessage;
+
+  /**
+   * {@link Message} is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set.
    */
   animation?: Animation;
 
@@ -753,6 +813,11 @@ export type Message = {
    * {@link Message} is a general file, information about the file
    */
   document?: Document;
+
+  /**
+   * {@link Message} is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set.
+   */
+  live_photo?: LivePhoto;
 
   /**
    * {@link Message} contains paid media; information about the paid media
@@ -835,7 +900,7 @@ export type Message = {
   poll?: Poll;
 
   /**
-   * {@link Message} is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set
+   * {@link Message} is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set.
    */
   venue?: Venue;
 
@@ -970,7 +1035,7 @@ export type Message = {
   passport_data?: PassportData;
 
   /**
-   * Service message. A user in the chat triggered another user's proximity alert while sharing Live {@link Location}.
+   * Service message: a user in the chat triggered another user's proximity alert while sharing Live Location
    */
   proximity_alert_triggered?: ProximityAlertTriggered;
 
@@ -993,6 +1058,16 @@ export type Message = {
    * Service message: tasks were added to a checklist
    */
   checklist_tasks_added?: ChecklistTasksAdded;
+
+  /**
+   * Service message: chat added to a Community
+   */
+  community_chat_added?: CommunityChatAdded;
+
+  /**
+   * Service message: chat removed from a Community
+   */
+  community_chat_removed?: CommunityChatRemoved;
 
   /**
    * Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
@@ -1130,7 +1205,7 @@ export type Message = {
  */
 export type MessageId = {
   /**
-   * Unique message identifier. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent
+   * Unique message identifier. In specific instances (e.g., message containing a video sent to a big chat), the server might automatically schedule a message instead of sending it immediately. In such cases, this field will be 0 and the relevant message will be unusable until it is actually sent.
    */
   message_id: number;
 };
@@ -1160,7 +1235,7 @@ export type InaccessibleMessage = {
  */
 export type MessageEntity = {
   /**
-   * Type of the entity. Currently, can be “mention” (@username), “hashtag” (#hashtag or #hashtag@chatusername), “cashtag” ($USD or $USD@chatusername), “bot_command” (/start@jobs_bot), “url” (https://telegram.org), “email” (do-not-reply@telegram.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time)
+   * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
    */
   type: string;
 
@@ -1190,7 +1265,7 @@ export type MessageEntity = {
   language?: string;
 
   /**
-   * For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker
+   * For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker.
    */
   custom_emoji_id?: string;
 
@@ -1268,6 +1343,11 @@ export type ExternalReplyInfo = {
    * {@link Message} is a general file, information about the file
    */
   document?: Document;
+
+  /**
+   * {@link Message} is a live photo, information about the live photo
+   */
+  live_photo?: LivePhoto;
 
   /**
    * {@link Message} contains paid media; information about the paid media
@@ -1365,22 +1445,27 @@ export type ExternalReplyInfo = {
  */
 export type ReplyParameters = {
   /**
-   * Identifier of the message that will be replied to in the current chat, or in the chat chat_id if it is specified
+   * Identifier of the message that will be replied to in the current chat, or in the chat chat_id if it is specified. Required if ephemeral_message_id isn't specified.
    */
-  message_id: number;
+  message_id?: number;
 
   /**
-   * If the message to be replied to is from a different chat, unique identifier for the chat or username of the channel (in the format @channelusername). Not supported for messages sent on behalf of a business account and messages from channel direct messages chats.
+   * If the message to be replied to is from a different chat, unique identifier for the chat or username of the bot, supergroup or channel in the format `@username`. Not supported for messages sent on behalf of a business account, messages from channel direct messages chats and ephemeral messages.
    */
   chat_id?: number | string;
 
   /**
-   * Pass True if the message should be sent even if the specified message to be replied to is not found. Always False for replies in another chat or forum topic. Always True for messages sent on behalf of a business account.
+   * Identifier of the incoming ephemeral message that will be replied to in the current chat. A reply to an ephemeral message must itself be an ephemeral message. An ephemeral message may only be replied to within 15 seconds of being sent. Required if message_id isn't specified.
+   */
+  ephemeral_message_id?: number;
+
+  /**
+   * Pass True if the message should be sent even if the specified message to be replied to is not found. Always False for replies in another chat or forum topic, and sent ephemeral messages. Always True for messages sent on behalf of a business account.
    */
   allow_sending_without_reply?: boolean;
 
   /**
-   * Quoted part of the message to be replied to; 0-1024 characters after entities parsing. The quote must be an exact substring of the message to be replied to, including bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities. The message will fail to send if the quote isn't found in the original message.
+   * Quoted part of the message to be replied to; 0-1024 characters after entities parsing. The quote must be an exact substring of the message to be replied to, including bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities. The message will fail to send if the quote isn't found in the original message. Ignored for ephemeral messages.
    */
   quote?: string;
 
@@ -1671,6 +1756,51 @@ export type Document = {
 };
 
 /**
+ * This object represents a live {@link LivePhoto.photo | photo}.
+ */
+export type LivePhoto = {
+  /**
+   * Available sizes of the corresponding static photo
+   */
+  photo?: PhotoSize[];
+
+  /**
+   * Identifier for the video file which can be used to download or reuse the file
+   */
+  file_id: string;
+
+  /**
+   * Unique identifier for the video file which is supposed to be the same over time and for different bots. Can't be used to download or reuse the file.
+   */
+  file_unique_id: string;
+
+  /**
+   * Video width as defined by the sender
+   */
+  width: number;
+
+  /**
+   * Video height as defined by the sender
+   */
+  height: number;
+
+  /**
+   * Duration of the video in seconds as defined by the sender
+   */
+  duration: number;
+
+  /**
+   * MIME type of the file as defined by the sender
+   */
+  mime_type?: string;
+
+  /**
+   * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
+   */
+  file_size?: number;
+};
+
+/**
  * This object represents a story.
  */
 export type Story = {
@@ -1866,6 +1996,36 @@ export type PaidMediaInfo = {
 };
 
 /**
+ * The paid media is a live photo.
+ */
+export type PaidMediaLivePhoto = {
+  /**
+   * Type of the paid media, always “live_photo”
+   */
+  type: 'live_photo';
+
+  /**
+   * The photo
+   */
+  live_photo: LivePhoto;
+};
+
+/**
+ * The paid media is a {@link PaidMediaPhoto.photo | photo}.
+ */
+export type PaidMediaPhoto = {
+  /**
+   * Type of the paid media, always “photo”
+   */
+  type: 'photo';
+
+  /**
+   * The photo
+   */
+  photo: PhotoSize[];
+};
+
+/**
  * The paid media isn't available before the payment.
  */
 export type PaidMediaPreview = {
@@ -1888,21 +2048,6 @@ export type PaidMediaPreview = {
    * Duration of the media in seconds as defined by the sender
    */
   duration?: number;
-};
-
-/**
- * The paid media is a {@link PaidMediaPhoto.photo | photo}.
- */
-export type PaidMediaPhoto = {
-  /**
-   * Type of the paid media, always “photo”
-   */
-  type: 'photo';
-
-  /**
-   * The photo
-   */
-  photo: PhotoSize[];
 };
 
 /**
@@ -1966,6 +2111,71 @@ export type Dice = {
 };
 
 /**
+ * Represents an HTTP link.
+ */
+export type Link = {
+  /**
+   * URL of the link
+   */
+  url: string;
+};
+
+/**
+ * At most one of the optional fields can be present in any given object.
+ */
+export type PollMedia = {
+  /**
+   * Media is an animation, information about the animation
+   */
+  animation?: Animation;
+
+  /**
+   * Media is an audio file, information about the file; currently, can't be received in a poll option
+   */
+  audio?: Audio;
+
+  /**
+   * Media is a general file, information about the file; currently, can't be received in a poll option
+   */
+  document?: Document;
+
+  /**
+   * The HTTP link attached to the poll option
+   */
+  link?: Link;
+
+  /**
+   * Media is a live photo, information about the live photo
+   */
+  live_photo?: LivePhoto;
+
+  /**
+   * Media is a shared location, information about the location
+   */
+  location?: Location;
+
+  /**
+   * Media is a photo, available sizes of the photo
+   */
+  photo?: PhotoSize[];
+
+  /**
+   * Media is a sticker, information about the sticker; currently, for poll options only
+   */
+  sticker?: Sticker;
+
+  /**
+   * Media is a venue, information about the venue
+   */
+  venue?: Venue;
+
+  /**
+   * Media is a video, information about the video
+   */
+  video?: Video;
+};
+
+/**
  * This object contains information about one answer option in a poll.
  */
 export type PollOption = {
@@ -1983,6 +2193,11 @@ export type PollOption = {
    * Special entities that appear in the option text. Currently, only custom emoji entities are allowed in poll option texts
    */
   text_entities?: MessageEntity[];
+
+  /**
+   * Media added to the poll option
+   */
+  media?: PollMedia;
 
   /**
    * Number of users who voted for this option; may be 0 if unknown
@@ -2015,14 +2230,19 @@ export type InputPollOption = {
   text: string;
 
   /**
-   * Mode for parsing entities in the text. See formatting options for more details. Currently, only custom emoji entities are allowed
+   * Mode for parsing entities in the text. See formatting options for more details. Currently, only custom emoji entities are allowed.
    */
   text_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
 
   /**
-   * A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of text_parse_mode
+   * A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of text_parse_mode.
    */
   text_entities?: MessageEntity[];
+
+  /**
+   * Media added to the poll option
+   */
+  media?: InputPollOptionMedia;
 };
 
 /**
@@ -2110,6 +2330,16 @@ export type Poll = {
   allows_revoting: boolean;
 
   /**
+   * True if voting is limited to users who have been members of the chat where the poll was originally sent for more than 24 hours
+   */
+  members_only: boolean;
+
+  /**
+   * A list of two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll. The country code “FT” is used for users with anonymous numbers. If omitted, then users from any country can participate in the poll.
+   */
+  country_codes?: string[];
+
+  /**
    * Array of 0-based identifiers of the correct answer options. Available only for polls in quiz mode which are closed or were sent (not forwarded) by the bot or to the private chat with the bot.
    */
   correct_option_ids?: number[];
@@ -2123,6 +2353,11 @@ export type Poll = {
    * Special entities like usernames, URLs, bot commands, etc. that appear in the explanation
    */
   explanation_entities?: MessageEntity[];
+
+  /**
+   * Media added to the quiz explanation
+   */
+  explanation_media?: PollMedia;
 
   /**
    * Amount of time in seconds the poll will be active after creation
@@ -2143,6 +2378,11 @@ export type Poll = {
    * Special entities like usernames, URLs, bot commands, etc. that appear in the description
    */
   description_entities?: MessageEntity[];
+
+  /**
+   * Media added to the poll description; for polls inside the {@link Message} object only
+   */
+  media?: PollMedia;
 };
 
 /**
@@ -2271,41 +2511,6 @@ export type InputChecklist = {
 };
 
 /**
- * Describes a service message about checklist tasks marked as done or not done.
- */
-export type ChecklistTasksDone = {
-  /**
-   * {@link Message} containing the checklist whose tasks were marked as done or not done. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
-   */
-  checklist_message?: Message;
-
-  /**
-   * Identifiers of the tasks that were marked as done
-   */
-  marked_as_done_task_ids?: number[];
-
-  /**
-   * Identifiers of the tasks that were marked as not done
-   */
-  marked_as_not_done_task_ids?: number[];
-};
-
-/**
- * Describes a service message about {@link ChecklistTasksAdded.tasks | tasks} added to a checklist.
- */
-export type ChecklistTasksAdded = {
-  /**
-   * {@link Message} containing the checklist to which the tasks were added. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
-   */
-  checklist_message?: Message;
-
-  /**
-   * List of tasks added to the checklist
-   */
-  tasks: ChecklistTask[];
-};
-
-/**
  * This object represents a point on the map.
  */
 export type Location = {
@@ -2345,7 +2550,7 @@ export type Location = {
  */
 export type Venue = {
   /**
-   * Venue location. Can't be a live location
+   * Venue location. Can't be a live location.
    */
   location: Location;
 
@@ -2436,7 +2641,7 @@ export type ManagedBotCreated = {
 };
 
 /**
- * This object contains information about the creation or token update of a {@link ManagedBotUpdated.bot | bot} that is managed by the current {@link ManagedBotUpdated.bot | bot}.
+ * This object contains information about the creation, token update, or owner update of a {@link ManagedBotUpdated.bot | bot} that is managed by the current {@link ManagedBotUpdated.bot | bot}.
  */
 export type ManagedBotUpdated = {
   /**
@@ -2448,6 +2653,26 @@ export type ManagedBotUpdated = {
    * Information about the bot. Token of the bot can be fetched using the method getManagedBotToken.
    */
   bot: User;
+};
+
+/**
+ * This object contains information about changes to a {@link BotSubscriptionUpdated.user | user} payment subscription toward the current bot.
+ */
+export type BotSubscriptionUpdated = {
+  /**
+   * User who subscribed for payments toward the bot
+   */
+  user: User;
+
+  /**
+   * Bot-specified invoice payload
+   */
+  invoice_payload: string;
+
+  /**
+   * The new state of the subscription. Currently, it can be one of “canceled” if the user canceled the subscription, “active” if the user re-enabled a previously canceled subscription, or “failed” if payment for the subscription failed.
+   */
+  state: string;
 };
 
 /**
@@ -2640,7 +2865,7 @@ export type BackgroundTypePattern = {
   intensity: number;
 
   /**
-   * True, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only
+   * True, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only.
    */
   is_inverted?: true;
 
@@ -2674,6 +2899,53 @@ export type ChatBackground = {
    */
   type: BackgroundType;
 };
+
+/**
+ * Describes a service message about checklist tasks marked as done or not done.
+ */
+export type ChecklistTasksDone = {
+  /**
+   * {@link Message} containing the checklist whose tasks were marked as done or not done. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
+   */
+  checklist_message?: Message;
+
+  /**
+   * Identifiers of the tasks that were marked as done
+   */
+  marked_as_done_task_ids?: number[];
+
+  /**
+   * Identifiers of the tasks that were marked as not done
+   */
+  marked_as_not_done_task_ids?: number[];
+};
+
+/**
+ * Describes a service message about {@link ChecklistTasksAdded.tasks | tasks} added to a checklist.
+ */
+export type ChecklistTasksAdded = {
+  /**
+   * {@link Message} containing the checklist to which the tasks were added. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
+   */
+  checklist_message?: Message;
+
+  /**
+   * List of tasks added to the checklist
+   */
+  tasks: ChecklistTask[];
+};
+
+/**
+ * Describes a service message about a chat being added to a {@link CommunityChatAdded.community | community}.
+ */
+export type CommunityChatAdded = {
+  /**
+   * The new community to which the chat belongs
+   */
+  community: Community;
+};
+
+export type CommunityChatRemoved = Record<string, never>;
 
 /**
  * This object represents a service message about a new forum topic created in the chat.
@@ -2763,7 +3035,7 @@ export type UsersShared = {
   request_id: number;
 
   /**
-   * Information about users shared with the bot.
+   * Information about users shared with the bot
    */
   users: SharedUser[];
 };
@@ -2783,12 +3055,12 @@ export type ChatShared = {
   chat_id: number;
 
   /**
-   * Title of the chat, if the title was requested by the bot.
+   * Title of the chat, if the title was requested by the bot
    */
   title?: string;
 
   /**
-   * Username of the chat, if the username was requested by the bot and available.
+   * Username of the chat, if the username was requested by the bot and available
    */
   username?: string;
 
@@ -2865,7 +3137,7 @@ export type PaidMessagePriceChanged = {
  */
 export type DirectMessagePriceChanged = {
   /**
-   * True, if direct messages are enabled for the channel chat; false otherwise
+   * True, if direct messages are enabled for the channel chat; False otherwise
    */
   are_direct_messages_enabled: boolean;
 
@@ -2935,7 +3207,7 @@ export type SuggestedPostPaid = {
   suggested_post_message?: Message;
 
   /**
-   * Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins
+   * Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for TON grams.
    */
   currency:
     | 'AED'
@@ -3035,7 +3307,7 @@ export type SuggestedPostPaid = {
     | 'XTR';
 
   /**
-   * The amount of the currency that was received by the channel in nanotoncoins; for payments in toncoins only
+   * The amount of the currency that was received by the channel in nanograms; for payments in TON grams only
    */
   amount?: number;
 
@@ -3220,7 +3492,7 @@ export type LinkPreviewOptions = {
   is_disabled?: boolean;
 
   /**
-   * URL to use for the link preview. If empty, then the first URL found in the message text will be used
+   * URL to use for the link preview. If empty, then the first URL found in the message text will be used.
    */
   url?: string;
 
@@ -3245,7 +3517,7 @@ export type LinkPreviewOptions = {
  */
 export type SuggestedPostPrice = {
   /**
-   * Currency in which the post will be paid. Currently, must be one of “XTR” for Telegram Stars or “TON” for toncoins
+   * Currency in which the post will be paid. Currently, must be one of “XTR” for Telegram Stars or “TON” for TON grams.
    */
   currency:
     | 'AED'
@@ -3345,7 +3617,7 @@ export type SuggestedPostPrice = {
     | 'XTR';
 
   /**
-   * The amount of the currency that will be paid for the post in the smallest units of the currency, i.e. Telegram Stars or nanotoncoins. Currently, price in Telegram Stars must be between 5 and 100000, and price in nanotoncoins must be between 10000000 and 10000000000000.
+   * The amount of the currency that will be paid for the post in the smallest units of the currency, i.e. Telegram Stars or nanograms. Currently, price in Telegram Stars must be between 5 and 100000, and price in nanograms must be between 10000000 and 10000000000000.
    */
   amount: number;
 };
@@ -3395,7 +3667,7 @@ export type DirectMessagesTopic = {
   topic_id: number;
 
   /**
-   * Information about the user that created the topic. Currently, it is always present
+   * Information about the user that created the topic. Currently, it is always present.
    */
   user?: User;
 };
@@ -3466,7 +3738,7 @@ export type WebAppInfo = {
 };
 
 /**
- * This object represents a {@link https://core.telegram.org/bots/features#keyboards | custom keyboard} with reply options (see {@link https://core.telegram.org/bots/features#keyboards | Introduction to bots} for details and examples). Not supported in channels and for messages sent on behalf of a Telegram Business account.
+ * This object represents a {@link https://core.telegram.org/bots/features#keyboards | custom keyboard} with reply options (see {@link https://core.telegram.org/bots/features#keyboards | Introduction to bots} for details and examples). Not supported in channels and for messages sent on behalf of a business account.
  */
 export type ReplyKeyboardMarkup = {
   /**
@@ -3475,17 +3747,17 @@ export type ReplyKeyboardMarkup = {
   keyboard: KeyboardButton[][];
 
   /**
-   * Requests clients to always show the keyboard when the regular keyboard is hidden. Defaults to false, in which case the custom keyboard can be hidden and opened with a keyboard icon.
+   * Requests clients to always show the keyboard when the regular keyboard is hidden. Defaults to False, in which case the custom keyboard can be hidden and opened with a keyboard icon.
    */
   is_persistent?: boolean;
 
   /**
-   * Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). Defaults to false, in which case the custom keyboard is always of the same height as the app's standard keyboard.
+   * Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). Defaults to False, in which case the custom keyboard is always of the same height as the app's standard keyboard.
    */
   resize_keyboard?: boolean;
 
   /**
-   * Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat - the user can press a special button in the input field to see the custom keyboard again. Defaults to false.
+   * Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat - the user can press a special button in the input field to see the custom keyboard again. Defaults to False.
    */
   one_time_keyboard?: boolean;
 
@@ -3495,7 +3767,7 @@ export type ReplyKeyboardMarkup = {
   input_field_placeholder?: string;
 
   /**
-   * Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
+   * Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are `@mentioned` in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
    */
   selective?: boolean;
 };
@@ -3505,7 +3777,7 @@ export type ReplyKeyboardMarkup = {
  */
 export type KeyboardButton = {
   /**
-   * Text of the button. If none of the fields other than text, icon_custom_emoji_id, and style are used, it will be sent as a message when the button is pressed
+   * Text of the button. If none of the fields other than text, icon_custom_emoji_id, and style are used, it will be sent as a message when the button is pressed.
    */
   text: string;
 
@@ -3530,7 +3802,7 @@ export type KeyboardButton = {
   request_chat?: KeyboardButtonRequestChat;
 
   /**
-   * If specified, pressing the button will ask the user to create and share a bot that will be managed by the current bot. Available for bots that enabled management of other bots in the @BotFather Mini App. Available in private chats only.
+   * If specified, pressing the button will ask the user to create and share a bot that will be managed by the current bot. Available for bots that enabled management of other bots in the `@BotFather` Mini App. Available in private chats only.
    */
   request_managed_bot?: KeyboardButtonRequestManagedBot;
 
@@ -3560,7 +3832,7 @@ export type KeyboardButton = {
  */
 export type KeyboardButtonRequestUsers = {
   /**
-   * Signed 32-bit identifier of the request that will be received back in the {@link UsersShared} object. Must be unique within the message
+   * Signed 32-bit identifier of the request that will be received back in the {@link UsersShared} object. Must be unique within the message.
    */
   request_id: number;
 
@@ -3600,12 +3872,12 @@ export type KeyboardButtonRequestUsers = {
  */
 export type KeyboardButtonRequestChat = {
   /**
-   * Signed 32-bit identifier of the request, which will be received back in the {@link ChatShared} object. Must be unique within the message
+   * Signed 32-bit identifier of the request, which will be received back in the {@link ChatShared} object. Must be unique within the message.
    */
   request_id: number;
 
   /**
-   * Pass True to request a channel chat, pass False to request a group or a supergroup chat.
+   * Pass True to request a channel chat, pass False to request a group or a supergroup chat
    */
   chat_is_channel: boolean;
 
@@ -3660,7 +3932,7 @@ export type KeyboardButtonRequestChat = {
  */
 export type KeyboardButtonRequestManagedBot = {
   /**
-   * Signed 32-bit identifier of the request. Must be unique within the message
+   * Signed 32-bit identifier of the request. Must be unique within the message.
    */
   request_id: number;
 
@@ -3686,7 +3958,7 @@ export type KeyboardButtonPollType = {
 };
 
 /**
- * Upon receiving a message with this object, Telegram clients will remove the current custom keyboard and display the default letter-keyboard. By default, custom keyboards are displayed until a new keyboard is sent by a bot. An exception is made for one-time keyboards that are hidden immediately after the user presses a button (see ReplyKeyboardMarkup). Not supported in channels and for messages sent on behalf of a Telegram Business account.
+ * Upon receiving a message with this object, Telegram clients will remove the current custom keyboard and display the default letter-keyboard. By default, custom keyboards are displayed until a new keyboard is sent by a bot. An exception is made for one-time keyboards that are hidden immediately after the user presses a button (see ReplyKeyboardMarkup). Not supported in channels and for messages sent on behalf of a business account.
  */
 export type ReplyKeyboardRemove = {
   /**
@@ -3695,7 +3967,7 @@ export type ReplyKeyboardRemove = {
   remove_keyboard: true;
 
   /**
-   * Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet.
+   * Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are `@mentioned` in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet.
    */
   selective?: boolean;
 };
@@ -3740,7 +4012,7 @@ export type InlineKeyboardButton = {
   callback_data?: string;
 
   /**
-   * Description of the {@link https://core.telegram.org/bots/webapps | Web App} that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a Telegram Business account.
+   * Description of the {@link https://core.telegram.org/bots/webapps | Web App} that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a business account.
    */
   web_app?: WebAppInfo;
 
@@ -3750,22 +4022,22 @@ export type InlineKeyboardButton = {
   login_url?: LoginUrl;
 
   /**
-   * If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted. Not supported for messages sent in channel direct messages chats and on behalf of a Telegram Business account.
+   * If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted. Not supported for messages sent in channel direct messages chats and on behalf of a business account.
    */
   switch_inline_query?: string;
 
   /**
-   * If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. Not supported in channels and for messages sent in channel direct messages chats and on behalf of a Telegram Business account.
+   * If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. Not supported in channels and for messages sent in channel direct messages chats and on behalf of a business account.
    */
   switch_inline_query_current_chat?: string;
 
   /**
-   * If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field. Not supported for messages sent in channel direct messages chats and on behalf of a Telegram Business account.
+   * If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field. Not supported for messages sent in channel direct messages chats and on behalf of a business account.
    */
   switch_inline_query_chosen_chat?: SwitchInlineQueryChosenChat;
 
   /**
-   * Description of the button that copies the specified text to the clipboard.
+   * Description of the button that copies the specified text to the clipboard
    */
   copy_text?: CopyTextButton;
 
@@ -3781,7 +4053,7 @@ export type InlineKeyboardButton = {
 };
 
 /**
- * This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the {@link https://core.telegram.org/widgets/login | Telegram Login Widget} when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in: {@link https://core.telegram.org/file/811140015/1734/8VZFkwWXalM.97872/6127fa62d8a0bf2b3c | TITLE} Telegram apps support these buttons as of version 5.7. Sample bot: @discussbot
+ * This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the {@link https://core.telegram.org/widgets/login | Telegram Login Widget} when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in: {@link https://core.telegram.org/file/811140015/1734/8VZFkwWXalM.97872/6127fa62d8a0bf2b3c | TITLE} Telegram apps support these buttons as of version 5.7. Sample bot: `@discussbot`
  */
 export type LoginUrl = {
   /**
@@ -3790,7 +4062,7 @@ export type LoginUrl = {
   url: string;
 
   /**
-   * New text of the button in forwarded messages.
+   * New text of the button in forwarded messages
    */
   forward_text?: string;
 
@@ -3800,7 +4072,7 @@ export type LoginUrl = {
   bot_username?: string;
 
   /**
-   * Pass True to request the permission for your bot to send messages to the user.
+   * Pass True to request the permission for your bot to send messages to the user
    */
   request_write_access?: boolean;
 };
@@ -3810,7 +4082,7 @@ export type LoginUrl = {
  */
 export type SwitchInlineQueryChosenChat = {
   /**
-   * The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted
+   * The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted.
    */
   query?: string;
 
@@ -3865,7 +4137,7 @@ export type CallbackQuery = {
   message?: MaybeInaccessibleMessage;
 
   /**
-   * Identifier of the message sent via the bot in inline mode, that originated the query.
+   * Identifier of the message sent via the bot in inline mode, that originated the query
    */
   inline_message_id?: string;
 
@@ -3886,7 +4158,7 @@ export type CallbackQuery = {
 };
 
 /**
- * Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice {@link https://core.telegram.org/bots/features#privacy-mode | privacy mode}. Not supported in channels and for messages sent on behalf of a Telegram Business account.
+ * Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot's message and tapped 'Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice {@link https://core.telegram.org/bots/features#privacy-mode | privacy mode}. Not supported in channels and for messages sent on behalf of a user account.
  */
 export type ForceReply = {
   /**
@@ -3900,9 +4172,24 @@ export type ForceReply = {
   input_field_placeholder?: string;
 
   /**
-   * Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
+   * Use this parameter if you want to force reply from specific users only. Targets: 1) users that are `@mentioned` in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
    */
   selective?: boolean;
+};
+
+/**
+ * Represents a community (a group of chats).
+ */
+export type Community = {
+  /**
+   * Unique identifier for this community. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
+   */
+  id: number;
+
+  /**
+   * Name of the community
+   */
+  name: string;
 };
 
 /**
@@ -4075,7 +4362,7 @@ export type ChatAdministratorRights = {
   can_manage_direct_messages?: boolean;
 
   /**
-   * True, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted defaults to the value of can_pin_messages.
+   * True, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted, defaults to the value of can_pin_messages.
    */
   can_manage_tags?: boolean;
 };
@@ -4110,7 +4397,7 @@ export type ChatMemberUpdated = {
   new_chat_member: ChatMember;
 
   /**
-   * {@link Chat} invite link, which was used by the user to join the chat; for joining by invite link events only.
+   * {@link Chat} invite link, which was used by the user to join the chat; for joining by invite link events only
    */
   invite_link?: ChatInviteLink;
 
@@ -4250,7 +4537,7 @@ export type ChatMemberAdministrator = {
   can_manage_direct_messages?: boolean;
 
   /**
-   * True, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted defaults to the value of can_pin_messages.
+   * True, if the administrator can edit the tags of regular members; for groups and supergroups only. If omitted, defaults to the value of can_pin_messages.
    */
   can_manage_tags?: boolean;
 
@@ -4310,7 +4597,7 @@ export type ChatMemberRestricted = {
   is_member: boolean;
 
   /**
-   * True, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues
+   * True, if the user is allowed to send text messages, rich messages, contacts, giveaways, giveaway winners, invoices, locations and venues
    */
   can_send_messages: boolean;
 
@@ -4360,6 +4647,11 @@ export type ChatMemberRestricted = {
   can_add_web_page_previews: boolean;
 
   /**
+   * True, if the user is allowed to react to messages
+   */
+  can_react_to_messages: boolean;
+
+  /**
    * True, if the user is allowed to edit their own tag
    */
   can_edit_tag: boolean;
@@ -4385,7 +4677,7 @@ export type ChatMemberRestricted = {
   can_manage_topics: boolean;
 
   /**
-   * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever
+   * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is restricted forever.
    */
   until_date: number;
 };
@@ -4420,7 +4712,7 @@ export type ChatMemberBanned = {
   user: User;
 
   /**
-   * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever
+   * Date when restrictions will be lifted for this user; Unix time. If 0, then the user is banned forever.
    */
   until_date: number;
 };
@@ -4450,7 +4742,7 @@ export type ChatJoinRequest = {
   date: number;
 
   /**
-   * Bio of the user.
+   * Bio of the user
    */
   bio?: string;
 
@@ -4458,6 +4750,11 @@ export type ChatJoinRequest = {
    * {@link Chat} invite link that was used by the user to send the join request
    */
   invite_link?: ChatInviteLink;
+
+  /**
+   * Identifier of the join request query; for bots assigned to process join requests only. If present, then the bot must call sendChatJoinRequestWebApp or directly call answerChatJoinRequestQuery within 10 seconds.
+   */
+  query_id?: string;
 };
 
 /**
@@ -4465,7 +4762,7 @@ export type ChatJoinRequest = {
  */
 export type ChatPermissions = {
   /**
-   * True, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues
+   * True, if the user is allowed to send text messages, rich messages, contacts, giveaways, giveaway winners, invoices, locations and venues
    */
   can_send_messages?: boolean;
 
@@ -4515,12 +4812,17 @@ export type ChatPermissions = {
   can_add_web_page_previews?: boolean;
 
   /**
-   * True, if the user is allowed to edit their own tag
+   * True, if the user is allowed to react to messages. If omitted, defaults to the value of can_send_messages.
+   */
+  can_react_to_messages?: boolean;
+
+  /**
+   * True, if the user is allowed to edit their own tag. If omitted, defaults to the value of can_pin_messages.
    */
   can_edit_tag?: boolean;
 
   /**
-   * True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups
+   * True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups.
    */
   can_change_info?: boolean;
 
@@ -4530,12 +4832,12 @@ export type ChatPermissions = {
   can_invite_users?: boolean;
 
   /**
-   * True, if the user is allowed to pin messages. Ignored in public supergroups
+   * True, if the user is allowed to pin messages. Ignored in public supergroups.
    */
   can_pin_messages?: boolean;
 
   /**
-   * True, if the user is allowed to create forum topics. If omitted defaults to the value of can_pin_messages
+   * True, if the user is allowed to create forum topics. If omitted, defaults to the value of can_pin_messages.
    */
   can_manage_topics?: boolean;
 };
@@ -4855,7 +5157,7 @@ export type ReactionTypeEmoji = {
   type: 'emoji';
 
   /**
-   * Reaction emoji. Currently, it can be one of "❤", "👍", "👎", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩", "🙏", "👌", "🕊", "🤡", "🥱", "🥴", "😍", "🐳", "❤‍🔥", "🌚", "🌭", "💯", "🤣", "⚡", "🍌", "🏆", "💔", "🤨", "😐", "🍓", "🍾", "💋", "🖕", "😈", "😴", "😭", "🤓", "👻", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨", "🤝", "✍", "🤗", "🫡", "🎅", "🎄", "☃", "💅", "🤪", "🗿", "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀", "😡"
+   * Reaction emoji. Currently, it can be one of "❤", "👍", "👎", "🔥", "🥰", "👏", "😁", "🤔", "🤯", "😱", "🤬", "😢", "🎉", "🤩", "🤮", "💩", "🙏", "👌", "🕊", "🤡", "🥱", "🥴", "😍", "🐳", "❤‍🔥", "🌚", "🌭", "💯", "🤣", "⚡", "🍌", "🏆", "💔", "🤨", "😐", "🍓", "🍾", "💋", "🖕", "😈", "😴", "😭", "🤓", "👻", "👨‍💻", "👀", "🎃", "🙈", "😇", "😨", "🤝", "✍", "🤗", "🫡", "🎅", "🎄", "☃", "💅", "🤪", "🗿", "🆒", "💘", "🙉", "🦄", "😘", "💊", "🙊", "😎", "👾", "🤷‍♂", "🤷", "🤷‍♀", "😡".
    */
   emoji: string;
 };
@@ -5235,7 +5537,7 @@ export type UniqueGift = {
   base_name: string;
 
   /**
-   * Unique name of the gift. This name can be used in https://t.me/nft/... links and story areas
+   * Unique name of the gift. This name can be used in https://t.me/nft/... links and story areas.
    */
   name: string;
 
@@ -5335,7 +5637,7 @@ export type GiftInfo = {
   is_private?: true;
 
   /**
-   * Unique number reserved for this gift when upgraded. See the number field in UniqueGift
+   * Unique number reserved for this gift when upgraded. See the number field in {@link UniqueGift}.
    */
   unique_gift_number?: number;
 };
@@ -5350,17 +5652,17 @@ export type UniqueGiftInfo = {
   gift: UniqueGift;
 
   /**
-   * Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, “resale” for gifts bought from other users, “gifted_upgrade” for upgrades purchased after the gift was sent, or “offer” for gifts bought or sold through gift purchase offers
+   * Origin of the gift. Currently, either “upgrade” for gifts upgraded from regular gifts, “transfer” for gifts transferred from other users or channels, “resale” for gifts bought from other users, “gifted_upgrade” for upgrades purchased after the gift was sent, or “offer” for gifts bought or sold through gift purchase offers.
    */
   origin: string;
 
   /**
-   * For gifts bought from other users, the currency in which the payment for the gift was done. Currently, one of “XTR” for Telegram Stars or “TON” for toncoins.
+   * For gifts bought from other users, the currency in which the payment for the gift was done. Currently, one of “XTR” for Telegram Stars or “TON” for TON grams.
    */
   last_resale_currency?: string;
 
   /**
-   * For gifts bought from other users, the price paid for the gift in either Telegram Stars or nanotoncoins
+   * For gifts bought from other users, the price paid for the gift in either Telegram Stars or nanograms
    */
   last_resale_amount?: number;
 
@@ -5375,7 +5677,7 @@ export type UniqueGiftInfo = {
   transfer_star_count?: number;
 
   /**
-   * Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now
+   * Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now.
    */
   next_transfer_date?: number;
 };
@@ -5455,7 +5757,7 @@ export type OwnedGiftRegular = {
   is_upgrade_separate?: true;
 
   /**
-   * Unique number reserved for this gift when upgraded. See the number field in UniqueGift
+   * Unique number reserved for this gift when upgraded. See the number field in {@link UniqueGift}.
    */
   unique_gift_number?: number;
 };
@@ -5505,7 +5807,7 @@ export type OwnedGiftUnique = {
   transfer_star_count?: number;
 
   /**
-   * Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now
+   * Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now.
    */
   next_transfer_date?: number;
 };
@@ -5525,9 +5827,24 @@ export type OwnedGifts = {
   gifts: OwnedGift[];
 
   /**
-   * Offset for the next request. If empty, then there are no more results
+   * Offset for the next request. If empty, then there are no more results.
    */
   next_offset?: string;
+};
+
+/**
+ * This object describes the access settings of a bot.
+ */
+export type BotAccessSettings = {
+  /**
+   * True, if only selected users can access the bot. The bot's owner can always access it.
+   */
+  is_access_restricted: boolean;
+
+  /**
+   * The list of other users who have access to the bot if the access is restricted
+   */
+  added_users?: User[];
 };
 
 /**
@@ -5585,9 +5902,14 @@ export type BotCommand = {
   command: string;
 
   /**
-   * Description of the command; 1-256 characters.
+   * Description of the command; 1-256 characters
    */
   description: string;
+
+  /**
+   * True, if the command sends an ephemeral message, which can be seen only by the sender of the message and the bot
+   */
+  is_ephemeral?: boolean;
 };
 
 /**
@@ -5640,7 +5962,7 @@ export type BotCommandScopeChat = {
   type: 'chat';
 
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername). Channel direct messages chats and channel chats aren't supported.
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`. Channel direct messages chats and channel chats aren't supported.
    */
   chat_id: number | string;
 };
@@ -5655,7 +5977,7 @@ export type BotCommandScopeChatAdministrators = {
   type: 'chat_administrators';
 
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername). Channel direct messages chats and channel chats aren't supported.
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`. Channel direct messages chats and channel chats aren't supported.
    */
   chat_id: number | string;
 };
@@ -5670,7 +5992,7 @@ export type BotCommandScopeChatMember = {
   type: 'chat_member';
 
   /**
-   * Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername). Channel direct messages chats and channel chats aren't supported.
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`. Channel direct messages chats and channel chats aren't supported.
    */
   chat_id: number | string;
 
@@ -5880,7 +6202,7 @@ export type ChatBoostRemoved = {
  */
 export type ChatOwnerLeft = {
   /**
-   * The user which will be the new owner of the chat if the previous owner does not return to the chat
+   * The user who will become the new owner of the chat if the previous owner does not return to the chat
    */
   new_owner?: User;
 };
@@ -6046,6 +6368,16 @@ export type SentWebAppMessage = {
 };
 
 /**
+ * Describes an inline message sent by a guest bot.
+ */
+export type SentGuestMessage = {
+  /**
+   * Identifier of the sent inline message
+   */
+  inline_message_id: string;
+};
+
+/**
  * Describes an inline message to be sent by a user of a Mini App.
  */
 export type PreparedInlineMessage = {
@@ -6055,7 +6387,7 @@ export type PreparedInlineMessage = {
   id: string;
 
   /**
-   * Expiration date of the prepared message, in Unix time. Expired prepared messages can no longer be used
+   * Expiration date of the prepared message, in Unix time. Expired prepared messages can no longer be used.
    */
   expiration_date: number;
 };
@@ -6086,126 +6418,11 @@ export type ResponseParameters = {
 };
 
 /**
- * Represents a photo to be sent.
- */
-export type InputMediaPhoto = {
-  /**
-   * Type of the result, must be photo
-   */
-  type: 'photo';
-
-  /**
-   * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
-   */
-  media: string;
-
-  /**
-   * Caption of the photo to be sent, 0-1024 characters after entities parsing
-   */
-  caption?: string;
-
-  /**
-   * Mode for parsing entities in the photo caption. See formatting options for more details.
-   */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
-
-  /**
-   * List of special entities that appear in the caption, which can be specified instead of parse_mode
-   */
-  caption_entities?: MessageEntity[];
-
-  /**
-   * Pass True, if the caption must be shown above the message media
-   */
-  show_caption_above_media?: boolean;
-
-  /**
-   * Pass True if the photo needs to be covered with a spoiler animation
-   */
-  has_spoiler?: boolean;
-};
-
-/**
- * Represents a video to be sent.
- */
-export type InputMediaVideo = {
-  /**
-   * Type of the result, must be video
-   */
-  type: 'video';
-
-  /**
-   * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
-   */
-  media: string;
-
-  /**
-   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
-   */
-  thumbnail?: string;
-
-  /**
-   * Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
-   */
-  cover?: string;
-
-  /**
-   * Start timestamp for the video in the message
-   */
-  start_timestamp?: number;
-
-  /**
-   * Caption of the video to be sent, 0-1024 characters after entities parsing
-   */
-  caption?: string;
-
-  /**
-   * Mode for parsing entities in the video caption. See formatting options for more details.
-   */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
-
-  /**
-   * List of special entities that appear in the caption, which can be specified instead of parse_mode
-   */
-  caption_entities?: MessageEntity[];
-
-  /**
-   * Pass True, if the caption must be shown above the message media
-   */
-  show_caption_above_media?: boolean;
-
-  /**
-   * {@link Video} width
-   */
-  width?: number;
-
-  /**
-   * {@link Video} height
-   */
-  height?: number;
-
-  /**
-   * {@link Video} duration in seconds
-   */
-  duration?: number;
-
-  /**
-   * Pass True if the uploaded video is suitable for streaming
-   */
-  supports_streaming?: boolean;
-
-  /**
-   * Pass True if the video needs to be covered with a spoiler animation
-   */
-  has_spoiler?: boolean;
-};
-
-/**
  * Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be sent.
  */
 export type InputMediaAnimation = {
   /**
-   * Type of the result, must be animation
+   * Type of the media, must be animation
    */
   type: 'animation';
 
@@ -6235,7 +6452,7 @@ export type InputMediaAnimation = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media
+   * Pass True if the caption must be shown above the message media
    */
   show_caption_above_media?: boolean;
 
@@ -6265,7 +6482,7 @@ export type InputMediaAnimation = {
  */
 export type InputMediaAudio = {
   /**
-   * Type of the result, must be audio
+   * Type of the media, must be audio
    */
   type: 'audio';
 
@@ -6315,7 +6532,7 @@ export type InputMediaAudio = {
  */
 export type InputMediaDocument = {
   /**
-   * Type of the result, must be document
+   * Type of the media, must be document
    */
   type: 'document';
 
@@ -6348,6 +6565,331 @@ export type InputMediaDocument = {
    * Disables automatic server-side content type detection for files uploaded using multipart/form-data. Always True, if the document is sent as part of an album.
    */
   disable_content_type_detection?: boolean;
+};
+
+/**
+ * Represents an HTTP link to be sent.
+ */
+export type InputMediaLink = {
+  /**
+   * Type of the media, must be link
+   */
+  type: 'link';
+
+  /**
+   * HTTP URL of the link
+   */
+  url: string;
+};
+
+/**
+ * Represents a live {@link InputMediaLivePhoto.photo | photo} to be sent.
+ */
+export type InputMediaLivePhoto = {
+  /**
+   * Type of the media, must be live_photo
+   */
+  type: 'live_photo';
+
+  /**
+   * Video of the live photo to send. Pass a file_id to send a file that exists on the Telegram servers (recommended) or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files ». Sending live photos by a URL is currently unsupported.
+   */
+  media: string;
+
+  /**
+   * The static photo to send. Pass a file_id to send a file that exists on the Telegram servers (recommended) or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files ». Sending live photos by a URL is currently unsupported.
+   */
+  photo: string;
+
+  /**
+   * Caption of the live photo to be sent, 0-1024 characters after entities parsing
+   */
+  caption?: string;
+
+  /**
+   * Mode for parsing entities in the live photo caption. See formatting options for more details.
+   */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+
+  /**
+   * List of special entities that appear in the caption, which can be specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
+   * Pass True if the caption must be shown above the message media
+   */
+  show_caption_above_media?: boolean;
+
+  /**
+   * Pass True if the live photo needs to be covered with a spoiler animation
+   */
+  has_spoiler?: boolean;
+};
+
+/**
+ * Represents a location to be sent.
+ */
+export type InputMediaLocation = {
+  /**
+   * Type of the media, must be location
+   */
+  type: 'location';
+
+  /**
+   * Latitude of the location
+   */
+  latitude: number;
+
+  /**
+   * Longitude of the location
+   */
+  longitude: number;
+
+  /**
+   * The radius of uncertainty for the location, measured in meters; 0-1500
+   */
+  horizontal_accuracy?: number;
+};
+
+/**
+ * Represents a photo to be sent.
+ */
+export type InputMediaPhoto = {
+  /**
+   * Type of the media, must be photo
+   */
+  type: 'photo';
+
+  /**
+   * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
+   */
+  media: string;
+
+  /**
+   * Caption of the photo to be sent, 0-1024 characters after entities parsing
+   */
+  caption?: string;
+
+  /**
+   * Mode for parsing entities in the photo caption. See formatting options for more details.
+   */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+
+  /**
+   * List of special entities that appear in the caption, which can be specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
+   * Pass True if the caption must be shown above the message media
+   */
+  show_caption_above_media?: boolean;
+
+  /**
+   * Pass True if the photo needs to be covered with a spoiler animation
+   */
+  has_spoiler?: boolean;
+};
+
+/**
+ * Represents a sticker file to be sent.
+ */
+export type InputMediaSticker = {
+  /**
+   * Type of the media, must be sticker
+   */
+  type: 'sticker';
+
+  /**
+   * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a.WEBP sticker from the Internet, or pass “attach://<file_attach_name>” to upload a new.WEBP,.TGS, or.WEBM sticker using multipart/form-data under <file_attach_name> name. More information on Sending Files »
+   */
+  media: string;
+
+  /**
+   * Emoji associated with the sticker; only for just uploaded stickers
+   */
+  emoji?: string;
+};
+
+/**
+ * Represents a venue to be sent.
+ */
+export type InputMediaVenue = {
+  /**
+   * Type of the media, must be venue
+   */
+  type: 'venue';
+
+  /**
+   * Latitude of the location
+   */
+  latitude: number;
+
+  /**
+   * Longitude of the location
+   */
+  longitude: number;
+
+  /**
+   * Name of the venue
+   */
+  title: string;
+
+  /**
+   * Address of the venue
+   */
+  address: string;
+
+  /**
+   * Foursquare identifier of the venue
+   */
+  foursquare_id?: string;
+
+  /**
+   * Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+   */
+  foursquare_type?: string;
+
+  /**
+   * Google Places identifier of the venue
+   */
+  google_place_id?: string;
+
+  /**
+   * Google Places type of the venue. (See supported types.)
+   */
+  google_place_type?: string;
+};
+
+/**
+ * Represents a video to be sent.
+ */
+export type InputMediaVideo = {
+  /**
+   * Type of the media, must be video
+   */
+  type: 'video';
+
+  /**
+   * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
+   */
+  media: string;
+
+  /**
+   * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
+   */
+  thumbnail?: string;
+
+  /**
+   * Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
+   */
+  cover?: string;
+
+  /**
+   * Start timestamp for the video in the message
+   */
+  start_timestamp?: number;
+
+  /**
+   * Caption of the video to be sent, 0-1024 characters after entities parsing
+   */
+  caption?: string;
+
+  /**
+   * Mode for parsing entities in the video caption. See formatting options for more details.
+   */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+
+  /**
+   * List of special entities that appear in the caption, which can be specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
+   * Pass True if the caption must be shown above the message media
+   */
+  show_caption_above_media?: boolean;
+
+  /**
+   * {@link Video} width
+   */
+  width?: number;
+
+  /**
+   * {@link Video} height
+   */
+  height?: number;
+
+  /**
+   * {@link Video} duration in seconds
+   */
+  duration?: number;
+
+  /**
+   * Pass True if the uploaded video is suitable for streaming
+   */
+  supports_streaming?: boolean;
+
+  /**
+   * Pass True if the video needs to be covered with a spoiler animation
+   */
+  has_spoiler?: boolean;
+};
+
+/**
+ * Represents a voice message file to be sent.
+ */
+export type InputMediaVoiceNote = {
+  /**
+   * Type of the media, must be voice_note
+   */
+  type: 'voice_note';
+
+  /**
+   * File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass "attach://<file_attach_name>" to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
+   */
+  media: string;
+
+  /**
+   * Caption of the voice message to be sent, 0-1024 characters after entities parsing
+   */
+  caption?: string;
+
+  /**
+   * Mode for parsing entities in the voice message caption. See formatting options for more details.
+   */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+
+  /**
+   * List of special entities that appear in the caption, which can be specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[];
+
+  /**
+   * Duration of the voice message in seconds
+   */
+  duration?: number;
+};
+
+/**
+ * The paid {@link InputPaidMediaLivePhoto.media | media} to send is a live {@link InputPaidMediaLivePhoto.photo | photo}.
+ */
+export type InputPaidMediaLivePhoto = {
+  /**
+   * Type of the media, must be live_photo
+   */
+  type: 'live_photo';
+
+  /**
+   * Video of the live photo to send. Pass a file_id to send a file that exists on the Telegram servers (recommended) or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files ». Sending live photos by a URL is currently unsupported.
+   */
+  media: string;
+
+  /**
+   * The static photo to send. Pass a file_id to send a file that exists on the Telegram servers (recommended) or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files ». Sending live photos by a URL is currently unsupported.
+   */
+  photo: string;
 };
 
 /**
@@ -6503,12 +7045,31 @@ export type MessageOrigin =
   | MessageOriginChat
   | MessageOriginChannel;
 
-export type PaidMedia = PaidMediaPreview | PaidMediaPhoto | PaidMediaVideo;
+export type PaidMedia =
+  PaidMediaLivePhoto | PaidMediaPhoto | PaidMediaPreview | PaidMediaVideo;
+
+export type InputPollMedia =
+  | InputMediaAnimation
+  | InputMediaAudio
+  | InputMediaDocument
+  | InputMediaLivePhoto
+  | InputMediaLocation
+  | InputMediaPhoto
+  | InputMediaVenue
+  | InputMediaVideo;
+
+export type InputPollOptionMedia =
+  | InputMediaAnimation
+  | InputMediaLink
+  | InputMediaLivePhoto
+  | InputMediaLocation
+  | InputMediaPhoto
+  | InputMediaSticker
+  | InputMediaVenue
+  | InputMediaVideo;
 
 export type BackgroundFill =
-  | BackgroundFillSolid
-  | BackgroundFillGradient
-  | BackgroundFillFreeformGradient;
+  BackgroundFillSolid | BackgroundFillGradient | BackgroundFillFreeformGradient;
 
 export type BackgroundType =
   | BackgroundTypeFill
@@ -6532,9 +7093,7 @@ export type StoryAreaType =
   | StoryAreaTypeUniqueGift;
 
 export type ReactionType =
-  | ReactionTypeEmoji
-  | ReactionTypeCustomEmoji
-  | ReactionTypePaid;
+  ReactionTypeEmoji | ReactionTypeCustomEmoji | ReactionTypePaid;
 
 export type OwnedGift = OwnedGiftRegular | OwnedGiftUnique;
 
@@ -6548,27 +7107,24 @@ export type BotCommandScope =
   | BotCommandScopeChatMember;
 
 export type MenuButton =
-  | MenuButtonCommands
-  | MenuButtonWebApp
-  | MenuButtonDefault;
+  MenuButtonCommands | MenuButtonWebApp | MenuButtonDefault;
 
 export type ChatBoostSource =
-  | ChatBoostSourcePremium
-  | ChatBoostSourceGiftCode
-  | ChatBoostSourceGiveaway;
+  ChatBoostSourcePremium | ChatBoostSourceGiftCode | ChatBoostSourceGiveaway;
 
 export type InputMedia =
   | InputMediaAnimation
-  | InputMediaDocument
   | InputMediaAudio
+  | InputMediaDocument
+  | InputMediaLivePhoto
   | InputMediaPhoto
   | InputMediaVideo;
 
-export type InputPaidMedia = InputPaidMediaPhoto | InputPaidMediaVideo;
+export type InputPaidMedia =
+  InputPaidMediaLivePhoto | InputPaidMediaPhoto | InputPaidMediaVideo;
 
 export type InputProfilePhoto =
-  | InputProfilePhotoStatic
-  | InputProfilePhotoAnimated;
+  InputProfilePhotoStatic | InputProfilePhotoAnimated;
 
 export type InputStoryContent = InputStoryContentPhoto | InputStoryContentVideo;
 
@@ -6738,6 +7294,1549 @@ export type InputSticker = {
 };
 
 /**
+ * Rich formatted message.
+ */
+export type RichMessage = {
+  /**
+   * Content of the message
+   */
+  blocks: RichBlock[];
+
+  /**
+   * True, if the rich message must be shown right-to-left
+   */
+  is_rtl?: boolean;
+};
+
+/**
+ * Describes a rich message to be sent. Exactly one of the fields {@link InputRichMessage.html | html}, {@link InputRichMessage.markdown | markdown}, or {@link InputRichMessage.blocks | blocks} must be used.
+ */
+export type InputRichMessage = {
+  /**
+   * Content of the rich message to send described as a list of blocks
+   */
+  blocks?: InputRichBlock[];
+
+  /**
+   * Content of the rich message to send described using HTML formatting. See rich message formatting options for more details. Use media field to specify the media used in the message.
+   */
+  html?: string;
+
+  /**
+   * Content of the rich message to send described using Markdown formatting. See rich message formatting options for more details. Use media field to specify the media used in the message.
+   */
+  markdown?: string;
+
+  /**
+   * List of media that are specified in the markdown or html fields using tg://photo?id=, tg://video?id=, and tg://audio?id= links
+   */
+  media?: InputRichMessageMedia[];
+
+  /**
+   * Pass True if the rich message must be shown right-to-left
+   */
+  is_rtl?: boolean;
+
+  /**
+   * Pass True to skip automatic detection of entities (e.g., URLs, email addresses, username mentions, hashtags, cashtags, bot commands, or phone numbers) in the text
+   */
+  skip_entity_detection?: boolean;
+};
+
+/**
+ * Describes a {@link InputRichMessageMedia.media | media} element embedded in an outgoing rich message.
+ */
+export type InputRichMessageMedia = {
+  /**
+   * Unique identifier of the media used in a tg://photo?id=, tg://video?id=, or tg://audio?id= link. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.
+   */
+  id: string;
+
+  /**
+   * The media to be sent. Everything except the media itself and its properties is ignored.
+   */
+  media:
+    | InputMediaAnimation
+    | InputMediaAudio
+    | InputMediaPhoto
+    | InputMediaVideo
+    | InputMediaVoiceNote;
+};
+
+/**
+ * A bold {@link RichTextBold.text | text}.
+ */
+export type RichTextBold = {
+  /**
+   * Type of the rich text, always “bold”
+   */
+  type: 'bold';
+
+  /**
+   * The text
+   */
+  text: RichText;
+};
+
+/**
+ * An italicized {@link RichTextItalic.text | text}.
+ */
+export type RichTextItalic = {
+  /**
+   * Type of the rich text, always “italic”
+   */
+  type: 'italic';
+
+  /**
+   * The text
+   */
+  text: RichText;
+};
+
+/**
+ * An underlined {@link RichTextUnderline.text | text}.
+ */
+export type RichTextUnderline = {
+  /**
+   * Type of the rich text, always “underline”
+   */
+  type: 'underline';
+
+  /**
+   * The text
+   */
+  text: RichText;
+};
+
+/**
+ * A strikethrough {@link RichTextStrikethrough.text | text}.
+ */
+export type RichTextStrikethrough = {
+  /**
+   * Type of the rich text, always “strikethrough”
+   */
+  type: 'strikethrough';
+
+  /**
+   * The text
+   */
+  text: RichText;
+};
+
+/**
+ * A {@link RichTextSpoiler.text | text} covered by a spoiler.
+ */
+export type RichTextSpoiler = {
+  /**
+   * Type of the rich text, always “spoiler”
+   */
+  type: 'spoiler';
+
+  /**
+   * The text
+   */
+  text: RichText;
+};
+
+/**
+ * Formatted date and time.
+ */
+export type RichTextDateTime = {
+  /**
+   * Type of the rich text, always “date_time”
+   */
+  type: 'date_time';
+
+  /**
+   * The text
+   */
+  text: RichText;
+
+  /**
+   * The Unix time associated with the entity
+   */
+  unix_time: number;
+
+  /**
+   * The string that defines the formatting of the date and time. See date-time entity formatting for more details.
+   */
+  date_time_format: string;
+};
+
+/**
+ * A mention of a Telegram {@link RichTextTextMention.user | user} by their identifier.
+ */
+export type RichTextTextMention = {
+  /**
+   * Type of the rich text, always “text_mention”
+   */
+  type: 'text_mention';
+
+  /**
+   * The text
+   */
+  text: RichText;
+
+  /**
+   * The mentioned user
+   */
+  user: User;
+};
+
+/**
+ * A subscript {@link RichTextSubscript.text | text}.
+ */
+export type RichTextSubscript = {
+  /**
+   * Type of the rich text, always “subscript”
+   */
+  type: 'subscript';
+
+  /**
+   * The text
+   */
+  text: RichText;
+};
+
+/**
+ * A superscript {@link RichTextSuperscript.text | text}.
+ */
+export type RichTextSuperscript = {
+  /**
+   * Type of the rich text, always “superscript”
+   */
+  type: 'superscript';
+
+  /**
+   * The text
+   */
+  text: RichText;
+};
+
+/**
+ * A marked {@link RichTextMarked.text | text}.
+ */
+export type RichTextMarked = {
+  /**
+   * Type of the rich text, always “marked”
+   */
+  type: 'marked';
+
+  /**
+   * The text
+   */
+  text: RichText;
+};
+
+/**
+ * A monowidth {@link RichTextCode.text | text}.
+ */
+export type RichTextCode = {
+  /**
+   * Type of the rich text, always “code”
+   */
+  type: 'code';
+
+  /**
+   * The text
+   */
+  text: RichText;
+};
+
+/**
+ * A custom emoji.
+ */
+export type RichTextCustomEmoji = {
+  /**
+   * Type of the rich text, always “custom_emoji”
+   */
+  type: 'custom_emoji';
+
+  /**
+   * Unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker.
+   */
+  custom_emoji_id: string;
+
+  /**
+   * Alternative emoji for the custom emoji
+   */
+  alternative_text: string;
+};
+
+/**
+ * A mathematical {@link RichTextMathematicalExpression.expression | expression}.
+ */
+export type RichTextMathematicalExpression = {
+  /**
+   * Type of the rich text, always “mathematical_expression”
+   */
+  type: 'mathematical_expression';
+
+  /**
+   * The expression in LaTeX format
+   */
+  expression: string;
+};
+
+/**
+ * A {@link RichTextUrl.text | text} with a link.
+ */
+export type RichTextUrl = {
+  /**
+   * Type of the rich text, always “url”
+   */
+  type: 'url';
+
+  /**
+   * The text
+   */
+  text: RichText;
+
+  /**
+   * URL of the link
+   */
+  url: string;
+};
+
+/**
+ * A {@link RichTextEmailAddress.text | text} with an email address.
+ */
+export type RichTextEmailAddress = {
+  /**
+   * Type of the rich text, always “email_address”
+   */
+  type: 'email_address';
+
+  /**
+   * The text
+   */
+  text: RichText;
+
+  /**
+   * The email address
+   */
+  email_address: string;
+};
+
+/**
+ * A {@link RichTextPhoneNumber.text | text} with a phone number.
+ */
+export type RichTextPhoneNumber = {
+  /**
+   * Type of the rich text, always “phone_number”
+   */
+  type: 'phone_number';
+
+  /**
+   * The text
+   */
+  text: RichText;
+
+  /**
+   * The phone number
+   */
+  phone_number: string;
+};
+
+/**
+ * A {@link RichTextBankCardNumber.text | text} with a bank card number.
+ */
+export type RichTextBankCardNumber = {
+  /**
+   * Type of the rich text, always “bank_card_number”
+   */
+  type: 'bank_card_number';
+
+  /**
+   * The text
+   */
+  text: RichText;
+
+  /**
+   * The bank card number
+   */
+  bank_card_number: string;
+};
+
+/**
+ * A mention by a {@link RichTextMention.username | username}.
+ */
+export type RichTextMention = {
+  /**
+   * Type of the rich text, always “mention”
+   */
+  type: 'mention';
+
+  /**
+   * The text
+   */
+  text: RichText;
+
+  /**
+   * The username
+   */
+  username: string;
+};
+
+/**
+ * A {@link RichTextHashtag.hashtag | hashtag}.
+ */
+export type RichTextHashtag = {
+  /**
+   * Type of the rich text, always “hashtag”
+   */
+  type: 'hashtag';
+
+  /**
+   * The text
+   */
+  text: RichText;
+
+  /**
+   * The hashtag
+   */
+  hashtag: string;
+};
+
+/**
+ * A {@link RichTextCashtag.cashtag | cashtag}.
+ */
+export type RichTextCashtag = {
+  /**
+   * Type of the rich text, always “cashtag”
+   */
+  type: 'cashtag';
+
+  /**
+   * The text
+   */
+  text: RichText;
+
+  /**
+   * The cashtag
+   */
+  cashtag: string;
+};
+
+/**
+ * A bot command.
+ */
+export type RichTextBotCommand = {
+  /**
+   * Type of the rich text, always “bot_command”
+   */
+  type: 'bot_command';
+
+  /**
+   * The text
+   */
+  text: RichText;
+
+  /**
+   * The bot command
+   */
+  bot_command: string;
+};
+
+/**
+ * An anchor.
+ */
+export type RichTextAnchor = {
+  /**
+   * Type of the rich text, always “anchor”
+   */
+  type: 'anchor';
+
+  /**
+   * The name of the anchor
+   */
+  name: string;
+};
+
+/**
+ * A link to an anchor.
+ */
+export type RichTextAnchorLink = {
+  /**
+   * Type of the rich text, always “anchor_link”
+   */
+  type: 'anchor_link';
+
+  /**
+   * The link text
+   */
+  text: RichText;
+
+  /**
+   * The name of the anchor. If the name is empty, then the link brings back to the top of the message.
+   */
+  anchor_name: string;
+};
+
+/**
+ * A reference.
+ */
+export type RichTextReference = {
+  /**
+   * Type of the rich text, always “reference”
+   */
+  type: 'reference';
+
+  /**
+   * Text of the reference
+   */
+  text: RichText;
+
+  /**
+   * The name of the reference
+   */
+  name: string;
+};
+
+/**
+ * A link to a reference.
+ */
+export type RichTextReferenceLink = {
+  /**
+   * Type of the rich text, always “reference_link”
+   */
+  type: 'reference_link';
+
+  /**
+   * The link text
+   */
+  text: RichText;
+
+  /**
+   * The name of the reference
+   */
+  reference_name: string;
+};
+
+/**
+ * Caption of a rich formatted block.
+ */
+export type RichBlockCaption = {
+  /**
+   * Block caption
+   */
+  text: RichText;
+
+  /**
+   * Block credit which corresponds to the HTML tag <cite>
+   */
+  credit?: RichText;
+};
+
+/**
+ * Cell in a table.
+ */
+export type RichBlockTableCell = {
+  /**
+   * Text in the cell. If omitted, then the cell is invisible.
+   */
+  text?: RichText;
+
+  /**
+   * True, if the cell is a header cell
+   */
+  is_header?: true;
+
+  /**
+   * The number of columns the cell spans if it is bigger than 1
+   */
+  colspan?: number;
+
+  /**
+   * The number of rows the cell spans if it is bigger than 1
+   */
+  rowspan?: number;
+
+  /**
+   * Horizontal cell content alignment. Currently, must be one of “left”, “center”, or “right”.
+   */
+  align: 'left' | 'center' | 'right';
+
+  /**
+   * Vertical cell content alignment. Currently, must be one of “top”, “middle”, or “bottom”.
+   */
+  valign: 'top' | 'middle' | 'bottom';
+};
+
+/**
+ * An item of a list.
+ */
+export type RichBlockListItem = {
+  /**
+   * Label of the item
+   */
+  label: string;
+
+  /**
+   * The content of the item
+   */
+  blocks: RichBlock[];
+
+  /**
+   * True, if the item has a checkbox
+   */
+  has_checkbox?: true;
+
+  /**
+   * True, if the item has a checked checkbox
+   */
+  is_checked?: true;
+
+  /**
+   * For ordered lists, the numeric value of the item label
+   */
+  value?: number;
+
+  /**
+   * For ordered lists, the type of the item label; must be one of “a” for lowercase letters, “A” for uppercase letters, “i” for lowercase Roman numerals, “I” for uppercase Roman numerals, or “1” for decimal numbers
+   */
+  type?: 'a' | 'A' | 'i' | 'I' | '1';
+};
+
+/**
+ * A {@link RichBlockParagraph.text | text} paragraph, corresponding to the HTML tag <p>.
+ */
+export type RichBlockParagraph = {
+  /**
+   * Type of the block, always “paragraph”
+   */
+  type: 'paragraph';
+
+  /**
+   * Text of the block
+   */
+  text: RichText;
+};
+
+/**
+ * A section heading, corresponding to the HTML tags <h1>, <h2>, <h3>, <h4>, <h5>, or <h6>.
+ */
+export type RichBlockSectionHeading = {
+  /**
+   * Type of the block, always “heading”
+   */
+  type: 'heading';
+
+  /**
+   * Text of the block
+   */
+  text: RichText;
+
+  /**
+   * Relative size of the text font; 1-6, 1 is the largest, 6 is the smallest
+   */
+  size: number;
+};
+
+/**
+ * A preformatted {@link RichBlockPreformatted.text | text} block, corresponding to the nested HTML tags <pre> and <code>.
+ */
+export type RichBlockPreformatted = {
+  /**
+   * Type of the block, always “pre”
+   */
+  type: 'pre';
+
+  /**
+   * Text of the block
+   */
+  text: RichText;
+
+  /**
+   * The programming language of the text
+   */
+  language?: string;
+};
+
+/**
+ * A footer, corresponding to the HTML tag <footer>.
+ */
+export type RichBlockFooter = {
+  /**
+   * Type of the block, always “footer”
+   */
+  type: 'footer';
+
+  /**
+   * Text of the block
+   */
+  text: RichText;
+};
+
+/**
+ * A divider, corresponding to the HTML tag <hr/>.
+ */
+export type RichBlockDivider = {
+  /**
+   * Type of the block, always “divider”
+   */
+  type: 'divider';
+};
+
+/**
+ * A block with a mathematical {@link RichBlockMathematicalExpression.expression | expression} in LaTeX format, corresponding to the custom HTML tag <tg-math-block>.
+ */
+export type RichBlockMathematicalExpression = {
+  /**
+   * Type of the block, always “mathematical_expression”
+   */
+  type: 'mathematical_expression';
+
+  /**
+   * The mathematical expression in LaTeX format
+   */
+  expression: string;
+};
+
+/**
+ * A block with an anchor, corresponding to the HTML tag <a> with the attribute {@link RichBlockAnchor.name | name}.
+ */
+export type RichBlockAnchor = {
+  /**
+   * Type of the block, always “anchor”
+   */
+  type: 'anchor';
+
+  /**
+   * The name of the anchor
+   */
+  name: string;
+};
+
+/**
+ * A list of blocks, corresponding to the HTML tag <ul> or <ol> with multiple nested tags <li>.
+ */
+export type RichBlockList = {
+  /**
+   * Type of the block, always “list”
+   */
+  type: 'list';
+
+  /**
+   * Items of the list
+   */
+  items: RichBlockListItem[];
+};
+
+/**
+ * A block quotation, corresponding to the HTML tag <blockquote>.
+ */
+export type RichBlockBlockQuotation = {
+  /**
+   * Type of the block, always “blockquote”
+   */
+  type: 'blockquote';
+
+  /**
+   * Content of the block
+   */
+  blocks: RichBlock[];
+
+  /**
+   * Credit of the block
+   */
+  credit?: RichText;
+};
+
+/**
+ * A quotation with centered {@link RichBlockPullQuotation.text | text}, loosely corresponding to the HTML tag <aside>.
+ */
+export type RichBlockPullQuotation = {
+  /**
+   * Type of the block, always “pullquote”
+   */
+  type: 'pullquote';
+
+  /**
+   * Text of the block
+   */
+  text: RichText;
+
+  /**
+   * Credit of the block
+   */
+  credit?: RichText;
+};
+
+/**
+ * A collage, corresponding to the custom HTML tag <tg-collage>.
+ */
+export type RichBlockCollage = {
+  /**
+   * Type of the block, always “collage”
+   */
+  type: 'collage';
+
+  /**
+   * Elements of the collage
+   */
+  blocks: RichBlock[];
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A slideshow, corresponding to the custom HTML tag <tg-slideshow>.
+ */
+export type RichBlockSlideshow = {
+  /**
+   * Type of the block, always “slideshow”
+   */
+  type: 'slideshow';
+
+  /**
+   * Elements of the slideshow
+   */
+  blocks: RichBlock[];
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A table, corresponding to the HTML tag <table>.
+ */
+export type RichBlockTable = {
+  /**
+   * Type of the block, always “table”
+   */
+  type: 'table';
+
+  /**
+   * Cells of the table
+   */
+  cells: RichBlockTableCell[][];
+
+  /**
+   * True, if the table has borders
+   */
+  is_bordered?: true;
+
+  /**
+   * True, if the table is striped
+   */
+  is_striped?: true;
+
+  /**
+   * Caption of the table
+   */
+  caption?: RichText;
+};
+
+/**
+ * An expandable block for details disclosure, corresponding to the HTML tag <details>.
+ */
+export type RichBlockDetails = {
+  /**
+   * Type of the block, always “details”
+   */
+  type: 'details';
+
+  /**
+   * Always shown summary of the block
+   */
+  summary: RichText;
+
+  /**
+   * Content of the block
+   */
+  blocks: RichBlock[];
+
+  /**
+   * True, if the content of the block is visible by default
+   */
+  is_open?: true;
+};
+
+/**
+ * A block with a map, corresponding to the custom HTML tag <tg-map>.
+ */
+export type RichBlockMap = {
+  /**
+   * Type of the block, always “map”
+   */
+  type: 'map';
+
+  /**
+   * Location of the center of the map
+   */
+  location: Location;
+
+  /**
+   * Map zoom level; 13-20
+   */
+  zoom: number;
+
+  /**
+   * Expected width of the map
+   */
+  width: number;
+
+  /**
+   * Expected height of the map
+   */
+  height: number;
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A block with an {@link RichBlockAnimation.animation | animation}, corresponding to the HTML tag <video>.
+ */
+export type RichBlockAnimation = {
+  /**
+   * Type of the block, always “animation”
+   */
+  type: 'animation';
+
+  /**
+   * The animation
+   */
+  animation: Animation;
+
+  /**
+   * True, if the media preview is covered by a spoiler animation
+   */
+  has_spoiler?: true;
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A block with a music file, corresponding to the HTML tag <audio>.
+ */
+export type RichBlockAudio = {
+  /**
+   * Type of the block, always “audio”
+   */
+  type: 'audio';
+
+  /**
+   * The audio
+   */
+  audio: Audio;
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A block with a {@link RichBlockPhoto.photo | photo}, corresponding to the HTML tag <img>.
+ */
+export type RichBlockPhoto = {
+  /**
+   * Type of the block, always “photo”
+   */
+  type: 'photo';
+
+  /**
+   * Available sizes of the photo
+   */
+  photo: PhotoSize[];
+
+  /**
+   * True, if the media preview is covered by a spoiler animation
+   */
+  has_spoiler?: true;
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A block with a {@link RichBlockVideo.video | video}, corresponding to the HTML tag <video>.
+ */
+export type RichBlockVideo = {
+  /**
+   * Type of the block, always “video”
+   */
+  type: 'video';
+
+  /**
+   * The video
+   */
+  video: Video;
+
+  /**
+   * True, if the media preview is covered by a spoiler animation
+   */
+  has_spoiler?: true;
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A block with a voice note, corresponding to the HTML tag <audio>.
+ */
+export type RichBlockVoiceNote = {
+  /**
+   * Type of the block, always “voice_note”
+   */
+  type: 'voice_note';
+
+  /**
+   * The voice note
+   */
+  voice_note: Voice;
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A block with a “Thinking…” placeholder, corresponding to the custom HTML tag <tg-thinking>. The block may be used only in sendRichMessageDraft, therefore it can't be received in messages. See https://t.me/addemoji/AIActions for examples of custom emoji that are recommended for usage in the block.
+ */
+export type RichBlockThinking = {
+  /**
+   * Type of the block, always “thinking”
+   */
+  type: 'thinking';
+
+  /**
+   * Text of the block. See https://t.me/addemoji/AIActions for examples of custom emoji that are recommended for usage in the block.
+   */
+  text: RichText;
+};
+
+/**
+ * An item of a list to be sent.
+ */
+export type InputRichBlockListItem = {
+  /**
+   * The content of the item
+   */
+  blocks: InputRichBlock[];
+
+  /**
+   * Pass True if the item has a checkbox
+   */
+  has_checkbox?: true;
+
+  /**
+   * Pass True if the item has a checked checkbox
+   */
+  is_checked?: true;
+
+  /**
+   * For ordered lists, the numeric value of the item label
+   */
+  value?: number;
+
+  /**
+   * For ordered lists, the type of the item label; must be one of “a” for lowercase letters, “A” for uppercase letters, “i” for lowercase Roman numerals, “I” for uppercase Roman numerals, or “1” for decimal numbers
+   */
+  type?: 'a' | 'A' | 'i' | 'I' | '1';
+};
+
+/**
+ * A {@link InputRichBlockParagraph.text | text} paragraph, corresponding to the HTML tag <p>.
+ */
+export type InputRichBlockParagraph = {
+  /**
+   * Type of the block, always “paragraph”
+   */
+  type: 'paragraph';
+
+  /**
+   * Text of the block
+   */
+  text: RichText;
+};
+
+/**
+ * A section heading, corresponding to the HTML tags <h1>, <h2>, <h3>, <h4>, <h5>, or <h6>.
+ */
+export type InputRichBlockSectionHeading = {
+  /**
+   * Type of the block, always “heading”
+   */
+  type: 'heading';
+
+  /**
+   * Text of the block
+   */
+  text: RichText;
+
+  /**
+   * Relative size of the text font; 1-6, 1 is the largest, 6 is the smallest
+   */
+  size: number;
+};
+
+/**
+ * A preformatted {@link InputRichBlockPreformatted.text | text} block, corresponding to the nested HTML tags <pre> and <code>.
+ */
+export type InputRichBlockPreformatted = {
+  /**
+   * Type of the block, always “pre”
+   */
+  type: 'pre';
+
+  /**
+   * Text of the block
+   */
+  text: RichText;
+
+  /**
+   * The programming language of the text
+   */
+  language?: string;
+};
+
+/**
+ * A footer, corresponding to the HTML tag <footer>.
+ */
+export type InputRichBlockFooter = {
+  /**
+   * Type of the block, always “footer”
+   */
+  type: 'footer';
+
+  /**
+   * Text of the block
+   */
+  text: RichText;
+};
+
+/**
+ * A divider, corresponding to the HTML tag <hr/>.
+ */
+export type InputRichBlockDivider = {
+  /**
+   * Type of the block, always “divider”
+   */
+  type: 'divider';
+};
+
+/**
+ * A block with a mathematical {@link InputRichBlockMathematicalExpression.expression | expression} in LaTeX format, corresponding to the custom HTML tag <tg-math-block>.
+ */
+export type InputRichBlockMathematicalExpression = {
+  /**
+   * Type of the block, always “mathematical_expression”
+   */
+  type: 'mathematical_expression';
+
+  /**
+   * The mathematical expression in LaTeX format
+   */
+  expression: string;
+};
+
+/**
+ * A block with an anchor, corresponding to the HTML tag <a> with the attribute {@link InputRichBlockAnchor.name | name}.
+ */
+export type InputRichBlockAnchor = {
+  /**
+   * Type of the block, always “anchor”
+   */
+  type: 'anchor';
+
+  /**
+   * The name of the anchor
+   */
+  name: string;
+};
+
+/**
+ * A list of blocks, corresponding to the HTML tag <ul> or <ol> with multiple nested tags <li>.
+ */
+export type InputRichBlockList = {
+  /**
+   * Type of the block, always “list”
+   */
+  type: 'list';
+
+  /**
+   * Items of the list
+   */
+  items: InputRichBlockListItem[];
+};
+
+/**
+ * A block quotation, corresponding to the HTML tag <blockquote>.
+ */
+export type InputRichBlockBlockQuotation = {
+  /**
+   * Type of the block, always “blockquote”
+   */
+  type: 'blockquote';
+
+  /**
+   * Content of the block
+   */
+  blocks: InputRichBlock[];
+
+  /**
+   * Credit of the block
+   */
+  credit?: RichText;
+};
+
+/**
+ * A quotation with centered {@link InputRichBlockPullQuotation.text | text}, loosely corresponding to the HTML tag <aside>.
+ */
+export type InputRichBlockPullQuotation = {
+  /**
+   * Type of the block, always “pullquote”
+   */
+  type: 'pullquote';
+
+  /**
+   * Text of the block
+   */
+  text: RichText;
+
+  /**
+   * Credit of the block
+   */
+  credit?: RichText;
+};
+
+/**
+ * A collage, corresponding to the custom HTML tag <tg-collage>.
+ */
+export type InputRichBlockCollage = {
+  /**
+   * Type of the block, always “collage”
+   */
+  type: 'collage';
+
+  /**
+   * Elements of the collage
+   */
+  blocks: InputRichBlock[];
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A slideshow, corresponding to the custom HTML tag <tg-slideshow>.
+ */
+export type InputRichBlockSlideshow = {
+  /**
+   * Type of the block, always “slideshow”
+   */
+  type: 'slideshow';
+
+  /**
+   * Elements of the slideshow
+   */
+  blocks: InputRichBlock[];
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A table, corresponding to the HTML tag <table>.
+ */
+export type InputRichBlockTable = {
+  /**
+   * Type of the block, always “table”
+   */
+  type: 'table';
+
+  /**
+   * Cells of the table
+   */
+  cells: RichBlockTableCell[][];
+
+  /**
+   * Pass True if the table has borders
+   */
+  is_bordered?: true;
+
+  /**
+   * Pass True if the table is striped
+   */
+  is_striped?: true;
+
+  /**
+   * Caption of the table
+   */
+  caption?: RichText;
+};
+
+/**
+ * An expandable block for details disclosure, corresponding to the HTML tag <details>.
+ */
+export type InputRichBlockDetails = {
+  /**
+   * Type of the block, always “details”
+   */
+  type: 'details';
+
+  /**
+   * Always shown summary of the block
+   */
+  summary: RichText;
+
+  /**
+   * Content of the block
+   */
+  blocks: InputRichBlock[];
+
+  /**
+   * Pass True if the content of the block is visible by default
+   */
+  is_open?: true;
+};
+
+/**
+ * A block with a map, corresponding to the custom HTML tag <tg-map>. The map's {@link InputRichBlockMap.width | width} and {@link InputRichBlockMap.height | height} must not exceed 10000 in total. The {@link InputRichBlockMap.width | width} and {@link InputRichBlockMap.height | height} ratio must be at most 20.
+ */
+export type InputRichBlockMap = {
+  /**
+   * Type of the block, always “map”
+   */
+  type: 'map';
+
+  /**
+   * Location of the center of the map
+   */
+  location: Location;
+
+  /**
+   * Map zoom level; 0-24
+   */
+  zoom: number;
+
+  /**
+   * Map width; 0-10000
+   */
+  width: number;
+
+  /**
+   * Map height; 0-10000
+   */
+  height: number;
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A block with an {@link InputRichBlockAnimation.animation | animation}, corresponding to the HTML tag <video>.
+ */
+export type InputRichBlockAnimation = {
+  /**
+   * Type of the block, always “animation”
+   */
+  type: 'animation';
+
+  /**
+   * The animation. Caption is ignored.
+   */
+  animation: InputMediaAnimation;
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A block with a music file, corresponding to the HTML tag <audio>.
+ */
+export type InputRichBlockAudio = {
+  /**
+   * Type of the block, always “audio”
+   */
+  type: 'audio';
+
+  /**
+   * The audio. Caption is ignored.
+   */
+  audio: InputMediaAudio;
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A block with a {@link InputRichBlockPhoto.photo | photo}, corresponding to the HTML tag <img>.
+ */
+export type InputRichBlockPhoto = {
+  /**
+   * Type of the block, always “photo”
+   */
+  type: 'photo';
+
+  /**
+   * The photo. Caption is ignored.
+   */
+  photo: InputMediaPhoto;
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A block with a {@link InputRichBlockVideo.video | video}, corresponding to the HTML tag <video>.
+ */
+export type InputRichBlockVideo = {
+  /**
+   * Type of the block, always “video”
+   */
+  type: 'video';
+
+  /**
+   * The video. Caption is ignored.
+   */
+  video: InputMediaVideo;
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A block with a voice note, corresponding to the HTML tag <audio>.
+ */
+export type InputRichBlockVoiceNote = {
+  /**
+   * Type of the block, always “voice_note”
+   */
+  type: 'voice_note';
+
+  /**
+   * The voice note. Caption is ignored.
+   */
+  voice_note: InputMediaVoiceNote;
+
+  /**
+   * Caption of the block
+   */
+  caption?: RichBlockCaption;
+};
+
+/**
+ * A block with a “Thinking…” placeholder, corresponding to the custom HTML tag <tg-thinking>. The block may be used only in sendRichMessageDraft, therefore it can't be received in messages. See https://t.me/addemoji/AIActions for examples of custom emoji that are recommended for usage in the block.
+ */
+export type InputRichBlockThinking = {
+  /**
+   * Type of the block, always “thinking”
+   */
+  type: 'thinking';
+
+  /**
+   * Text of the block. See https://t.me/addemoji/AIActions for examples of custom emoji that are recommended for usage in the block.
+   */
+  text: RichText;
+};
+
+export type RichText =
+  | RichTextBold
+  | RichTextItalic
+  | RichTextUnderline
+  | RichTextStrikethrough
+  | RichTextSpoiler
+  | RichTextDateTime
+  | RichTextTextMention
+  | RichTextSubscript
+  | RichTextSuperscript
+  | RichTextMarked
+  | RichTextCode
+  | RichTextCustomEmoji
+  | RichTextMathematicalExpression
+  | RichTextUrl
+  | RichTextEmailAddress
+  | RichTextPhoneNumber
+  | RichTextBankCardNumber
+  | RichTextMention
+  | RichTextHashtag
+  | RichTextCashtag
+  | RichTextBotCommand
+  | RichTextAnchor
+  | RichTextAnchorLink
+  | RichTextReference
+  | RichTextReferenceLink;
+
+export type RichBlock =
+  | RichBlockParagraph
+  | RichBlockSectionHeading
+  | RichBlockPreformatted
+  | RichBlockFooter
+  | RichBlockDivider
+  | RichBlockMathematicalExpression
+  | RichBlockAnchor
+  | RichBlockList
+  | RichBlockBlockQuotation
+  | RichBlockPullQuotation
+  | RichBlockCollage
+  | RichBlockSlideshow
+  | RichBlockTable
+  | RichBlockDetails
+  | RichBlockMap
+  | RichBlockAnimation
+  | RichBlockAudio
+  | RichBlockPhoto
+  | RichBlockVideo
+  | RichBlockVoiceNote
+  | RichBlockThinking;
+
+export type InputRichBlock =
+  | InputRichBlockParagraph
+  | InputRichBlockSectionHeading
+  | InputRichBlockPreformatted
+  | InputRichBlockFooter
+  | InputRichBlockDivider
+  | InputRichBlockMathematicalExpression
+  | InputRichBlockAnchor
+  | InputRichBlockList
+  | InputRichBlockBlockQuotation
+  | InputRichBlockPullQuotation
+  | InputRichBlockCollage
+  | InputRichBlockSlideshow
+  | InputRichBlockTable
+  | InputRichBlockDetails
+  | InputRichBlockMap
+  | InputRichBlockAnimation
+  | InputRichBlockAudio
+  | InputRichBlockPhoto
+  | InputRichBlockVideo
+  | InputRichBlockVoiceNote
+  | InputRichBlockThinking;
+
+/**
  * This object represents an incoming inline {@link InlineQuery.query | query}. When the user sends an empty {@link InlineQuery.query | query}, your bot could return some default or trending results.
  */
 export type InlineQuery = {
@@ -6762,7 +8861,7 @@ export type InlineQuery = {
   offset: string;
 
   /**
-   * Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat
+   * Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat.
    */
   chat_type?: string;
 
@@ -6862,7 +8961,7 @@ export type InlineQueryResultPhoto = {
   id: string;
 
   /**
-   * A valid URL of the photo. Photo must be in JPEG format. Photo size must not exceed 5MB
+   * A valid URL of the photo. Photo must be in JPEG format. Photo size must not exceed 5MB.
    */
   photo_url: string;
 
@@ -6907,7 +9006,7 @@ export type InlineQueryResultPhoto = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media
+   * Pass True if the caption must be shown above the message media
    */
   show_caption_above_media?: boolean;
 
@@ -6962,7 +9061,7 @@ export type InlineQueryResultGif = {
   thumbnail_url: string;
 
   /**
-   * MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
+   * MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”.
    */
   thumbnail_mime_type?: 'image/jpeg' | 'image/gif' | 'video/mp4';
 
@@ -6987,7 +9086,7 @@ export type InlineQueryResultGif = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media
+   * Pass True if the caption must be shown above the message media
    */
   show_caption_above_media?: boolean;
 
@@ -7042,7 +9141,7 @@ export type InlineQueryResultMpeg4Gif = {
   thumbnail_url: string;
 
   /**
-   * MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”
+   * MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”.
    */
   thumbnail_mime_type?: 'image/jpeg' | 'image/gif' | 'video/mp4';
 
@@ -7067,7 +9166,7 @@ export type InlineQueryResultMpeg4Gif = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media
+   * Pass True if the caption must be shown above the message media
    */
   show_caption_above_media?: boolean;
 
@@ -7132,7 +9231,7 @@ export type InlineQueryResultVideo = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media
+   * Pass True if the caption must be shown above the message media
    */
   show_caption_above_media?: boolean;
 
@@ -7392,7 +9491,7 @@ export type InlineQueryResultLocation = {
   horizontal_accuracy?: number;
 
   /**
-   * Period in seconds during which the location can be updated, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
+   * Period in seconds during which the location can be updated, must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely
    */
   live_period?: number;
 
@@ -7642,7 +9741,7 @@ export type InlineQueryResultCachedPhoto = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media
+   * Pass True if the caption must be shown above the message media
    */
   show_caption_above_media?: boolean;
 
@@ -7697,7 +9796,7 @@ export type InlineQueryResultCachedGif = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media
+   * Pass True if the caption must be shown above the message media
    */
   show_caption_above_media?: boolean;
 
@@ -7752,7 +9851,7 @@ export type InlineQueryResultCachedMpeg4Gif = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media
+   * Pass True if the caption must be shown above the message media
    */
   show_caption_above_media?: boolean;
 
@@ -7897,7 +9996,7 @@ export type InlineQueryResultCachedVideo = {
   caption_entities?: MessageEntity[];
 
   /**
-   * Pass True, if the caption must be shown above the message media
+   * Pass True if the caption must be shown above the message media
    */
   show_caption_above_media?: boolean;
 
@@ -8027,9 +10126,19 @@ export type InputTextMessageContent = {
   entities?: MessageEntity[];
 
   /**
-   * Link preview generation options for the message
+   * {@link Link} preview generation options for the message
    */
   link_preview_options?: LinkPreviewOptions;
+};
+
+/**
+ * Represents the content of a rich message to be sent as the result of an inline query.
+ */
+export type InputRichMessageContent = {
+  /**
+   * The message to be sent
+   */
+  rich_message: InputRichMessage;
 };
 
 /**
@@ -8052,7 +10161,7 @@ export type InputLocationMessageContent = {
   horizontal_accuracy?: number;
 
   /**
-   * Period in seconds during which the location can be updated, should be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely.
+   * Period in seconds during which the location can be updated, must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely
    */
   live_period?: number;
 
@@ -8157,7 +10266,7 @@ export type InputInvoiceMessageContent = {
   payload: string;
 
   /**
-   * Payment provider token, obtained via @BotFather. Pass an empty string for payments in Telegram Stars.
+   * Payment provider token, obtained via `@BotFather`. Pass an empty string for payments in Telegram Stars.
    */
   provider_token?: string;
 
@@ -8272,7 +10381,7 @@ export type InputInvoiceMessageContent = {
   max_tip_amount?: number;
 
   /**
-   * A JSON-serialized array of suggested amounts of tip in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
+   * A JSON-serialized Array of suggested amounts of tip in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
    */
   suggested_tip_amounts?: number[];
 
@@ -8391,6 +10500,7 @@ export type InlineQueryResult =
 
 export type InputMessageContent =
   | InputTextMessageContent
+  | InputRichMessageContent
   | InputLocationMessageContent
   | InputVenueMessageContent
   | InputContactMessageContent
@@ -8771,7 +10881,7 @@ export type SuccessfulPayment = {
  */
 export type RefundedPayment = {
   /**
-   * Three-letter ISO 4217 {@link https://core.telegram.org/bots/payments#supported-currencies | currency} code, or “XTR” for payments in Telegram Stars. Currently, always “XTR”
+   * Three-letter ISO 4217 {@link https://core.telegram.org/bots/payments#supported-currencies | currency} code, or “XTR” for payments in Telegram Stars. Currently, always “XTR”.
    */
   currency:
     | 'AED'
@@ -9306,12 +11416,12 @@ export type StarTransaction = {
   date: number;
 
   /**
-   * Source of an incoming transaction (e.g., a user purchasing goods or services, Fragment refunding a failed withdrawal). Only for incoming transactions
+   * Source of an incoming transaction (e.g., a user purchasing goods or services, Fragment refunding a failed withdrawal). Only for incoming transactions.
    */
   source?: TransactionPartner;
 
   /**
-   * Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions
+   * Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions.
    */
   receiver?: TransactionPartner;
 };
@@ -9711,7 +11821,7 @@ export type Game = {
   description: string;
 
   /**
-   * Photo that will be displayed in the game message in chats.
+   * Photo that will be displayed in the game message in chats
    */
   photo: PhotoSize[];
 
@@ -9726,7 +11836,7 @@ export type Game = {
   text_entities?: MessageEntity[];
 
   /**
-   * {@link Animation} that will be displayed in the game message in chats. Upload via BotFather
+   * {@link Animation} that will be displayed in the game message in chats. Upload via BotFather.
    */
   animation?: Animation;
 };

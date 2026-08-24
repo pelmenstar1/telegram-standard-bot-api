@@ -1,16 +1,19 @@
+// @ts-check
+
 import unicorn from 'eslint-plugin-unicorn';
 import prettier from 'eslint-plugin-prettier/recommended';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import { defineConfig } from 'eslint/config';
 
-export default tseslint.config(
+export default defineConfig(
   {
     ignores: [
       'node_modules',
-      'prettier.config.mjs',
-      'eslint.config.mts',
+      'prettier.config.js',
+      'eslint.config.js',
       'packages/api/dist',
       'packages/shared/dist',
     ],
@@ -26,10 +29,6 @@ export default tseslint.config(
     languageOptions: {
       parserOptions: {
         projectService: true,
-        project: [
-          './tsconfig.json',
-        ],
-        tsconfigRootDir: __dirname,
       },
     },
     rules: {
@@ -45,6 +44,13 @@ export default tseslint.config(
       'unicorn/no-useless-undefined': 'off',
       'unicorn/prefer-top-level-await': 'off',
       'unicorn/no-negated-condition': 'off',
+      'unicorn/name-replacements': 'off',
+      'unicorn/no-useless-recursion': 'off',
+      'unicorn/consistent-boolean-name': 'off',
+      'unicorn/no-array-reverse': 'off',
+      'unicorn/no-array-sort': 'off',
+      'unicorn/prefer-global-number-constants': 'off',
+      'unicorn/prefer-iterator-to-array': 'off',
       'import/no-anonymous-default-export': 'off',
     },
   },
