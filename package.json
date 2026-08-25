@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "prepare": "husky",
-    "lint": "eslint . --cache && prettier --check '**/*.{js,ts,md,json,yml}' && pnpm -r run build:no-emit",
+    "lint": "eslint . --cache && prettier --check '**/*.{js,ts,md,json,yml}' && knip && pnpm -r run build:no-emit",
     "lint:fix": "eslint . --cache --fix && prettier --write '**/*.{js,ts,md,json,yml}'",
     "test": "vitest --run",
     "prebuild": "pnpm --filter @telegram-standard-bot-api/shared build"
@@ -15,8 +15,8 @@
     "eslint": "catalog:",
     "husky": "catalog:",
     "jiti": "catalog:",
+    "knip": "catalog:",
     "prettier": "catalog:",
-    "tsx": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
     "vitest": "catalog:"
