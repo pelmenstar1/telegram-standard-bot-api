@@ -3,6 +3,7 @@
   "packageManager": "pnpm@11.23.0",
   "type": "module",
   "scripts": {
+    "prepare": "husky",
     "lint": "eslint . --cache && prettier --check '**/*.{js,ts,md,json,yml}' && pnpm -r run build:no-emit",
     "lint:fix": "eslint . --cache --fix && prettier --write '**/*.{js,ts,md,json,yml}'",
     "test": "vitest --run",
@@ -12,6 +13,7 @@
     "@eslint/js": "catalog:",
     "@types/node": "catalog:",
     "eslint": "catalog:",
+    "husky": "catalog:",
     "jiti": "catalog:",
     "prettier": "catalog:",
     "tsx": "catalog:",
