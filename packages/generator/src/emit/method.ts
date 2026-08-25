@@ -96,7 +96,7 @@ function methodToFileContent(
 
   const hasFiles = methodHasFiles(fields);
   const helperArgs = hasFiles
-    ? `'${name}', formDataPayloadTransformer`
+    ? `'${name}', formDataRequestInitializerFactory`
     : `'${name}'`;
 
   let result = '';
@@ -131,7 +131,7 @@ export async function emitMethods(
 
   let content = `${GENERATED_HEADER}\n`;
   content += `import { botMethod } from './method.js';\n`;
-  content += `import { formDataPayloadTransformer } from './payload.js';`;
+  content += `import { formDataRequestInitializerFactory } from './requestInitializer.js';`;
   content += resolveImports(
     methods.flatMap((method) => [
       ...method.fields.map((field) => field.type),

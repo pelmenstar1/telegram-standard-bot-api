@@ -1,7 +1,7 @@
 // This file is generated. Do not edit it.
 
 import { botMethod } from './method.js';
-import { formDataPayloadTransformer } from './payload.js';
+import { formDataRequestInitializerFactory } from './requestInitializer.js';
 import {
   AcceptedGiftTypes,
   BotAccessSettings,
@@ -146,7 +146,7 @@ export type SetWebhook = {
  */
 export const setWebhook = /* @__PURE__ */ botMethod<
   (payload: SetWebhook) => true
->('setWebhook', formDataPayloadTransformer);
+>('setWebhook', formDataRequestInitializerFactory);
 
 export type DeleteWebhook = {
   /**
@@ -627,7 +627,7 @@ export type SendPhoto = {
  */
 export const sendPhoto = /* @__PURE__ */ botMethod<
   (payload: SendPhoto) => Message
->('sendPhoto', formDataPayloadTransformer);
+>('sendPhoto', formDataRequestInitializerFactory);
 
 export type SendLivePhoto = {
   /**
@@ -735,7 +735,7 @@ export type SendLivePhoto = {
  */
 export const sendLivePhoto = /* @__PURE__ */ botMethod<
   (payload: SendLivePhoto) => Message
->('sendLivePhoto', formDataPayloadTransformer);
+>('sendLivePhoto', formDataRequestInitializerFactory);
 
 export type SendAudio = {
   /**
@@ -848,7 +848,7 @@ export type SendAudio = {
  */
 export const sendAudio = /* @__PURE__ */ botMethod<
   (payload: SendAudio) => Message
->('sendAudio', formDataPayloadTransformer);
+>('sendAudio', formDataRequestInitializerFactory);
 
 export type SendDocument = {
   /**
@@ -951,7 +951,7 @@ export type SendDocument = {
  */
 export const sendDocument = /* @__PURE__ */ botMethod<
   (payload: SendDocument) => Message
->('sendDocument', formDataPayloadTransformer);
+>('sendDocument', formDataRequestInitializerFactory);
 
 export type SendVideo = {
   /**
@@ -1089,7 +1089,7 @@ export type SendVideo = {
  */
 export const sendVideo = /* @__PURE__ */ botMethod<
   (payload: SendVideo) => Message
->('sendVideo', formDataPayloadTransformer);
+>('sendVideo', formDataRequestInitializerFactory);
 
 export type SendAnimation = {
   /**
@@ -1212,7 +1212,7 @@ export type SendAnimation = {
  */
 export const sendAnimation = /* @__PURE__ */ botMethod<
   (payload: SendAnimation) => Message
->('sendAnimation', formDataPayloadTransformer);
+>('sendAnimation', formDataRequestInitializerFactory);
 
 export type SendVoice = {
   /**
@@ -1310,7 +1310,7 @@ export type SendVoice = {
  */
 export const sendVoice = /* @__PURE__ */ botMethod<
   (payload: SendVoice) => Message
->('sendVoice', formDataPayloadTransformer);
+>('sendVoice', formDataRequestInitializerFactory);
 
 export type SendVideoNote = {
   /**
@@ -1403,7 +1403,7 @@ export type SendVideoNote = {
  */
 export const sendVideoNote = /* @__PURE__ */ botMethod<
   (payload: SendVideoNote) => Message
->('sendVideoNote', formDataPayloadTransformer);
+>('sendVideoNote', formDataRequestInitializerFactory);
 
 export type SendPaidMedia = {
   /**
@@ -2940,7 +2940,7 @@ export type SetChatPhoto = {
  */
 export const setChatPhoto = /* @__PURE__ */ botMethod<
   (payload: SetChatPhoto) => true
->('setChatPhoto', formDataPayloadTransformer);
+>('setChatPhoto', formDataRequestInitializerFactory);
 
 export type DeleteChatPhoto = {
   /**
@@ -5446,7 +5446,7 @@ export type SendSticker = {
  */
 export const sendSticker = /* @__PURE__ */ botMethod<
   (payload: SendSticker) => Message
->('sendSticker', formDataPayloadTransformer);
+>('sendSticker', formDataRequestInitializerFactory);
 
 export type GetStickerSet = {
   /**
@@ -5499,7 +5499,7 @@ export type UploadStickerFile = {
  */
 export const uploadStickerFile = /* @__PURE__ */ botMethod<
   (payload: UploadStickerFile) => File
->('uploadStickerFile', formDataPayloadTransformer);
+>('uploadStickerFile', formDataRequestInitializerFactory);
 
 export type CreateNewStickerSet = {
   /**
@@ -5732,7 +5732,7 @@ export type SetStickerSetThumbnail = {
  */
 export const setStickerSetThumbnail = /* @__PURE__ */ botMethod<
   (payload: SetStickerSetThumbnail) => true
->('setStickerSetThumbnail', formDataPayloadTransformer);
+>('setStickerSetThumbnail', formDataRequestInitializerFactory);
 
 export type SetCustomEmojiStickerSetThumbnail = {
   /**

@@ -7482,7 +7482,7 @@ export type RichMessageButton = {
   text: RichText;
 
   /**
-   * Style of the button. Must be one of “danger” (red), “success” (green), “primary” (blue) or “link” (the button is shown as a regular link without borders). If omitted, then an app-specific style is used. The style “link” is allowed only for callback buttons.
+   * Style of the button. Must be one of “danger”, “success”, “primary”, or “link” (the button is shown as a regular link without borders). Apps may use theme-specific colors for the button background and text based on the style. The style “link” is allowed only for callback buttons.
    */
   style?: 'danger' | 'success' | 'primary' | 'link';
 
@@ -8228,7 +8228,7 @@ export type RichBlockBlockQuotation = {
 };
 
 /**
- * A block quotation, corresponding to the HTML tag <blockquote> with custom attribute "collapsed".
+ * A block quotation, corresponding to the HTML tag <blockquote> with custom attribute "expandable".
  */
 export type RichBlockExpandableBlockQuotation = {
   /**
@@ -8748,7 +8748,7 @@ export type InputRichBlockBlockQuotation = {
 };
 
 /**
- * A block quotation, corresponding to the HTML tag <blockquote> with custom attribute "collapsed".
+ * A block quotation, corresponding to the HTML tag <blockquote> with custom attribute "expandable".
  */
 export type InputRichBlockExpandableBlockQuotation = {
   /**

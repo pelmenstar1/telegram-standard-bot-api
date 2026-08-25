@@ -10,6 +10,7 @@ export default defineConfig(
       'node_modules',
       'prettier.config.js',
       'eslint.config.js',
+      'vitest.config.ts',
       'packages/api/dist',
       'packages/shared/dist',
     ],
