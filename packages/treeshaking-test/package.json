@@ -1,0 +1,9 @@
+{
+  "name": "@telegram-standard-bot-api/treeshaking-test",
+  "private": true,
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "rollup": "^4.62.5",
+    "telegram-standard-bot-api": "workspace:"
+  }
+}
