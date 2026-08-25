@@ -1,11 +1,11 @@
 import { test } from 'vitest';
 
-import { createTelegramBot } from './bot.js';
-import { botMethod } from './method.js';
-import { GetChat } from './methods.js';
-import { formDataPayloadTransformer } from './payload.js';
+import { createTelegramBot } from '../bot.js';
+import { botMethod } from '../method.js';
+import { GetChat } from '../methods.js';
+import { formDataPayloadTransformer } from '../payload.js';
 import { getBotKey } from './testUtils.js';
-import { Chat } from './types.generated.js';
+import { Chat } from '../types.generated.js';
 
 const botKey = getBotKey();
 

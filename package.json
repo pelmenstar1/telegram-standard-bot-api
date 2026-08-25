@@ -4,10 +4,10 @@
   "type": "module",
   "scripts": {
     "prepare": "husky",
-    "lint": "eslint . --cache && prettier --check '**/*.{js,ts,md,json,yml}' && knip && pnpm -r run build:no-emit",
-    "lint:fix": "eslint . --cache --fix && prettier --write '**/*.{js,ts,md,json,yml}'",
+    "lint": "eslint . --cache --cache-location node_modules/.cache/eslint/.eslintcache && prettier --cache --check '**/*.{js,ts,md,json,yml}' && knip && pnpm build",
+    "lint:fix": "eslint . --cache --cache-location node_modules/.cache/eslint/.eslintcache --fix && prettier --write '**/*.{js,ts,md,json,yml}'",
     "test": "vitest --run",
-    "prebuild": "pnpm --filter @telegram-standard-bot-api/shared build"
+    "build": "tsc -b tsconfig.build.json"
   },
   "devDependencies": {
     "@eslint/js": "catalog:",

@@ -3,7 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build:no-emit": "tsc --noEmit",
     "generate": "tsx src/main.ts"
   },
   "devDependencies": {

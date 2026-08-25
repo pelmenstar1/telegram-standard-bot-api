@@ -89,9 +89,6 @@ importers:
       '@octokit/rest':
         specifier: 'catalog:'
         version: 22.0.1
-      '@telegram-standard-bot-api/shared':
-        specifier: workspace:^
-        version: link:../shared
       '@types/node':
         specifier: 'catalog:'
         version: 26.2.0
@@ -123,8 +120,6 @@ importers:
       typescript:
         specifier: 'catalog:'
         version: 5.8.3
-
-  packages/shared: {}
 
 packages:
 

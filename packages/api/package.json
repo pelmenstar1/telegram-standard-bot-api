@@ -6,7 +6,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "!__tests__"
   ],
   "license": "MIT",
   "repository": {
@@ -14,13 +15,10 @@
     "url": "git://github.com/pelmenstar1/telegram-standard-bot-api.git"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.build.json",
-    "build:no-emit": "tsc --noEmit",
     "release": "tsx ./scripts/release"
   },
   "devDependencies": {
     "@octokit/rest": "catalog:",
-    "@telegram-standard-bot-api/shared": "workspace:^",
     "@types/node": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:"

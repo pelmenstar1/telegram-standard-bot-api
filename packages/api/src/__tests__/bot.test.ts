@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest';
 
-import { createTelegramBot } from './bot.js';
-import { getChat } from './methods.js';
+import { createTelegramBot } from '../bot.js';
+import { getChat } from '../methods.js';
 import { getBotKey } from './testUtils.js';
 
 const botKey = getBotKey();

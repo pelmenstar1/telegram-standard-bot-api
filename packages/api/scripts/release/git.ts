@@ -1,5 +1,4 @@
-import { execFileAsync } from '@telegram-standard-bot-api/shared';
-
+import { execFileAsync } from './process.js';
 import { rootPackagePath } from './utils.js';
 
 function git(args: string[]) {

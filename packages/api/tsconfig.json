@@ -2,13 +2,14 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "node16",
+    "rootDir": "src",
     "outDir": "dist",
-    "types": ["node"],
     "moduleResolution": "node16",
     "declaration": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "composite": true
   },
-  "include": ["**/*"],
+  "include": ["./src"],
   "exclude": ["node_modules", "dist"]
 }

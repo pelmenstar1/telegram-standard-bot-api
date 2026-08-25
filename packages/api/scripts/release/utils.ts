@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-import { execFileAsync } from '@telegram-standard-bot-api/shared';
+import { execFileAsync } from './process.js';
 
 export const apiPackagePath = path.join(import.meta.dirname, '../../');
 export const rootPackagePath = path.join(apiPackagePath, '../../');
