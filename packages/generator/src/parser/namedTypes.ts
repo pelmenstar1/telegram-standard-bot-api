@@ -55,7 +55,6 @@ function isNamedUnionType(content: string): boolean {
 }
 
 function parseObjectNamedTypes(parts: string[]): NamedType[] {
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   function findInitialGroups(content: string) {
     const match = content.match(
       /<\/a>(?<name>.+)<\/h4>(?<description>(?:.|\n)*?)<table.*?>(?<table>(?:.|\n)*?)<\/table>/m
@@ -78,7 +77,6 @@ function parseObjectNamedTypes(parts: string[]): NamedType[] {
     return null;
   }
 
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   function findEmptyObjectGroups(content: string) {
     const match = content.match(/<\/a>(.+)<\/h4>/m);
 
@@ -135,7 +133,6 @@ function parseObjectNamedTypes(parts: string[]): NamedType[] {
 }
 
 function parseUnionNamedTypes(parts: string[]): NamedType[] {
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   function findInitialGroups(content: string) {
     const match = content.match(
       /<\/a>(?<name>.*?)<\/h4>(?:.|\n)*?<ul>(?<list>(?:.|\n)*?)<\/ul>/m
@@ -156,7 +153,6 @@ function parseUnionNamedTypes(parts: string[]): NamedType[] {
     throw new Error('Invalid part');
   }
 
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   function parseListToUnionTypes(content: string) {
     const result: ValueType[] = [];
 

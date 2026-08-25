@@ -3,7 +3,7 @@ import { argv } from 'node:process';
 import { gitRelease } from './git.js';
 import { createGithubRelease } from './github.js';
 import { npmRelease } from './npm.js';
-import { npm, rootPackagePath } from './utils.js';
+import { pnpm, rootPackagePath } from './utils.js';
 
 async function main() {
   const version = argv[2] as string | undefined;
@@ -13,12 +13,12 @@ async function main() {
 
   console.log('Running lint, tests and build');
   await Promise.all([
-    npm(['run', 'lint'], rootPackagePath),
-    npm(['run', 'test'], rootPackagePath),
-    npm(['run', 'build']),
+    pnpm(['run', 'lint'], rootPackagePath),
+    pnpm(['run', 'test'], rootPackagePath),
+    pnpm(['run', 'build']),
   ]);
 
-  console.log('Yarn release');
+  console.log('Npm release');
   await npmRelease(version);
 
   console.log('Git release');

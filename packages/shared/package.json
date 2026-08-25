@@ -1,6 +1,6 @@
 {
   "name": "@telegram-standard-bot-api/shared",
-  "packageManager": "yarn@4.9.2",
+  "version": "1.0.0",
   "type": "module",
   "private": true,
   "main": "./dist/index.js",

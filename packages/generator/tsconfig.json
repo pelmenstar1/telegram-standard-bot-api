@@ -5,7 +5,7 @@
     "module": "preserve",
     "moduleResolution": "bundler",
     "skipLibCheck": true,
-    "strict": true,
+    "strict": true
   },
   "include": ["**/*"],
   "exclude": ["node_modules"]

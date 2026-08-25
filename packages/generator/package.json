@@ -1,20 +1,19 @@
 {
   "name": "@telegram-standard-bot-api/generator",
   "private": true,
-  "packageManager": "yarn@4.9.2",
   "type": "module",
   "scripts": {
     "build:no-emit": "tsc --noEmit",
     "generate": "tsx src/main.ts"
   },
   "devDependencies": {
-    "@types/node": "26.2.0",
-    "tsx": "4.23.12",
-    "typescript": "5.8.3"
+    "@types/node": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
   },
   "dependencies": {
-    "parse5": "8.0.1",
-    "prettier": "3.9.6",
-    "zod": "4.4.3"
+    "parse5": "catalog:",
+    "prettier": "catalog:",
+    "zod": "catalog:"
   }
 }

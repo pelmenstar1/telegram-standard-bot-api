@@ -2,20 +2,7 @@
   "name": "telegram-standard-bot-api",
   "version": "1.5.0",
   "type": "module",
-  "scripts": {
-    "build": "tsc --project tsconfig.build.json",
-    "build:no-emit": "tsc --noEmit",
-    "release": "tsx ./scripts/release"
-  },
-  "devDependencies": {
-    "@octokit/rest": "22.0.1",
-    "@telegram-standard-bot-api/shared": "workspace:^",
-    "@types/node": "26.2.0",
-    "tsx": "4.23.12",
-    "typescript": "5.8.3"
-  },
   "author": "Oleh Khmaruk <pelmenstar1@gmail.com>",
-  "packageManager": "yarn@4.9.2",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -25,6 +12,18 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/pelmenstar1/telegram-standard-bot-api.git"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "build:no-emit": "tsc --noEmit",
+    "release": "tsx ./scripts/release"
+  },
+  "devDependencies": {
+    "@octokit/rest": "catalog:",
+    "@telegram-standard-bot-api/shared": "workspace:^",
+    "@types/node": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
   },
   "exports": {
     ".": {

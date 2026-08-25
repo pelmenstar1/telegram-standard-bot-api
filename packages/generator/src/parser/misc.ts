@@ -25,7 +25,6 @@ export function sliceSection(
   startName: string,
   endName?: string
 ): string {
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   function tag(name: string): string {
     return `<a class="anchor" name="${name}" href="#${name}">`;
   }

@@ -58,7 +58,6 @@ export function parseMethods(content: string): ParsedMethod[] {
 }
 
 function parsePart(part: string): ParsedMethod | null {
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   function findInitialGroups(content: string) {
     const match = content.match(
       /<\/a>(?<name>.+)<\/h4>(?<description>(?:.|\n)*?)<table.*?>(?<table>(?:.|\n)*?)<\/table>/m

@@ -1,7 +1,7 @@
 import fsp from 'node:fs/promises';
 import path from 'node:path';
 
-import { apiPackagePath, npm } from './utils.js';
+import { apiPackagePath, pnpm } from './utils.js';
 
 async function bumpVersion(newVersion: string) {
   type PackageInfo = { version: string };
@@ -19,5 +19,5 @@ async function bumpVersion(newVersion: string) {
 
 export async function npmRelease(newVersion: string) {
   await bumpVersion(newVersion);
-  await npm(['publish']);
+  await pnpm(['publish', '--no-git-checks']);
 }

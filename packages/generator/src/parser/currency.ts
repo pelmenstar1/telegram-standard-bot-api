@@ -8,7 +8,7 @@ const currencyDataSchema = record(
 );
 
 export function parseCurrencyData(text: string): string[] {
-  const rawData = JSON.parse(text);
+  const rawData: unknown = JSON.parse(text);
   const data = currencyDataSchema.parse(rawData);
 
   return Object.values(data).map(({ code }) => code);

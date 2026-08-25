@@ -25,9 +25,9 @@ If you don't want to use global `fetch`, you can use a different one:
 ```ts
 import { createTelegramBot } from 'telegram-standard-bot-api';
 
-const bot = createTelegramBot({ 
-  apiKey: '123', 
-  fetch: someOtherFetch
+const bot = createTelegramBot({
+  apiKey: '123',
+  fetch: someOtherFetch,
 });
 ```
 

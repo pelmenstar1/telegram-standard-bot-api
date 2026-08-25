@@ -7,25 +7,25 @@ jobs:
     name: Lint & test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 22.17.0
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
 
-    - name: Corepack
-      run: corepack enable
-    
-    - name: Install dependencies
-      run: yarn install
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.17.0
+          cache: pnpm
 
-    - name: Prebuild
-      run: yarn prebuild
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-    - name: Lint
-      run: yarn lint
-    
-    - name: Test
-      run: yarn test
+      - name: Prebuild
+        run: pnpm prebuild
 
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test
