@@ -14,13 +14,8 @@
     "type": "git",
     "url": "git://github.com/pelmenstar1/telegram-standard-bot-api.git"
   },
-  "scripts": {
-    "release": "tsx ./scripts/release"
-  },
   "devDependencies": {
-    "@octokit/rest": "catalog:",
     "@types/node": "catalog:",
-    "tsx": "catalog:",
     "typescript": "catalog:"
   },
   "exports": {
