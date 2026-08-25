@@ -1,3 +1,3 @@
 # telegram-standard-bot-api
 
-Read about the project in [here](packages/api/README.md)
+Read about the project [here](packages/api/README.md)
