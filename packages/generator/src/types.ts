@@ -25,6 +25,7 @@ export const enum ValueTypeKind {
   UNION = 9,
   OBJECT = 10,
   RAW = 11,
+  DISCRIMINATED_UNION = 12,
 }
 
 export type PrimitiveTypeKind = 0 | 1 | 2 | 3 | 4 | 5;
@@ -34,8 +35,20 @@ export type LiteralValueType = {
   value: number | string;
 };
 
+export type DiscriminatedUnionValueType = {
+  kind: ValueTypeKind.DISCRIMINATED_UNION;
+
+  /**
+   * The complete shape of every variant, in the field order of the object they
+   * were split out of. The discriminator is narrowed to the values its variant
+   * covers, and the fields that belong to other values are left out.
+   */
+  variants: ParsedField[][];
+};
+
 export type ValueType =
   | LiteralValueType
+  | DiscriminatedUnionValueType
   | {
       kind: PrimitiveTypeKind;
     }

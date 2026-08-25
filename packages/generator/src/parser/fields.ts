@@ -1,7 +1,7 @@
 import { ParsedField, ValueType, ValueTypeKind } from '../types';
 import { getImplicitStringLiteralType } from './implicitType';
-import { ParserMeta } from './meta';
 import { parseValueType } from './valueType';
+import { CURRENCY_TYPE_NAME } from './virtualTypes';
 
 type FieldInput = {
   name: string;
@@ -14,18 +14,22 @@ type FieldInput = {
 const CURRENCY_ENUM_PATTERN = /(?:must be )?one of (.+)/i;
 const QUOTED_PATTERN = /“(.*?)”/g;
 
-function parseCurrencyType(description: string, meta: ParserMeta): ValueType {
+function parseCurrencyType(description: string): ValueType {
   const enumMatch = description.match(CURRENCY_ENUM_PATTERN);
   const listed =
     enumMatch === null
       ? []
       : Array.from(enumMatch[1].matchAll(QUOTED_PATTERN), ([, value]) => value);
 
-  const values = listed.length > 0 ? listed : [...meta.currencies, 'XTR'];
+  // The listed codes are not always ISO 4217 ones, e.g. "TON", so a narrowed
+  // set cannot be expressed in terms of the whole one.
+  if (listed.length === 0) {
+    return { kind: ValueTypeKind.REF, name: CURRENCY_TYPE_NAME };
+  }
 
   return {
     kind: ValueTypeKind.UNION,
-    types: values.map((value) => ({
+    types: listed.map((value) => ({
       kind: ValueTypeKind.LITERAL,
       value,
     })),
@@ -46,13 +50,10 @@ function isNarrowableByDescription({ kind }: ValueType): boolean {
   return narrowableKinds.has(kind);
 }
 
-function parseFieldType(
-  { name, description, type }: FieldInput,
-  meta: ParserMeta
-): ValueType {
+function parseFieldType({ name, description, type }: FieldInput): ValueType {
   switch (name) {
     case 'currency': {
-      return parseCurrencyType(description, meta);
+      return parseCurrencyType(description);
     }
     case 'allowed_updates': {
       return {
@@ -72,10 +73,7 @@ function parseFieldType(
   }
 }
 
-export function parseTypeTableToFields(
-  content: string,
-  meta: ParserMeta
-): ParsedField[] {
+export function parseTypeTableToFields(content: string): ParsedField[] {
   const rows = [...content.matchAll(/<td>(.*?)<\/td>/gm)];
   const fields: ParsedField[] = [];
 
@@ -86,7 +84,7 @@ export function parseTypeTableToFields(
 
     const optional = description.startsWith('<em>Optional</em>');
 
-    const fieldType = parseFieldType({ name, description, type }, meta);
+    const fieldType = parseFieldType({ name, description, type });
 
     fields.push({ name, type: fieldType, optional, description });
   }
@@ -94,10 +92,7 @@ export function parseTypeTableToFields(
   return fields;
 }
 
-export function parseMethodTableToFields(
-  content: string,
-  meta: ParserMeta
-): ParsedField[] {
+export function parseMethodTableToFields(content: string): ParsedField[] {
   const rows = [...content.matchAll(/<td>(.*?)<\/td>/gm)];
   const fields: ParsedField[] = [];
 
@@ -109,7 +104,7 @@ export function parseMethodTableToFields(
 
     const optional = required !== 'Yes';
 
-    const fieldType = parseFieldType({ name, description, type }, meta);
+    const fieldType = parseFieldType({ name, description, type });
 
     fields.push({ name, type: fieldType, optional, description });
   }

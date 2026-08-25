@@ -9,9 +9,25 @@ import { EmitMeta } from './meta';
 import { valueTypeToString } from './valueType';
 
 function getTypeFieldNames(type: ValueType): string[] {
-  return type.kind === ValueTypeKind.OBJECT
-    ? type.fields.map(({ name }) => name)
-    : [];
+  switch (type.kind) {
+    case ValueTypeKind.OBJECT: {
+      return type.fields.map(({ name }) => name);
+    }
+    case ValueTypeKind.DISCRIMINATED_UNION: {
+      const result = new Set<string>();
+
+      for (const variant of type.variants) {
+        for (const { name } of variant) {
+          result.add(name);
+        }
+      }
+
+      return [...result];
+    }
+    default: {
+      return [];
+    }
+  }
 }
 
 function namedTypeToString(type: NamedType, meta: EmitMeta): string {

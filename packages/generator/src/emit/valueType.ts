@@ -1,4 +1,9 @@
-import { ValueType, ValueTypeKind } from '../types';
+import {
+  DiscriminatedUnionValueType,
+  ParsedField,
+  ValueType,
+  ValueTypeKind,
+} from '../types';
 import { fieldToString } from './field';
 import { EmitMeta } from './meta';
 
@@ -16,6 +21,25 @@ function formatNumberNotation(value: string): string {
   }
 
   return parts.reverse().filter(Boolean).join('_');
+}
+
+function objectToString(fields: ParsedField[], meta: EmitMeta): string {
+  if (fields.length === 0) {
+    return `Record<string, never>`;
+  }
+
+  let result = `{\n`;
+  result += fields.map((field) => fieldToString(field, meta)).join('\n\n');
+  result += '\n}';
+
+  return result;
+}
+
+function discriminatedUnionToString(
+  { variants }: DiscriminatedUnionValueType,
+  meta: EmitMeta
+): string {
+  return variants.map((fields) => objectToString(fields, meta)).join('|');
 }
 
 export function valueTypeToString(
@@ -38,17 +62,10 @@ export function valueTypeToString(
       return [...new Set(parts)].join(' | ');
     }
     case ValueTypeKind.OBJECT: {
-      const { fields } = valueType;
-
-      if (fields.length === 0) {
-        return `Record<string, never>`;
-      }
-
-      let result = `{\n`;
-      result += fields.map((field) => fieldToString(field, meta)).join('\n\n');
-      result += '\n}';
-
-      return result;
+      return objectToString(valueType.fields, meta);
+    }
+    case ValueTypeKind.DISCRIMINATED_UNION: {
+      return discriminatedUnionToString(valueType, meta);
     }
     case ValueTypeKind.REF: {
       return valueType.name;

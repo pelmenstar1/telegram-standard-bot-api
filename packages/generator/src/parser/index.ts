@@ -3,6 +3,7 @@ import { parseCurrencyData } from './currency';
 import { ParserMeta } from './meta';
 import { parseMethods } from './methods';
 import { parseNamedTypes } from './namedTypes';
+import { parseVirtualTypes } from './virtualTypes';
 
 type ParserInput = {
   api: string;
@@ -29,8 +30,13 @@ export function parseApiPage(input: ParserInput): FullParseResult {
 
   const meta: ParserMeta = { currencies };
 
-  const types = parseNamedTypes(devPageContent, meta);
-  const methods = parseMethods(devPageContent, meta);
+  // The virtual ones come first, as the page never declares them and they are
+  // what the declared types are built out of.
+  const types = [
+    ...parseVirtualTypes(meta),
+    ...parseNamedTypes(devPageContent),
+  ];
+  const methods = parseMethods(devPageContent);
 
   return { types, methods };
 }

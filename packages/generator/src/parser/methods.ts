@@ -1,7 +1,6 @@
 import { ParsedMethod, ValueType, ValueTypeKind } from '../types';
 import { isCapitalized } from '../utils/string';
 import { parseMethodTableToFields } from './fields';
-import { ParserMeta } from './meta';
 import { sliceSection, splitByHeader } from './misc';
 import { parseValueType } from './valueType';
 
@@ -47,21 +46,18 @@ function getMethodReturnType(description: string): ValueType {
   throw new Error(`Cannot parse ${description}`);
 }
 
-export function parseMethods(
-  content: string,
-  meta: ParserMeta
-): ParsedMethod[] {
+export function parseMethods(content: string): ParsedMethod[] {
   return sections
     .flatMap(([startName, endName]) => {
       const section = sliceSection(content, startName, endName);
       const parts = splitByHeader(section);
 
-      return parts.map((part) => parsePart(part, meta));
+      return parts.map((part) => parsePart(part));
     })
     .filter((method) => method !== null);
 }
 
-function parsePart(part: string, meta: ParserMeta): ParsedMethod | null {
+function parsePart(part: string): ParsedMethod | null {
   // eslint-disable-next-line unicorn/consistent-function-scoping
   function findInitialGroups(content: string) {
     const match = content.match(
@@ -116,6 +112,6 @@ function parsePart(part: string, meta: ParserMeta): ParsedMethod | null {
     name,
     description,
     returnType: getMethodReturnType(description),
-    fields: parseMethodTableToFields(table, meta),
+    fields: parseMethodTableToFields(table),
   };
 }

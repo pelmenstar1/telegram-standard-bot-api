@@ -1,10 +1,14 @@
 import { expect, test } from 'vitest';
 
-import { ValueType, ValueTypeKind } from '../types';
+import { ParsedField, ValueType, ValueTypeKind } from '../types';
 import { valueTypeToString } from './valueType';
 
 function literal(value: string | number): ValueType {
   return { kind: ValueTypeKind.LITERAL, value };
+}
+
+function field(name: string, type: ValueType, optional: boolean): ParsedField {
+  return { name, type, optional, description: '' };
 }
 
 function array(element: ValueType): ValueType {
@@ -37,4 +41,37 @@ test.each<[ValueType, string]>([
   const actual = valueTypeToString(type, { namedTypes: [] });
 
   expect(actual).toEqual(expected);
+});
+
+test('emit discriminated union', () => {
+  const actual = valueTypeToString(
+    {
+      kind: ValueTypeKind.DISCRIMINATED_UNION,
+      variants: [
+        [field('type', literal('plain'), false)],
+        [
+          field('type', literal('link'), false),
+          field('url', { kind: ValueTypeKind.STRING }, true),
+        ],
+      ],
+    },
+    { namedTypes: [] }
+  );
+
+  // The blank lines are where the doc comments of the fields would go; the
+  // layout itself is left to prettier.
+  expect(actual).toEqual(
+    [
+      '{',
+      '',
+      `type: 'plain';`,
+      '}|{',
+      '',
+      `type: 'link';`,
+      '',
+      '',
+      'url?: string;',
+      '}',
+    ].join('\n')
+  );
 });

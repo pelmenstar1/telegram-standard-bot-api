@@ -1,6 +1,106 @@
 // This file is generated. Do not edit it.
 
 /**
+ * Three-letter ISO 4217 currency code, see {@link https://core.telegram.org/bots/payments#supported-currencies | more on currencies}. “XTR” stands for payments in Telegram Stars.
+ */
+export type Currency =
+  | 'AED'
+  | 'AFN'
+  | 'ALL'
+  | 'AMD'
+  | 'ARS'
+  | 'AUD'
+  | 'AZN'
+  | 'BAM'
+  | 'BDT'
+  | 'BGN'
+  | 'BHD'
+  | 'BND'
+  | 'BOB'
+  | 'BRL'
+  | 'BYN'
+  | 'CAD'
+  | 'CHF'
+  | 'CLP'
+  | 'CNY'
+  | 'COP'
+  | 'CRC'
+  | 'CZK'
+  | 'DKK'
+  | 'DOP'
+  | 'DZD'
+  | 'EGP'
+  | 'ETB'
+  | 'EUR'
+  | 'GBP'
+  | 'GEL'
+  | 'GHS'
+  | 'GTQ'
+  | 'HKD'
+  | 'HNL'
+  | 'HRK'
+  | 'HUF'
+  | 'IDR'
+  | 'ILS'
+  | 'INR'
+  | 'IQD'
+  | 'IRR'
+  | 'ISK'
+  | 'JMD'
+  | 'JOD'
+  | 'JPY'
+  | 'KES'
+  | 'KGS'
+  | 'KRW'
+  | 'KZT'
+  | 'LBP'
+  | 'LKR'
+  | 'MAD'
+  | 'MDL'
+  | 'MMK'
+  | 'MNT'
+  | 'MOP'
+  | 'MUR'
+  | 'MVR'
+  | 'MXN'
+  | 'MYR'
+  | 'MZN'
+  | 'NGN'
+  | 'NIO'
+  | 'NOK'
+  | 'NPR'
+  | 'NZD'
+  | 'PAB'
+  | 'PEN'
+  | 'PHP'
+  | 'PKR'
+  | 'PLN'
+  | 'PYG'
+  | 'QAR'
+  | 'RON'
+  | 'RSD'
+  | 'RUB'
+  | 'SAR'
+  | 'SEK'
+  | 'SGD'
+  | 'SYP'
+  | 'THB'
+  | 'TJS'
+  | 'TRY'
+  | 'TTD'
+  | 'TWD'
+  | 'TZS'
+  | 'UAH'
+  | 'UGX'
+  | 'USD'
+  | 'UYU'
+  | 'UZS'
+  | 'VND'
+  | 'YER'
+  | 'ZAR'
+  | 'XTR';
+
+/**
  * This object represents an incoming update. At most one of the optional fields can be present in any given update.
  */
 export type Update = {
@@ -1243,72 +1343,148 @@ export type InaccessibleMessage = {
 /**
  * This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc.
  */
-export type MessageEntity = {
-  /**
-   * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
-   */
-  type:
-    | 'mention'
-    | 'hashtag'
-    | 'cashtag'
-    | 'bot_command'
-    | 'url'
-    | 'email'
-    | 'phone_number'
-    | 'bold'
-    | 'italic'
-    | 'underline'
-    | 'strikethrough'
-    | 'spoiler'
-    | 'blockquote'
-    | 'expandable_blockquote'
-    | 'code'
-    | 'pre'
-    | 'text_link'
-    | 'text_mention'
-    | 'custom_emoji'
-    | 'date_time';
+export type MessageEntity =
+  | {
+      /**
+       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
+       */
+      type:
+        | 'mention'
+        | 'hashtag'
+        | 'cashtag'
+        | 'bot_command'
+        | 'url'
+        | 'email'
+        | 'phone_number'
+        | 'bold'
+        | 'italic'
+        | 'underline'
+        | 'strikethrough'
+        | 'spoiler'
+        | 'blockquote'
+        | 'expandable_blockquote'
+        | 'code';
 
-  /**
-   * Offset in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units} to the start of the entity
-   */
-  offset: number;
+      /**
+       * Offset in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units} to the start of the entity
+       */
+      offset: number;
 
-  /**
-   * Length of the entity in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units}
-   */
-  length: number;
+      /**
+       * Length of the entity in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units}
+       */
+      length: number;
+    }
+  | {
+      /**
+       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
+       */
+      type: 'pre';
 
-  /**
-   * For “text_link” only, URL that will be opened after user taps on the text
-   */
-  url?: string;
+      /**
+       * Offset in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units} to the start of the entity
+       */
+      offset: number;
 
-  /**
-   * For “text_mention” only, the mentioned user
-   */
-  user?: User;
+      /**
+       * Length of the entity in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units}
+       */
+      length: number;
 
-  /**
-   * For “pre” only, the programming language of the entity text
-   */
-  language?: string;
+      /**
+       * For “pre” only, the programming language of the entity text
+       */
+      language?: string;
+    }
+  | {
+      /**
+       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
+       */
+      type: 'text_link';
 
-  /**
-   * For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker.
-   */
-  custom_emoji_id?: string;
+      /**
+       * Offset in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units} to the start of the entity
+       */
+      offset: number;
 
-  /**
-   * For “date_time” only, the Unix time associated with the entity
-   */
-  unix_time?: number;
+      /**
+       * Length of the entity in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units}
+       */
+      length: number;
 
-  /**
-   * For “date_time” only, the string that defines the formatting of the date and time. See date-time entity formatting for more details.
-   */
-  date_time_format?: string;
-};
+      /**
+       * For “text_link” only, URL that will be opened after user taps on the text
+       */
+      url?: string;
+    }
+  | {
+      /**
+       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
+       */
+      type: 'text_mention';
+
+      /**
+       * Offset in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units} to the start of the entity
+       */
+      offset: number;
+
+      /**
+       * Length of the entity in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units}
+       */
+      length: number;
+
+      /**
+       * For “text_mention” only, the mentioned user
+       */
+      user?: User;
+    }
+  | {
+      /**
+       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
+       */
+      type: 'custom_emoji';
+
+      /**
+       * Offset in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units} to the start of the entity
+       */
+      offset: number;
+
+      /**
+       * Length of the entity in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units}
+       */
+      length: number;
+
+      /**
+       * For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker.
+       */
+      custom_emoji_id?: string;
+    }
+  | {
+      /**
+       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
+       */
+      type: 'date_time';
+
+      /**
+       * Offset in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units} to the start of the entity
+       */
+      offset: number;
+
+      /**
+       * Length of the entity in {@link https://core.telegram.org/api/entities#entity-length | UTF-16 code units}
+       */
+      length: number;
+
+      /**
+       * For “date_time” only, the Unix time associated with the entity
+       */
+      unix_time?: number;
+
+      /**
+       * For “date_time” only, the string that defines the formatting of the date and time. See date-time entity formatting for more details.
+       */
+      date_time_format?: string;
+    };
 
 /**
  * This object contains information about the quoted part of a message that is replied to by the given message.
@@ -10420,102 +10596,7 @@ export type InputInvoiceMessageContent = {
   /**
    * Three-letter ISO 4217 currency code, see {@link https://core.telegram.org/bots/payments#supported-currencies | more on currencies}. Pass “XTR” for payments in Telegram Stars.
    */
-  currency:
-    | 'AED'
-    | 'AFN'
-    | 'ALL'
-    | 'AMD'
-    | 'ARS'
-    | 'AUD'
-    | 'AZN'
-    | 'BAM'
-    | 'BDT'
-    | 'BGN'
-    | 'BHD'
-    | 'BND'
-    | 'BOB'
-    | 'BRL'
-    | 'BYN'
-    | 'CAD'
-    | 'CHF'
-    | 'CLP'
-    | 'CNY'
-    | 'COP'
-    | 'CRC'
-    | 'CZK'
-    | 'DKK'
-    | 'DOP'
-    | 'DZD'
-    | 'EGP'
-    | 'ETB'
-    | 'EUR'
-    | 'GBP'
-    | 'GEL'
-    | 'GHS'
-    | 'GTQ'
-    | 'HKD'
-    | 'HNL'
-    | 'HRK'
-    | 'HUF'
-    | 'IDR'
-    | 'ILS'
-    | 'INR'
-    | 'IQD'
-    | 'IRR'
-    | 'ISK'
-    | 'JMD'
-    | 'JOD'
-    | 'JPY'
-    | 'KES'
-    | 'KGS'
-    | 'KRW'
-    | 'KZT'
-    | 'LBP'
-    | 'LKR'
-    | 'MAD'
-    | 'MDL'
-    | 'MMK'
-    | 'MNT'
-    | 'MOP'
-    | 'MUR'
-    | 'MVR'
-    | 'MXN'
-    | 'MYR'
-    | 'MZN'
-    | 'NGN'
-    | 'NIO'
-    | 'NOK'
-    | 'NPR'
-    | 'NZD'
-    | 'PAB'
-    | 'PEN'
-    | 'PHP'
-    | 'PKR'
-    | 'PLN'
-    | 'PYG'
-    | 'QAR'
-    | 'RON'
-    | 'RSD'
-    | 'RUB'
-    | 'SAR'
-    | 'SEK'
-    | 'SGD'
-    | 'SYP'
-    | 'THB'
-    | 'TJS'
-    | 'TRY'
-    | 'TTD'
-    | 'TWD'
-    | 'TZS'
-    | 'UAH'
-    | 'UGX'
-    | 'USD'
-    | 'UYU'
-    | 'UZS'
-    | 'VND'
-    | 'YER'
-    | 'ZAR'
-    | 'XTR';
+  currency: Currency;
 
   /**
    * Price breakdown, a JSON-serialized list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.). Must contain exactly one item for payments in Telegram Stars.
@@ -10690,102 +10771,7 @@ export type Invoice = {
   /**
    * Three-letter ISO 4217 {@link https://core.telegram.org/bots/payments#supported-currencies | currency} code, or “XTR” for payments in Telegram Stars
    */
-  currency:
-    | 'AED'
-    | 'AFN'
-    | 'ALL'
-    | 'AMD'
-    | 'ARS'
-    | 'AUD'
-    | 'AZN'
-    | 'BAM'
-    | 'BDT'
-    | 'BGN'
-    | 'BHD'
-    | 'BND'
-    | 'BOB'
-    | 'BRL'
-    | 'BYN'
-    | 'CAD'
-    | 'CHF'
-    | 'CLP'
-    | 'CNY'
-    | 'COP'
-    | 'CRC'
-    | 'CZK'
-    | 'DKK'
-    | 'DOP'
-    | 'DZD'
-    | 'EGP'
-    | 'ETB'
-    | 'EUR'
-    | 'GBP'
-    | 'GEL'
-    | 'GHS'
-    | 'GTQ'
-    | 'HKD'
-    | 'HNL'
-    | 'HRK'
-    | 'HUF'
-    | 'IDR'
-    | 'ILS'
-    | 'INR'
-    | 'IQD'
-    | 'IRR'
-    | 'ISK'
-    | 'JMD'
-    | 'JOD'
-    | 'JPY'
-    | 'KES'
-    | 'KGS'
-    | 'KRW'
-    | 'KZT'
-    | 'LBP'
-    | 'LKR'
-    | 'MAD'
-    | 'MDL'
-    | 'MMK'
-    | 'MNT'
-    | 'MOP'
-    | 'MUR'
-    | 'MVR'
-    | 'MXN'
-    | 'MYR'
-    | 'MZN'
-    | 'NGN'
-    | 'NIO'
-    | 'NOK'
-    | 'NPR'
-    | 'NZD'
-    | 'PAB'
-    | 'PEN'
-    | 'PHP'
-    | 'PKR'
-    | 'PLN'
-    | 'PYG'
-    | 'QAR'
-    | 'RON'
-    | 'RSD'
-    | 'RUB'
-    | 'SAR'
-    | 'SEK'
-    | 'SGD'
-    | 'SYP'
-    | 'THB'
-    | 'TJS'
-    | 'TRY'
-    | 'TTD'
-    | 'TWD'
-    | 'TZS'
-    | 'UAH'
-    | 'UGX'
-    | 'USD'
-    | 'UYU'
-    | 'UZS'
-    | 'VND'
-    | 'YER'
-    | 'ZAR'
-    | 'XTR';
+  currency: Currency;
 
   /**
    * Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in {@link https://core.telegram.org/bots/payments/currencies.json | currencies.json}, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
@@ -10880,102 +10866,7 @@ export type SuccessfulPayment = {
   /**
    * Three-letter ISO 4217 {@link https://core.telegram.org/bots/payments#supported-currencies | currency} code, or “XTR” for payments in Telegram Stars
    */
-  currency:
-    | 'AED'
-    | 'AFN'
-    | 'ALL'
-    | 'AMD'
-    | 'ARS'
-    | 'AUD'
-    | 'AZN'
-    | 'BAM'
-    | 'BDT'
-    | 'BGN'
-    | 'BHD'
-    | 'BND'
-    | 'BOB'
-    | 'BRL'
-    | 'BYN'
-    | 'CAD'
-    | 'CHF'
-    | 'CLP'
-    | 'CNY'
-    | 'COP'
-    | 'CRC'
-    | 'CZK'
-    | 'DKK'
-    | 'DOP'
-    | 'DZD'
-    | 'EGP'
-    | 'ETB'
-    | 'EUR'
-    | 'GBP'
-    | 'GEL'
-    | 'GHS'
-    | 'GTQ'
-    | 'HKD'
-    | 'HNL'
-    | 'HRK'
-    | 'HUF'
-    | 'IDR'
-    | 'ILS'
-    | 'INR'
-    | 'IQD'
-    | 'IRR'
-    | 'ISK'
-    | 'JMD'
-    | 'JOD'
-    | 'JPY'
-    | 'KES'
-    | 'KGS'
-    | 'KRW'
-    | 'KZT'
-    | 'LBP'
-    | 'LKR'
-    | 'MAD'
-    | 'MDL'
-    | 'MMK'
-    | 'MNT'
-    | 'MOP'
-    | 'MUR'
-    | 'MVR'
-    | 'MXN'
-    | 'MYR'
-    | 'MZN'
-    | 'NGN'
-    | 'NIO'
-    | 'NOK'
-    | 'NPR'
-    | 'NZD'
-    | 'PAB'
-    | 'PEN'
-    | 'PHP'
-    | 'PKR'
-    | 'PLN'
-    | 'PYG'
-    | 'QAR'
-    | 'RON'
-    | 'RSD'
-    | 'RUB'
-    | 'SAR'
-    | 'SEK'
-    | 'SGD'
-    | 'SYP'
-    | 'THB'
-    | 'TJS'
-    | 'TRY'
-    | 'TTD'
-    | 'TWD'
-    | 'TZS'
-    | 'UAH'
-    | 'UGX'
-    | 'USD'
-    | 'UYU'
-    | 'UZS'
-    | 'VND'
-    | 'YER'
-    | 'ZAR'
-    | 'XTR';
+  currency: Currency;
 
   /**
    * Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in {@link https://core.telegram.org/bots/payments/currencies.json | currencies.json}, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
@@ -11030,102 +10921,7 @@ export type RefundedPayment = {
   /**
    * Three-letter ISO 4217 {@link https://core.telegram.org/bots/payments#supported-currencies | currency} code, or “XTR” for payments in Telegram Stars. Currently, always “XTR”.
    */
-  currency:
-    | 'AED'
-    | 'AFN'
-    | 'ALL'
-    | 'AMD'
-    | 'ARS'
-    | 'AUD'
-    | 'AZN'
-    | 'BAM'
-    | 'BDT'
-    | 'BGN'
-    | 'BHD'
-    | 'BND'
-    | 'BOB'
-    | 'BRL'
-    | 'BYN'
-    | 'CAD'
-    | 'CHF'
-    | 'CLP'
-    | 'CNY'
-    | 'COP'
-    | 'CRC'
-    | 'CZK'
-    | 'DKK'
-    | 'DOP'
-    | 'DZD'
-    | 'EGP'
-    | 'ETB'
-    | 'EUR'
-    | 'GBP'
-    | 'GEL'
-    | 'GHS'
-    | 'GTQ'
-    | 'HKD'
-    | 'HNL'
-    | 'HRK'
-    | 'HUF'
-    | 'IDR'
-    | 'ILS'
-    | 'INR'
-    | 'IQD'
-    | 'IRR'
-    | 'ISK'
-    | 'JMD'
-    | 'JOD'
-    | 'JPY'
-    | 'KES'
-    | 'KGS'
-    | 'KRW'
-    | 'KZT'
-    | 'LBP'
-    | 'LKR'
-    | 'MAD'
-    | 'MDL'
-    | 'MMK'
-    | 'MNT'
-    | 'MOP'
-    | 'MUR'
-    | 'MVR'
-    | 'MXN'
-    | 'MYR'
-    | 'MZN'
-    | 'NGN'
-    | 'NIO'
-    | 'NOK'
-    | 'NPR'
-    | 'NZD'
-    | 'PAB'
-    | 'PEN'
-    | 'PHP'
-    | 'PKR'
-    | 'PLN'
-    | 'PYG'
-    | 'QAR'
-    | 'RON'
-    | 'RSD'
-    | 'RUB'
-    | 'SAR'
-    | 'SEK'
-    | 'SGD'
-    | 'SYP'
-    | 'THB'
-    | 'TJS'
-    | 'TRY'
-    | 'TTD'
-    | 'TWD'
-    | 'TZS'
-    | 'UAH'
-    | 'UGX'
-    | 'USD'
-    | 'UYU'
-    | 'UZS'
-    | 'VND'
-    | 'YER'
-    | 'ZAR'
-    | 'XTR';
+  currency: Currency;
 
   /**
    * Total refunded price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45, total_amount = 145. See the exp parameter in {@link https://core.telegram.org/bots/payments/currencies.json | currencies.json}, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
@@ -11190,102 +10986,7 @@ export type PreCheckoutQuery = {
   /**
    * Three-letter ISO 4217 {@link https://core.telegram.org/bots/payments#supported-currencies | currency} code, or “XTR” for payments in Telegram Stars
    */
-  currency:
-    | 'AED'
-    | 'AFN'
-    | 'ALL'
-    | 'AMD'
-    | 'ARS'
-    | 'AUD'
-    | 'AZN'
-    | 'BAM'
-    | 'BDT'
-    | 'BGN'
-    | 'BHD'
-    | 'BND'
-    | 'BOB'
-    | 'BRL'
-    | 'BYN'
-    | 'CAD'
-    | 'CHF'
-    | 'CLP'
-    | 'CNY'
-    | 'COP'
-    | 'CRC'
-    | 'CZK'
-    | 'DKK'
-    | 'DOP'
-    | 'DZD'
-    | 'EGP'
-    | 'ETB'
-    | 'EUR'
-    | 'GBP'
-    | 'GEL'
-    | 'GHS'
-    | 'GTQ'
-    | 'HKD'
-    | 'HNL'
-    | 'HRK'
-    | 'HUF'
-    | 'IDR'
-    | 'ILS'
-    | 'INR'
-    | 'IQD'
-    | 'IRR'
-    | 'ISK'
-    | 'JMD'
-    | 'JOD'
-    | 'JPY'
-    | 'KES'
-    | 'KGS'
-    | 'KRW'
-    | 'KZT'
-    | 'LBP'
-    | 'LKR'
-    | 'MAD'
-    | 'MDL'
-    | 'MMK'
-    | 'MNT'
-    | 'MOP'
-    | 'MUR'
-    | 'MVR'
-    | 'MXN'
-    | 'MYR'
-    | 'MZN'
-    | 'NGN'
-    | 'NIO'
-    | 'NOK'
-    | 'NPR'
-    | 'NZD'
-    | 'PAB'
-    | 'PEN'
-    | 'PHP'
-    | 'PKR'
-    | 'PLN'
-    | 'PYG'
-    | 'QAR'
-    | 'RON'
-    | 'RSD'
-    | 'RUB'
-    | 'SAR'
-    | 'SEK'
-    | 'SGD'
-    | 'SYP'
-    | 'THB'
-    | 'TJS'
-    | 'TRY'
-    | 'TTD'
-    | 'TWD'
-    | 'TZS'
-    | 'UAH'
-    | 'UGX'
-    | 'USD'
-    | 'UYU'
-    | 'UZS'
-    | 'VND'
-    | 'YER'
-    | 'ZAR'
-    | 'XTR';
+  currency: Currency;
 
   /**
    * Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in {@link https://core.telegram.org/bots/payments/currencies.json | currencies.json}, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
@@ -11396,62 +11097,127 @@ export type AffiliateInfo = {
 /**
  * Describes a transaction with a {@link TransactionPartnerUser.user | user}.
  */
-export type TransactionPartnerUser = {
-  /**
-   * Type of the transaction partner, always “user”
-   */
-  type: 'user';
+export type TransactionPartnerUser =
+  | {
+      /**
+       * Type of the transaction partner, always “user”
+       */
+      type: 'user';
 
-  /**
-   * Type of the transaction, currently one of “invoice_payment” for payments via invoices, “paid_media_payment” for payments for paid media, “gift_purchase” for gifts sent by the bot, “premium_purchase” for Telegram Premium subscriptions gifted by the bot, “business_account_transfer” for direct transfers from managed business accounts
-   */
-  transaction_type:
-    | 'invoice_payment'
-    | 'paid_media_payment'
-    | 'gift_purchase'
-    | 'premium_purchase'
-    | 'business_account_transfer';
+      /**
+       * Type of the transaction, currently one of “invoice_payment” for payments via invoices, “paid_media_payment” for payments for paid media, “gift_purchase” for gifts sent by the bot, “premium_purchase” for Telegram Premium subscriptions gifted by the bot, “business_account_transfer” for direct transfers from managed business accounts
+       */
+      transaction_type: 'invoice_payment';
 
-  /**
-   * Information about the user
-   */
-  user: User;
+      /**
+       * Information about the user
+       */
+      user: User;
 
-  /**
-   * Information about the affiliate that received a commission via this transaction. Can be available only for “invoice_payment” and “paid_media_payment” transactions.
-   */
-  affiliate?: AffiliateInfo;
+      /**
+       * Information about the affiliate that received a commission via this transaction. Can be available only for “invoice_payment” and “paid_media_payment” transactions.
+       */
+      affiliate?: AffiliateInfo;
 
-  /**
-   * Bot-specified invoice payload. Can be available only for “invoice_payment” transactions.
-   */
-  invoice_payload?: string;
+      /**
+       * Bot-specified invoice payload. Can be available only for “invoice_payment” transactions.
+       */
+      invoice_payload?: string;
 
-  /**
-   * The duration of the paid subscription. Can be available only for “invoice_payment” transactions.
-   */
-  subscription_period?: number;
+      /**
+       * The duration of the paid subscription. Can be available only for “invoice_payment” transactions.
+       */
+      subscription_period?: number;
+    }
+  | {
+      /**
+       * Type of the transaction partner, always “user”
+       */
+      type: 'user';
 
-  /**
-   * Information about the paid media bought by the user; for “paid_media_payment” transactions only
-   */
-  paid_media?: PaidMedia[];
+      /**
+       * Type of the transaction, currently one of “invoice_payment” for payments via invoices, “paid_media_payment” for payments for paid media, “gift_purchase” for gifts sent by the bot, “premium_purchase” for Telegram Premium subscriptions gifted by the bot, “business_account_transfer” for direct transfers from managed business accounts
+       */
+      transaction_type: 'paid_media_payment';
 
-  /**
-   * Bot-specified paid media payload. Can be available only for “paid_media_payment” transactions.
-   */
-  paid_media_payload?: string;
+      /**
+       * Information about the user
+       */
+      user: User;
 
-  /**
-   * The gift sent to the user by the bot; for “gift_purchase” transactions only
-   */
-  gift?: Gift;
+      /**
+       * Information about the affiliate that received a commission via this transaction. Can be available only for “invoice_payment” and “paid_media_payment” transactions.
+       */
+      affiliate?: AffiliateInfo;
 
-  /**
-   * Number of months the gifted Telegram Premium subscription will be active for; for “premium_purchase” transactions only
-   */
-  premium_subscription_duration?: number;
-};
+      /**
+       * Information about the paid media bought by the user; for “paid_media_payment” transactions only
+       */
+      paid_media?: PaidMedia[];
+
+      /**
+       * Bot-specified paid media payload. Can be available only for “paid_media_payment” transactions.
+       */
+      paid_media_payload?: string;
+    }
+  | {
+      /**
+       * Type of the transaction partner, always “user”
+       */
+      type: 'user';
+
+      /**
+       * Type of the transaction, currently one of “invoice_payment” for payments via invoices, “paid_media_payment” for payments for paid media, “gift_purchase” for gifts sent by the bot, “premium_purchase” for Telegram Premium subscriptions gifted by the bot, “business_account_transfer” for direct transfers from managed business accounts
+       */
+      transaction_type: 'gift_purchase';
+
+      /**
+       * Information about the user
+       */
+      user: User;
+
+      /**
+       * The gift sent to the user by the bot; for “gift_purchase” transactions only
+       */
+      gift?: Gift;
+    }
+  | {
+      /**
+       * Type of the transaction partner, always “user”
+       */
+      type: 'user';
+
+      /**
+       * Type of the transaction, currently one of “invoice_payment” for payments via invoices, “paid_media_payment” for payments for paid media, “gift_purchase” for gifts sent by the bot, “premium_purchase” for Telegram Premium subscriptions gifted by the bot, “business_account_transfer” for direct transfers from managed business accounts
+       */
+      transaction_type: 'premium_purchase';
+
+      /**
+       * Information about the user
+       */
+      user: User;
+
+      /**
+       * Number of months the gifted Telegram Premium subscription will be active for; for “premium_purchase” transactions only
+       */
+      premium_subscription_duration?: number;
+    }
+  | {
+      /**
+       * Type of the transaction partner, always “user”
+       */
+      type: 'user';
+
+      /**
+       * Type of the transaction, currently one of “invoice_payment” for payments via invoices, “paid_media_payment” for payments for paid media, “gift_purchase” for gifts sent by the bot, “premium_purchase” for Telegram Premium subscriptions gifted by the bot, “business_account_transfer” for direct transfers from managed business accounts
+       */
+      transaction_type: 'business_account_transfer';
+
+      /**
+       * Information about the user
+       */
+      user: User;
+    };
 
 /**
  * Describes a transaction with a {@link TransactionPartnerChat.chat | chat}.
@@ -11645,70 +11411,148 @@ export type PassportFile = {
 /**
  * Describes documents or other Telegram Passport elements shared with the bot by the user.
  */
-export type EncryptedPassportElement = {
-  /**
-   * Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”.
-   */
-  type:
-    | 'personal_details'
-    | 'passport'
-    | 'driver_license'
-    | 'identity_card'
-    | 'internal_passport'
-    | 'address'
-    | 'utility_bill'
-    | 'bank_statement'
-    | 'rental_agreement'
-    | 'passport_registration'
-    | 'temporary_registration'
-    | 'phone_number'
-    | 'email';
+export type EncryptedPassportElement =
+  | {
+      /**
+       * Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”.
+       */
+      type: 'personal_details' | 'address';
 
-  /**
-   * Base64-encoded encrypted Telegram Passport element data provided by the user; available only for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
-   */
-  data?: string;
+      /**
+       * Base64-encoded encrypted Telegram Passport element data provided by the user; available only for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
+       */
+      data?: string;
 
-  /**
-   * User's verified phone number; available only for “phone_number” type
-   */
-  phone_number?: string;
+      /**
+       * Base64-encoded element hash for using in PassportElementErrorUnspecified
+       */
+      hash: string;
+    }
+  | {
+      /**
+       * Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”.
+       */
+      type: 'passport' | 'internal_passport';
 
-  /**
-   * User's verified email address; available only for “email” type
-   */
-  email?: string;
+      /**
+       * Base64-encoded encrypted Telegram Passport element data provided by the user; available only for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
+       */
+      data?: string;
 
-  /**
-   * Array of encrypted files with documents provided by the user; available only for “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
-   */
-  files?: PassportFile[];
+      /**
+       * Encrypted file with the front side of the document, provided by the user; available only for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
+       */
+      front_side?: PassportFile;
 
-  /**
-   * Encrypted file with the front side of the document, provided by the user; available only for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
-   */
-  front_side?: PassportFile;
+      /**
+       * Encrypted file with the selfie of the user holding a document, provided by the user; available if requested for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
+       */
+      selfie?: PassportFile;
 
-  /**
-   * Encrypted file with the reverse side of the document, provided by the user; available only for “driver_license” and “identity_card”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
-   */
-  reverse_side?: PassportFile;
+      /**
+       * Array of encrypted files with translated versions of documents provided by the user; available if requested for “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
+       */
+      translation?: PassportFile[];
 
-  /**
-   * Encrypted file with the selfie of the user holding a document, provided by the user; available if requested for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
-   */
-  selfie?: PassportFile;
+      /**
+       * Base64-encoded element hash for using in PassportElementErrorUnspecified
+       */
+      hash: string;
+    }
+  | {
+      /**
+       * Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”.
+       */
+      type: 'driver_license' | 'identity_card';
 
-  /**
-   * Array of encrypted files with translated versions of documents provided by the user; available if requested for “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
-   */
-  translation?: PassportFile[];
+      /**
+       * Base64-encoded encrypted Telegram Passport element data provided by the user; available only for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
+       */
+      data?: string;
 
-  /**
-   * Base64-encoded element hash for using in PassportElementErrorUnspecified
-   */
-  hash: string;
-};
+      /**
+       * Encrypted file with the front side of the document, provided by the user; available only for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
+       */
+      front_side?: PassportFile;
+
+      /**
+       * Encrypted file with the reverse side of the document, provided by the user; available only for “driver_license” and “identity_card”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
+       */
+      reverse_side?: PassportFile;
+
+      /**
+       * Encrypted file with the selfie of the user holding a document, provided by the user; available if requested for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
+       */
+      selfie?: PassportFile;
+
+      /**
+       * Array of encrypted files with translated versions of documents provided by the user; available if requested for “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
+       */
+      translation?: PassportFile[];
+
+      /**
+       * Base64-encoded element hash for using in PassportElementErrorUnspecified
+       */
+      hash: string;
+    }
+  | {
+      /**
+       * Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”.
+       */
+      type:
+        | 'utility_bill'
+        | 'bank_statement'
+        | 'rental_agreement'
+        | 'passport_registration'
+        | 'temporary_registration';
+
+      /**
+       * Array of encrypted files with documents provided by the user; available only for “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
+       */
+      files?: PassportFile[];
+
+      /**
+       * Array of encrypted files with translated versions of documents provided by the user; available if requested for “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
+       */
+      translation?: PassportFile[];
+
+      /**
+       * Base64-encoded element hash for using in PassportElementErrorUnspecified
+       */
+      hash: string;
+    }
+  | {
+      /**
+       * Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”.
+       */
+      type: 'phone_number';
+
+      /**
+       * User's verified phone number; available only for “phone_number” type
+       */
+      phone_number?: string;
+
+      /**
+       * Base64-encoded element hash for using in PassportElementErrorUnspecified
+       */
+      hash: string;
+    }
+  | {
+      /**
+       * Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”.
+       */
+      type: 'email';
+
+      /**
+       * User's verified email address; available only for “email” type
+       */
+      email?: string;
+
+      /**
+       * Base64-encoded element hash for using in PassportElementErrorUnspecified
+       */
+      hash: string;
+    };
 
 /**
  * Describes {@link EncryptedCredentials.data | data} required for decrypting and authenticating {@link EncryptedPassportElement}. See the {@link https://core.telegram.org/passport#receiving-information | Telegram Passport Documentation} for a complete description of the {@link EncryptedCredentials.data | data} decryption and authentication processes.
