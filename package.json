@@ -1,6 +1,7 @@
 {
   "name": "@telegram-standard-bot-api/mono-repo",
   "packageManager": "pnpm@11.23.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "prepare": "husky",
