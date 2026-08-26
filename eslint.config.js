@@ -11,6 +11,8 @@ export default defineConfig(
       'prettier.config.js',
       'eslint.config.js',
       'vitest.config.ts',
+      'lint-world.config.ts',
+      'knip.config.ts',
       'packages/*/dist',
     ],
   },

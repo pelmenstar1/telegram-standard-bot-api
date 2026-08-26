@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "prepare": "husky",
-    "lint": "eslint . --cache --cache-location node_modules/.cache/eslint/.eslintcache && prettier --cache --check '**/*.{js,ts,md,json,yml}' && knip && pnpm build",
-    "lint:fix": "eslint . --cache --cache-location node_modules/.cache/eslint/.eslintcache --fix && prettier --write '**/*.{js,ts,md,json,yml}'",
+    "lint": "lint-world",
+    "lint:fix": "lint-world --fix",
     "test": "vitest --run",
     "build": "tsc -b tsconfig.build.json"
   },
@@ -16,6 +16,7 @@
     "husky": "catalog:",
     "jiti": "catalog:",
     "knip": "catalog:",
+    "lint-world": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
