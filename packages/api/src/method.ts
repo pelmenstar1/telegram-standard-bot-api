@@ -16,7 +16,7 @@ export interface BotMethodInfo<R> {
   /**
    * An initializer that will be called to initialize the request. If not provided, the request will be sent without a body.
    */
-  initializer?: RequestInitializer;
+  initializer?: RequestInitializer | undefined;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

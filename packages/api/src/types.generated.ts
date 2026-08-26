@@ -112,137 +112,137 @@ export type Update = {
   /**
    * New incoming message of any kind - text, photo, sticker, etc.
    */
-  message?: Message;
+  message?: Message | undefined;
 
   /**
    * New version of a message that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot.
    */
-  edited_message?: Message;
+  edited_message?: Message | undefined;
 
   /**
    * New incoming channel post of any kind - text, photo, sticker, etc.
    */
-  channel_post?: Message;
+  channel_post?: Message | undefined;
 
   /**
    * New version of a channel post that is known to the bot and was edited. This update may at times be triggered by changes to message fields that are either unavailable or not actively used by your bot.
    */
-  edited_channel_post?: Message;
+  edited_channel_post?: Message | undefined;
 
   /**
    * The bot was connected to or disconnected from a business account, or a user edited an existing connection with the bot
    */
-  business_connection?: BusinessConnection;
+  business_connection?: BusinessConnection | undefined;
 
   /**
    * New message from a connected business account
    */
-  business_message?: Message;
+  business_message?: Message | undefined;
 
   /**
    * New version of a message from a connected business account
    */
-  edited_business_message?: Message;
+  edited_business_message?: Message | undefined;
 
   /**
    * Messages were deleted from a connected business account
    */
-  deleted_business_messages?: BusinessMessagesDeleted;
+  deleted_business_messages?: BusinessMessagesDeleted | undefined;
 
   /**
    * New guest message. The bot can use the field {@link Message}.guest_query_id and the method answerGuestQuery to send a message in response.
    */
-  guest_message?: Message;
+  guest_message?: Message | undefined;
 
   /**
    * A reaction to a message was changed by a user. The bot must be an administrator in the chat and must explicitly specify "message_reaction" in the list of allowed_updates to receive these updates. The update isn't received for reactions set by bots.
    */
-  message_reaction?: MessageReactionUpdated;
+  message_reaction?: MessageReactionUpdated | undefined;
 
   /**
    * Reactions to a message with anonymous reactions were changed. The bot must be an administrator in the chat and must explicitly specify "message_reaction_count" in the list of allowed_updates to receive these updates. The updates are grouped and can be sent with delay up to a few minutes.
    */
-  message_reaction_count?: MessageReactionCountUpdated;
+  message_reaction_count?: MessageReactionCountUpdated | undefined;
 
   /**
    * New incoming inline query
    */
-  inline_query?: InlineQuery;
+  inline_query?: InlineQuery | undefined;
 
   /**
    * The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the {@link https://core.telegram.org/bots/inline#collecting-feedback | feedback collecting} for details on how to enable these updates for your bot.
    */
-  chosen_inline_result?: ChosenInlineResult;
+  chosen_inline_result?: ChosenInlineResult | undefined;
 
   /**
    * New incoming callback query
    */
-  callback_query?: CallbackQuery;
+  callback_query?: CallbackQuery | undefined;
 
   /**
    * New incoming shipping query. Only for invoices with flexible price.
    */
-  shipping_query?: ShippingQuery;
+  shipping_query?: ShippingQuery | undefined;
 
   /**
    * New incoming pre-checkout query. Contains full information about checkout.
    */
-  pre_checkout_query?: PreCheckoutQuery;
+  pre_checkout_query?: PreCheckoutQuery | undefined;
 
   /**
    * A user purchased paid media with a non-empty payload sent by the bot in a non-channel chat
    */
-  purchased_paid_media?: PaidMediaPurchased;
+  purchased_paid_media?: PaidMediaPurchased | undefined;
 
   /**
    * New poll state. Bots receive only updates about manually stopped polls and polls, which are sent by the bot.
    */
-  poll?: Poll;
+  poll?: Poll | undefined;
 
   /**
    * A user changed their answer in a non-anonymous poll. Bots receive new votes only in polls that were sent by the bot itself.
    */
-  poll_answer?: PollAnswer;
+  poll_answer?: PollAnswer | undefined;
 
   /**
    * The bot's chat member status was updated in a chat. For private chats, this update is received only when the bot is blocked or unblocked by the user.
    */
-  my_chat_member?: ChatMemberUpdated;
+  my_chat_member?: ChatMemberUpdated | undefined;
 
   /**
    * A chat member's status was updated in a chat. The bot must be an administrator in the chat and must explicitly specify "chat_member" in the list of allowed_updates to receive these updates.
    */
-  chat_member?: ChatMemberUpdated;
+  chat_member?: ChatMemberUpdated | undefined;
 
   /**
    * A request to join the chat has been sent. The bot must have the can_invite_users administrator right in the chat to receive these updates.
    */
-  chat_join_request?: ChatJoinRequest;
+  chat_join_request?: ChatJoinRequest | undefined;
 
   /**
    * A chat boost was added or changed. The bot must be an administrator in the chat to receive these updates.
    */
-  chat_boost?: ChatBoostUpdated;
+  chat_boost?: ChatBoostUpdated | undefined;
 
   /**
    * A boost was removed from a chat. The bot must be an administrator in the chat to receive these updates.
    */
-  removed_chat_boost?: ChatBoostRemoved;
+  removed_chat_boost?: ChatBoostRemoved | undefined;
 
   /**
    * A new bot was created to be managed by the bot, or token or owner of a managed bot was changed
    */
-  managed_bot?: ManagedBotUpdated;
+  managed_bot?: ManagedBotUpdated | undefined;
 
   /**
    * {@link User} payment subscription has changed
    */
-  subscription?: BotSubscriptionUpdated;
+  subscription?: BotSubscriptionUpdated | undefined;
 
   /**
    * A user asked the bot to stop the generation of a message
    */
-  stopped_message_generation?: MessageGenerationStopped;
+  stopped_message_generation?: MessageGenerationStopped | undefined;
 };
 
 /**
@@ -267,32 +267,32 @@ export type WebhookInfo = {
   /**
    * Currently used webhook IP address
    */
-  ip_address?: string;
+  ip_address?: string | undefined;
 
   /**
    * Unix time for the most recent error that happened when trying to deliver an update via webhook
    */
-  last_error_date?: number;
+  last_error_date?: number | undefined;
 
   /**
    * Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook
    */
-  last_error_message?: string;
+  last_error_message?: string | undefined;
 
   /**
    * Unix time of the most recent error that happened when trying to synchronize available updates with Telegram datacenters
    */
-  last_synchronization_error_date?: number;
+  last_synchronization_error_date?: number | undefined;
 
   /**
    * The maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
    */
-  max_connections?: number;
+  max_connections?: number | undefined;
 
   /**
    * A list of update types the bot is subscribed to. Defaults to all update types except chat_member, message_reaction, and message_reaction_count.
    */
-  allowed_updates?: Exclude<keyof Update, 'update_id'>[];
+  allowed_updates?: Exclude<keyof Update, 'update_id'>[] | undefined;
 };
 
 /**
@@ -317,77 +317,77 @@ export type User = {
   /**
    * User's or bot's last name
    */
-  last_name?: string;
+  last_name?: string | undefined;
 
   /**
    * User's or bot's username
    */
-  username?: string;
+  username?: string | undefined;
 
   /**
    * IETF language tag of the user's language
    */
-  language_code?: string;
+  language_code?: string | undefined;
 
   /**
    * True, if this user is a Telegram Premium user
    */
-  is_premium?: true;
+  is_premium?: true | undefined;
 
   /**
    * True, if this user added the bot to the attachment menu
    */
-  added_to_attachment_menu?: true;
+  added_to_attachment_menu?: true | undefined;
 
   /**
    * True, if the bot can be invited to groups. Returned only in getMe.
    */
-  can_join_groups?: boolean;
+  can_join_groups?: boolean | undefined;
 
   /**
    * True, if {@link https://core.telegram.org/bots/features#privacy-mode | privacy mode} is disabled for the bot. Returned only in getMe.
    */
-  can_read_all_group_messages?: boolean;
+  can_read_all_group_messages?: boolean | undefined;
 
   /**
    * True, if the bot supports guest queries from chats it is not a member of. Returned only in getMe.
    */
-  supports_guest_queries?: boolean;
+  supports_guest_queries?: boolean | undefined;
 
   /**
    * True, if the bot supports inline queries. Returned only in getMe.
    */
-  supports_inline_queries?: boolean;
+  supports_inline_queries?: boolean | undefined;
 
   /**
    * True, if the bot can be connected to a user account to manage it. Returned only in getMe.
    */
-  can_connect_to_business?: boolean;
+  can_connect_to_business?: boolean | undefined;
 
   /**
    * True, if the bot has a main Web App. Returned only in getMe.
    */
-  has_main_web_app?: boolean;
+  has_main_web_app?: boolean | undefined;
 
   /**
    * True, if the bot has forum topic mode enabled in private chats. Returned only in getMe.
    */
-  has_topics_enabled?: boolean;
+  has_topics_enabled?: boolean | undefined;
 
   /**
    * True, if the bot allows users to create and delete topics in private chats. Returned only in getMe.
    */
-  allows_users_to_create_topics?: boolean;
+  allows_users_to_create_topics?: boolean | undefined;
 
   /**
    * True, if other bots can be created to be controlled by the bot. Returned only in getMe.
    */
-  can_manage_bots?: boolean;
+  can_manage_bots?: boolean | undefined;
 
   /**
    * True, if the bot supports join request queries and can be assigned to process them. Returned only in getMe.
    */
-  supports_join_request_queries?: boolean;
+  supports_join_request_queries?: boolean | undefined;
 };
 
 /**
@@ -407,32 +407,32 @@ export type Chat = {
   /**
    * Title, for supergroups, channels and group chats
    */
-  title?: string;
+  title?: string | undefined;
 
   /**
    * Username, for private chats, supergroups and channels if available
    */
-  username?: string;
+  username?: string | undefined;
 
   /**
    * First name of the other party in a private chat
    */
-  first_name?: string;
+  first_name?: string | undefined;
 
   /**
    * Last name of the other party in a private chat
    */
-  last_name?: string;
+  last_name?: string | undefined;
 
   /**
    * True, if the supergroup chat is a forum (has topics enabled)
    */
-  is_forum?: true;
+  is_forum?: true | undefined;
 
   /**
    * True, if the chat is the direct messages chat of a channel
    */
-  is_direct_messages?: true;
+  is_direct_messages?: true | undefined;
 };
 
 /**
@@ -452,32 +452,32 @@ export type ChatFullInfo = {
   /**
    * Title, for supergroups, channels and group chats
    */
-  title?: string;
+  title?: string | undefined;
 
   /**
    * Username, for private chats, supergroups and channels if available
    */
-  username?: string;
+  username?: string | undefined;
 
   /**
    * First name of the other party in a private chat
    */
-  first_name?: string;
+  first_name?: string | undefined;
 
   /**
    * Last name of the other party in a private chat
    */
-  last_name?: string;
+  last_name?: string | undefined;
 
   /**
    * True, if the supergroup chat is a forum (has topics enabled)
    */
-  is_forum?: true;
+  is_forum?: true | undefined;
 
   /**
    * True, if the chat is the direct messages chat of a channel
    */
-  is_direct_messages?: true;
+  is_direct_messages?: true | undefined;
 
   /**
    * Identifier of the accent color for the chat name and backgrounds of the chat photo, reply header, and link preview. See accent colors for more details.
@@ -492,117 +492,117 @@ export type ChatFullInfo = {
   /**
    * {@link Chat} photo
    */
-  photo?: ChatPhoto;
+  photo?: ChatPhoto | undefined;
 
   /**
    * If non-empty, the list of all active chat usernames; for private chats, supergroups and channels
    */
-  active_usernames?: string[];
+  active_usernames?: string[] | undefined;
 
   /**
    * For private chats, the date of birth of the user
    */
-  birthdate?: Birthdate;
+  birthdate?: Birthdate | undefined;
 
   /**
    * For private chats with business accounts, the intro of the business
    */
-  business_intro?: BusinessIntro;
+  business_intro?: BusinessIntro | undefined;
 
   /**
    * For private chats with business accounts, the location of the business
    */
-  business_location?: BusinessLocation;
+  business_location?: BusinessLocation | undefined;
 
   /**
    * For private chats with business accounts, the opening hours of the business
    */
-  business_opening_hours?: BusinessOpeningHours;
+  business_opening_hours?: BusinessOpeningHours | undefined;
 
   /**
    * For private chats, the personal channel of the user
    */
-  personal_chat?: Chat;
+  personal_chat?: Chat | undefined;
 
   /**
    * Information about the corresponding channel chat; for direct messages chats only
    */
-  parent_chat?: Chat;
+  parent_chat?: Chat | undefined;
 
   /**
    * List of available reactions allowed in the chat. If omitted, then all emoji reactions are allowed.
    */
-  available_reactions?: ReactionType[];
+  available_reactions?: ReactionType[] | undefined;
 
   /**
    * Custom emoji identifier of the emoji chosen by the chat for the reply header and link preview background
    */
-  background_custom_emoji_id?: string;
+  background_custom_emoji_id?: string | undefined;
 
   /**
    * Identifier of the accent color for the chat's profile background. See profile accent colors for more details.
    */
-  profile_accent_color_id?: number;
+  profile_accent_color_id?: number | undefined;
 
   /**
    * Custom emoji identifier of the emoji chosen by the chat for its profile background
    */
-  profile_background_custom_emoji_id?: string;
+  profile_background_custom_emoji_id?: string | undefined;
 
   /**
    * Custom emoji identifier of the emoji status of the chat or the other party in a private chat
    */
-  emoji_status_custom_emoji_id?: string;
+  emoji_status_custom_emoji_id?: string | undefined;
 
   /**
    * Expiration date of the emoji status of the chat or the other party in a private chat, in Unix time, if any
    */
-  emoji_status_expiration_date?: number;
+  emoji_status_expiration_date?: number | undefined;
 
   /**
    * Bio of the other party in a private chat
    */
-  bio?: string;
+  bio?: string | undefined;
 
   /**
    * True, if privacy settings of the other party in the private chat allows to use tg://user?id=<user_id> links only in chats with the user
    */
-  has_private_forwards?: true;
+  has_private_forwards?: true | undefined;
 
   /**
    * True, if the privacy settings of the other party restrict sending voice and video note messages in the private chat
    */
-  has_restricted_voice_and_video_messages?: true;
+  has_restricted_voice_and_video_messages?: true | undefined;
 
   /**
    * True, if users need to join the supergroup before they can send messages
    */
-  join_to_send_messages?: true;
+  join_to_send_messages?: true | undefined;
 
   /**
    * True, if all users directly joining the supergroup without using an invite link need to be approved by supergroup administrators
    */
-  join_by_request?: true;
+  join_by_request?: true | undefined;
 
   /**
    * Description, for groups, supergroups and channel chats
    */
-  description?: string;
+  description?: string | undefined;
 
   /**
    * Primary invite link, for groups, supergroups and channel chats
    */
-  invite_link?: string;
+  invite_link?: string | undefined;
 
   /**
    * The most recent pinned message (by sending date)
    */
-  pinned_message?: Message;
+  pinned_message?: Message | undefined;
 
   /**
    * Default chat member permissions, for groups and supergroups
    */
-  permissions?: ChatPermissions;
+  permissions?: ChatPermissions | undefined;
 
   /**
    * Information about types of gifts that are accepted by the chat or by the corresponding user for private chats
@@ -612,97 +612,97 @@ export type ChatFullInfo = {
   /**
    * True, if paid media messages can be sent or forwarded to the channel chat. The field is available only for channel chats.
    */
-  can_send_paid_media?: true;
+  can_send_paid_media?: true | undefined;
 
   /**
    * For supergroups, the minimum allowed delay between consecutive messages sent by each unprivileged user; in seconds
    */
-  slow_mode_delay?: number;
+  slow_mode_delay?: number | undefined;
 
   /**
    * For supergroups, the minimum number of boosts that a non-administrator user needs to add in order to ignore slow mode and chat permissions
    */
-  unrestrict_boost_count?: number;
+  unrestrict_boost_count?: number | undefined;
 
   /**
    * The time after which all messages sent to the chat will be automatically deleted; in seconds
    */
-  message_auto_delete_time?: number;
+  message_auto_delete_time?: number | undefined;
 
   /**
    * True, if aggressive anti-spam checks are enabled in the supergroup. The field is only available to chat administrators.
    */
-  has_aggressive_anti_spam_enabled?: true;
+  has_aggressive_anti_spam_enabled?: true | undefined;
 
   /**
    * True, if non-administrators can only get the list of bots and administrators in the chat
    */
-  has_hidden_members?: true;
+  has_hidden_members?: true | undefined;
 
   /**
    * True, if messages from the chat can't be forwarded to other chats
    */
-  has_protected_content?: true;
+  has_protected_content?: true | undefined;
 
   /**
    * True, if new chat members will have access to old messages; available only to chat administrators
    */
-  has_visible_history?: true;
+  has_visible_history?: true | undefined;
 
   /**
    * For supergroups, name of the group sticker set
    */
-  sticker_set_name?: string;
+  sticker_set_name?: string | undefined;
 
   /**
    * True, if the bot can change the group sticker set
    */
-  can_set_sticker_set?: true;
+  can_set_sticker_set?: true | undefined;
 
   /**
    * For supergroups, the name of the group's custom emoji sticker set. Custom emoji from this set can be used by all users and bots in the group.
    */
-  custom_emoji_sticker_set_name?: string;
+  custom_emoji_sticker_set_name?: string | undefined;
 
   /**
    * Unique identifier for the linked chat, i.e. the discussion group identifier for a channel and vice versa; for supergroups and channel chats. This identifier may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
    */
-  linked_chat_id?: number;
+  linked_chat_id?: number | undefined;
 
   /**
    * For supergroups, the location to which the supergroup is connected
    */
-  location?: ChatLocation;
+  location?: ChatLocation | undefined;
 
   /**
    * For private chats, the rating of the user if any
    */
-  rating?: UserRating;
+  rating?: UserRating | undefined;
 
   /**
    * For private chats, the first audio added to the profile of the user
    */
-  first_profile_audio?: Audio;
+  first_profile_audio?: Audio | undefined;
 
   /**
    * The color scheme based on a unique gift that must be used for the chat's name, message replies and link previews
    */
-  unique_gift_colors?: UniqueGiftColors;
+  unique_gift_colors?: UniqueGiftColors | undefined;
 
   /**
    * The number of Telegram Stars a general user has to pay to send a message to the chat
    */
-  paid_message_star_count?: number;
+  paid_message_star_count?: number | undefined;
 
   /**
    * The bot that processes join request queries in the chat. The field is only available to chat administrators.
    */
-  guard_bot?: User;
+  guard_bot?: User | undefined;
 
   /**
    * The {@link Community} to which the chat belongs
    */
-  community?: Community;
+  community?: Community | undefined;
 };
 
 /**
@@ -717,47 +717,47 @@ export type Message = {
   /**
    * Unique identifier of a message thread or forum topic to which the message belongs; for supergroups and private chats only
    */
-  message_thread_id?: number;
+  message_thread_id?: number | undefined;
 
   /**
    * Information about the direct messages chat topic that contains the message
    */
-  direct_messages_topic?: DirectMessagesTopic;
+  direct_messages_topic?: DirectMessagesTopic | undefined;
 
   /**
    * Sender of the message; may be empty for messages sent to channels. For backward compatibility, if the message was sent on behalf of a chat, the field contains a fake sender user in non-channel chats.
    */
-  from?: User;
+  from?: User | undefined;
 
   /**
    * Sender of the message when sent on behalf of a chat. For example, the supergroup itself for messages sent by its anonymous administrators or a linked channel for messages automatically forwarded to the channel's discussion group. For backward compatibility, if the message was sent on behalf of a chat, the field from contains a fake sender user in non-channel chats.
    */
-  sender_chat?: Chat;
+  sender_chat?: Chat | undefined;
 
   /**
    * If the sender of the message boosted the chat, the number of boosts added by the user
    */
-  sender_boost_count?: number;
+  sender_boost_count?: number | undefined;
 
   /**
    * The bot that actually sent the message on behalf of the business account. Available only for outgoing messages sent on behalf of the connected business account.
    */
-  sender_business_bot?: User;
+  sender_business_bot?: User | undefined;
 
   /**
    * Tag or custom title of the sender of the message; for supergroups only
    */
-  sender_tag?: string;
+  sender_tag?: string | undefined;
 
   /**
    * For ephemeral messages, the user who received the message
    */
-  receiver_user?: User;
+  receiver_user?: User | undefined;
 
   /**
    * For ephemeral messages, identifier of the ephemeral message inside this chat. The identifier may be reused for another ephemeral message after the message is deleted or expires.
    */
-  ephemeral_message_id?: number;
+  ephemeral_message_id?: number | undefined;
 
   /**
    * Date the message was sent in Unix time. It is always a positive number, representing a valid date.
@@ -767,12 +767,12 @@ export type Message = {
   /**
    * The unique identifier for the guest query. Use this identifier with the method answerGuestQuery to send a response message. If non-empty, the message belongs to the chat where the guest bot was summoned, which may not coincide with other existing bot chats sharing the same identifier.
    */
-  guest_query_id?: string;
+  guest_query_id?: string | undefined;
 
   /**
    * Unique identifier of the business connection from which the message was received. If non-empty, the message belongs to a chat of the corresponding business account that is independent from any potential bot chat which might share the same identifier.
    */
-  business_connection_id?: string;
+  business_connection_id?: string | undefined;
 
   /**
    * Chat the message belongs to
@@ -782,532 +782,532 @@ export type Message = {
   /**
    * Information about the original message for forwarded messages
    */
-  forward_origin?: MessageOrigin;
+  forward_origin?: MessageOrigin | undefined;
 
   /**
    * True, if the message is sent to a topic in a forum supergroup or a private chat with the bot
    */
-  is_topic_message?: true;
+  is_topic_message?: true | undefined;
 
   /**
    * True, if the message is a channel post that was automatically forwarded to the connected discussion group
    */
-  is_automatic_forward?: true;
+  is_automatic_forward?: true | undefined;
 
   /**
    * For replies in the same chat and message thread, the original message. Note that the {@link Message} object in this field will not contain further reply_to_message fields even if it itself is a reply. If the message is a reply to an ephemeral message, then this field may be omitted.
    */
-  reply_to_message?: Message;
+  reply_to_message?: Message | undefined;
 
   /**
    * Information about the message that is being replied to, which may come from another chat or forum topic
    */
-  external_reply?: ExternalReplyInfo;
+  external_reply?: ExternalReplyInfo | undefined;
 
   /**
    * For replies that quote part of the original message, the quoted part of the message
    */
-  quote?: TextQuote;
+  quote?: TextQuote | undefined;
 
   /**
    * For replies to a story, the original story
    */
-  reply_to_story?: Story;
+  reply_to_story?: Story | undefined;
 
   /**
    * Identifier of the specific checklist task that is being replied to
    */
-  reply_to_checklist_task_id?: number;
+  reply_to_checklist_task_id?: number | undefined;
 
   /**
    * Persistent identifier of the specific poll option that is being replied to
    */
-  reply_to_poll_option_id?: string;
+  reply_to_poll_option_id?: string | undefined;
 
   /**
    * Bot through which the message was sent
    */
-  via_bot?: User;
+  via_bot?: User | undefined;
 
   /**
    * For a message sent by a guest bot, this is the user whose original message triggered the bot's response
    */
-  guest_bot_caller_user?: User;
+  guest_bot_caller_user?: User | undefined;
 
   /**
    * For a message sent by a guest bot, this is the chat whose original message triggered the bot's response
    */
-  guest_bot_caller_chat?: Chat;
+  guest_bot_caller_chat?: Chat | undefined;
 
   /**
    * Date the message was last edited in Unix time
    */
-  edit_date?: number;
+  edit_date?: number | undefined;
 
   /**
    * True, if the message can't be forwarded
    */
-  has_protected_content?: true;
+  has_protected_content?: true | undefined;
 
   /**
    * True, if the message was sent by an implicit action, for example, as an away or a greeting business message, or as a scheduled message
    */
-  is_from_offline?: true;
+  is_from_offline?: true | undefined;
 
   /**
    * True, if the message is a paid post. Note that such posts must not be deleted for 24 hours to receive the payment and can't be edited.
    */
-  is_paid_post?: true;
+  is_paid_post?: true | undefined;
 
   /**
    * The unique identifier inside this chat of a media message group this message belongs to
    */
-  media_group_id?: string;
+  media_group_id?: string | undefined;
 
   /**
    * Signature of the post author for messages in channels, or the custom title of an anonymous group administrator
    */
-  author_signature?: string;
+  author_signature?: string | undefined;
 
   /**
    * The number of Telegram Stars that were paid by the sender of the message to send it
    */
-  paid_star_count?: number;
+  paid_star_count?: number | undefined;
 
   /**
    * For text messages, the actual UTF-8 text of the message
    */
-  text?: string;
+  text?: string | undefined;
 
   /**
    * For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
    */
-  entities?: MessageEntity[];
+  entities?: MessageEntity[] | undefined;
 
   /**
    * Options used for link preview generation for the message, if it is a text message and link preview options were changed
    */
-  link_preview_options?: LinkPreviewOptions;
+  link_preview_options?: LinkPreviewOptions | undefined;
 
   /**
    * Information about suggested post parameters if the message is a suggested post in a channel direct messages chat. If the message is an approved or declined suggested post, then it can't be edited.
    */
-  suggested_post_info?: SuggestedPostInfo;
+  suggested_post_info?: SuggestedPostInfo | undefined;
 
   /**
    * Unique identifier of the message effect added to the message
    */
-  effect_id?: string;
+  effect_id?: string | undefined;
 
   /**
    * {@link Message} is a rich formatted message
    */
-  rich_message?: RichMessage;
+  rich_message?: RichMessage | undefined;
 
   /**
    * {@link Message} is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set.
    */
-  animation?: Animation;
+  animation?: Animation | undefined;
 
   /**
    * {@link Message} is an audio file, information about the file
    */
-  audio?: Audio;
+  audio?: Audio | undefined;
 
   /**
    * {@link Message} is a general file, information about the file
    */
-  document?: Document;
+  document?: Document | undefined;
 
   /**
    * {@link Message} is a live photo, information about the live photo. For backward compatibility, when this field is set, the photo field will also be set.
    */
-  live_photo?: LivePhoto;
+  live_photo?: LivePhoto | undefined;
 
   /**
    * {@link Message} contains paid media; information about the paid media
    */
-  paid_media?: PaidMediaInfo;
+  paid_media?: PaidMediaInfo | undefined;
 
   /**
    * {@link Message} is a photo, available sizes of the photo
    */
-  photo?: PhotoSize[];
+  photo?: PhotoSize[] | undefined;
 
   /**
    * {@link Message} is a sticker, information about the sticker
    */
-  sticker?: Sticker;
+  sticker?: Sticker | undefined;
 
   /**
    * {@link Message} is a forwarded story
    */
-  story?: Story;
+  story?: Story | undefined;
 
   /**
    * {@link Message} is a video, information about the video
    */
-  video?: Video;
+  video?: Video | undefined;
 
   /**
    * {@link Message} is a video note, information about the video message
    */
-  video_note?: VideoNote;
+  video_note?: VideoNote | undefined;
 
   /**
    * {@link Message} is a voice message, information about the file
    */
-  voice?: Voice;
+  voice?: Voice | undefined;
 
   /**
    * Caption for the animation, audio, document, paid media, photo, video or voice
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * True, if the caption must be shown above the message media
    */
-  show_caption_above_media?: true;
+  show_caption_above_media?: true | undefined;
 
   /**
    * True, if the message media is covered by a spoiler animation
    */
-  has_media_spoiler?: true;
+  has_media_spoiler?: true | undefined;
 
   /**
    * {@link Message} is a checklist
    */
-  checklist?: Checklist;
+  checklist?: Checklist | undefined;
 
   /**
    * {@link Message} is a shared contact, information about the contact
    */
-  contact?: Contact;
+  contact?: Contact | undefined;
 
   /**
    * {@link Message} is a dice with random value
    */
-  dice?: Dice;
+  dice?: Dice | undefined;
 
   /**
    * {@link Message} is a game, information about the game. More about games »
    */
-  game?: Game;
+  game?: Game | undefined;
 
   /**
    * {@link Message} is a native poll, information about the poll
    */
-  poll?: Poll;
+  poll?: Poll | undefined;
 
   /**
    * {@link Message} is a venue, information about the venue. For backward compatibility, when this field is set, the location field will also be set.
    */
-  venue?: Venue;
+  venue?: Venue | undefined;
 
   /**
    * {@link Message} is a shared location, information about the location
    */
-  location?: Location;
+  location?: Location | undefined;
 
   /**
    * New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
    */
-  new_chat_members?: User[];
+  new_chat_members?: User[] | undefined;
 
   /**
    * A member was removed from the group, information about them (this member may be the bot itself)
    */
-  left_chat_member?: User;
+  left_chat_member?: User | undefined;
 
   /**
    * Service message: chat owner has left
    */
-  chat_owner_left?: ChatOwnerLeft;
+  chat_owner_left?: ChatOwnerLeft | undefined;
 
   /**
    * Service message: chat owner has changed
    */
-  chat_owner_changed?: ChatOwnerChanged;
+  chat_owner_changed?: ChatOwnerChanged | undefined;
 
   /**
    * A chat title was changed to this value
    */
-  new_chat_title?: string;
+  new_chat_title?: string | undefined;
 
   /**
    * A chat photo was change to this value
    */
-  new_chat_photo?: PhotoSize[];
+  new_chat_photo?: PhotoSize[] | undefined;
 
   /**
    * Service message: the chat photo was deleted
    */
-  delete_chat_photo?: true;
+  delete_chat_photo?: true | undefined;
 
   /**
    * Service message: the group has been created
    */
-  group_chat_created?: true;
+  group_chat_created?: true | undefined;
 
   /**
    * Service message: the supergroup has been created. This field can't be received in a message coming through updates, because bot can't be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
    */
-  supergroup_chat_created?: true;
+  supergroup_chat_created?: true | undefined;
 
   /**
    * Service message: the channel has been created. This field can't be received in a message coming through updates, because bot can't be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
    */
-  channel_chat_created?: true;
+  channel_chat_created?: true | undefined;
 
   /**
    * Service message: auto-delete timer settings changed in the chat
    */
-  message_auto_delete_timer_changed?: MessageAutoDeleteTimerChanged;
+  message_auto_delete_timer_changed?: MessageAutoDeleteTimerChanged | undefined;
 
   /**
    * The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  migrate_to_chat_id?: number;
+  migrate_to_chat_id?: number | undefined;
 
   /**
    * The supergroup has been migrated from a group with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  migrate_from_chat_id?: number;
+  migrate_from_chat_id?: number | undefined;
 
   /**
    * Specified message was pinned. Note that the {@link Message} object in this field will not contain further reply_to_message fields even if it itself is a reply.
    */
-  pinned_message?: MaybeInaccessibleMessage;
+  pinned_message?: MaybeInaccessibleMessage | undefined;
 
   /**
    * {@link Message} is an invoice for a payment, information about the invoice. More about payments »
    */
-  invoice?: Invoice;
+  invoice?: Invoice | undefined;
 
   /**
    * {@link Message} is a service message about a successful payment, information about the payment. More about payments »
    */
-  successful_payment?: SuccessfulPayment;
+  successful_payment?: SuccessfulPayment | undefined;
 
   /**
    * {@link Message} is a service message about a refunded payment, information about the payment. More about payments »
    */
-  refunded_payment?: RefundedPayment;
+  refunded_payment?: RefundedPayment | undefined;
 
   /**
    * Service message: users were shared with the bot
    */
-  users_shared?: UsersShared;
+  users_shared?: UsersShared | undefined;
 
   /**
    * Service message: a chat was shared with the bot
    */
-  chat_shared?: ChatShared;
+  chat_shared?: ChatShared | undefined;
 
   /**
    * Service message: a regular gift was sent or received
    */
-  gift?: GiftInfo;
+  gift?: GiftInfo | undefined;
 
   /**
    * Service message: a unique gift was sent or received
    */
-  unique_gift?: UniqueGiftInfo;
+  unique_gift?: UniqueGiftInfo | undefined;
 
   /**
    * Service message: upgrade of a gift was purchased after the gift was sent
    */
-  gift_upgrade_sent?: GiftInfo;
+  gift_upgrade_sent?: GiftInfo | undefined;
 
   /**
    * The domain name of the website on which the user has logged in. {@link https://core.telegram.org/widgets/login | More about Telegram Login »}
    */
-  connected_website?: string;
+  connected_website?: string | undefined;
 
   /**
    * Service message: the user allowed the bot to write messages after adding it to the attachment or side menu, launching a Web App from a link, or accepting an explicit request from a Web App sent by the method {@link https://core.telegram.org/bots/webapps#initializing-mini-apps | requestWriteAccess}
    */
-  write_access_allowed?: WriteAccessAllowed;
+  write_access_allowed?: WriteAccessAllowed | undefined;
 
   /**
    * Telegram Passport data
    */
-  passport_data?: PassportData;
+  passport_data?: PassportData | undefined;
 
   /**
    * Service message: a user in the chat triggered another user's proximity alert while sharing Live Location
    */
-  proximity_alert_triggered?: ProximityAlertTriggered;
+  proximity_alert_triggered?: ProximityAlertTriggered | undefined;
 
   /**
    * Service message: user boosted the chat
    */
-  boost_added?: ChatBoostAdded;
+  boost_added?: ChatBoostAdded | undefined;
 
   /**
    * Service message: chat background set
    */
-  chat_background_set?: ChatBackground;
+  chat_background_set?: ChatBackground | undefined;
 
   /**
    * Service message: some tasks in a checklist were marked as done or not done
    */
-  checklist_tasks_done?: ChecklistTasksDone;
+  checklist_tasks_done?: ChecklistTasksDone | undefined;
 
   /**
    * Service message: tasks were added to a checklist
    */
-  checklist_tasks_added?: ChecklistTasksAdded;
+  checklist_tasks_added?: ChecklistTasksAdded | undefined;
 
   /**
    * Service message: chat or bot added to a Community
    */
-  community_chat_added?: CommunityChatAdded;
+  community_chat_added?: CommunityChatAdded | undefined;
 
   /**
    * Service message: chat was joined by a user from a Community
    */
-  community_chat_joined?: CommunityChatJoined;
+  community_chat_joined?: CommunityChatJoined | undefined;
 
   /**
    * Service message: chat or bot removed from a Community
    */
-  community_chat_removed?: CommunityChatRemoved;
+  community_chat_removed?: CommunityChatRemoved | undefined;
 
   /**
    * Service message: the price for paid messages in the corresponding direct messages chat of a channel has changed
    */
-  direct_message_price_changed?: DirectMessagePriceChanged;
+  direct_message_price_changed?: DirectMessagePriceChanged | undefined;
 
   /**
    * Service message: forum topic created
    */
-  forum_topic_created?: ForumTopicCreated;
+  forum_topic_created?: ForumTopicCreated | undefined;
 
   /**
    * Service message: forum topic edited
    */
-  forum_topic_edited?: ForumTopicEdited;
+  forum_topic_edited?: ForumTopicEdited | undefined;
 
   /**
    * Service message: forum topic closed
    */
-  forum_topic_closed?: ForumTopicClosed;
+  forum_topic_closed?: ForumTopicClosed | undefined;
 
   /**
    * Service message: forum topic reopened
    */
-  forum_topic_reopened?: ForumTopicReopened;
+  forum_topic_reopened?: ForumTopicReopened | undefined;
 
   /**
    * Service message: the 'General' forum topic hidden
    */
-  general_forum_topic_hidden?: GeneralForumTopicHidden;
+  general_forum_topic_hidden?: GeneralForumTopicHidden | undefined;
 
   /**
    * Service message: the 'General' forum topic unhidden
    */
-  general_forum_topic_unhidden?: GeneralForumTopicUnhidden;
+  general_forum_topic_unhidden?: GeneralForumTopicUnhidden | undefined;
 
   /**
    * Service message: a scheduled giveaway was created
    */
-  giveaway_created?: GiveawayCreated;
+  giveaway_created?: GiveawayCreated | undefined;
 
   /**
    * The message is a scheduled giveaway message
    */
-  giveaway?: Giveaway;
+  giveaway?: Giveaway | undefined;
 
   /**
    * A giveaway with public winners was completed
    */
-  giveaway_winners?: GiveawayWinners;
+  giveaway_winners?: GiveawayWinners | undefined;
 
   /**
    * Service message: a giveaway without public winners was completed
    */
-  giveaway_completed?: GiveawayCompleted;
+  giveaway_completed?: GiveawayCompleted | undefined;
 
   /**
    * Service message: user created a bot that will be managed by the current bot
    */
-  managed_bot_created?: ManagedBotCreated;
+  managed_bot_created?: ManagedBotCreated | undefined;
 
   /**
    * Service message: the price for paid messages has changed in the chat
    */
-  paid_message_price_changed?: PaidMessagePriceChanged;
+  paid_message_price_changed?: PaidMessagePriceChanged | undefined;
 
   /**
    * Service message: answer option was added to a poll
    */
-  poll_option_added?: PollOptionAdded;
+  poll_option_added?: PollOptionAdded | undefined;
 
   /**
    * Service message: answer option was deleted from a poll
    */
-  poll_option_deleted?: PollOptionDeleted;
+  poll_option_deleted?: PollOptionDeleted | undefined;
 
   /**
    * Service message: a suggested post was approved
    */
-  suggested_post_approved?: SuggestedPostApproved;
+  suggested_post_approved?: SuggestedPostApproved | undefined;
 
   /**
    * Service message: approval of a suggested post has failed
    */
-  suggested_post_approval_failed?: SuggestedPostApprovalFailed;
+  suggested_post_approval_failed?: SuggestedPostApprovalFailed | undefined;
 
   /**
    * Service message: a suggested post was declined
    */
-  suggested_post_declined?: SuggestedPostDeclined;
+  suggested_post_declined?: SuggestedPostDeclined | undefined;
 
   /**
    * Service message: payment for a suggested post was received
    */
-  suggested_post_paid?: SuggestedPostPaid;
+  suggested_post_paid?: SuggestedPostPaid | undefined;
 
   /**
    * Service message: payment for a suggested post was refunded
    */
-  suggested_post_refunded?: SuggestedPostRefunded;
+  suggested_post_refunded?: SuggestedPostRefunded | undefined;
 
   /**
    * Service message: video chat scheduled
    */
-  video_chat_scheduled?: VideoChatScheduled;
+  video_chat_scheduled?: VideoChatScheduled | undefined;
 
   /**
    * Service message: video chat started
    */
-  video_chat_started?: VideoChatStarted;
+  video_chat_started?: VideoChatStarted | undefined;
 
   /**
    * Service message: video chat ended
    */
-  video_chat_ended?: VideoChatEnded;
+  video_chat_ended?: VideoChatEnded | undefined;
 
   /**
    * Service message: new participants invited to a video chat
    */
-  video_chat_participants_invited?: VideoChatParticipantsInvited;
+  video_chat_participants_invited?: VideoChatParticipantsInvited | undefined;
 
   /**
    * Service message: data sent by a Web App
    */
-  web_app_data?: WebAppData;
+  web_app_data?: WebAppData | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message. login_url buttons are represented as ordinary url buttons.
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 };
 
 /**
@@ -1394,7 +1394,7 @@ export type MessageEntity =
       /**
        * For “pre” only, the programming language of the entity text
        */
-      language?: string;
+      language?: string | undefined;
     }
   | {
       /**
@@ -1415,7 +1415,7 @@ export type MessageEntity =
       /**
        * For “text_link” only, URL that will be opened after user taps on the text
        */
-      url?: string;
+      url?: string | undefined;
     }
   | {
       /**
@@ -1436,7 +1436,7 @@ export type MessageEntity =
       /**
        * For “text_mention” only, the mentioned user
        */
-      user?: User;
+      user?: User | undefined;
     }
   | {
       /**
@@ -1457,7 +1457,7 @@ export type MessageEntity =
       /**
        * For “custom_emoji” only, unique identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker.
        */
-      custom_emoji_id?: string;
+      custom_emoji_id?: string | undefined;
     }
   | {
       /**
@@ -1478,12 +1478,12 @@ export type MessageEntity =
       /**
        * For “date_time” only, the Unix time associated with the entity
        */
-      unix_time?: number;
+      unix_time?: number | undefined;
 
       /**
        * For “date_time” only, the string that defines the formatting of the date and time. See date-time entity formatting for more details.
        */
-      date_time_format?: string;
+      date_time_format?: string | undefined;
     };
 
 /**
@@ -1498,7 +1498,7 @@ export type TextQuote = {
   /**
    * Special entities that appear in the quote. Currently, only bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities are kept in quotes.
    */
-  entities?: MessageEntity[];
+  entities?: MessageEntity[] | undefined;
 
   /**
    * Approximate quote position in the original message in UTF-16 code units as specified by the sender
@@ -1508,7 +1508,7 @@ export type TextQuote = {
   /**
    * True, if the quote was chosen manually by the message sender. Otherwise, the quote was added automatically by the server.
    */
-  is_manual?: true;
+  is_manual?: true | undefined;
 };
 
 /**
@@ -1523,127 +1523,127 @@ export type ExternalReplyInfo = {
   /**
    * {@link Chat} the original message belongs to. Available only if the chat is a supergroup or a channel.
    */
-  chat?: Chat;
+  chat?: Chat | undefined;
 
   /**
    * Unique message identifier inside the original chat. Available only if the original chat is a supergroup or a channel.
    */
-  message_id?: number;
+  message_id?: number | undefined;
 
   /**
    * Options used for link preview generation for the original message, if it is a text message
    */
-  link_preview_options?: LinkPreviewOptions;
+  link_preview_options?: LinkPreviewOptions | undefined;
 
   /**
    * {@link Message} is an animation, information about the animation
    */
-  animation?: Animation;
+  animation?: Animation | undefined;
 
   /**
    * {@link Message} is an audio file, information about the file
    */
-  audio?: Audio;
+  audio?: Audio | undefined;
 
   /**
    * {@link Message} is a general file, information about the file
    */
-  document?: Document;
+  document?: Document | undefined;
 
   /**
    * {@link Message} is a live photo, information about the live photo
    */
-  live_photo?: LivePhoto;
+  live_photo?: LivePhoto | undefined;
 
   /**
    * {@link Message} contains paid media; information about the paid media
    */
-  paid_media?: PaidMediaInfo;
+  paid_media?: PaidMediaInfo | undefined;
 
   /**
    * {@link Message} is a photo, available sizes of the photo
    */
-  photo?: PhotoSize[];
+  photo?: PhotoSize[] | undefined;
 
   /**
    * {@link Message} is a sticker, information about the sticker
    */
-  sticker?: Sticker;
+  sticker?: Sticker | undefined;
 
   /**
    * {@link Message} is a forwarded story
    */
-  story?: Story;
+  story?: Story | undefined;
 
   /**
    * {@link Message} is a video, information about the video
    */
-  video?: Video;
+  video?: Video | undefined;
 
   /**
    * {@link Message} is a video note, information about the video message
    */
-  video_note?: VideoNote;
+  video_note?: VideoNote | undefined;
 
   /**
    * {@link Message} is a voice message, information about the file
    */
-  voice?: Voice;
+  voice?: Voice | undefined;
 
   /**
    * True, if the message media is covered by a spoiler animation
    */
-  has_media_spoiler?: true;
+  has_media_spoiler?: true | undefined;
 
   /**
    * {@link Message} is a checklist
    */
-  checklist?: Checklist;
+  checklist?: Checklist | undefined;
 
   /**
    * {@link Message} is a shared contact, information about the contact
    */
-  contact?: Contact;
+  contact?: Contact | undefined;
 
   /**
    * {@link Message} is a dice with random value
    */
-  dice?: Dice;
+  dice?: Dice | undefined;
 
   /**
    * {@link Message} is a game, information about the game. More about games »
    */
-  game?: Game;
+  game?: Game | undefined;
 
   /**
    * {@link Message} is a scheduled giveaway, information about the giveaway
    */
-  giveaway?: Giveaway;
+  giveaway?: Giveaway | undefined;
 
   /**
    * A giveaway with public winners was completed
    */
-  giveaway_winners?: GiveawayWinners;
+  giveaway_winners?: GiveawayWinners | undefined;
 
   /**
    * {@link Message} is an invoice for a payment, information about the invoice. More about payments »
    */
-  invoice?: Invoice;
+  invoice?: Invoice | undefined;
 
   /**
    * {@link Message} is a shared location, information about the location
    */
-  location?: Location;
+  location?: Location | undefined;
 
   /**
    * {@link Message} is a native poll, information about the poll
    */
-  poll?: Poll;
+  poll?: Poll | undefined;
 
   /**
    * {@link Message} is a venue, information about the venue
    */
-  venue?: Venue;
+  venue?: Venue | undefined;
 };
 
 /**
@@ -1653,52 +1653,52 @@ export type ReplyParameters = {
   /**
    * Identifier of the message that will be replied to in the current chat, or in the chat chat_id if it is specified. Required if ephemeral_message_id isn't specified.
    */
-  message_id?: number;
+  message_id?: number | undefined;
 
   /**
    * If the message to be replied to is from a different chat, unique identifier for the chat or username of the bot, supergroup or channel in the format `@username`. Not supported for messages sent on behalf of a business account, messages from channel direct messages chats and ephemeral messages.
    */
-  chat_id?: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Identifier of the incoming ephemeral message that will be replied to in the current chat. A reply to an ephemeral message must itself be an ephemeral message. An ephemeral message may only be replied to within 15 seconds of being sent. Required if message_id isn't specified.
    */
-  ephemeral_message_id?: number;
+  ephemeral_message_id?: number | undefined;
 
   /**
    * Pass True if the message should be sent even if the specified message to be replied to is not found. Always False for replies in another chat or forum topic, and sent ephemeral messages. Always True for messages sent on behalf of a business account.
    */
-  allow_sending_without_reply?: boolean;
+  allow_sending_without_reply?: boolean | undefined;
 
   /**
    * Quoted part of the message to be replied to; 0-1024 characters after entities parsing. The quote must be an exact substring of the message to be replied to, including bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities. The message will fail to send if the quote isn't found in the original message. Ignored for ephemeral messages.
    */
-  quote?: string;
+  quote?: string | undefined;
 
   /**
    * Mode for parsing entities in the quote. See formatting options for more details.
    */
-  quote_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  quote_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * A JSON-serialized list of special entities that appear in the quote. It can be specified instead of quote_parse_mode.
    */
-  quote_entities?: MessageEntity[];
+  quote_entities?: MessageEntity[] | undefined;
 
   /**
    * Position of the quote in the original message in UTF-16 code units
    */
-  quote_position?: number;
+  quote_position?: number | undefined;
 
   /**
    * Identifier of the specific checklist task to be replied to
    */
-  checklist_task_id?: number;
+  checklist_task_id?: number | undefined;
 
   /**
    * Persistent identifier of the specific poll option to be replied to
    */
-  poll_option_id?: string;
+  poll_option_id?: string | undefined;
 };
 
 /**
@@ -1713,12 +1713,12 @@ export type EphemeralMessageParameters = {
   /**
    * Identifier of the callback query which triggered the message, if any
    */
-  callback_query_id?: string;
+  callback_query_id?: string | undefined;
 
   /**
    * Pass True if the ephemeral message must be shown in place of the original message. Must be False for callback queries from ephemeral messages, which must be edited using regular editEphemeralMessage… methods.
    */
-  replace_callback_query_message?: boolean;
+  replace_callback_query_message?: boolean | undefined;
 };
 
 /**
@@ -1783,7 +1783,7 @@ export type MessageOriginChat = {
   /**
    * For messages originally sent by an anonymous chat administrator, original message author signature
    */
-  author_signature?: string;
+  author_signature?: string | undefined;
 };
 
 /**
@@ -1813,7 +1813,7 @@ export type MessageOriginChannel = {
   /**
    * Signature of the original post author
    */
-  author_signature?: string;
+  author_signature?: string | undefined;
 };
 
 /**
@@ -1843,7 +1843,7 @@ export type PhotoSize = {
   /**
    * {@link File} size in bytes
    */
-  file_size?: number;
+  file_size?: number | undefined;
 };
 
 /**
@@ -1878,22 +1878,22 @@ export type Animation = {
   /**
    * {@link Animation} thumbnail as defined by the sender
    */
-  thumbnail?: PhotoSize;
+  thumbnail?: PhotoSize | undefined;
 
   /**
    * Original animation filename as defined by the sender
    */
-  file_name?: string;
+  file_name?: string | undefined;
 
   /**
    * MIME type of the file as defined by the sender
    */
-  mime_type?: string;
+  mime_type?: string | undefined;
 
   /**
    * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
-  file_size?: number;
+  file_size?: number | undefined;
 };
 
 /**
@@ -1918,32 +1918,32 @@ export type Audio = {
   /**
    * Performer of the audio as defined by the sender or by audio tags
    */
-  performer?: string;
+  performer?: string | undefined;
 
   /**
    * Title of the audio as defined by the sender or by audio tags
    */
-  title?: string;
+  title?: string | undefined;
 
   /**
    * Original filename as defined by the sender
    */
-  file_name?: string;
+  file_name?: string | undefined;
 
   /**
    * MIME type of the file as defined by the sender
    */
-  mime_type?: string;
+  mime_type?: string | undefined;
 
   /**
    * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
-  file_size?: number;
+  file_size?: number | undefined;
 
   /**
    * Thumbnail of the album cover to which the music file belongs
    */
-  thumbnail?: PhotoSize;
+  thumbnail?: PhotoSize | undefined;
 };
 
 /**
@@ -1963,22 +1963,22 @@ export type Document = {
   /**
    * {@link Document} thumbnail as defined by the sender
    */
-  thumbnail?: PhotoSize;
+  thumbnail?: PhotoSize | undefined;
 
   /**
    * Original filename as defined by the sender
    */
-  file_name?: string;
+  file_name?: string | undefined;
 
   /**
    * MIME type of the file as defined by the sender
    */
-  mime_type?: string;
+  mime_type?: string | undefined;
 
   /**
    * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
-  file_size?: number;
+  file_size?: number | undefined;
 };
 
 /**
@@ -1988,7 +1988,7 @@ export type LivePhoto = {
   /**
    * Available sizes of the corresponding static photo
    */
-  photo?: PhotoSize[];
+  photo?: PhotoSize[] | undefined;
 
   /**
    * Identifier for the video file which can be used to download or reuse the file
@@ -2018,12 +2018,12 @@ export type LivePhoto = {
   /**
    * MIME type of the file as defined by the sender
    */
-  mime_type?: string;
+  mime_type?: string | undefined;
 
   /**
    * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
-  file_size?: number;
+  file_size?: number | undefined;
 };
 
 /**
@@ -2073,7 +2073,7 @@ export type VideoQuality = {
   /**
    * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
-  file_size?: number;
+  file_size?: number | undefined;
 };
 
 /**
@@ -2108,37 +2108,37 @@ export type Video = {
   /**
    * {@link Video} thumbnail
    */
-  thumbnail?: PhotoSize;
+  thumbnail?: PhotoSize | undefined;
 
   /**
    * Available sizes of the cover of the video in the message
    */
-  cover?: PhotoSize[];
+  cover?: PhotoSize[] | undefined;
 
   /**
    * Timestamp in seconds from which the video will play in the message
    */
-  start_timestamp?: number;
+  start_timestamp?: number | undefined;
 
   /**
    * List of available qualities of the video
    */
-  qualities?: VideoQuality[];
+  qualities?: VideoQuality[] | undefined;
 
   /**
    * Original filename as defined by the sender
    */
-  file_name?: string;
+  file_name?: string | undefined;
 
   /**
    * MIME type of the file as defined by the sender
    */
-  mime_type?: string;
+  mime_type?: string | undefined;
 
   /**
    * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
-  file_size?: number;
+  file_size?: number | undefined;
 };
 
 /**
@@ -2168,12 +2168,12 @@ export type VideoNote = {
   /**
    * {@link Video} thumbnail
    */
-  thumbnail?: PhotoSize;
+  thumbnail?: PhotoSize | undefined;
 
   /**
    * {@link File} size in bytes
    */
-  file_size?: number;
+  file_size?: number | undefined;
 };
 
 /**
@@ -2198,12 +2198,12 @@ export type Voice = {
   /**
    * MIME type of the file as defined by the sender
    */
-  mime_type?: string;
+  mime_type?: string | undefined;
 
   /**
    * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
-  file_size?: number;
+  file_size?: number | undefined;
 };
 
 /**
@@ -2263,17 +2263,17 @@ export type PaidMediaPreview = {
   /**
    * Media width as defined by the sender
    */
-  width?: number;
+  width?: number | undefined;
 
   /**
    * Media height as defined by the sender
    */
-  height?: number;
+  height?: number | undefined;
 
   /**
    * Duration of the media in seconds as defined by the sender
    */
-  duration?: number;
+  duration?: number | undefined;
 };
 
 /**
@@ -2308,17 +2308,17 @@ export type Contact = {
   /**
    * Contact's last name
    */
-  last_name?: string;
+  last_name?: string | undefined;
 
   /**
    * Contact's user identifier in Telegram. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  user_id?: number;
+  user_id?: number | undefined;
 
   /**
    * Additional data about the contact in the form of a vCard
    */
-  vcard?: string;
+  vcard?: string | undefined;
 };
 
 /**
@@ -2353,52 +2353,52 @@ export type PollMedia = {
   /**
    * Media is an animation, information about the animation
    */
-  animation?: Animation;
+  animation?: Animation | undefined;
 
   /**
    * Media is an audio file, information about the file; currently, can't be received in a poll option
    */
-  audio?: Audio;
+  audio?: Audio | undefined;
 
   /**
    * Media is a general file, information about the file; currently, can't be received in a poll option
    */
-  document?: Document;
+  document?: Document | undefined;
 
   /**
    * The HTTP link attached to the poll option
    */
-  link?: Link;
+  link?: Link | undefined;
 
   /**
    * Media is a live photo, information about the live photo
    */
-  live_photo?: LivePhoto;
+  live_photo?: LivePhoto | undefined;
 
   /**
    * Media is a shared location, information about the location
    */
-  location?: Location;
+  location?: Location | undefined;
 
   /**
    * Media is a photo, available sizes of the photo
    */
-  photo?: PhotoSize[];
+  photo?: PhotoSize[] | undefined;
 
   /**
    * Media is a sticker, information about the sticker; currently, for poll options only
    */
-  sticker?: Sticker;
+  sticker?: Sticker | undefined;
 
   /**
    * Media is a venue, information about the venue
    */
-  venue?: Venue;
+  venue?: Venue | undefined;
 
   /**
    * Media is a video, information about the video
    */
-  video?: Video;
+  video?: Video | undefined;
 };
 
 /**
@@ -2418,12 +2418,12 @@ export type PollOption = {
   /**
    * Special entities that appear in the option text. Currently, only custom emoji entities are allowed in poll option texts
    */
-  text_entities?: MessageEntity[];
+  text_entities?: MessageEntity[] | undefined;
 
   /**
    * Media added to the poll option
    */
-  media?: PollMedia;
+  media?: PollMedia | undefined;
 
   /**
    * Number of users who voted for this option; may be 0 if unknown
@@ -2433,17 +2433,17 @@ export type PollOption = {
   /**
    * {@link User} who added the option; omitted if the option wasn't added by a user after poll creation
    */
-  added_by_user?: User;
+  added_by_user?: User | undefined;
 
   /**
    * {@link Chat} that added the option; omitted if the option wasn't added by a chat after poll creation
    */
-  added_by_chat?: Chat;
+  added_by_chat?: Chat | undefined;
 
   /**
    * Point in time (Unix timestamp) when the option was added; omitted if the option existed in the original poll
    */
-  addition_date?: number;
+  addition_date?: number | undefined;
 };
 
 /**
@@ -2458,17 +2458,17 @@ export type InputPollOption = {
   /**
    * Mode for parsing entities in the text. See formatting options for more details. Currently, only custom emoji entities are allowed.
    */
-  text_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  text_parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * A JSON-serialized list of special entities that appear in the poll option text. It can be specified instead of text_parse_mode.
    */
-  text_entities?: MessageEntity[];
+  text_entities?: MessageEntity[] | undefined;
 
   /**
    * Media added to the poll option
    */
-  media?: InputPollOptionMedia;
+  media?: InputPollOptionMedia | undefined;
 };
 
 /**
@@ -2483,12 +2483,12 @@ export type PollAnswer = {
   /**
    * The chat that changed the answer to the poll, if the voter is anonymous
    */
-  voter_chat?: Chat;
+  voter_chat?: Chat | undefined;
 
   /**
    * The user that changed the answer to the poll, if the voter isn't anonymous
    */
-  user?: User;
+  user?: User | undefined;
 
   /**
    * 0-based identifiers of chosen answer options. May be empty if the vote was retracted.
@@ -2518,7 +2518,7 @@ export type Poll = {
   /**
    * Special entities that appear in the question. Currently, only custom emoji entities are allowed in poll questions
    */
-  question_entities?: MessageEntity[];
+  question_entities?: MessageEntity[] | undefined;
 
   /**
    * List of poll options
@@ -2563,52 +2563,52 @@ export type Poll = {
   /**
    * A list of two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which users can vote in the poll. The country code “FT” is used for users with anonymous numbers. If omitted, then users from any country can participate in the poll.
    */
-  country_codes?: string[];
+  country_codes?: string[] | undefined;
 
   /**
    * Array of 0-based identifiers of the correct answer options. Available only for polls in quiz mode which are closed or were sent (not forwarded) by the bot or to the private chat with the bot.
    */
-  correct_option_ids?: number[];
+  correct_option_ids?: number[] | undefined;
 
   /**
    * Text that is shown when a user chooses an incorrect answer or taps on the lamp icon in a quiz-style poll, 0-200 characters
    */
-  explanation?: string;
+  explanation?: string | undefined;
 
   /**
    * Special entities like usernames, URLs, bot commands, etc. that appear in the explanation
    */
-  explanation_entities?: MessageEntity[];
+  explanation_entities?: MessageEntity[] | undefined;
 
   /**
    * Media added to the quiz explanation
    */
-  explanation_media?: PollMedia;
+  explanation_media?: PollMedia | undefined;
 
   /**
    * Amount of time in seconds the poll will be active after creation
    */
-  open_period?: number;
+  open_period?: number | undefined;
 
   /**
    * Point in time (Unix timestamp) when the poll will be automatically closed
    */
-  close_date?: number;
+  close_date?: number | undefined;
 
   /**
    * Description of the poll; for polls inside the {@link Message} object only
    */
-  description?: string;
+  description?: string | undefined;
 
   /**
    * Special entities like usernames, URLs, bot commands, etc. that appear in the description
    */
-  description_entities?: MessageEntity[];
+  description_entities?: MessageEntity[] | undefined;
 
   /**
    * Media added to the poll description; for polls inside the {@link Message} object only
    */
-  media?: PollMedia;
+  media?: PollMedia | undefined;
 };
 
 /**
@@ -2628,22 +2628,22 @@ export type ChecklistTask = {
   /**
    * Special entities that appear in the task text
    */
-  text_entities?: MessageEntity[];
+  text_entities?: MessageEntity[] | undefined;
 
   /**
    * {@link User} that completed the task; omitted if the task wasn't completed by a user
    */
-  completed_by_user?: User;
+  completed_by_user?: User | undefined;
 
   /**
    * {@link Chat} that completed the task; omitted if the task wasn't completed by a chat
    */
-  completed_by_chat?: Chat;
+  completed_by_chat?: Chat | undefined;
 
   /**
    * Point in time (Unix timestamp) when the task was completed; 0 if the task wasn't completed
    */
-  completion_date?: number;
+  completion_date?: number | undefined;
 };
 
 /**
@@ -2658,7 +2658,7 @@ export type Checklist = {
   /**
    * Special entities that appear in the checklist title
    */
-  title_entities?: MessageEntity[];
+  title_entities?: MessageEntity[] | undefined;
 
   /**
    * List of tasks in the checklist
@@ -2668,12 +2668,12 @@ export type Checklist = {
   /**
    * True, if users other than the creator of the list can add tasks to the list
    */
-  others_can_add_tasks?: true;
+  others_can_add_tasks?: true | undefined;
 
   /**
    * True, if users other than the creator of the list can mark tasks as done or not done
    */
-  others_can_mark_tasks_as_done?: true;
+  others_can_mark_tasks_as_done?: true | undefined;
 };
 
 /**
@@ -2693,12 +2693,12 @@ export type InputChecklistTask = {
   /**
    * Mode for parsing entities in the text. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the text, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities are allowed.
    */
-  text_entities?: MessageEntity[];
+  text_entities?: MessageEntity[] | undefined;
 };
 
 /**
@@ -2713,12 +2713,12 @@ export type InputChecklist = {
   /**
    * Mode for parsing entities in the title. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the title, which can be specified instead of parse_mode. Currently, only bold, italic, underline, strikethrough, spoiler, custom_emoji, and date_time entities are allowed.
    */
-  title_entities?: MessageEntity[];
+  title_entities?: MessageEntity[] | undefined;
 
   /**
    * List of 1-30 tasks in the checklist
@@ -2728,12 +2728,12 @@ export type InputChecklist = {
   /**
    * Pass True if other users can add tasks to the checklist
    */
-  others_can_add_tasks?: boolean;
+  others_can_add_tasks?: boolean | undefined;
 
   /**
    * Pass True if other users can mark tasks as done or not done in the checklist
    */
-  others_can_mark_tasks_as_done?: boolean;
+  others_can_mark_tasks_as_done?: boolean | undefined;
 };
 
 /**
@@ -2753,22 +2753,22 @@ export type Location = {
   /**
    * The radius of uncertainty for the location, measured in meters; 0-1500
    */
-  horizontal_accuracy?: number;
+  horizontal_accuracy?: number | undefined;
 
   /**
    * Time relative to the message sending date, during which the location can be updated; in seconds. For active live locations only.
    */
-  live_period?: number;
+  live_period?: number | undefined;
 
   /**
    * The direction in which user is moving, in degrees; 1-360. For active live locations only.
    */
-  heading?: number;
+  heading?: number | undefined;
 
   /**
    * The maximum distance for proximity alerts about approaching another chat member, in meters. For sent live locations only.
    */
-  proximity_alert_radius?: number;
+  proximity_alert_radius?: number | undefined;
 };
 
 /**
@@ -2793,22 +2793,22 @@ export type Venue = {
   /**
    * Foursquare identifier of the venue
    */
-  foursquare_id?: string;
+  foursquare_id?: string | undefined;
 
   /**
    * Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
    */
-  foursquare_type?: string;
+  foursquare_type?: string | undefined;
 
   /**
    * Google Places identifier of the venue
    */
-  google_place_id?: string;
+  google_place_id?: string | undefined;
 
   /**
    * Google Places type of the venue. (See supported types.)
    */
-  google_place_type?: string;
+  google_place_type?: string | undefined;
 };
 
 /**
@@ -2913,7 +2913,7 @@ export type MessageGenerationStopped = {
   /**
    * Unique identifier of the message thread in which the message is generated
    */
-  message_thread_id?: number;
+  message_thread_id?: number | undefined;
 
   /**
    * Unique identifier of the message draft which was stopped
@@ -2928,7 +2928,7 @@ export type PollOptionAdded = {
   /**
    * {@link Message} containing the poll to which the option was added, if known. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
    */
-  poll_message?: MaybeInaccessibleMessage;
+  poll_message?: MaybeInaccessibleMessage | undefined;
 
   /**
    * Unique identifier of the added option
@@ -2943,7 +2943,7 @@ export type PollOptionAdded = {
   /**
    * Special entities that appear in the option_text
    */
-  option_text_entities?: MessageEntity[];
+  option_text_entities?: MessageEntity[] | undefined;
 };
 
 /**
@@ -2953,7 +2953,7 @@ export type PollOptionDeleted = {
   /**
    * {@link Message} containing the poll from which the option was deleted, if known. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
    */
-  poll_message?: MaybeInaccessibleMessage;
+  poll_message?: MaybeInaccessibleMessage | undefined;
 
   /**
    * Unique identifier of the deleted option
@@ -2968,7 +2968,7 @@ export type PollOptionDeleted = {
   /**
    * Special entities that appear in the option_text
    */
-  option_text_entities?: MessageEntity[];
+  option_text_entities?: MessageEntity[] | undefined;
 };
 
 /**
@@ -3078,12 +3078,12 @@ export type BackgroundTypeWallpaper = {
   /**
    * True, if the wallpaper is downscaled to fit in a 450x450 square and then box-blurred with radius 12
    */
-  is_blurred?: true;
+  is_blurred?: true | undefined;
 
   /**
    * True, if the background moves slightly when the device is tilted
    */
-  is_moving?: true;
+  is_moving?: true | undefined;
 };
 
 /**
@@ -3113,12 +3113,12 @@ export type BackgroundTypePattern = {
   /**
    * True, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only.
    */
-  is_inverted?: true;
+  is_inverted?: true | undefined;
 
   /**
    * True, if the background moves slightly when the device is tilted
    */
-  is_moving?: true;
+  is_moving?: true | undefined;
 };
 
 /**
@@ -3153,17 +3153,17 @@ export type ChecklistTasksDone = {
   /**
    * {@link Message} containing the checklist whose tasks were marked as done or not done. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
    */
-  checklist_message?: Message;
+  checklist_message?: Message | undefined;
 
   /**
    * Identifiers of the tasks that were marked as done
    */
-  marked_as_done_task_ids?: number[];
+  marked_as_done_task_ids?: number[] | undefined;
 
   /**
    * Identifiers of the tasks that were marked as not done
    */
-  marked_as_not_done_task_ids?: number[];
+  marked_as_not_done_task_ids?: number[] | undefined;
 };
 
 /**
@@ -3173,7 +3173,7 @@ export type ChecklistTasksAdded = {
   /**
    * {@link Message} containing the checklist to which the tasks were added. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
    */
-  checklist_message?: Message;
+  checklist_message?: Message | undefined;
 
   /**
    * List of tasks added to the checklist
@@ -3220,12 +3220,12 @@ export type ForumTopicCreated = {
   /**
    * Unique identifier of the custom emoji shown as the topic icon
    */
-  icon_custom_emoji_id?: string;
+  icon_custom_emoji_id?: string | undefined;
 
   /**
    * True, if the name of the topic wasn't specified explicitly by its creator and likely needs to be changed by the bot
    */
-  is_name_implicit?: true;
+  is_name_implicit?: true | undefined;
 };
 
 export type ForumTopicClosed = Record<string, never>;
@@ -3237,12 +3237,12 @@ export type ForumTopicEdited = {
   /**
    * New name of the topic, if it was edited
    */
-  name?: string;
+  name?: string | undefined;
 
   /**
    * New identifier of the custom emoji shown as the topic icon, if it was edited; an empty string if the icon was removed
    */
-  icon_custom_emoji_id?: string;
+  icon_custom_emoji_id?: string | undefined;
 };
 
 export type ForumTopicReopened = Record<string, never>;
@@ -3263,22 +3263,22 @@ export type SharedUser = {
   /**
    * First name of the user, if the name was requested by the bot
    */
-  first_name?: string;
+  first_name?: string | undefined;
 
   /**
    * Last name of the user, if the name was requested by the bot
    */
-  last_name?: string;
+  last_name?: string | undefined;
 
   /**
    * Username of the user, if the username was requested by the bot
    */
-  username?: string;
+  username?: string | undefined;
 
   /**
    * Available sizes of the chat photo, if the photo was requested by the bot
    */
-  photo?: PhotoSize[];
+  photo?: PhotoSize[] | undefined;
 };
 
 /**
@@ -3313,17 +3313,17 @@ export type ChatShared = {
   /**
    * Title of the chat, if the title was requested by the bot
    */
-  title?: string;
+  title?: string | undefined;
 
   /**
    * Username of the chat, if the username was requested by the bot and available
    */
-  username?: string;
+  username?: string | undefined;
 
   /**
    * Available sizes of the chat photo, if the photo was requested by the bot
    */
-  photo?: PhotoSize[];
+  photo?: PhotoSize[] | undefined;
 };
 
 /**
@@ -3333,17 +3333,17 @@ export type WriteAccessAllowed = {
   /**
    * True, if the access was granted after the user accepted an explicit request from a Web App sent by the method {@link https://core.telegram.org/bots/webapps#initializing-mini-apps | requestWriteAccess}
    */
-  from_request?: boolean;
+  from_request?: boolean | undefined;
 
   /**
    * Name of the Web App, if the access was granted when the Web App was launched from a link
    */
-  web_app_name?: string;
+  web_app_name?: string | undefined;
 
   /**
    * True, if the access was granted when the bot was added to the attachment or side menu
    */
-  from_attachment_menu?: boolean;
+  from_attachment_menu?: boolean | undefined;
 };
 
 /**
@@ -3400,7 +3400,7 @@ export type DirectMessagePriceChanged = {
   /**
    * The new number of Telegram Stars that must be paid by users for each direct message sent to the channel. Does not apply to users who have been exempted by administrators. Defaults to 0.
    */
-  direct_message_star_count?: number;
+  direct_message_star_count?: number | undefined;
 };
 
 /**
@@ -3410,12 +3410,12 @@ export type SuggestedPostApproved = {
   /**
    * {@link Message} containing the suggested post. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
    */
-  suggested_post_message?: Message;
+  suggested_post_message?: Message | undefined;
 
   /**
    * Amount paid for the post
    */
-  price?: SuggestedPostPrice;
+  price?: SuggestedPostPrice | undefined;
 
   /**
    * Date when the post will be published
@@ -3430,7 +3430,7 @@ export type SuggestedPostApprovalFailed = {
   /**
    * {@link Message} containing the suggested post whose approval has failed. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
    */
-  suggested_post_message?: Message;
+  suggested_post_message?: Message | undefined;
 
   /**
    * Expected price of the post
@@ -3445,12 +3445,12 @@ export type SuggestedPostDeclined = {
   /**
    * {@link Message} containing the suggested post. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
    */
-  suggested_post_message?: Message;
+  suggested_post_message?: Message | undefined;
 
   /**
    * Comment with which the post was declined
    */
-  comment?: string;
+  comment?: string | undefined;
 };
 
 /**
@@ -3460,7 +3460,7 @@ export type SuggestedPostPaid = {
   /**
    * {@link Message} containing the suggested post. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
    */
-  suggested_post_message?: Message;
+  suggested_post_message?: Message | undefined;
 
   /**
    * Currency in which the payment was made. Currently, one of “XTR” for Telegram Stars or “TON” for TON grams.
@@ -3470,12 +3470,12 @@ export type SuggestedPostPaid = {
   /**
    * The amount of the currency that was received by the channel in nanograms; for payments in TON grams only
    */
-  amount?: number;
+  amount?: number | undefined;
 
   /**
    * The amount of Telegram Stars that was received by the channel; for payments in Telegram Stars only
    */
-  star_amount?: StarAmount;
+  star_amount?: StarAmount | undefined;
 };
 
 /**
@@ -3485,7 +3485,7 @@ export type SuggestedPostRefunded = {
   /**
    * {@link Message} containing the suggested post. Note that the {@link Message} object in this field will not contain the reply_to_message field even if it itself is a reply.
    */
-  suggested_post_message?: Message;
+  suggested_post_message?: Message | undefined;
 
   /**
    * Reason for the refund. Currently, one of “post_deleted” if the post was deleted within 24 hours of being posted or removed from scheduled messages without being posted, or “payment_refunded” if the payer refunded their payment.
@@ -3500,7 +3500,7 @@ export type GiveawayCreated = {
   /**
    * The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only
    */
-  prize_star_count?: number;
+  prize_star_count?: number | undefined;
 };
 
 /**
@@ -3525,32 +3525,32 @@ export type Giveaway = {
   /**
    * True, if only users who join the chats after the giveaway started should be eligible to win
    */
-  only_new_members?: true;
+  only_new_members?: true | undefined;
 
   /**
    * True, if the list of giveaway winners will be visible to everyone
    */
-  has_public_winners?: true;
+  has_public_winners?: true | undefined;
 
   /**
    * Description of additional giveaway prize
    */
-  prize_description?: string;
+  prize_description?: string | undefined;
 
   /**
    * A list of two-letter ISO 3166-1 alpha-2 country codes indicating the countries from which eligible users for the giveaway must come. If empty, then all users can participate in the giveaway. Users with a phone number that was bought on Fragment can always participate in giveaways.
    */
-  country_codes?: string[];
+  country_codes?: string[] | undefined;
 
   /**
    * The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only
    */
-  prize_star_count?: number;
+  prize_star_count?: number | undefined;
 
   /**
    * The number of months the Telegram Premium subscription won from the giveaway will be active for; for Telegram Premium giveaways only
    */
-  premium_subscription_month_count?: number;
+  premium_subscription_month_count?: number | undefined;
 };
 
 /**
@@ -3585,37 +3585,37 @@ export type GiveawayWinners = {
   /**
    * The number of other chats the user had to join in order to be eligible for the giveaway
    */
-  additional_chat_count?: number;
+  additional_chat_count?: number | undefined;
 
   /**
    * The number of Telegram Stars that were split between giveaway winners; for Telegram Star giveaways only
    */
-  prize_star_count?: number;
+  prize_star_count?: number | undefined;
 
   /**
    * The number of months the Telegram Premium subscription won from the giveaway will be active for; for Telegram Premium giveaways only
    */
-  premium_subscription_month_count?: number;
+  premium_subscription_month_count?: number | undefined;
 
   /**
    * Number of undistributed prizes
    */
-  unclaimed_prize_count?: number;
+  unclaimed_prize_count?: number | undefined;
 
   /**
    * True, if only users who had joined the chats after the giveaway started were eligible to win
    */
-  only_new_members?: true;
+  only_new_members?: true | undefined;
 
   /**
    * True, if the giveaway was canceled because the payment for it was refunded
    */
-  was_refunded?: true;
+  was_refunded?: true | undefined;
 
   /**
    * Description of additional giveaway prize
    */
-  prize_description?: string;
+  prize_description?: string | undefined;
 };
 
 /**
@@ -3630,17 +3630,17 @@ export type GiveawayCompleted = {
   /**
    * Number of undistributed prizes
    */
-  unclaimed_prize_count?: number;
+  unclaimed_prize_count?: number | undefined;
 
   /**
    * {@link Message} with the giveaway that was completed, if it wasn't deleted
    */
-  giveaway_message?: Message;
+  giveaway_message?: Message | undefined;
 
   /**
    * True, if the giveaway is a Telegram Star giveaway. Otherwise, currently, the giveaway is a Telegram Premium giveaway.
    */
-  is_star_giveaway?: true;
+  is_star_giveaway?: true | undefined;
 };
 
 /**
@@ -3650,27 +3650,27 @@ export type LinkPreviewOptions = {
   /**
    * True, if the link preview is disabled
    */
-  is_disabled?: boolean;
+  is_disabled?: boolean | undefined;
 
   /**
    * URL to use for the link preview. If empty, then the first URL found in the message text will be used.
    */
-  url?: string;
+  url?: string | undefined;
 
   /**
    * True, if the media in the link preview is supposed to be shrunk; ignored if the URL isn't explicitly specified or media size change isn't supported for the preview
    */
-  prefer_small_media?: boolean;
+  prefer_small_media?: boolean | undefined;
 
   /**
    * True, if the media in the link preview is supposed to be enlarged; ignored if the URL isn't explicitly specified or media size change isn't supported for the preview
    */
-  prefer_large_media?: boolean;
+  prefer_large_media?: boolean | undefined;
 
   /**
    * True, if the link preview must be shown above the message text; otherwise, the link preview will be shown below the message text
    */
-  show_above_text?: boolean;
+  show_above_text?: boolean | undefined;
 };
 
 /**
@@ -3700,12 +3700,12 @@ export type SuggestedPostInfo = {
   /**
    * Proposed price of the post. If the field is omitted, then the post is unpaid.
    */
-  price?: SuggestedPostPrice;
+  price?: SuggestedPostPrice | undefined;
 
   /**
    * Proposed send date of the post. If the field is omitted, then the post can be published at any time within 30 days at the sole discretion of the user or administrator who approves it.
    */
-  send_date?: number;
+  send_date?: number | undefined;
 };
 
 /**
@@ -3715,12 +3715,12 @@ export type SuggestedPostParameters = {
   /**
    * Proposed price for the post. If the field is omitted, then the post is unpaid.
    */
-  price?: SuggestedPostPrice;
+  price?: SuggestedPostPrice | undefined;
 
   /**
    * Proposed send date of the post. If specified, then the date must be between 300 second and 2678400 seconds (30 days) in the future. If the field is omitted, then the post can be published at any time within 30 days at the sole discretion of the user who approves it.
    */
-  send_date?: number;
+  send_date?: number | undefined;
 };
 
 /**
@@ -3735,7 +3735,7 @@ export type DirectMessagesTopic = {
   /**
    * Information about the user that created the topic. Currently, it is always present.
    */
-  user?: User;
+  user?: User | undefined;
 };
 
 /**
@@ -3785,12 +3785,12 @@ export type File = {
   /**
    * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
-  file_size?: number;
+  file_size?: number | undefined;
 
   /**
    * {@link File} path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file.
    */
-  file_path?: string;
+  file_path?: string | undefined;
 };
 
 /**
@@ -3815,32 +3815,32 @@ export type ReplyKeyboardMarkup = {
   /**
    * Requests clients to always show the keyboard when the regular keyboard is hidden. Defaults to False, in which case the custom keyboard can be hidden and opened with a keyboard icon.
    */
-  is_persistent?: boolean;
+  is_persistent?: boolean | undefined;
 
   /**
    * Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). Defaults to False, in which case the custom keyboard is always of the same height as the app's standard keyboard.
    */
-  resize_keyboard?: boolean;
+  resize_keyboard?: boolean | undefined;
 
   /**
    * Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat - the user can press a special button in the input field to see the custom keyboard again. Defaults to False.
    */
-  one_time_keyboard?: boolean;
+  one_time_keyboard?: boolean | undefined;
 
   /**
    * The placeholder to be shown in the input field when the keyboard is active; 1-64 characters
    */
-  input_field_placeholder?: string;
+  input_field_placeholder?: string | undefined;
 
   /**
    * Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are `@mentioned` in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. Example: A user requests to change the bot's language, bot replies to the request with a keyboard to select the new language. Other users in the group don't see the keyboard.
    */
-  selective?: boolean;
+  selective?: boolean | undefined;
 
   /**
    * Pass True if the reply interface must be shown to the user, as if they had manually selected the bot's message and tapped 'Reply'
    */
-  force_reply?: boolean;
+  force_reply?: boolean | undefined;
 };
 
 /**
@@ -3855,47 +3855,47 @@ export type KeyboardButton = {
   /**
    * Unique identifier of the custom emoji shown before the text of the button. Can only be used by bots that purchased additional usernames on Fragment or in the messages directly sent by the bot to private, group and supergroup chats if the owner of the bot has a Telegram Premium subscription.
    */
-  icon_custom_emoji_id?: string;
+  icon_custom_emoji_id?: string | undefined;
 
   /**
    * Style of the button. Must be one of “danger” (red), “success” (green) or “primary” (blue). If omitted, then an app-specific style is used.
    */
-  style?: 'danger' | 'success' | 'primary';
+  style?: 'danger' | 'success' | 'primary' | undefined;
 
   /**
    * If specified, pressing the button will open a list of suitable users. Identifiers of selected users will be sent to the bot in a “users_shared” service message. Available in private chats only.
    */
-  request_users?: KeyboardButtonRequestUsers;
+  request_users?: KeyboardButtonRequestUsers | undefined;
 
   /**
    * If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a “chat_shared” service message. Available in private chats only.
    */
-  request_chat?: KeyboardButtonRequestChat;
+  request_chat?: KeyboardButtonRequestChat | undefined;
 
   /**
    * If specified, pressing the button will ask the user to create and share a bot that will be managed by the current bot. Available for bots that enabled management of other bots in the `@BotFather` Mini App. Available in private chats only.
    */
-  request_managed_bot?: KeyboardButtonRequestManagedBot;
+  request_managed_bot?: KeyboardButtonRequestManagedBot | undefined;
 
   /**
    * If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only.
    */
-  request_contact?: boolean;
+  request_contact?: boolean | undefined;
 
   /**
    * If True, the user's current location will be sent when the button is pressed. Available in private chats only.
    */
-  request_location?: boolean;
+  request_location?: boolean | undefined;
 
   /**
    * If specified, the user will be asked to create a poll and send it to the bot when the button is pressed. Available in private chats only.
    */
-  request_poll?: KeyboardButtonPollType;
+  request_poll?: KeyboardButtonPollType | undefined;
 
   /**
    * If specified, the described {@link https://core.telegram.org/bots/webapps | Web App} will be launched when the button is pressed. The Web App will be able to send a “web_app_data” service message. Available in private chats only.
    */
-  web_app?: WebAppInfo;
+  web_app?: WebAppInfo | undefined;
 };
 
 /**
@@ -3910,32 +3910,32 @@ export type KeyboardButtonRequestUsers = {
   /**
    * Pass True to request bots, pass False to request regular users. If not specified, no additional restrictions are applied.
    */
-  user_is_bot?: boolean;
+  user_is_bot?: boolean | undefined;
 
   /**
    * Pass True to request premium users, pass False to request non-premium users. If not specified, no additional restrictions are applied.
    */
-  user_is_premium?: boolean;
+  user_is_premium?: boolean | undefined;
 
   /**
    * The maximum number of users to be selected; 1-10. Defaults to 1.
    */
-  max_quantity?: number;
+  max_quantity?: number | undefined;
 
   /**
    * Pass True to request the users' first and last names
    */
-  request_name?: boolean;
+  request_name?: boolean | undefined;
 
   /**
    * Pass True to request the users' usernames
    */
-  request_username?: boolean;
+  request_username?: boolean | undefined;
 
   /**
    * Pass True to request the users' photos
    */
-  request_photo?: boolean;
+  request_photo?: boolean | undefined;
 };
 
 /**
@@ -3955,47 +3955,47 @@ export type KeyboardButtonRequestChat = {
   /**
    * Pass True to request a forum supergroup, pass False to request a non-forum chat. If not specified, no additional restrictions are applied.
    */
-  chat_is_forum?: boolean;
+  chat_is_forum?: boolean | undefined;
 
   /**
    * Pass True to request a supergroup or a channel with a username, pass False to request a chat without a username. If not specified, no additional restrictions are applied.
    */
-  chat_has_username?: boolean;
+  chat_has_username?: boolean | undefined;
 
   /**
    * Pass True to request a chat owned by the user. Otherwise, no additional restrictions are applied.
    */
-  chat_is_created?: boolean;
+  chat_is_created?: boolean | undefined;
 
   /**
    * A JSON-serialized object listing the required administrator rights of the user in the chat. The rights must be a superset of bot_administrator_rights. If not specified, no additional restrictions are applied.
    */
-  user_administrator_rights?: ChatAdministratorRights;
+  user_administrator_rights?: ChatAdministratorRights | undefined;
 
   /**
    * A JSON-serialized object listing the required administrator rights of the bot in the chat. The rights must be a subset of user_administrator_rights. If not specified, no additional restrictions are applied.
    */
-  bot_administrator_rights?: ChatAdministratorRights;
+  bot_administrator_rights?: ChatAdministratorRights | undefined;
 
   /**
    * Pass True to request a chat with the bot as a member. Otherwise, no additional restrictions are applied.
    */
-  bot_is_member?: boolean;
+  bot_is_member?: boolean | undefined;
 
   /**
    * Pass True to request the chat's title
    */
-  request_title?: boolean;
+  request_title?: boolean | undefined;
 
   /**
    * Pass True to request the chat's username
    */
-  request_username?: boolean;
+  request_username?: boolean | undefined;
 
   /**
    * Pass True to request the chat's photo
    */
-  request_photo?: boolean;
+  request_photo?: boolean | undefined;
 };
 
 /**
@@ -4010,12 +4010,12 @@ export type KeyboardButtonRequestManagedBot = {
   /**
    * Suggested name for the bot
    */
-  suggested_name?: string;
+  suggested_name?: string | undefined;
 
   /**
    * Suggested username for the bot
    */
-  suggested_username?: string;
+  suggested_username?: string | undefined;
 };
 
 /**
@@ -4025,7 +4025,7 @@ export type KeyboardButtonPollType = {
   /**
    * If quiz is passed, the user will be allowed to create only polls in the quiz mode. If regular is passed, only regular polls will be allowed. Otherwise, the user will be allowed to create a poll of any type.
    */
-  type?: string;
+  type?: string | undefined;
 };
 
 /**
@@ -4040,7 +4040,7 @@ export type ReplyKeyboardRemove = {
   /**
    * Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are `@mentioned` in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message. Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet.
    */
-  selective?: boolean;
+  selective?: boolean | undefined;
 };
 
 /**
@@ -4055,7 +4055,7 @@ export type InlineKeyboardMarkup = {
   /**
    * Pass True if the reply interface must be shown to the user, as if they had manually selected the bot's message and tapped 'Reply'. The value of the field can't be changed when the inline keyboard is edited.
    */
-  force_reply?: boolean;
+  force_reply?: boolean | undefined;
 };
 
 /**
@@ -4070,67 +4070,67 @@ export type InlineKeyboardButton = {
   /**
    * Unique identifier of the custom emoji shown before the text of the button. Can only be used by bots that purchased additional usernames on Fragment or in the messages directly sent by the bot to private, group and supergroup chats if the owner of the bot has a Telegram Premium subscription.
    */
-  icon_custom_emoji_id?: string;
+  icon_custom_emoji_id?: string | undefined;
 
   /**
    * Style of the button. Must be one of “danger” (red), “success” (green) or “primary” (blue). If omitted, then an app-specific style is used.
    */
-  style?: 'danger' | 'success' | 'primary';
+  style?: 'danger' | 'success' | 'primary' | undefined;
 
   /**
    * HTTP or tg:// URL to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings.
    */
-  url?: string;
+  url?: string | undefined;
 
   /**
    * Data to be sent in a callback query to the bot when the button is pressed, 1-64 bytes
    */
-  callback_data?: string;
+  callback_data?: string | undefined;
 
   /**
    * Description of the {@link https://core.telegram.org/bots/webapps | Web App} that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a business account.
    */
-  web_app?: WebAppInfo;
+  web_app?: WebAppInfo | undefined;
 
   /**
    * An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the {@link https://core.telegram.org/widgets/login | Telegram Login Widget}. Not supported for ephemeral messages.
    */
-  login_url?: LoginUrl;
+  login_url?: LoginUrl | undefined;
 
   /**
    * If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted. Not supported for messages sent in channel direct messages chats and on behalf of a business account.
    */
-  switch_inline_query?: string;
+  switch_inline_query?: string | undefined;
 
   /**
    * If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted. This offers a quick way for the user to open your bot in inline mode in the same chat - good for selecting something from multiple options. Not supported in channels and for messages sent in channel direct messages chats and on behalf of a business account.
    */
-  switch_inline_query_current_chat?: string;
+  switch_inline_query_current_chat?: string | undefined;
 
   /**
    * If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field. Not supported for messages sent in channel direct messages chats and on behalf of a business account.
    */
-  switch_inline_query_chosen_chat?: SwitchInlineQueryChosenChat;
+  switch_inline_query_chosen_chat?: SwitchInlineQueryChosenChat | undefined;
 
   /**
    * Description of the button that copies the specified text to the clipboard
    */
-  copy_text?: CopyTextButton;
+  copy_text?: CopyTextButton | undefined;
 
   /**
    * Description of the game that will be launched when the user presses the button. NOTE: This type of button must always be the first button in the first row.
    */
-  callback_game?: CallbackGame;
+  callback_game?: CallbackGame | undefined;
 
   /**
    * Specify True, to send a Pay button. Substrings “⭐” and “XTR” in the buttons's text will be replaced with a Telegram Star icon. NOTE: This type of button must always be the first button in the first row and can only be used in invoice messages.
    */
-  pay?: boolean;
+  pay?: boolean | undefined;
 
   /**
    * If set, then the button is disabled and does nothing
    */
-  disabled?: DisabledButton;
+  disabled?: DisabledButton | undefined;
 };
 
 /**
@@ -4145,17 +4145,17 @@ export type LoginUrl = {
   /**
    * New text of the button in forwarded messages
    */
-  forward_text?: string;
+  forward_text?: string | undefined;
 
   /**
    * Username of a bot, which will be used for user authorization; not supported in {@link RichMessageButton}. See {@link https://core.telegram.org/widgets/login#setting-up-a-bot | Setting up a bot} for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See {@link https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot | Linking your domain to the bot} for more details.
    */
-  bot_username?: string;
+  bot_username?: string | undefined;
 
   /**
    * Pass True to request the permission for your bot to send messages to the user
    */
-  request_write_access?: boolean;
+  request_write_access?: boolean | undefined;
 };
 
 /**
@@ -4165,27 +4165,27 @@ export type SwitchInlineQueryChosenChat = {
   /**
    * The default inline query to be inserted in the input field. If left empty, only the bot's username will be inserted.
    */
-  query?: string;
+  query?: string | undefined;
 
   /**
    * True, if private chats with users can be chosen
    */
-  allow_user_chats?: boolean;
+  allow_user_chats?: boolean | undefined;
 
   /**
    * True, if private chats with bots can be chosen
    */
-  allow_bot_chats?: boolean;
+  allow_bot_chats?: boolean | undefined;
 
   /**
    * True, if group and supergroup chats can be chosen
    */
-  allow_group_chats?: boolean;
+  allow_group_chats?: boolean | undefined;
 
   /**
    * True, if channel chats can be chosen
    */
-  allow_channel_chats?: boolean;
+  allow_channel_chats?: boolean | undefined;
 };
 
 /**
@@ -4217,12 +4217,12 @@ export type CallbackQuery = {
   /**
    * {@link Message} sent by the bot with the callback button that originated the query
    */
-  message?: MaybeInaccessibleMessage;
+  message?: MaybeInaccessibleMessage | undefined;
 
   /**
    * Identifier of the message sent via the bot in inline mode, that originated the query
    */
-  inline_message_id?: string;
+  inline_message_id?: string | undefined;
 
   /**
    * Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.
@@ -4232,12 +4232,12 @@ export type CallbackQuery = {
   /**
    * Data associated with the callback button. Be aware that the message originated the query can contain no callback buttons with this data.
    */
-  data?: string;
+  data?: string | undefined;
 
   /**
    * Short name of a {@link Game} to be returned, serves as the unique identifier for the game
    */
-  game_short_name?: string;
+  game_short_name?: string | undefined;
 };
 
 /**
@@ -4252,12 +4252,12 @@ export type ForceReply = {
   /**
    * The placeholder to be shown in the input field when the reply is active; 1-64 characters
    */
-  input_field_placeholder?: string;
+  input_field_placeholder?: string | undefined;
 
   /**
    * Use this parameter if you want to force reply from specific users only. Targets: 1) users that are `@mentioned` in the text of the {@link Message} object; 2) if the bot's message is a reply to a message in the same chat and forum topic, sender of the original message.
    */
-  selective?: boolean;
+  selective?: boolean | undefined;
 };
 
 /**
@@ -4332,32 +4332,32 @@ export type ChatInviteLink = {
   /**
    * Invite link name
    */
-  name?: string;
+  name?: string | undefined;
 
   /**
    * Point in time (Unix timestamp) when the link will expire or has been expired
    */
-  expire_date?: number;
+  expire_date?: number | undefined;
 
   /**
    * The maximum number of users that can be members of the chat simultaneously after joining the chat via this invite link; 1-99999
    */
-  member_limit?: number;
+  member_limit?: number | undefined;
 
   /**
    * Number of pending join requests created using this link
    */
-  pending_join_request_count?: number;
+  pending_join_request_count?: number | undefined;
 
   /**
    * The number of seconds the subscription will be active for before the next payment
    */
-  subscription_period?: number;
+  subscription_period?: number | undefined;
 
   /**
    * The amount of Telegram Stars a user must pay initially and after each subsequent subscription period to be a member of the chat using the link
    */
-  subscription_price?: number;
+  subscription_price?: number | undefined;
 };
 
 /**
@@ -4422,32 +4422,32 @@ export type ChatAdministratorRights = {
   /**
    * True, if the administrator can post messages in the channel, approve suggested posts, or access channel statistics; for channels only
    */
-  can_post_messages?: boolean;
+  can_post_messages?: boolean | undefined;
 
   /**
    * True, if the administrator can edit messages of other users and can pin messages; for channels only
    */
-  can_edit_messages?: boolean;
+  can_edit_messages?: boolean | undefined;
 
   /**
    * True, if the user is allowed to pin messages; for groups and supergroups only
    */
-  can_pin_messages?: boolean;
+  can_pin_messages?: boolean | undefined;
 
   /**
    * True, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
    */
-  can_manage_topics?: boolean;
+  can_manage_topics?: boolean | undefined;
 
   /**
    * True, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only
    */
-  can_manage_direct_messages?: boolean;
+  can_manage_direct_messages?: boolean | undefined;
 
   /**
    * True, if the administrator can edit the tags of regular members; for groups and supergroups only
    */
-  can_manage_tags?: boolean;
+  can_manage_tags?: boolean | undefined;
 
   /**
    * True, if the administrator can manage chat welcome messages or directly send them in the case of bots
@@ -4487,17 +4487,17 @@ export type ChatMemberUpdated = {
   /**
    * {@link Chat} invite link, which was used by the user to join the chat; for joining by invite link events only
    */
-  invite_link?: ChatInviteLink;
+  invite_link?: ChatInviteLink | undefined;
 
   /**
    * True, if the user joined the chat after sending a direct join request without using an invite link and being approved by an administrator
    */
-  via_join_request?: boolean;
+  via_join_request?: boolean | undefined;
 
   /**
    * True, if the user joined the chat via a chat folder invite link
    */
-  via_chat_folder_invite_link?: boolean;
+  via_chat_folder_invite_link?: boolean | undefined;
 };
 
 /**
@@ -4522,7 +4522,7 @@ export type ChatMemberOwner = {
   /**
    * Custom title for this user
    */
-  custom_title?: string;
+  custom_title?: string | undefined;
 };
 
 /**
@@ -4602,32 +4602,32 @@ export type ChatMemberAdministrator = {
   /**
    * True, if the administrator can post messages in the channel, approve suggested posts, or access channel statistics; for channels only
    */
-  can_post_messages?: boolean;
+  can_post_messages?: boolean | undefined;
 
   /**
    * True, if the administrator can edit messages of other users and can pin messages; for channels only
    */
-  can_edit_messages?: boolean;
+  can_edit_messages?: boolean | undefined;
 
   /**
    * True, if the user is allowed to pin messages; for groups and supergroups only
    */
-  can_pin_messages?: boolean;
+  can_pin_messages?: boolean | undefined;
 
   /**
    * True, if the user is allowed to create, rename, close, and reopen forum topics; for supergroups only
    */
-  can_manage_topics?: boolean;
+  can_manage_topics?: boolean | undefined;
 
   /**
    * True, if the administrator can manage direct messages of the channel and decline suggested posts; for channels only
    */
-  can_manage_direct_messages?: boolean;
+  can_manage_direct_messages?: boolean | undefined;
 
   /**
    * True, if the administrator can edit the tags of regular members; for groups and supergroups only
    */
-  can_manage_tags?: boolean;
+  can_manage_tags?: boolean | undefined;
 
   /**
    * True, if the administrator can manage chat welcome messages or directly send them in the case of bots
@@ -4637,7 +4637,7 @@ export type ChatMemberAdministrator = {
   /**
    * Custom title for this user
    */
-  custom_title?: string;
+  custom_title?: string | undefined;
 };
 
 /**
@@ -4652,7 +4652,7 @@ export type ChatMemberMember = {
   /**
    * Tag of the member
    */
-  tag?: string;
+  tag?: string | undefined;
 
   /**
    * Information about the user
@@ -4662,7 +4662,7 @@ export type ChatMemberMember = {
   /**
    * Date when the user's subscription will expire; Unix time
    */
-  until_date?: number;
+  until_date?: number | undefined;
 };
 
 /**
@@ -4677,7 +4677,7 @@ export type ChatMemberRestricted = {
   /**
    * Tag of the member
    */
-  tag?: string;
+  tag?: string | undefined;
 
   /**
    * Information about the user
@@ -4837,17 +4837,17 @@ export type ChatJoinRequest = {
   /**
    * Bio of the user
    */
-  bio?: string;
+  bio?: string | undefined;
 
   /**
    * {@link Chat} invite link that was used by the user to send the join request
    */
-  invite_link?: ChatInviteLink;
+  invite_link?: ChatInviteLink | undefined;
 
   /**
    * Identifier of the join request query; for bots assigned to process join requests only. If present, then the bot must call sendChatJoinRequestWebApp or directly call answerChatJoinRequestQuery within 10 seconds.
    */
-  query_id?: string;
+  query_id?: string | undefined;
 };
 
 /**
@@ -4857,82 +4857,82 @@ export type ChatPermissions = {
   /**
    * True, if the user is allowed to send text messages, rich messages, contacts, giveaways, giveaway winners, invoices, locations and venues
    */
-  can_send_messages?: boolean;
+  can_send_messages?: boolean | undefined;
 
   /**
    * True, if the user is allowed to send audios
    */
-  can_send_audios?: boolean;
+  can_send_audios?: boolean | undefined;
 
   /**
    * True, if the user is allowed to send documents
    */
-  can_send_documents?: boolean;
+  can_send_documents?: boolean | undefined;
 
   /**
    * True, if the user is allowed to send photos
    */
-  can_send_photos?: boolean;
+  can_send_photos?: boolean | undefined;
 
   /**
    * True, if the user is allowed to send videos
    */
-  can_send_videos?: boolean;
+  can_send_videos?: boolean | undefined;
 
   /**
    * True, if the user is allowed to send video notes
    */
-  can_send_video_notes?: boolean;
+  can_send_video_notes?: boolean | undefined;
 
   /**
    * True, if the user is allowed to send voice notes
    */
-  can_send_voice_notes?: boolean;
+  can_send_voice_notes?: boolean | undefined;
 
   /**
    * True, if the user is allowed to send polls and checklists
    */
-  can_send_polls?: boolean;
+  can_send_polls?: boolean | undefined;
 
   /**
    * True, if the user is allowed to send animations, games, stickers and use inline bots
    */
-  can_send_other_messages?: boolean;
+  can_send_other_messages?: boolean | undefined;
 
   /**
    * True, if the user is allowed to add web page previews to their messages
    */
-  can_add_web_page_previews?: boolean;
+  can_add_web_page_previews?: boolean | undefined;
 
   /**
    * True, if the user is allowed to react to messages. If omitted, defaults to the value of can_send_messages.
    */
-  can_react_to_messages?: boolean;
+  can_react_to_messages?: boolean | undefined;
 
   /**
    * True, if the user is allowed to edit their own tag. If omitted, defaults to the value of can_pin_messages.
    */
-  can_edit_tag?: boolean;
+  can_edit_tag?: boolean | undefined;
 
   /**
    * True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups.
    */
-  can_change_info?: boolean;
+  can_change_info?: boolean | undefined;
 
   /**
    * True, if the user is allowed to invite new users to the chat
    */
-  can_invite_users?: boolean;
+  can_invite_users?: boolean | undefined;
 
   /**
    * True, if the user is allowed to pin messages. Ignored in public supergroups.
    */
-  can_pin_messages?: boolean;
+  can_pin_messages?: boolean | undefined;
 
   /**
    * True, if the user is allowed to create forum topics. If omitted, defaults to the value of can_pin_messages.
    */
-  can_manage_topics?: boolean;
+  can_manage_topics?: boolean | undefined;
 };
 
 /**
@@ -4952,7 +4952,7 @@ export type Birthdate = {
   /**
    * Year of the user's birth
    */
-  year?: number;
+  year?: number | undefined;
 };
 
 /**
@@ -4962,17 +4962,17 @@ export type BusinessIntro = {
   /**
    * Title text of the business intro
    */
-  title?: string;
+  title?: string | undefined;
 
   /**
    * {@link Message} text of the business intro
    */
-  message?: string;
+  message?: string | undefined;
 
   /**
    * {@link Sticker} of the business intro
    */
-  sticker?: Sticker;
+  sticker?: Sticker | undefined;
 };
 
 /**
@@ -4987,7 +4987,7 @@ export type BusinessLocation = {
   /**
    * {@link Location} of the business
    */
-  location?: Location;
+  location?: Location | undefined;
 };
 
 /**
@@ -5042,7 +5042,7 @@ export type UserRating = {
   /**
    * The rating value required to get to the next level; omitted if the maximum level was reached
    */
-  next_level_rating?: number;
+  next_level_rating?: number | undefined;
 };
 
 /**
@@ -5092,17 +5092,17 @@ export type LocationAddress = {
   /**
    * State of the location
    */
-  state?: string;
+  state?: string | undefined;
 
   /**
    * City of the location
    */
-  city?: string;
+  city?: string | undefined;
 
   /**
    * Street address of the location
    */
-  street?: string;
+  street?: string | undefined;
 };
 
 /**
@@ -5127,7 +5127,7 @@ export type StoryAreaTypeLocation = {
   /**
    * Address of the location
    */
-  address?: LocationAddress;
+  address?: LocationAddress | undefined;
 };
 
 /**
@@ -5147,12 +5147,12 @@ export type StoryAreaTypeSuggestedReaction = {
   /**
    * Pass True if the reaction area has a dark background
    */
-  is_dark?: boolean;
+  is_dark?: boolean | undefined;
 
   /**
    * Pass True if reaction area corner is flipped
    */
-  is_flipped?: boolean;
+  is_flipped?: boolean | undefined;
 };
 
 /**
@@ -5312,12 +5312,12 @@ export type MessageReactionUpdated = {
   /**
    * The user that changed the reaction, if the user isn't anonymous
    */
-  user?: User;
+  user?: User | undefined;
 
   /**
    * The chat on behalf of which the reaction was changed, if the user is anonymous
    */
-  actor_chat?: Chat;
+  actor_chat?: Chat | undefined;
 
   /**
    * Date of the change in Unix time
@@ -5382,12 +5382,12 @@ export type ForumTopic = {
   /**
    * Unique identifier of the custom emoji shown as the topic icon
    */
-  icon_custom_emoji_id?: string;
+  icon_custom_emoji_id?: string | undefined;
 
   /**
    * True, if the name of the topic wasn't specified explicitly by its creator and likely needs to be changed by the bot
    */
-  is_name_implicit?: true;
+  is_name_implicit?: true | undefined;
 };
 
 /**
@@ -5432,52 +5432,52 @@ export type Gift = {
   /**
    * The number of Telegram Stars that must be paid to upgrade the gift to a unique one
    */
-  upgrade_star_count?: number;
+  upgrade_star_count?: number | undefined;
 
   /**
    * True, if the gift can only be purchased by Telegram Premium subscribers
    */
-  is_premium?: true;
+  is_premium?: true | undefined;
 
   /**
    * True, if the gift can be used (after being upgraded) to customize a user's appearance
    */
-  has_colors?: true;
+  has_colors?: true | undefined;
 
   /**
    * The total number of gifts of this type that can be sent by all users; for limited gifts only
    */
-  total_count?: number;
+  total_count?: number | undefined;
 
   /**
    * The number of remaining gifts of this type that can be sent by all users; for limited gifts only
    */
-  remaining_count?: number;
+  remaining_count?: number | undefined;
 
   /**
    * The total number of gifts of this type that can be sent by the bot; for limited gifts only
    */
-  personal_total_count?: number;
+  personal_total_count?: number | undefined;
 
   /**
    * The number of remaining gifts of this type that can be sent by the bot; for limited gifts only
    */
-  personal_remaining_count?: number;
+  personal_remaining_count?: number | undefined;
 
   /**
    * Background of the gift
    */
-  background?: GiftBackground;
+  background?: GiftBackground | undefined;
 
   /**
    * The total number of different unique gifts that can be obtained by upgrading the gift
    */
-  unique_gift_variant_count?: number;
+  unique_gift_variant_count?: number | undefined;
 
   /**
    * Information about the chat that published the gift
    */
-  publisher_chat?: Chat;
+  publisher_chat?: Chat | undefined;
 };
 
 /**
@@ -5512,7 +5512,7 @@ export type UniqueGiftModel = {
   /**
    * Rarity of the model if it is a crafted model. Currently, can be “uncommon”, “rare”, “epic”, or “legendary”.
    */
-  rarity?: 'uncommon' | 'rare' | 'epic' | 'legendary';
+  rarity?: 'uncommon' | 'rare' | 'epic' | 'legendary' | undefined;
 };
 
 /**
@@ -5657,27 +5657,27 @@ export type UniqueGift = {
   /**
    * True, if the original regular gift was exclusively purchaseable by Telegram Premium subscribers
    */
-  is_premium?: true;
+  is_premium?: true | undefined;
 
   /**
    * True, if the gift was used to craft another gift and isn't available anymore
    */
-  is_burned?: true;
+  is_burned?: true | undefined;
 
   /**
    * True, if the gift is assigned from the TON blockchain and can't be resold or transferred in Telegram
    */
-  is_from_blockchain?: true;
+  is_from_blockchain?: true | undefined;
 
   /**
    * The color scheme that can be used by the gift's owner for the chat's name, replies to messages and link previews; for business account gifts and gifts that are currently on sale only
    */
-  colors?: UniqueGiftColors;
+  colors?: UniqueGiftColors | undefined;
 
   /**
    * Information about the chat that published the gift
    */
-  publisher_chat?: Chat;
+  publisher_chat?: Chat | undefined;
 };
 
 /**
@@ -5692,47 +5692,47 @@ export type GiftInfo = {
   /**
    * Unique identifier of the received gift for the bot; only present for gifts received on behalf of business accounts
    */
-  owned_gift_id?: string;
+  owned_gift_id?: string | undefined;
 
   /**
    * Number of Telegram Stars that can be claimed by the receiver by converting the gift; omitted if conversion to Telegram Stars is impossible
    */
-  convert_star_count?: number;
+  convert_star_count?: number | undefined;
 
   /**
    * Number of Telegram Stars that were prepaid for the ability to upgrade the gift
    */
-  prepaid_upgrade_star_count?: number;
+  prepaid_upgrade_star_count?: number | undefined;
 
   /**
    * True, if the gift's upgrade was purchased after the gift was sent
    */
-  is_upgrade_separate?: true;
+  is_upgrade_separate?: true | undefined;
 
   /**
    * True, if the gift can be upgraded to a unique gift
    */
-  can_be_upgraded?: true;
+  can_be_upgraded?: true | undefined;
 
   /**
    * Text of the message that was added to the gift
    */
-  text?: string;
+  text?: string | undefined;
 
   /**
    * Special entities that appear in the text
    */
-  entities?: MessageEntity[];
+  entities?: MessageEntity[] | undefined;
 
   /**
    * True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them
    */
-  is_private?: true;
+  is_private?: true | undefined;
 
   /**
    * Unique number reserved for this gift when upgraded. See the number field in {@link UniqueGift}.
    */
-  unique_gift_number?: number;
+  unique_gift_number?: number | undefined;
 };
 
 /**
@@ -5752,42 +5752,42 @@ export type UniqueGiftInfo = {
   /**
    * Text of the message that was added to the gift
    */
-  text?: string;
+  text?: string | undefined;
 
   /**
    * Special entities that appear in the text
    */
-  entities?: MessageEntity[];
+  entities?: MessageEntity[] | undefined;
 
   /**
    * True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them
    */
-  is_private?: true;
+  is_private?: true | undefined;
 
   /**
    * For gifts bought from other users, the currency in which the payment for the gift was done. Currently, one of “XTR” for Telegram Stars or “TON” for TON grams.
    */
-  last_resale_currency?: 'XTR' | 'TON';
+  last_resale_currency?: 'XTR' | 'TON' | undefined;
 
   /**
    * For gifts bought from other users, the price paid for the gift in either Telegram Stars or nanograms
    */
-  last_resale_amount?: number;
+  last_resale_amount?: number | undefined;
 
   /**
    * Unique identifier of the received gift for the bot; only present for gifts received on behalf of business accounts
    */
-  owned_gift_id?: string;
+  owned_gift_id?: string | undefined;
 
   /**
    * Number of Telegram Stars that must be paid to transfer the gift; omitted if the bot cannot transfer the gift
    */
-  transfer_star_count?: number;
+  transfer_star_count?: number | undefined;
 
   /**
    * Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now.
    */
-  next_transfer_date?: number;
+  next_transfer_date?: number | undefined;
 };
 
 /**
@@ -5807,12 +5807,12 @@ export type OwnedGiftRegular = {
   /**
    * Unique identifier of the gift for the bot; for gifts received on behalf of business accounts only
    */
-  owned_gift_id?: string;
+  owned_gift_id?: string | undefined;
 
   /**
    * Sender of the gift if it is a known user
    */
-  sender_user?: User;
+  sender_user?: User | undefined;
 
   /**
    * Date the gift was sent in Unix time
@@ -5822,52 +5822,52 @@ export type OwnedGiftRegular = {
   /**
    * Text of the message that was added to the gift
    */
-  text?: string;
+  text?: string | undefined;
 
   /**
    * Special entities that appear in the text
    */
-  entities?: MessageEntity[];
+  entities?: MessageEntity[] | undefined;
 
   /**
    * True, if the sender and gift text are shown only to the gift receiver; otherwise, everyone will be able to see them
    */
-  is_private?: true;
+  is_private?: true | undefined;
 
   /**
    * True, if the gift is displayed on the account's profile page; for gifts received on behalf of business accounts only
    */
-  is_saved?: true;
+  is_saved?: true | undefined;
 
   /**
    * True, if the gift can be upgraded to a unique gift; for gifts received on behalf of business accounts only
    */
-  can_be_upgraded?: true;
+  can_be_upgraded?: true | undefined;
 
   /**
    * True, if the gift was refunded and isn't available anymore
    */
-  was_refunded?: true;
+  was_refunded?: true | undefined;
 
   /**
    * Number of Telegram Stars that can be claimed by the receiver instead of the gift; omitted if the gift cannot be converted to Telegram Stars; for gifts received on behalf of business accounts only
    */
-  convert_star_count?: number;
+  convert_star_count?: number | undefined;
 
   /**
    * Number of Telegram Stars that were paid for the ability to upgrade the gift
    */
-  prepaid_upgrade_star_count?: number;
+  prepaid_upgrade_star_count?: number | undefined;
 
   /**
    * True, if the gift's upgrade was purchased after the gift was sent; for gifts received on behalf of business accounts only
    */
-  is_upgrade_separate?: true;
+  is_upgrade_separate?: true | undefined;
 
   /**
    * Unique number reserved for this gift when upgraded. See the number field in {@link UniqueGift}.
    */
-  unique_gift_number?: number;
+  unique_gift_number?: number | undefined;
 };
 
 /**
@@ -5887,12 +5887,12 @@ export type OwnedGiftUnique = {
   /**
    * Unique identifier of the received gift for the bot; for gifts received on behalf of business accounts only
    */
-  owned_gift_id?: string;
+  owned_gift_id?: string | undefined;
 
   /**
    * Sender of the gift if it is a known user
    */
-  sender_user?: User;
+  sender_user?: User | undefined;
 
   /**
    * Date the gift was sent in Unix time
@@ -5902,22 +5902,22 @@ export type OwnedGiftUnique = {
   /**
    * True, if the gift is displayed on the account's profile page; for gifts received on behalf of business accounts only
    */
-  is_saved?: true;
+  is_saved?: true | undefined;
 
   /**
    * True, if the gift can be transferred to another owner; for gifts received on behalf of business accounts only
    */
-  can_be_transferred?: true;
+  can_be_transferred?: true | undefined;
 
   /**
    * Number of Telegram Stars that must be paid to transfer the gift; omitted if the bot cannot transfer the gift
    */
-  transfer_star_count?: number;
+  transfer_star_count?: number | undefined;
 
   /**
    * Point in time (Unix timestamp) when the gift can be transferred. If it is in the past, then the gift can be transferred now.
    */
-  next_transfer_date?: number;
+  next_transfer_date?: number | undefined;
 };
 
 /**
@@ -5937,7 +5937,7 @@ export type OwnedGifts = {
   /**
    * Offset for the next request. If empty, then there are no more results.
    */
-  next_offset?: string;
+  next_offset?: string | undefined;
 };
 
 /**
@@ -5952,7 +5952,7 @@ export type BotAccessSettings = {
   /**
    * The list of other users who have access to the bot if the access is restricted
    */
-  added_users?: User[];
+  added_users?: User[] | undefined;
 };
 
 /**
@@ -5997,7 +5997,7 @@ export type StarAmount = {
   /**
    * The number of 1/1000000000 shares of Telegram Stars; from -999999999 to 999999999; can be negative if and only if amount is non-positive
    */
-  nanostar_amount?: number;
+  nanostar_amount?: number | undefined;
 };
 
 /**
@@ -6017,7 +6017,7 @@ export type BotCommand = {
   /**
    * True, if the command sends an ephemeral message, which can be seen only by the sender of the message and the bot
    */
-  is_ephemeral?: boolean;
+  is_ephemeral?: boolean | undefined;
 };
 
 /**
@@ -6227,17 +6227,17 @@ export type ChatBoostSourceGiveaway = {
   /**
    * {@link User} that won the prize in the giveaway if any; for Telegram Premium giveaways only
    */
-  user?: User;
+  user?: User | undefined;
 
   /**
    * The number of Telegram Stars to be split between giveaway winners; for Telegram Star giveaways only
    */
-  prize_star_count?: number;
+  prize_star_count?: number | undefined;
 
   /**
    * True, if the giveaway was completed, but there was no user to win the prize
    */
-  is_unclaimed?: true;
+  is_unclaimed?: true | undefined;
 };
 
 /**
@@ -6312,7 +6312,7 @@ export type ChatOwnerLeft = {
   /**
    * The user who will become the new owner of the chat if the previous owner does not return to the chat
    */
-  new_owner?: User;
+  new_owner?: User | undefined;
 };
 
 /**
@@ -6342,72 +6342,72 @@ export type BusinessBotRights = {
   /**
    * True, if the bot can send and edit messages in the private chats that had incoming messages in the last 24 hours
    */
-  can_reply?: true;
+  can_reply?: true | undefined;
 
   /**
    * True, if the bot can mark incoming private messages as read
    */
-  can_read_messages?: true;
+  can_read_messages?: true | undefined;
 
   /**
    * True, if the bot can delete messages sent by the bot
    */
-  can_delete_sent_messages?: true;
+  can_delete_sent_messages?: true | undefined;
 
   /**
    * True, if the bot can delete all private messages in managed chats
    */
-  can_delete_all_messages?: true;
+  can_delete_all_messages?: true | undefined;
 
   /**
    * True, if the bot can edit the first and last name of the business account
    */
-  can_edit_name?: true;
+  can_edit_name?: true | undefined;
 
   /**
    * True, if the bot can edit the bio of the business account
    */
-  can_edit_bio?: true;
+  can_edit_bio?: true | undefined;
 
   /**
    * True, if the bot can edit the profile photo of the business account
    */
-  can_edit_profile_photo?: true;
+  can_edit_profile_photo?: true | undefined;
 
   /**
    * True, if the bot can edit the username of the business account
    */
-  can_edit_username?: true;
+  can_edit_username?: true | undefined;
 
   /**
    * True, if the bot can change the privacy settings pertaining to gifts for the business account
    */
-  can_change_gift_settings?: true;
+  can_change_gift_settings?: true | undefined;
 
   /**
    * True, if the bot can view gifts and the amount of Telegram Stars owned by the business account
    */
-  can_view_gifts_and_stars?: true;
+  can_view_gifts_and_stars?: true | undefined;
 
   /**
    * True, if the bot can convert regular gifts owned by the business account to Telegram Stars
    */
-  can_convert_gifts_to_stars?: true;
+  can_convert_gifts_to_stars?: true | undefined;
 
   /**
    * True, if the bot can transfer and upgrade gifts owned by the business account
    */
-  can_transfer_and_upgrade_gifts?: true;
+  can_transfer_and_upgrade_gifts?: true | undefined;
 
   /**
    * True, if the bot can transfer Telegram Stars received by the business account to its own account, or use them to upgrade and transfer gifts
    */
-  can_transfer_stars?: true;
+  can_transfer_stars?: true | undefined;
 
   /**
    * True, if the bot can post, edit and delete stories on behalf of the business account
    */
-  can_manage_stories?: true;
+  can_manage_stories?: true | undefined;
 };
 
 /**
@@ -6437,7 +6437,7 @@ export type BusinessConnection = {
   /**
    * Rights of the business bot
    */
-  rights?: BusinessBotRights;
+  rights?: BusinessBotRights | undefined;
 
   /**
    * True, if the connection is active
@@ -6472,7 +6472,7 @@ export type SentWebAppMessage = {
   /**
    * Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message.
    */
-  inline_message_id?: string;
+  inline_message_id?: string | undefined;
 };
 
 /**
@@ -6517,12 +6517,12 @@ export type ResponseParameters = {
   /**
    * The group has been migrated to a supergroup with the specified identifier. This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this identifier.
    */
-  migrate_to_chat_id?: number;
+  migrate_to_chat_id?: number | undefined;
 
   /**
    * In case of exceeding flood control, the number of seconds left to wait before the request can be repeated
    */
-  retry_after?: number;
+  retry_after?: number | undefined;
 };
 
 /**
@@ -6542,47 +6542,47 @@ export type InputMediaAnimation = {
   /**
    * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
    */
-  thumbnail?: string;
+  thumbnail?: string | undefined;
 
   /**
    * Caption of the animation to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the animation caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Pass True if the caption must be shown above the message media
    */
-  show_caption_above_media?: boolean;
+  show_caption_above_media?: boolean | undefined;
 
   /**
    * {@link Animation} width
    */
-  width?: number;
+  width?: number | undefined;
 
   /**
    * {@link Animation} height
    */
-  height?: number;
+  height?: number | undefined;
 
   /**
    * {@link Animation} duration in seconds
    */
-  duration?: number;
+  duration?: number | undefined;
 
   /**
    * Pass True if the animation needs to be covered with a spoiler animation
    */
-  has_spoiler?: boolean;
+  has_spoiler?: boolean | undefined;
 };
 
 /**
@@ -6602,37 +6602,37 @@ export type InputMediaAudio = {
   /**
    * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
    */
-  thumbnail?: string;
+  thumbnail?: string | undefined;
 
   /**
    * Caption of the audio to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the audio caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Duration of the audio in seconds
    */
-  duration?: number;
+  duration?: number | undefined;
 
   /**
    * Performer of the audio
    */
-  performer?: string;
+  performer?: string | undefined;
 
   /**
    * Title of the audio
    */
-  title?: string;
+  title?: string | undefined;
 };
 
 /**
@@ -6652,27 +6652,27 @@ export type InputMediaDocument = {
   /**
    * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
    */
-  thumbnail?: string;
+  thumbnail?: string | undefined;
 
   /**
    * Caption of the document to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the document caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Disables automatic server-side content type detection for files uploaded using multipart/form-data. Always True, if the document is sent as part of an album.
    */
-  disable_content_type_detection?: boolean;
+  disable_content_type_detection?: boolean | undefined;
 };
 
 /**
@@ -6712,27 +6712,27 @@ export type InputMediaLivePhoto = {
   /**
    * Caption of the live photo to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the live photo caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Pass True if the caption must be shown above the message media
    */
-  show_caption_above_media?: boolean;
+  show_caption_above_media?: boolean | undefined;
 
   /**
    * Pass True if the live photo needs to be covered with a spoiler animation
    */
-  has_spoiler?: boolean;
+  has_spoiler?: boolean | undefined;
 };
 
 /**
@@ -6757,7 +6757,7 @@ export type InputMediaLocation = {
   /**
    * The radius of uncertainty for the location, measured in meters; 0-1500
    */
-  horizontal_accuracy?: number;
+  horizontal_accuracy?: number | undefined;
 };
 
 /**
@@ -6777,27 +6777,27 @@ export type InputMediaPhoto = {
   /**
    * Caption of the photo to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the photo caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Pass True if the caption must be shown above the message media
    */
-  show_caption_above_media?: boolean;
+  show_caption_above_media?: boolean | undefined;
 
   /**
    * Pass True if the photo needs to be covered with a spoiler animation
    */
-  has_spoiler?: boolean;
+  has_spoiler?: boolean | undefined;
 };
 
 /**
@@ -6817,7 +6817,7 @@ export type InputMediaSticker = {
   /**
    * Emoji associated with the sticker; only for just uploaded stickers
    */
-  emoji?: string;
+  emoji?: string | undefined;
 };
 
 /**
@@ -6852,22 +6852,22 @@ export type InputMediaVenue = {
   /**
    * Foursquare identifier of the venue
    */
-  foursquare_id?: string;
+  foursquare_id?: string | undefined;
 
   /**
    * Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
    */
-  foursquare_type?: string;
+  foursquare_type?: string | undefined;
 
   /**
    * Google Places identifier of the venue
    */
-  google_place_id?: string;
+  google_place_id?: string | undefined;
 
   /**
    * Google Places type of the venue. (See supported types.)
    */
-  google_place_type?: string;
+  google_place_type?: string | undefined;
 };
 
 /**
@@ -6887,62 +6887,62 @@ export type InputMediaVideo = {
   /**
    * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
    */
-  thumbnail?: string;
+  thumbnail?: string | undefined;
 
   /**
    * Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
    */
-  cover?: string;
+  cover?: string | undefined;
 
   /**
    * Start timestamp for the video in the message
    */
-  start_timestamp?: number;
+  start_timestamp?: number | undefined;
 
   /**
    * Caption of the video to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the video caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Pass True if the caption must be shown above the message media
    */
-  show_caption_above_media?: boolean;
+  show_caption_above_media?: boolean | undefined;
 
   /**
    * {@link Video} width
    */
-  width?: number;
+  width?: number | undefined;
 
   /**
    * {@link Video} height
    */
-  height?: number;
+  height?: number | undefined;
 
   /**
    * {@link Video} duration in seconds
    */
-  duration?: number;
+  duration?: number | undefined;
 
   /**
    * Pass True if the uploaded video is suitable for streaming
    */
-  supports_streaming?: boolean;
+  supports_streaming?: boolean | undefined;
 
   /**
    * Pass True if the video needs to be covered with a spoiler animation
    */
-  has_spoiler?: boolean;
+  has_spoiler?: boolean | undefined;
 };
 
 /**
@@ -6962,22 +6962,22 @@ export type InputMediaVoiceNote = {
   /**
    * Caption of the voice message to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the voice message caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Duration of the voice message in seconds
    */
-  duration?: number;
+  duration?: number | undefined;
 };
 
 /**
@@ -7032,37 +7032,37 @@ export type InputPaidMediaVideo = {
   /**
    * Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail's width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can't be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More information on Sending Files »
    */
-  thumbnail?: string;
+  thumbnail?: string | undefined;
 
   /**
    * Cover for the video in the message. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More information on Sending Files »
    */
-  cover?: string;
+  cover?: string | undefined;
 
   /**
    * Start timestamp for the video in the message
    */
-  start_timestamp?: number;
+  start_timestamp?: number | undefined;
 
   /**
    * {@link Video} width
    */
-  width?: number;
+  width?: number | undefined;
 
   /**
    * {@link Video} height
    */
-  height?: number;
+  height?: number | undefined;
 
   /**
    * {@link Video} duration in seconds
    */
-  duration?: number;
+  duration?: number | undefined;
 
   /**
    * Pass True if the uploaded video is suitable for streaming
    */
-  supports_streaming?: boolean;
+  supports_streaming?: boolean | undefined;
 };
 
 /**
@@ -7097,7 +7097,7 @@ export type InputProfilePhotoAnimated = {
   /**
    * Timestamp in seconds of the frame that will be used as the static profile photo. Defaults to 0.0.
    */
-  main_frame_timestamp?: number;
+  main_frame_timestamp?: number | undefined;
 };
 
 /**
@@ -7132,17 +7132,17 @@ export type InputStoryContentVideo = {
   /**
    * Precise duration of the video in seconds; 0-60
    */
-  duration?: number;
+  duration?: number | undefined;
 
   /**
    * Timestamp in seconds of the frame that will be used as the static cover for the story. Defaults to 0.0.
    */
-  cover_frame_timestamp?: number;
+  cover_frame_timestamp?: number | undefined;
 
   /**
    * Pass True if the video has no sound
    */
-  is_animation?: boolean;
+  is_animation?: boolean | undefined;
 };
 
 export type MaybeInaccessibleMessage = Message | InaccessibleMessage;
@@ -7278,42 +7278,42 @@ export type Sticker = {
   /**
    * {@link Sticker} thumbnail in the .WEBP or .JPG format
    */
-  thumbnail?: PhotoSize;
+  thumbnail?: PhotoSize | undefined;
 
   /**
    * Emoji associated with the sticker
    */
-  emoji?: string;
+  emoji?: string | undefined;
 
   /**
    * Name of the sticker set to which the sticker belongs
    */
-  set_name?: string;
+  set_name?: string | undefined;
 
   /**
    * For premium regular stickers, premium animation for the sticker
    */
-  premium_animation?: File;
+  premium_animation?: File | undefined;
 
   /**
    * For mask stickers, the position where the mask should be placed
    */
-  mask_position?: MaskPosition;
+  mask_position?: MaskPosition | undefined;
 
   /**
    * For custom emoji stickers, unique identifier of the custom emoji
    */
-  custom_emoji_id?: string;
+  custom_emoji_id?: string | undefined;
 
   /**
    * True, if the sticker must be repainted to a text color in messages, the color of the Telegram Premium badge in emoji status, white color on chat photos, or another appropriate color in other places
    */
-  needs_repainting?: true;
+  needs_repainting?: true | undefined;
 
   /**
    * {@link File} size in bytes
    */
-  file_size?: number;
+  file_size?: number | undefined;
 };
 
 /**
@@ -7343,7 +7343,7 @@ export type StickerSet = {
   /**
    * {@link Sticker} set thumbnail in the .WEBP, .TGS, or .WEBM format
    */
-  thumbnail?: PhotoSize;
+  thumbnail?: PhotoSize | undefined;
 };
 
 /**
@@ -7393,12 +7393,12 @@ export type InputSticker = {
   /**
    * Position where the mask should be placed on faces. For “mask” stickers only.
    */
-  mask_position?: MaskPosition;
+  mask_position?: MaskPosition | undefined;
 
   /**
    * List of 0-20 search keywords for the sticker with total length of up to 64 characters. For “regular” and “custom_emoji” stickers only.
    */
-  keywords?: string[];
+  keywords?: string[] | undefined;
 };
 
 /**
@@ -7413,7 +7413,7 @@ export type RichMessage = {
   /**
    * True, if the rich message must be shown right-to-left
    */
-  is_rtl?: boolean;
+  is_rtl?: boolean | undefined;
 };
 
 /**
@@ -7423,32 +7423,32 @@ export type InputRichMessage = {
   /**
    * Content of the rich message to send described as a list of blocks
    */
-  blocks?: InputRichBlock[];
+  blocks?: InputRichBlock[] | undefined;
 
   /**
    * Content of the rich message to send described using HTML formatting. See rich message formatting options for more details. Use media field to specify the media used in the message.
    */
-  html?: string;
+  html?: string | undefined;
 
   /**
    * Content of the rich message to send described using Markdown formatting. See rich message formatting options for more details. Use media field to specify the media used in the message.
    */
-  markdown?: string;
+  markdown?: string | undefined;
 
   /**
    * List of media that are specified in the markdown or html fields using tg://photo?id=, tg://video?id=, tg://document?id=, and tg://audio?id= links
    */
-  media?: InputRichMessageMedia[];
+  media?: InputRichMessageMedia[] | undefined;
 
   /**
    * Pass True if the rich message must be shown right-to-left
    */
-  is_rtl?: boolean;
+  is_rtl?: boolean | undefined;
 
   /**
    * Pass True to skip automatic detection of entities (e.g., URLs, email addresses, username mentions, hashtags, cashtags, bot commands, or phone numbers) in the text
    */
-  skip_entity_detection?: boolean;
+  skip_entity_detection?: boolean | undefined;
 };
 
 /**
@@ -7484,52 +7484,52 @@ export type RichMessageButton = {
   /**
    * Style of the button. Must be one of “danger”, “success”, “primary”, or “link” (the button is shown as a regular link without borders). Apps may use theme-specific colors for the button background and text based on the style. The style “link” is allowed only for callback buttons.
    */
-  style?: 'danger' | 'success' | 'primary' | 'link';
+  style?: 'danger' | 'success' | 'primary' | 'link' | undefined;
 
   /**
    * HTTP or tg:// URL to be opened when the button is pressed. Links tg://user?id=<user_id> can be used to mention a user by their identifier without using a username, if this is allowed by their privacy settings.
    */
-  url?: string;
+  url?: string | undefined;
 
   /**
    * Data to be sent in a callback query to the bot when the button is pressed, 1-64 bytes
    */
-  callback_data?: string;
+  callback_data?: string | undefined;
 
   /**
    * Description of the {@link https://core.telegram.org/bots/webapps | Web App} that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a business account.
    */
-  web_app?: WebAppInfo;
+  web_app?: WebAppInfo | undefined;
 
   /**
    * An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the {@link https://core.telegram.org/widgets/login | Telegram Login Widget}. Not supported for ephemeral messages.
    */
-  login_url?: LoginUrl;
+  login_url?: LoginUrl | undefined;
 
   /**
    * If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field. May be empty, in which case just the bot's username will be inserted. Not supported for messages sent in channel direct messages chats and on behalf of a business account.
    */
-  switch_inline_query?: string;
+  switch_inline_query?: string | undefined;
 
   /**
    * If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field. May be empty, in which case only the bot's username will be inserted. Not supported in channels and for messages sent in channel direct messages chats and on behalf of a business account.
    */
-  switch_inline_query_current_chat?: string;
+  switch_inline_query_current_chat?: string | undefined;
 
   /**
    * If set, pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field. Not supported for messages sent in channel direct messages chats and on behalf of a business account.
    */
-  switch_inline_query_chosen_chat?: SwitchInlineQueryChosenChat;
+  switch_inline_query_chosen_chat?: SwitchInlineQueryChosenChat | undefined;
 
   /**
    * A button that copies the specified text to the clipboard
    */
-  copy_text?: CopyTextButton;
+  copy_text?: CopyTextButton | undefined;
 
   /**
    * If set, then the button is disabled and does nothing
    */
-  disabled?: DisabledButton;
+  disabled?: DisabledButton | undefined;
 };
 
 /**
@@ -8009,7 +8009,7 @@ export type RichBlockCaption = {
   /**
    * Block credit which corresponds to the HTML tag <cite>
    */
-  credit?: RichText;
+  credit?: RichText | undefined;
 };
 
 /**
@@ -8019,22 +8019,22 @@ export type RichBlockTableCell = {
   /**
    * Text in the cell. If omitted, then the cell is invisible.
    */
-  text?: RichText;
+  text?: RichText | undefined;
 
   /**
    * True, if the cell is a header cell
    */
-  is_header?: true;
+  is_header?: true | undefined;
 
   /**
    * The number of columns the cell spans if it is bigger than 1
    */
-  colspan?: number;
+  colspan?: number | undefined;
 
   /**
    * The number of rows the cell spans if it is bigger than 1
    */
-  rowspan?: number;
+  rowspan?: number | undefined;
 
   /**
    * Horizontal cell content alignment. Currently, must be one of “left”, “center”, or “right”.
@@ -8064,22 +8064,22 @@ export type RichBlockListItem = {
   /**
    * True, if the item has a checkbox
    */
-  has_checkbox?: true;
+  has_checkbox?: true | undefined;
 
   /**
    * True, if the item has a checked checkbox
    */
-  is_checked?: true;
+  is_checked?: true | undefined;
 
   /**
    * For ordered lists, the numeric value of the item label
    */
-  value?: number;
+  value?: number | undefined;
 
   /**
    * For ordered lists, the type of the item label; must be one of “a” for lowercase letters, “A” for uppercase letters, “i” for lowercase Roman numerals, “I” for uppercase Roman numerals, or “1” for decimal numbers
    */
-  type?: 'a' | 'A' | 'i' | 'I' | '1';
+  type?: 'a' | 'A' | 'i' | 'I' | '1' | undefined;
 };
 
 /**
@@ -8134,7 +8134,7 @@ export type RichBlockPreformatted = {
   /**
    * The programming language of the text
    */
-  language?: string;
+  language?: string | undefined;
 };
 
 /**
@@ -8224,7 +8224,7 @@ export type RichBlockBlockQuotation = {
   /**
    * Credit of the block
    */
-  credit?: RichText;
+  credit?: RichText | undefined;
 };
 
 /**
@@ -8244,7 +8244,7 @@ export type RichBlockExpandableBlockQuotation = {
   /**
    * Credit of the block
    */
-  credit?: RichText;
+  credit?: RichText | undefined;
 };
 
 /**
@@ -8264,7 +8264,7 @@ export type RichBlockPullQuotation = {
   /**
    * Credit of the block
    */
-  credit?: RichText;
+  credit?: RichText | undefined;
 };
 
 /**
@@ -8284,7 +8284,7 @@ export type RichBlockCollage = {
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -8304,7 +8304,7 @@ export type RichBlockSlideshow = {
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -8324,22 +8324,22 @@ export type RichBlockTable = {
   /**
    * True, if the table has borders
    */
-  is_bordered?: true;
+  is_bordered?: true | undefined;
 
   /**
    * True, if the table is striped
    */
-  is_striped?: true;
+  is_striped?: true | undefined;
 
   /**
    * True, if table cells have smaller indents
    */
-  is_compact?: true;
+  is_compact?: true | undefined;
 
   /**
    * Caption of the table
    */
-  caption?: RichText;
+  caption?: RichText | undefined;
 };
 
 /**
@@ -8364,7 +8364,7 @@ export type RichBlockDetails = {
   /**
    * True, if the content of the block is visible by default
    */
-  is_open?: true;
+  is_open?: true | undefined;
 };
 
 /**
@@ -8399,7 +8399,7 @@ export type RichBlockMap = {
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -8419,7 +8419,7 @@ export type RichBlockButtons = {
   /**
    * Horizontal alignment of the buttons. Currently, must be one of “left”, “center”, or “right”.
    */
-  align?: 'left' | 'center' | 'right';
+  align?: 'left' | 'center' | 'right' | undefined;
 };
 
 /**
@@ -8439,12 +8439,12 @@ export type RichBlockAnimation = {
   /**
    * True, if the media preview is covered by a spoiler animation
    */
-  has_spoiler?: true;
+  has_spoiler?: true | undefined;
 
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -8464,7 +8464,7 @@ export type RichBlockAudio = {
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -8484,7 +8484,7 @@ export type RichBlockDocument = {
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -8504,12 +8504,12 @@ export type RichBlockPhoto = {
   /**
    * True, if the media preview is covered by a spoiler animation
    */
-  has_spoiler?: true;
+  has_spoiler?: true | undefined;
 
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -8529,12 +8529,12 @@ export type RichBlockVideo = {
   /**
    * True, if the media preview is covered by a spoiler animation
    */
-  has_spoiler?: true;
+  has_spoiler?: true | undefined;
 
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -8554,7 +8554,7 @@ export type RichBlockVoiceNote = {
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -8584,22 +8584,22 @@ export type InputRichBlockListItem = {
   /**
    * Pass True if the item has a checkbox
    */
-  has_checkbox?: true;
+  has_checkbox?: true | undefined;
 
   /**
    * Pass True if the item has a checked checkbox
    */
-  is_checked?: true;
+  is_checked?: true | undefined;
 
   /**
    * For ordered lists, the numeric value of the item label
    */
-  value?: number;
+  value?: number | undefined;
 
   /**
    * For ordered lists, the type of the item label; must be one of “a” for lowercase letters, “A” for uppercase letters, “i” for lowercase Roman numerals, “I” for uppercase Roman numerals, or “1” for decimal numbers
    */
-  type?: 'a' | 'A' | 'i' | 'I' | '1';
+  type?: 'a' | 'A' | 'i' | 'I' | '1' | undefined;
 };
 
 /**
@@ -8654,7 +8654,7 @@ export type InputRichBlockPreformatted = {
   /**
    * The programming language of the text
    */
-  language?: string;
+  language?: string | undefined;
 };
 
 /**
@@ -8744,7 +8744,7 @@ export type InputRichBlockBlockQuotation = {
   /**
    * Credit of the block
    */
-  credit?: RichText;
+  credit?: RichText | undefined;
 };
 
 /**
@@ -8764,7 +8764,7 @@ export type InputRichBlockExpandableBlockQuotation = {
   /**
    * Credit of the block
    */
-  credit?: RichText;
+  credit?: RichText | undefined;
 };
 
 /**
@@ -8784,7 +8784,7 @@ export type InputRichBlockPullQuotation = {
   /**
    * Credit of the block
    */
-  credit?: RichText;
+  credit?: RichText | undefined;
 };
 
 /**
@@ -8804,7 +8804,7 @@ export type InputRichBlockCollage = {
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -8824,7 +8824,7 @@ export type InputRichBlockSlideshow = {
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -8844,22 +8844,22 @@ export type InputRichBlockTable = {
   /**
    * Pass True if the table has borders
    */
-  is_bordered?: true;
+  is_bordered?: true | undefined;
 
   /**
    * Pass True if the table is striped
    */
-  is_striped?: true;
+  is_striped?: true | undefined;
 
   /**
    * Pass True if table cells must have smaller indents
    */
-  is_compact?: true;
+  is_compact?: true | undefined;
 
   /**
    * Caption of the table
    */
-  caption?: RichText;
+  caption?: RichText | undefined;
 };
 
 /**
@@ -8884,7 +8884,7 @@ export type InputRichBlockDetails = {
   /**
    * Pass True if the content of the block is visible by default
    */
-  is_open?: true;
+  is_open?: true | undefined;
 };
 
 /**
@@ -8904,22 +8904,22 @@ export type InputRichBlockMap = {
   /**
    * Map zoom level; 0-24
    */
-  zoom?: number;
+  zoom?: number | undefined;
 
   /**
    * Map width; 0-10000
    */
-  width?: number;
+  width?: number | undefined;
 
   /**
    * Map height; 0-10000
    */
-  height?: number;
+  height?: number | undefined;
 
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -8939,7 +8939,7 @@ export type InputRichBlockButtons = {
   /**
    * Horizontal alignment of the buttons. Currently, must be one of “left”, “center”, or “right”.
    */
-  align?: 'left' | 'center' | 'right';
+  align?: 'left' | 'center' | 'right' | undefined;
 };
 
 /**
@@ -8959,7 +8959,7 @@ export type InputRichBlockAnimation = {
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -8979,7 +8979,7 @@ export type InputRichBlockAudio = {
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -8999,7 +8999,7 @@ export type InputRichBlockDocument = {
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -9019,7 +9019,7 @@ export type InputRichBlockPhoto = {
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -9039,7 +9039,7 @@ export type InputRichBlockVideo = {
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -9059,7 +9059,7 @@ export type InputRichBlockVoiceNote = {
   /**
    * Caption of the block
    */
-  caption?: RichBlockCaption;
+  caption?: RichBlockCaption | undefined;
 };
 
 /**
@@ -9186,12 +9186,13 @@ export type InlineQuery = {
   /**
    * Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat.
    */
-  chat_type?: 'sender' | 'private' | 'group' | 'supergroup' | 'channel';
+  chat_type?:
+    'sender' | 'private' | 'group' | 'supergroup' | 'channel' | undefined;
 
   /**
    * Sender location, only for bots that request user location
    */
-  location?: Location;
+  location?: Location | undefined;
 };
 
 /**
@@ -9206,12 +9207,12 @@ export type InlineQueryResultsButton = {
   /**
    * Description of the {@link https://core.telegram.org/bots/webapps | Web App} that will be launched when the user presses the button. The Web App will be able to switch back to the inline mode using the method {@link https://core.telegram.org/bots/webapps#initializing-mini-apps | switchInlineQuery} inside the Web App.
    */
-  web_app?: WebAppInfo;
+  web_app?: WebAppInfo | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#deep-linking | Deep-linking} parameter for the /start message sent to the bot when a user presses the button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed. Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a 'Connect your YouTube account' button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an OAuth link. Once done, the bot can offer a switch_inline button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
    */
-  start_parameter?: string;
+  start_parameter?: string | undefined;
 };
 
 /**
@@ -9241,32 +9242,32 @@ export type InlineQueryResultArticle = {
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * URL of the result
    */
-  url?: string;
+  url?: string | undefined;
 
   /**
    * Short description of the result
    */
-  description?: string;
+  description?: string | undefined;
 
   /**
    * Url of the thumbnail for the result
    */
-  thumbnail_url?: string;
+  thumbnail_url?: string | undefined;
 
   /**
    * Thumbnail width
    */
-  thumbnail_width?: number;
+  thumbnail_width?: number | undefined;
 
   /**
    * Thumbnail height
    */
-  thumbnail_height?: number;
+  thumbnail_height?: number | undefined;
 };
 
 /**
@@ -9296,52 +9297,52 @@ export type InlineQueryResultPhoto = {
   /**
    * Width of the photo
    */
-  photo_width?: number;
+  photo_width?: number | undefined;
 
   /**
    * Height of the photo
    */
-  photo_height?: number;
+  photo_height?: number | undefined;
 
   /**
    * Title for the result
    */
-  title?: string;
+  title?: string | undefined;
 
   /**
    * Short description of the result
    */
-  description?: string;
+  description?: string | undefined;
 
   /**
    * Caption of the photo to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the photo caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Pass True if the caption must be shown above the message media
    */
-  show_caption_above_media?: boolean;
+  show_caption_above_media?: boolean | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the photo
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 };
 
 /**
@@ -9366,17 +9367,17 @@ export type InlineQueryResultGif = {
   /**
    * Width of the GIF
    */
-  gif_width?: number;
+  gif_width?: number | undefined;
 
   /**
    * Height of the GIF
    */
-  gif_height?: number;
+  gif_height?: number | undefined;
 
   /**
    * Duration of the GIF in seconds
    */
-  gif_duration?: number;
+  gif_duration?: number | undefined;
 
   /**
    * URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
@@ -9386,42 +9387,42 @@ export type InlineQueryResultGif = {
   /**
    * MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”.
    */
-  thumbnail_mime_type?: 'image/jpeg' | 'image/gif' | 'video/mp4';
+  thumbnail_mime_type?: 'image/jpeg' | 'image/gif' | 'video/mp4' | undefined;
 
   /**
    * Title for the result
    */
-  title?: string;
+  title?: string | undefined;
 
   /**
    * Caption of the GIF file to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Pass True if the caption must be shown above the message media
    */
-  show_caption_above_media?: boolean;
+  show_caption_above_media?: boolean | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the GIF animation
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 };
 
 /**
@@ -9446,17 +9447,17 @@ export type InlineQueryResultMpeg4Gif = {
   /**
    * {@link Video} width
    */
-  mpeg4_width?: number;
+  mpeg4_width?: number | undefined;
 
   /**
    * {@link Video} height
    */
-  mpeg4_height?: number;
+  mpeg4_height?: number | undefined;
 
   /**
    * {@link Video} duration in seconds
    */
-  mpeg4_duration?: number;
+  mpeg4_duration?: number | undefined;
 
   /**
    * URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the result
@@ -9466,42 +9467,42 @@ export type InlineQueryResultMpeg4Gif = {
   /**
    * MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”, or “video/mp4”. Defaults to “image/jpeg”.
    */
-  thumbnail_mime_type?: 'image/jpeg' | 'image/gif' | 'video/mp4';
+  thumbnail_mime_type?: 'image/jpeg' | 'image/gif' | 'video/mp4' | undefined;
 
   /**
    * Title for the result
    */
-  title?: string;
+  title?: string | undefined;
 
   /**
    * Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Pass True if the caption must be shown above the message media
    */
-  show_caption_above_media?: boolean;
+  show_caption_above_media?: boolean | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the video animation
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 };
 
 /**
@@ -9541,52 +9542,52 @@ export type InlineQueryResultVideo = {
   /**
    * Caption of the video to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the video caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Pass True if the caption must be shown above the message media
    */
-  show_caption_above_media?: boolean;
+  show_caption_above_media?: boolean | undefined;
 
   /**
    * {@link Video} width
    */
-  video_width?: number;
+  video_width?: number | undefined;
 
   /**
    * {@link Video} height
    */
-  video_height?: number;
+  video_height?: number | undefined;
 
   /**
    * {@link Video} duration in seconds
    */
-  video_duration?: number;
+  video_duration?: number | undefined;
 
   /**
    * Short description of the result
    */
-  description?: string;
+  description?: string | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the video. This field is required if {@link InlineQueryResultVideo} is used to send an HTML-page as a result (e.g., a YouTube video).
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 };
 
 /**
@@ -9616,37 +9617,37 @@ export type InlineQueryResultAudio = {
   /**
    * Caption, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the audio caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Performer
    */
-  performer?: string;
+  performer?: string | undefined;
 
   /**
    * {@link Audio} duration in seconds
    */
-  audio_duration?: number;
+  audio_duration?: number | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the audio
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 };
 
 /**
@@ -9676,32 +9677,32 @@ export type InlineQueryResultVoice = {
   /**
    * Caption, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the voice message caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Recording duration in seconds
    */
-  voice_duration?: number;
+  voice_duration?: number | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the voice recording
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 };
 
 /**
@@ -9726,17 +9727,17 @@ export type InlineQueryResultDocument = {
   /**
    * Caption of the document to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the document caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * A valid URL for the file
@@ -9751,32 +9752,32 @@ export type InlineQueryResultDocument = {
   /**
    * Short description of the result
    */
-  description?: string;
+  description?: string | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the file
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 
   /**
    * URL of the thumbnail (JPEG only) for the file
    */
-  thumbnail_url?: string;
+  thumbnail_url?: string | undefined;
 
   /**
    * Thumbnail width
    */
-  thumbnail_width?: number;
+  thumbnail_width?: number | undefined;
 
   /**
    * Thumbnail height
    */
-  thumbnail_height?: number;
+  thumbnail_height?: number | undefined;
 };
 
 /**
@@ -9811,47 +9812,47 @@ export type InlineQueryResultLocation = {
   /**
    * The radius of uncertainty for the location, measured in meters; 0-1500
    */
-  horizontal_accuracy?: number;
+  horizontal_accuracy?: number | undefined;
 
   /**
    * Period in seconds during which the location can be updated, must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely
    */
-  live_period?: number;
+  live_period?: number | undefined;
 
   /**
    * For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
    */
-  heading?: number;
+  heading?: number | undefined;
 
   /**
    * For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
    */
-  proximity_alert_radius?: number;
+  proximity_alert_radius?: number | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the location
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 
   /**
    * Url of the thumbnail for the result
    */
-  thumbnail_url?: string;
+  thumbnail_url?: string | undefined;
 
   /**
    * Thumbnail width
    */
-  thumbnail_width?: number;
+  thumbnail_width?: number | undefined;
 
   /**
    * Thumbnail height
    */
-  thumbnail_height?: number;
+  thumbnail_height?: number | undefined;
 };
 
 /**
@@ -9891,47 +9892,47 @@ export type InlineQueryResultVenue = {
   /**
    * Foursquare identifier of the venue if known
    */
-  foursquare_id?: string;
+  foursquare_id?: string | undefined;
 
   /**
    * Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
    */
-  foursquare_type?: string;
+  foursquare_type?: string | undefined;
 
   /**
    * Google Places identifier of the venue
    */
-  google_place_id?: string;
+  google_place_id?: string | undefined;
 
   /**
    * Google Places type of the venue. (See supported types.)
    */
-  google_place_type?: string;
+  google_place_type?: string | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the venue
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 
   /**
    * Url of the thumbnail for the result
    */
-  thumbnail_url?: string;
+  thumbnail_url?: string | undefined;
 
   /**
    * Thumbnail width
    */
-  thumbnail_width?: number;
+  thumbnail_width?: number | undefined;
 
   /**
    * Thumbnail height
    */
-  thumbnail_height?: number;
+  thumbnail_height?: number | undefined;
 };
 
 /**
@@ -9961,37 +9962,37 @@ export type InlineQueryResultContact = {
   /**
    * Contact's last name
    */
-  last_name?: string;
+  last_name?: string | undefined;
 
   /**
    * Additional data about the contact in the form of a vCard, 0-2048 bytes
    */
-  vcard?: string;
+  vcard?: string | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the contact
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 
   /**
    * Url of the thumbnail for the result
    */
-  thumbnail_url?: string;
+  thumbnail_url?: string | undefined;
 
   /**
    * Thumbnail width
    */
-  thumbnail_width?: number;
+  thumbnail_width?: number | undefined;
 
   /**
    * Thumbnail height
    */
-  thumbnail_height?: number;
+  thumbnail_height?: number | undefined;
 };
 
 /**
@@ -10016,7 +10017,7 @@ export type InlineQueryResultGame = {
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 };
 
 /**
@@ -10041,42 +10042,42 @@ export type InlineQueryResultCachedPhoto = {
   /**
    * Title for the result
    */
-  title?: string;
+  title?: string | undefined;
 
   /**
    * Short description of the result
    */
-  description?: string;
+  description?: string | undefined;
 
   /**
    * Caption of the photo to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the photo caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Pass True if the caption must be shown above the message media
    */
-  show_caption_above_media?: boolean;
+  show_caption_above_media?: boolean | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the photo
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 };
 
 /**
@@ -10101,37 +10102,37 @@ export type InlineQueryResultCachedGif = {
   /**
    * Title for the result
    */
-  title?: string;
+  title?: string | undefined;
 
   /**
    * Caption of the GIF file to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Pass True if the caption must be shown above the message media
    */
-  show_caption_above_media?: boolean;
+  show_caption_above_media?: boolean | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the GIF animation
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 };
 
 /**
@@ -10156,37 +10157,37 @@ export type InlineQueryResultCachedMpeg4Gif = {
   /**
    * Title for the result
    */
-  title?: string;
+  title?: string | undefined;
 
   /**
    * Caption of the MPEG-4 file to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Pass True if the caption must be shown above the message media
    */
-  show_caption_above_media?: boolean;
+  show_caption_above_media?: boolean | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the video animation
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 };
 
 /**
@@ -10211,12 +10212,12 @@ export type InlineQueryResultCachedSticker = {
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the sticker
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 };
 
 /**
@@ -10246,32 +10247,32 @@ export type InlineQueryResultCachedDocument = {
   /**
    * Short description of the result
    */
-  description?: string;
+  description?: string | undefined;
 
   /**
    * Caption of the document to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the document caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the file
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 };
 
 /**
@@ -10301,37 +10302,37 @@ export type InlineQueryResultCachedVideo = {
   /**
    * Short description of the result
    */
-  description?: string;
+  description?: string | undefined;
 
   /**
    * Caption of the video to be sent, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the video caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * Pass True if the caption must be shown above the message media
    */
-  show_caption_above_media?: boolean;
+  show_caption_above_media?: boolean | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the video
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 };
 
 /**
@@ -10361,27 +10362,27 @@ export type InlineQueryResultCachedVoice = {
   /**
    * Caption, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the voice message caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the voice message
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 };
 
 /**
@@ -10406,27 +10407,27 @@ export type InlineQueryResultCachedAudio = {
   /**
    * Caption, 0-1024 characters after entities parsing
    */
-  caption?: string;
+  caption?: string | undefined;
 
   /**
    * Mode for parsing entities in the audio caption. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in the caption, which can be specified instead of parse_mode
    */
-  caption_entities?: MessageEntity[];
+  caption_entities?: MessageEntity[] | undefined;
 
   /**
    * {@link https://core.telegram.org/bots/features#inline-keyboards | Inline keyboard} attached to the message
    */
-  reply_markup?: InlineKeyboardMarkup;
+  reply_markup?: InlineKeyboardMarkup | undefined;
 
   /**
    * Content of the message to be sent instead of the audio
    */
-  input_message_content?: InputMessageContent;
+  input_message_content?: InputMessageContent | undefined;
 };
 
 /**
@@ -10441,17 +10442,17 @@ export type InputTextMessageContent = {
   /**
    * Mode for parsing entities in the message text. See formatting options for more details.
    */
-  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2';
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
 
   /**
    * List of special entities that appear in message text, which can be specified instead of parse_mode
    */
-  entities?: MessageEntity[];
+  entities?: MessageEntity[] | undefined;
 
   /**
    * {@link Link} preview generation options for the message
    */
-  link_preview_options?: LinkPreviewOptions;
+  link_preview_options?: LinkPreviewOptions | undefined;
 };
 
 /**
@@ -10481,22 +10482,22 @@ export type InputLocationMessageContent = {
   /**
    * The radius of uncertainty for the location, measured in meters; 0-1500
    */
-  horizontal_accuracy?: number;
+  horizontal_accuracy?: number | undefined;
 
   /**
    * Period in seconds during which the location can be updated, must be between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited indefinitely
    */
-  live_period?: number;
+  live_period?: number | undefined;
 
   /**
    * For live locations, a direction in which the user is moving, in degrees. Must be between 1 and 360 if specified.
    */
-  heading?: number;
+  heading?: number | undefined;
 
   /**
    * For live locations, a maximum distance for proximity alerts about approaching another chat member, in meters. Must be between 1 and 100000 if specified.
    */
-  proximity_alert_radius?: number;
+  proximity_alert_radius?: number | undefined;
 };
 
 /**
@@ -10526,22 +10527,22 @@ export type InputVenueMessageContent = {
   /**
    * Foursquare identifier of the venue, if known
    */
-  foursquare_id?: string;
+  foursquare_id?: string | undefined;
 
   /**
    * Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
    */
-  foursquare_type?: string;
+  foursquare_type?: string | undefined;
 
   /**
    * Google Places identifier of the venue
    */
-  google_place_id?: string;
+  google_place_id?: string | undefined;
 
   /**
    * Google Places type of the venue. (See supported types.)
    */
-  google_place_type?: string;
+  google_place_type?: string | undefined;
 };
 
 /**
@@ -10561,12 +10562,12 @@ export type InputContactMessageContent = {
   /**
    * Contact's last name
    */
-  last_name?: string;
+  last_name?: string | undefined;
 
   /**
    * Additional data about the contact in the form of a vCard, 0-2048 bytes
    */
-  vcard?: string;
+  vcard?: string | undefined;
 };
 
 /**
@@ -10591,7 +10592,7 @@ export type InputInvoiceMessageContent = {
   /**
    * Payment provider token, obtained via `@BotFather`. Pass an empty string for payments in Telegram Stars.
    */
-  provider_token?: string;
+  provider_token?: string | undefined;
 
   /**
    * Three-letter ISO 4217 currency code, see {@link https://core.telegram.org/bots/payments#supported-currencies | more on currencies}. Pass “XTR” for payments in Telegram Stars.
@@ -10606,72 +10607,72 @@ export type InputInvoiceMessageContent = {
   /**
    * The maximum accepted amount for tips in the smallest units of the currency (integer, not float/double). For example, for a maximum tip of US$ 1.45 pass max_tip_amount = 145. See the exp parameter in {@link https://core.telegram.org/bots/payments/currencies.json | currencies.json}, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies). Defaults to 0. Not supported for payments in Telegram Stars.
    */
-  max_tip_amount?: number;
+  max_tip_amount?: number | undefined;
 
   /**
    * A JSON-serialized Array of suggested amounts of tip in the smallest units of the currency (integer, not float/double). At most 4 suggested tip amounts can be specified. The suggested tip amounts must be positive, passed in a strictly increased order and must not exceed max_tip_amount.
    */
-  suggested_tip_amounts?: number[];
+  suggested_tip_amounts?: number[] | undefined;
 
   /**
    * A JSON-serialized object for data about the invoice, which will be shared with the payment provider. A detailed description of the required fields should be provided by the payment provider.
    */
-  provider_data?: string;
+  provider_data?: string | undefined;
 
   /**
    * URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service.
    */
-  photo_url?: string;
+  photo_url?: string | undefined;
 
   /**
    * Photo size in bytes
    */
-  photo_size?: number;
+  photo_size?: number | undefined;
 
   /**
    * Photo width
    */
-  photo_width?: number;
+  photo_width?: number | undefined;
 
   /**
    * Photo height
    */
-  photo_height?: number;
+  photo_height?: number | undefined;
 
   /**
    * Pass True if you require the user's full name to complete the order. Ignored for payments in Telegram Stars.
    */
-  need_name?: boolean;
+  need_name?: boolean | undefined;
 
   /**
    * Pass True if you require the user's phone number to complete the order. Ignored for payments in Telegram Stars.
    */
-  need_phone_number?: boolean;
+  need_phone_number?: boolean | undefined;
 
   /**
    * Pass True if you require the user's email address to complete the order. Ignored for payments in Telegram Stars.
    */
-  need_email?: boolean;
+  need_email?: boolean | undefined;
 
   /**
    * Pass True if you require the user's shipping address to complete the order. Ignored for payments in Telegram Stars.
    */
-  need_shipping_address?: boolean;
+  need_shipping_address?: boolean | undefined;
 
   /**
    * Pass True if the user's phone number should be sent to the provider. Ignored for payments in Telegram Stars.
    */
-  send_phone_number_to_provider?: boolean;
+  send_phone_number_to_provider?: boolean | undefined;
 
   /**
    * Pass True if the user's email address should be sent to the provider. Ignored for payments in Telegram Stars.
    */
-  send_email_to_provider?: boolean;
+  send_email_to_provider?: boolean | undefined;
 
   /**
    * Pass True if the final price depends on the shipping method. Ignored for payments in Telegram Stars.
    */
-  is_flexible?: boolean;
+  is_flexible?: boolean | undefined;
 };
 
 /**
@@ -10691,12 +10692,12 @@ export type ChosenInlineResult = {
   /**
    * Sender location, only for bots that require user location
    */
-  location?: Location;
+  location?: Location | undefined;
 
   /**
    * Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. Will be also received in callback queries and can be used to edit the message.
    */
-  inline_message_id?: string;
+  inline_message_id?: string | undefined;
 
   /**
    * The query that was used to obtain the result
@@ -10821,22 +10822,22 @@ export type OrderInfo = {
   /**
    * {@link User} name
    */
-  name?: string;
+  name?: string | undefined;
 
   /**
    * User's phone number
    */
-  phone_number?: string;
+  phone_number?: string | undefined;
 
   /**
    * {@link User} email
    */
-  email?: string;
+  email?: string | undefined;
 
   /**
    * {@link User} shipping address
    */
-  shipping_address?: ShippingAddress;
+  shipping_address?: ShippingAddress | undefined;
 };
 
 /**
@@ -10881,27 +10882,27 @@ export type SuccessfulPayment = {
   /**
    * Expiration date of the subscription, in Unix time; for recurring payments only
    */
-  subscription_expiration_date?: number;
+  subscription_expiration_date?: number | undefined;
 
   /**
    * True, if the payment is a recurring payment for a subscription
    */
-  is_recurring?: true;
+  is_recurring?: true | undefined;
 
   /**
    * True, if the payment is the first payment for a subscription
    */
-  is_first_recurring?: true;
+  is_first_recurring?: true | undefined;
 
   /**
    * Identifier of the shipping option chosen by the user
    */
-  shipping_option_id?: string;
+  shipping_option_id?: string | undefined;
 
   /**
    * Order information provided by the user
    */
-  order_info?: OrderInfo;
+  order_info?: OrderInfo | undefined;
 
   /**
    * Telegram payment identifier
@@ -10941,7 +10942,7 @@ export type RefundedPayment = {
   /**
    * Provider payment identifier
    */
-  provider_payment_charge_id?: string;
+  provider_payment_charge_id?: string | undefined;
 };
 
 /**
@@ -11001,12 +11002,12 @@ export type PreCheckoutQuery = {
   /**
    * Identifier of the shipping option chosen by the user
    */
-  shipping_option_id?: string;
+  shipping_option_id?: string | undefined;
 
   /**
    * Order information provided by the user
    */
-  order_info?: OrderInfo;
+  order_info?: OrderInfo | undefined;
 };
 
 /**
@@ -11071,12 +11072,12 @@ export type AffiliateInfo = {
   /**
    * The bot or the user that received an affiliate commission if it was received by a bot or a user
    */
-  affiliate_user?: User;
+  affiliate_user?: User | undefined;
 
   /**
    * The chat that received an affiliate commission if it was received by a chat
    */
-  affiliate_chat?: Chat;
+  affiliate_chat?: Chat | undefined;
 
   /**
    * The number of Telegram Stars received by the affiliate for each 1000 Telegram Stars received by the bot from referred users
@@ -11091,7 +11092,7 @@ export type AffiliateInfo = {
   /**
    * The number of 1/1000000000 shares of Telegram Stars received by the affiliate; from -999999999 to 999999999; can be negative for refunds
    */
-  nanostar_amount?: number;
+  nanostar_amount?: number | undefined;
 };
 
 /**
@@ -11117,17 +11118,17 @@ export type TransactionPartnerUser =
       /**
        * Information about the affiliate that received a commission via this transaction. Can be available only for “invoice_payment” and “paid_media_payment” transactions.
        */
-      affiliate?: AffiliateInfo;
+      affiliate?: AffiliateInfo | undefined;
 
       /**
        * Bot-specified invoice payload. Can be available only for “invoice_payment” transactions.
        */
-      invoice_payload?: string;
+      invoice_payload?: string | undefined;
 
       /**
        * The duration of the paid subscription. Can be available only for “invoice_payment” transactions.
        */
-      subscription_period?: number;
+      subscription_period?: number | undefined;
     }
   | {
       /**
@@ -11148,17 +11149,17 @@ export type TransactionPartnerUser =
       /**
        * Information about the affiliate that received a commission via this transaction. Can be available only for “invoice_payment” and “paid_media_payment” transactions.
        */
-      affiliate?: AffiliateInfo;
+      affiliate?: AffiliateInfo | undefined;
 
       /**
        * Information about the paid media bought by the user; for “paid_media_payment” transactions only
        */
-      paid_media?: PaidMedia[];
+      paid_media?: PaidMedia[] | undefined;
 
       /**
        * Bot-specified paid media payload. Can be available only for “paid_media_payment” transactions.
        */
-      paid_media_payload?: string;
+      paid_media_payload?: string | undefined;
     }
   | {
       /**
@@ -11179,7 +11180,7 @@ export type TransactionPartnerUser =
       /**
        * The gift sent to the user by the bot; for “gift_purchase” transactions only
        */
-      gift?: Gift;
+      gift?: Gift | undefined;
     }
   | {
       /**
@@ -11200,7 +11201,7 @@ export type TransactionPartnerUser =
       /**
        * Number of months the gifted Telegram Premium subscription will be active for; for “premium_purchase” transactions only
        */
-      premium_subscription_duration?: number;
+      premium_subscription_duration?: number | undefined;
     }
   | {
       /**
@@ -11236,7 +11237,7 @@ export type TransactionPartnerChat = {
   /**
    * The gift sent to the chat by the bot
    */
-  gift?: Gift;
+  gift?: Gift | undefined;
 };
 
 /**
@@ -11251,7 +11252,7 @@ export type TransactionPartnerAffiliateProgram = {
   /**
    * Information about the bot that sponsored the affiliate program
    */
-  sponsor_user?: User;
+  sponsor_user?: User | undefined;
 
   /**
    * The number of Telegram Stars received by the bot for each 1000 Telegram Stars received by the affiliate program sponsor from referred users
@@ -11271,7 +11272,7 @@ export type TransactionPartnerFragment = {
   /**
    * State of the transaction if the transaction is outgoing
    */
-  withdrawal_state?: RevenueWithdrawalState;
+  withdrawal_state?: RevenueWithdrawalState | undefined;
 };
 
 /**
@@ -11326,7 +11327,7 @@ export type StarTransaction = {
   /**
    * The number of 1/1000000000 shares of Telegram Stars transferred by the transaction; from 0 to 999999999
    */
-  nanostar_amount?: number;
+  nanostar_amount?: number | undefined;
 
   /**
    * Date the transaction was created in Unix time
@@ -11336,12 +11337,12 @@ export type StarTransaction = {
   /**
    * Source of an incoming transaction (e.g., a user purchasing goods or services, Fragment refunding a failed withdrawal). Only for incoming transactions.
    */
-  source?: TransactionPartner;
+  source?: TransactionPartner | undefined;
 
   /**
    * Receiver of an outgoing transaction (e.g., a user for a purchase refund, Fragment for a withdrawal). Only for outgoing transactions.
    */
-  receiver?: TransactionPartner;
+  receiver?: TransactionPartner | undefined;
 };
 
 /**
@@ -11421,7 +11422,7 @@ export type EncryptedPassportElement =
       /**
        * Base64-encoded encrypted Telegram Passport element data provided by the user; available only for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
        */
-      data?: string;
+      data?: string | undefined;
 
       /**
        * Base64-encoded element hash for using in PassportElementErrorUnspecified
@@ -11437,22 +11438,22 @@ export type EncryptedPassportElement =
       /**
        * Base64-encoded encrypted Telegram Passport element data provided by the user; available only for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
        */
-      data?: string;
+      data?: string | undefined;
 
       /**
        * Encrypted file with the front side of the document, provided by the user; available only for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
        */
-      front_side?: PassportFile;
+      front_side?: PassportFile | undefined;
 
       /**
        * Encrypted file with the selfie of the user holding a document, provided by the user; available if requested for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
        */
-      selfie?: PassportFile;
+      selfie?: PassportFile | undefined;
 
       /**
        * Array of encrypted files with translated versions of documents provided by the user; available if requested for “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
        */
-      translation?: PassportFile[];
+      translation?: PassportFile[] | undefined;
 
       /**
        * Base64-encoded element hash for using in PassportElementErrorUnspecified
@@ -11468,27 +11469,27 @@ export type EncryptedPassportElement =
       /**
        * Base64-encoded encrypted Telegram Passport element data provided by the user; available only for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
        */
-      data?: string;
+      data?: string | undefined;
 
       /**
        * Encrypted file with the front side of the document, provided by the user; available only for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
        */
-      front_side?: PassportFile;
+      front_side?: PassportFile | undefined;
 
       /**
        * Encrypted file with the reverse side of the document, provided by the user; available only for “driver_license” and “identity_card”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
        */
-      reverse_side?: PassportFile;
+      reverse_side?: PassportFile | undefined;
 
       /**
        * Encrypted file with the selfie of the user holding a document, provided by the user; available if requested for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
        */
-      selfie?: PassportFile;
+      selfie?: PassportFile | undefined;
 
       /**
        * Array of encrypted files with translated versions of documents provided by the user; available if requested for “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
        */
-      translation?: PassportFile[];
+      translation?: PassportFile[] | undefined;
 
       /**
        * Base64-encoded element hash for using in PassportElementErrorUnspecified
@@ -11509,12 +11510,12 @@ export type EncryptedPassportElement =
       /**
        * Array of encrypted files with documents provided by the user; available only for “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
        */
-      files?: PassportFile[];
+      files?: PassportFile[] | undefined;
 
       /**
        * Array of encrypted files with translated versions of documents provided by the user; available if requested for “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying {@link EncryptedCredentials}.
        */
-      translation?: PassportFile[];
+      translation?: PassportFile[] | undefined;
 
       /**
        * Base64-encoded element hash for using in PassportElementErrorUnspecified
@@ -11530,7 +11531,7 @@ export type EncryptedPassportElement =
       /**
        * User's verified phone number; available only for “phone_number” type
        */
-      phone_number?: string;
+      phone_number?: string | undefined;
 
       /**
        * Base64-encoded element hash for using in PassportElementErrorUnspecified
@@ -11546,7 +11547,7 @@ export type EncryptedPassportElement =
       /**
        * User's verified email address; available only for “email” type
        */
-      email?: string;
+      email?: string | undefined;
 
       /**
        * Base64-encoded element hash for using in PassportElementErrorUnspecified
@@ -11871,17 +11872,17 @@ export type Game = {
   /**
    * Brief description of the game or high scores included in the game message. Can be automatically edited to include current high scores for the game when the bot calls setGameScore, or manually edited using editMessageText. 0-4096 characters.
    */
-  text?: string;
+  text?: string | undefined;
 
   /**
    * Special entities that appear in text, such as usernames, URLs, bot commands, etc.
    */
-  text_entities?: MessageEntity[];
+  text_entities?: MessageEntity[] | undefined;
 
   /**
    * {@link Animation} that will be displayed in the game message in chats. Upload via BotFather.
    */
-  animation?: Animation;
+  animation?: Animation | undefined;
 };
 
 export type CallbackGame = Record<string, never>;

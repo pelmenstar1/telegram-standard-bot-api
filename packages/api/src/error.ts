@@ -1,7 +1,7 @@
 export interface TelegramErrorOptions extends ErrorOptions {
-  code?: number;
-  httpStatus?: number;
-  description?: string;
+  code?: number | undefined;
+  httpStatus?: number | undefined;
+  description?: string | undefined;
 }
 
 export class TelegramError extends Error {

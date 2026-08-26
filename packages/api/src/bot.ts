@@ -17,12 +17,13 @@ export type TelegramBotOptions = {
   /**
    * Bot API key to use for making requests. Can be set later using {@link TelegramBot.setApiKey}.
    */
-  apiKey?: string;
+  apiKey?: string | undefined;
 
   /**
    * Custom fetch function to use for making HTTP requests. Defaults to the global {@link fetch} function.
    */
-  fetch?: (url: string, init?: FetchBodyInit) => Promise<Response>;
+  fetch?:
+    ((url: string, init?: FetchBodyInit) => Promise<Response>) | undefined;
 
   /**
    * How many times a request may be repeated when Telegram API answers with
@@ -30,7 +31,7 @@ export type TelegramBotOptions = {
    *
    * @default 3
    */
-  maxRetryCount?: number;
+  maxRetryCount?: number | undefined;
 };
 
 const DEFAULT_MAX_RETRY_COUNT = 3;
@@ -57,11 +58,14 @@ function throwRequestError(
 ): never {
   const description = responseData?.description;
   const options: TelegramErrorOptions = {
-    cause: causeError,
     code: responseData?.error_code,
     description,
     httpStatus: response?.status,
   };
+
+  if (causeError !== undefined) {
+    options.cause = causeError;
+  }
 
   let message = `Failed to call method '${name}'`;
 

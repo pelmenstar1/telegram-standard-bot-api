@@ -4,10 +4,16 @@ import { EmitMeta } from './meta';
 import { valueTypeToString } from './valueType';
 
 export function fieldToString(field: ParsedField, meta: EmitMeta): string {
-  const optionalMarker = field.optional ? '?' : '';
+  let result = `${textToTsDocComment(field.description, { meta })}\n${field.name}`;
+  if (field.optional) {
+    result += '?';
+  }
+  result += `: ${valueTypeToString(field.type, meta)}`;
+  if (field.optional) {
+    result += ' | undefined';
+  }
 
-  let result = `${textToTsDocComment(field.description, { meta })}\n`;
-  result += `${field.name}${optionalMarker}: ${valueTypeToString(field.type, meta)};`;
+  result += ';';
 
   return result;
 }
