@@ -8,7 +8,8 @@
     "lint": "lint-world",
     "lint:fix": "lint-world --fix",
     "test": "vitest --run",
-    "build": "tsc -b tsconfig.build.json"
+    "build": "tsc -b tsconfig.build.json",
+    "run-stats": "pnpm --filter @telegram-standard-bot-api/treeshaking-stats run-stats"
   },
   "devDependencies": {
     "@eslint/js": "catalog:",

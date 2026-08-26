@@ -1,0 +1,16 @@
+{
+  "name": "@telegram-standard-bot-api/treeshaking-stats",
+  "private": true,
+  "scripts": {
+    "run-stats": "tsx src/main.ts"
+  },
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "catalog:",
+    "@rollup/plugin-terser": "catalog:",
+    "rollup": "catalog:",
+    "telegram-standard-bot-api": "workspace:"
+  },
+  "devDependencies": {
+    "tsx": "catalog:"
+  }
+}

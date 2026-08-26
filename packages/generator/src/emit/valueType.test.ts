@@ -70,7 +70,7 @@ test('emit discriminated union', () => {
       `type: 'link';`,
       '',
       '',
-      'url?: string;',
+      'url?: string | undefined;',
       '}',
     ].join('\n')
   );

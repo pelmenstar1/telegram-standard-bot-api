@@ -3,6 +3,7 @@
   "references": [
     { "path": "./packages/api" },
     { "path": "./packages/generator" },
-    { "path": "./packages/treeshaking-test" }
+    { "path": "./packages/treeshaking-test" },
+    { "path": "./packages/treeshaking-stats" }
   ]
 }

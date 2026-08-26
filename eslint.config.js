@@ -14,6 +14,7 @@ export default defineConfig(
       'lint-world.config.ts',
       'knip.config.ts',
       'packages/*/dist',
+      '**/fixtures/**',
     ],
   },
   eslint.configs.recommended,

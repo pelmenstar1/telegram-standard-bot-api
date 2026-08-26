@@ -1,5 +1,12 @@
 import type { KnipConfig } from 'knip';
 
 export default {
-  entry: ['lint-world.config.ts'],
+  workspaces: {
+    '.': {
+      entry: ['lint-world.config.ts'],
+    },
+    'packages/treeshaking-stats': {
+      entry: ['src/fixtures/*.js'],
+    },
+  },
 } satisfies KnipConfig;
