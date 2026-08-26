@@ -1,7 +1,7 @@
 import { TelegramError, TelegramErrorOptions } from './error.js';
 import { BotMethodInfo } from './method.js';
 import { ResponseParameters } from './types.generated.js';
-import { delay } from './utils.js';
+import { delay, getApiRequestUrl } from './utils.js';
 
 export type TelegramBot = {
   /** Calls a method of the Telegram Bot API. It will fail if the API key is not set. */
@@ -18,6 +18,13 @@ export type TelegramBotOptions = {
    * Bot API key to use for making requests. Can be set later using {@link TelegramBot.setApiKey}.
    */
   apiKey?: string | undefined;
+
+  /**
+   * URL of the Telegram Bot API to use for making requests.
+   *
+   * @default "https://api.telegram.org/"
+   */
+  apiUrl?: string | URL | undefined;
 
   /**
    * Custom fetch function to use for making HTTP requests. Defaults to the global {@link fetch} function.
@@ -95,7 +102,7 @@ export function createTelegramBot(options?: TelegramBotOptions): TelegramBot {
     }
 
     const fetchFn = options?.fetch ?? fetch;
-    const url = `https://api.telegram.org/bot${apiKey}/${name}`;
+    const url = getApiRequestUrl(options?.apiUrl, apiKey, name);
 
     const init: RequestInit = {
       method: 'POST',

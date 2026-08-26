@@ -90,6 +90,34 @@ describe('request', () => {
     expect(calls[0]?.init?.method).toBe('POST');
   });
 
+  test('posts to the method url of a custom apiUrl', async () => {
+    const { fetch, calls } = okFetch({ id: 1 });
+    const bot = createTelegramBot({
+      apiKey: 'key',
+      apiUrl: 'http://localhost:8081',
+      fetch,
+    });
+
+    await bot(getMe());
+
+    expect(calls).toHaveLength(1);
+    expect(calls[0]?.url).toBe('http://localhost:8081/botkey/getMe');
+    expect(calls[0]?.init?.method).toBe('POST');
+  });
+
+  test('keeps the path of a custom apiUrl as a prefix', async () => {
+    const { fetch, calls } = okFetch({ id: 1 });
+    const bot = createTelegramBot({
+      apiKey: 'key',
+      apiUrl: 'https://example.com/telegram',
+      fetch,
+    });
+
+    await bot(getChat({ chat_id: '@durov' }));
+
+    expect(calls[0]?.url).toBe('https://example.com/telegram/botkey/getChat');
+  });
+
   test('sends no body for a method without a payload', async () => {
     const { fetch, calls } = okFetch({ id: 1 });
     const bot = createTelegramBot({ apiKey: 'key', fetch });

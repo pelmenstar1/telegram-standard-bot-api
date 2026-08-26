@@ -45,6 +45,20 @@ const bot = createTelegramBot({
 });
 ```
 
+By default requests go to `https://api.telegram.org`. Pass `apiUrl` to talk to a [local Bot API server](https://core.telegram.org/bots/api#using-a-local-bot-api-server):
+
+```ts
+import { createTelegramBot } from 'telegram-standard-bot-api';
+
+const bot = createTelegramBot({
+  apiKey: '123',
+  apiUrl: 'http://localhost:8081',
+});
+
+// It will send a HTTP request to 'http://localhost:8081/bot123/getMe'
+await bot(getMe());
+```
+
 To execute a command, invoke a bot instance:
 
 ```ts
