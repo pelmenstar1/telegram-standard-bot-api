@@ -2,7 +2,7 @@
 
 Simple API and typings for the Telegram Bot API. Zero dependencies, only standard web APIs.
 
-Types and methods are generated from **Telegram Bot API 10.3**.
+Types and methods are generated from **Telegram Bot API 10.4**.
 
 ## Installation
 
