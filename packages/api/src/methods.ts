@@ -16,6 +16,7 @@ import {
   ChatInviteLink,
   ChatMember,
   ChatPermissions,
+  ChatShareThemeBackdrops,
   Currency,
   EphemeralMessageParameters,
   File,
@@ -68,6 +69,7 @@ import {
   Story,
   StoryArea,
   SuggestedPostParameters,
+  UniqueGift,
   Update,
   User,
   UserChatBoosts,
@@ -189,9 +191,9 @@ export type SendMessage = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
    */
-  chat_id: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -277,7 +279,7 @@ export const sendMessage =
 
 export type ForwardMessage = {
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -292,7 +294,7 @@ export type ForwardMessage = {
   direct_messages_topic_id?: number | undefined;
 
   /**
-   * Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format `@username`)
+   * Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup, or channel in the format `@username`)
    */
   from_chat_id: number | string;
 
@@ -337,7 +339,7 @@ export const forwardMessage =
 
 export type ForwardMessages = {
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -352,7 +354,7 @@ export type ForwardMessages = {
   direct_messages_topic_id?: number | undefined;
 
   /**
-   * Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format `@username`)
+   * Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup, or channel in the format `@username`)
    */
   from_chat_id: number | string;
 
@@ -382,7 +384,7 @@ export const forwardMessages =
 
 export type CopyMessage = {
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -397,7 +399,7 @@ export type CopyMessage = {
   direct_messages_topic_id?: number | undefined;
 
   /**
-   * Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format `@username`)
+   * Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup, or channel in the format `@username`)
    */
   from_chat_id: number | string;
 
@@ -473,14 +475,14 @@ export type CopyMessage = {
 };
 
 /**
- * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_ids is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the {@link MessageId} of the sent message on success.
+ * Use this method to copy messages of any kind. Service messages, paid media messages, giveaway messages, giveaway winners messages, invoice messages, and widget messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_ids is known to the bot. The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message. Returns the {@link MessageId} of the sent message on success.
  */
 export const copyMessage =
   /* @__PURE__ */ botMethod<(payload: CopyMessage) => MessageId>('copyMessage');
 
 export type CopyMessages = {
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -495,7 +497,7 @@ export type CopyMessages = {
   direct_messages_topic_id?: number | undefined;
 
   /**
-   * Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup or channel in the format `@username`)
+   * Unique identifier for the chat where the original messages were sent (or username of the target bot, supergroup, or channel in the format `@username`)
    */
   from_chat_id: number | string;
 
@@ -521,7 +523,7 @@ export type CopyMessages = {
 };
 
 /**
- * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, and invoice messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_ids is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of {@link MessageId} of the sent messages is returned.
+ * Use this method to copy messages of any kind. If some of the specified messages can't be found or copied, they are skipped. Service messages, paid media messages, giveaway messages, giveaway winners messages, invoice messages, and widget messages can't be copied. A quiz poll can be copied only if the value of the field correct_option_ids is known to the bot. The method is analogous to the method forwardMessages, but the copied messages don't have a link to the original message. Album grouping is kept for copied messages. On success, an Array of {@link MessageId} of the sent messages is returned.
  */
 export const copyMessages =
   /* @__PURE__ */ botMethod<(payload: CopyMessages) => MessageId[]>(
@@ -535,9 +537,9 @@ export type SendPhoto = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
    */
-  chat_id: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -639,9 +641,9 @@ export type SendLivePhoto = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target channel (in the format `@channelusername`)
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
    */
-  chat_id: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -748,9 +750,9 @@ export type SendAudio = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
    */
-  chat_id: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -862,9 +864,9 @@ export type SendDocument = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
    */
-  chat_id: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -966,9 +968,9 @@ export type SendVideo = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
    */
-  chat_id: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -1105,9 +1107,9 @@ export type SendAnimation = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
    */
-  chat_id: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -1229,9 +1231,9 @@ export type SendVoice = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
    */
-  chat_id: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -1328,9 +1330,9 @@ export type SendVideoNote = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
    */
-  chat_id: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -1415,6 +1417,199 @@ export const sendVideoNote = /* @__PURE__ */ botMethod<
   (payload: SendVideoNote) => Message
 >('sendVideoNote', formDataRequestInitializerFactory);
 
+export type SendWidget = {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
+   */
+  chat_id: number | string;
+
+  /**
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+   */
+  message_thread_id?: number | undefined;
+
+  /**
+   * HTML code of the widget, 1-32768 bytes. The code must not exceed 4096 bytes when compressed by zlib with the maximum compression level.
+   */
+  html: string;
+
+  /**
+   * Width of the widget in logical pixels; omit if the widget must occupy the whole width of the message bubble. The width is clamped by the app to the range from 200 to the maximum width of the message bubble.
+   */
+  width?: number | undefined;
+
+  /**
+   * Height of the widget in logical pixels; omit if the height of the widget isn't fixed. The height is clamped by the app to the range 50-600.
+   */
+  height?: number | undefined;
+
+  /**
+   * Public data of the widget, 0-1024 bytes, which will be available wherever the widget is shown. If the widget is shared, then all messages with it will have the same public data.
+   */
+  public_data?: string | undefined;
+
+  /**
+   * Data of the widget, which is specific to the message, 0-1024 bytes
+   */
+  chat_data?: string | undefined;
+
+  /**
+   * Widget caption, 0-1024 characters after entities parsing
+   */
+  caption?: string | undefined;
+
+  /**
+   * Mode for parsing entities in the widget caption. See formatting options for more details.
+   */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
+
+  /**
+   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[] | undefined;
+
+  /**
+   * Pass True if the caption must be shown above the widget
+   */
+  show_caption_above_media?: boolean | undefined;
+
+  /**
+   * Pass True to allow the widget to send queries to the bot
+   */
+  allow_queries?: boolean | undefined;
+
+  /**
+   * Pass True to create a shared widget, which can be sent again using the method sendSharedWidget
+   */
+  is_shared?: boolean | undefined;
+
+  /**
+   * Sends the message silently. Users will receive a notification with no sound.
+   */
+  disable_notification?: boolean | undefined;
+
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean | undefined;
+
+  /**
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
+   */
+  allow_paid_broadcast?: boolean | undefined;
+
+  /**
+   * Unique identifier of the message effect to be added to the message; for private chats only
+   */
+  message_effect_id?: string | undefined;
+
+  /**
+   * Description of the message to reply to
+   */
+  reply_parameters?: ReplyParameters | undefined;
+
+  /**
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
+   */
+  reply_markup?:
+    | InlineKeyboardMarkup
+    | ReplyKeyboardMarkup
+    | ReplyKeyboardRemove
+    | ForceReply
+    | undefined;
+};
+
+/**
+ * Use this method to send a message with an {@link https://core.telegram.org/bots/widgets | HTML widget}. Currently, in the production environment, widgets can be sent only to private chats, and sent widgets automatically have protected content and therefore can't be forwarded. On success, the sent {@link Message} is returned.
+ */
+export const sendWidget =
+  /* @__PURE__ */ botMethod<(payload: SendWidget) => Message>('sendWidget');
+
+export type SendSharedWidget = {
+  /**
+   * Unique identifier for the target chat or username of the target supergroup in the format `@username`
+   */
+  chat_id: number | string;
+
+  /**
+   * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
+   */
+  message_thread_id?: number | undefined;
+
+  /**
+   * Unique identifier of the shared widget
+   */
+  widget_id: string;
+
+  /**
+   * Data of the widget, which is specific to the message, 0-1024 bytes
+   */
+  chat_data?: string | undefined;
+
+  /**
+   * Widget caption, 0-1024 characters after entities parsing
+   */
+  caption?: string | undefined;
+
+  /**
+   * Mode for parsing entities in the widget caption. See formatting options for more details.
+   */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
+
+  /**
+   * A JSON-serialized list of special entities that appear in the caption, which can be specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[] | undefined;
+
+  /**
+   * Pass True if the caption must be shown above the widget
+   */
+  show_caption_above_media?: boolean | undefined;
+
+  /**
+   * Sends the message silently. Users will receive a notification with no sound.
+   */
+  disable_notification?: boolean | undefined;
+
+  /**
+   * Protects the contents of the sent message from forwarding and saving
+   */
+  protect_content?: boolean | undefined;
+
+  /**
+   * Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.
+   */
+  allow_paid_broadcast?: boolean | undefined;
+
+  /**
+   * Unique identifier of the message effect to be added to the message; for private chats only
+   */
+  message_effect_id?: string | undefined;
+
+  /**
+   * Description of the message to reply to
+   */
+  reply_parameters?: ReplyParameters | undefined;
+
+  /**
+   * Additional interface options. A JSON-serialized object for an {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboard}, {@link https://core.telegram.org/bots/features#keyboards | custom reply keyboard}, instructions to remove a reply keyboard or to force a reply from the user.
+   */
+  reply_markup?:
+    | InlineKeyboardMarkup
+    | ReplyKeyboardMarkup
+    | ReplyKeyboardRemove
+    | ForceReply
+    | undefined;
+};
+
+/**
+ * Use this method to send again a shared widget created by the bot. Currently, in the production environment, widgets can be sent only to private chats, and sent widgets automatically have protected content and therefore can't be forwarded. On success, the sent {@link Message} is returned.
+ */
+export const sendSharedWidget =
+  /* @__PURE__ */ botMethod<(payload: SendSharedWidget) => Message>(
+    'sendSharedWidget'
+  );
+
 export type SendPaidMedia = {
   /**
    * Unique identifier of the business connection on behalf of which the message will be sent
@@ -1422,7 +1617,7 @@ export type SendPaidMedia = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`. If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`. If the chat is a channel, all Telegram Star proceeds from this media will be credited to the chat's balance. Otherwise, they will be credited to the bot's balance.
    */
   chat_id: number | string;
 
@@ -1522,7 +1717,7 @@ export type SendMediaGroup = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -1588,9 +1783,9 @@ export type SendLocation = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
    */
-  chat_id: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -1691,9 +1886,9 @@ export type SendVenue = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
    */
-  chat_id: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -1804,9 +1999,9 @@ export type SendContact = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
    */
-  chat_id: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -1897,7 +2092,7 @@ export type SendPoll = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`. Polls can't be sent to channel direct messages chats.
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`. Polls can't be sent to channel direct messages chats.
    */
   chat_id: number | string;
 
@@ -2130,7 +2325,7 @@ export type SendDice = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -2278,7 +2473,7 @@ export const sendChatAction =
 
 export type SetMessageReaction = {
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -3160,6 +3355,13 @@ export const getChatMember =
     'getChatMember'
   );
 
+/**
+ * Use this method to get the list of backdrops, which can be used as the background of a theme of the screen for sharing a link to a user or a chat. Requires no parameters. Returns a {@link ChatShareThemeBackdrops} object.
+ */
+export const getChatShareThemeBackdrops = /* @__PURE__ */ botMethod<
+  () => ChatShareThemeBackdrops
+>('getChatShareThemeBackdrops');
+
 export type GetUserPersonalChatMessages = {
   /**
    * Unique identifier for the target user
@@ -3250,7 +3452,7 @@ export type CreateForumTopic = {
 };
 
 /**
- * Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator right. Returns information about the created topic as a {@link ForumTopic} object.
+ * Use this method to create a topic in a forum supergroup chat or a private chat with a user. In the case of a supergroup chat the bot must be an administrator in the chat for this to work and must have the can_manage_topics administrator right. In the case of a private chat, a link to the topic can be created in the format https://t.me/<bot_username>/<message_thread_id>; the link opens the topic only for the user. Returns information about the created topic as a {@link ForumTopic} object.
  */
 export const createForumTopic =
   /* @__PURE__ */ botMethod<(payload: CreateForumTopic) => ForumTopic>(
@@ -3488,6 +3690,26 @@ export type AnswerCallbackQuery = {
 export const answerCallbackQuery = /* @__PURE__ */ botMethod<
   (payload: AnswerCallbackQuery) => true
 >('answerCallbackQuery');
+
+export type AnswerWidgetQuery = {
+  /**
+   * Unique identifier for the query to be answered
+   */
+  widget_query_id: string;
+
+  /**
+   * Data to be returned to the widget, 0-1024 bytes
+   */
+  data?: string | undefined;
+};
+
+/**
+ * Use this method to send an answer to a query from a widget. The query must be answered within 15 seconds. The answer is received only by the widget that sent the query and doesn't change data of the widget; use editMessageWidgetData or editSharedWidgetData to change it. On success, True is returned.
+ */
+export const answerWidgetQuery =
+  /* @__PURE__ */ botMethod<(payload: AnswerWidgetQuery) => true>(
+    'answerWidgetQuery'
+  );
 
 export type AnswerGuestQuery = {
   /**
@@ -3875,7 +4097,7 @@ export type SendGift = {
   user_id?: number | undefined;
 
   /**
-   * Required if user_id is not specified. Unique identifier for the chat or username of the channel (in the format `@username`) that will receive the gift.
+   * Required if user_id is not specified. Unique identifier for the chat that will receive the gift or username of the channel in the format `@username`.
    */
   chat_id?: number | string | undefined;
 
@@ -3960,6 +4182,17 @@ export type VerifyUser = {
    * Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
    */
   custom_description?: string | undefined;
+
+  /**
+   * Mode for parsing entities in the custom description. See formatting options for more details. Only “text_link” entities are supported.
+   */
+  custom_description_parse_mode?:
+    'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
+
+  /**
+   * A JSON-serialized list of special entities that appear in the custom description, which can be specified instead of custom_description_parse_mode. Only “text_link” entities are supported.
+   */
+  custom_description_entities?: MessageEntity[] | undefined;
 };
 
 /**
@@ -3970,7 +4203,7 @@ export const verifyUser =
 
 export type VerifyChat = {
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`. Channel direct messages chats can't be verified.
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`. Channel direct messages chats can't be verified.
    */
   chat_id: number | string;
 
@@ -3978,6 +4211,17 @@ export type VerifyChat = {
    * Custom description for the verification; 0-70 characters. Must be empty if the organization isn't allowed to provide a custom verification description.
    */
   custom_description?: string | undefined;
+
+  /**
+   * Mode for parsing entities in the custom description. See formatting options for more details. Only “text_link” entities are supported.
+   */
+  custom_description_parse_mode?:
+    'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
+
+  /**
+   * A JSON-serialized list of special entities that appear in the custom description, which can be specified instead of custom_description_parse_mode. Only “text_link” entities are supported.
+   */
+  custom_description_entities?: MessageEntity[] | undefined;
 };
 
 /**
@@ -4403,6 +4647,21 @@ export const getChatGifts =
     'getChatGifts'
   );
 
+export type GetUniqueGift = {
+  /**
+   * Unique name of the gift
+   */
+  name: string;
+};
+
+/**
+ * Use this method to get information about a unique gift by its name. Returns a {@link UniqueGift} object on success.
+ */
+export const getUniqueGift =
+  /* @__PURE__ */ botMethod<(payload: GetUniqueGift) => UniqueGift>(
+    'getUniqueGift'
+  );
+
 export type ConvertGiftToStars = {
   /**
    * Unique identifier of the business connection
@@ -4478,6 +4737,25 @@ export type TransferGift = {
  */
 export const transferGift =
   /* @__PURE__ */ botMethod<(payload: TransferGift) => true>('transferGift');
+
+export type DeleteBusinessAccountGift = {
+  /**
+   * Unique identifier of the business connection
+   */
+  business_connection_id: string;
+
+  /**
+   * Unique identifier of the regular gift that should be deleted
+   */
+  owned_gift_id: string;
+};
+
+/**
+ * Deletes a regular gift owned by a managed business account without receiving Telegram Stars for it. Requires the can_convert_gifts_to_stars business bot right. The gift can be deleted only if it isn't limited (the field total_count of the {@link Gift} is omitted) and wasn't refunded. Returns True on success.
+ */
+export const deleteBusinessAccountGift = /* @__PURE__ */ botMethod<
+  (payload: DeleteBusinessAccountGift) => true
+>('deleteBusinessAccountGift');
 
 export type PostStory = {
   /**
@@ -4716,7 +4994,7 @@ export type EditMessageText = {
   business_connection_id?: string | undefined;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`.
    */
   chat_id?: number | string | undefined;
 
@@ -4776,7 +5054,7 @@ export type EditMessageCaption = {
   business_connection_id?: string | undefined;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`.
    */
   chat_id?: number | string | undefined;
 
@@ -4831,7 +5109,7 @@ export type EditMessageMedia = {
   business_connection_id?: string | undefined;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`.
    */
   chat_id?: number | string | undefined;
 
@@ -4871,7 +5149,7 @@ export type EditMessageLiveLocation = {
   business_connection_id?: string | undefined;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`.
    */
   chat_id?: number | string | undefined;
 
@@ -4935,7 +5213,7 @@ export type StopMessageLiveLocation = {
   business_connection_id?: string | undefined;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`.
    */
   chat_id?: number | string | undefined;
 
@@ -4996,6 +5274,64 @@ export const editMessageChecklist = /* @__PURE__ */ botMethod<
   (payload: EditMessageChecklist) => Message
 >('editMessageChecklist');
 
+export type EditMessageWidgetData = {
+  /**
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target supergroup in the format `@username`.
+   */
+  chat_id?: number | string | undefined;
+
+  /**
+   * Required if inline_message_id is not specified. Identifier of the message with the widget.
+   */
+  message_id?: number | undefined;
+
+  /**
+   * Required if chat_id and message_id are not specified. Identifier of the inline message.
+   */
+  inline_message_id?: string | undefined;
+
+  /**
+   * New public data of the widget, 0-1024 bytes; pass an empty string to remove the public data. If omitted, then the public data isn't changed.
+   */
+  public_data?: string | undefined;
+
+  /**
+   * New data of the widget, which is specific to the message, 0-1024 bytes; pass an empty string to remove the data. If omitted, then the data isn't changed.
+   */
+  chat_data?: string | undefined;
+};
+
+/**
+ * Use this method to edit data of a widget in a message sent by the bot or via the bot (for inline bots). Public data of a shared widget can be changed at most once per second. On success, True is returned.
+ */
+export const editMessageWidgetData = /* @__PURE__ */ botMethod<
+  (payload?: EditMessageWidgetData) => true
+>('editMessageWidgetData');
+
+export type EditSharedWidgetData = {
+  /**
+   * Unique identifier of the shared widget
+   */
+  widget_id: string;
+
+  /**
+   * New public data of the widget, 0-1024 bytes; pass an empty string to remove the public data
+   */
+  public_data: string;
+
+  /**
+   * The maximum amount of time in seconds that the public data of the widget may be cached client-side; 5-3600. If omitted, then the current value is kept, which is 30 by default.
+   */
+  cache_time?: number | undefined;
+};
+
+/**
+ * Use this method to edit public data of a shared widget created by the bot. A shared widget can be edited at most once per second. On success, True is returned.
+ */
+export const editSharedWidgetData = /* @__PURE__ */ botMethod<
+  (payload: EditSharedWidgetData) => true
+>('editSharedWidgetData');
+
 export type EditMessageReplyMarkup = {
   /**
    * Unique identifier of the business connection on behalf of which the message to be edited was sent
@@ -5003,7 +5339,7 @@ export type EditMessageReplyMarkup = {
   business_connection_id?: string | undefined;
 
   /**
-   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`.
+   * Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`.
    */
   chat_id?: number | string | undefined;
 
@@ -5037,7 +5373,7 @@ export type StopPoll = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -5274,7 +5610,7 @@ export const declineSuggestedPost = /* @__PURE__ */ botMethod<
 
 export type DeleteMessage = {
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -5292,7 +5628,7 @@ export const deleteMessage =
 
 export type DeleteMessages = {
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -5394,9 +5730,9 @@ export type SendSticker = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
    */
-  chat_id: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -5798,9 +6134,9 @@ export type SendRichMessage = {
   business_connection_id?: string | undefined;
 
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`; required unless the message is sent as an ephemeral reply to a callback query
    */
-  chat_id: number | string;
+  chat_id?: number | string | undefined;
 
   /**
    * Unique identifier for the target message thread (topic) of a forum; for forum supergroups and private chats of bots with forum topic mode enabled only
@@ -5952,7 +6288,7 @@ export const answerInlineQuery =
 
 export type SendInvoice = {
   /**
-   * Unique identifier for the target chat or username of the target bot, supergroup or channel in the format `@username`
+   * Unique identifier for the target chat or username of the target bot, supergroup, or channel in the format `@username`
    */
   chat_id: number | string;
 
@@ -6516,6 +6852,7 @@ export default {
   answerPreCheckoutQuery,
   answerShippingQuery,
   answerWebAppQuery,
+  answerWidgetQuery,
   approveChatJoinRequest,
   approveSuggestedPost,
   banChatMember,
@@ -6534,6 +6871,7 @@ export default {
   declineChatJoinRequest,
   declineSuggestedPost,
   deleteAllMessageReactions,
+  deleteBusinessAccountGift,
   deleteBusinessMessages,
   deleteChatPhoto,
   deleteChatStickerSet,
@@ -6561,6 +6899,8 @@ export default {
   editMessageMedia,
   editMessageReplyMarkup,
   editMessageText,
+  editMessageWidgetData,
+  editSharedWidgetData,
   editStory,
   editUserStarSubscription,
   exportChatInviteLink,
@@ -6576,6 +6916,7 @@ export default {
   getChatMember,
   getChatMemberCount,
   getChatMenuButton,
+  getChatShareThemeBackdrops,
   getCustomEmojiStickers,
   getFile,
   getForumTopicIconStickers,
@@ -6591,6 +6932,7 @@ export default {
   getMyStarBalance,
   getStarTransactions,
   getStickerSet,
+  getUniqueGift,
   getUpdates,
   getUserChatBoosts,
   getUserGifts,
@@ -6641,11 +6983,13 @@ export default {
   sendPoll,
   sendRichMessage,
   sendRichMessageDraft,
+  sendSharedWidget,
   sendSticker,
   sendVenue,
   sendVideo,
   sendVideoNote,
   sendVoice,
+  sendWidget,
   setBusinessAccountBio,
   setBusinessAccountGiftSettings,
   setBusinessAccountName,

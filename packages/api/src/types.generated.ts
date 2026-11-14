@@ -180,6 +180,16 @@ export type Update = {
   callback_query?: CallbackQuery | undefined;
 
   /**
+   * New incoming query from a widget in a message sent by the bot or via the bot
+   */
+  widget_query?: WidgetQuery | undefined;
+
+  /**
+   * New incoming query from a forwarded message with a shared widget
+   */
+  shared_widget_query?: SharedWidgetQuery | undefined;
+
+  /**
    * New incoming shipping query. Only for invoices with flexible price.
    */
   shipping_query?: ShippingQuery | undefined;
@@ -703,6 +713,16 @@ export type ChatFullInfo = {
    * The {@link Community} to which the chat belongs
    */
   community?: Community | undefined;
+
+  /**
+   * For private chats, the TON wallet card of the user, which is shown on their profile page
+   */
+  ton_wallet_card?: TonWalletCard | undefined;
+
+  /**
+   * For private chats, supergroups and channels, the theme of the screen for sharing a link to the user or the chat; omitted if the default theme is used
+   */
+  share_theme?: ChatShareTheme | undefined;
 };
 
 /**
@@ -960,7 +980,12 @@ export type Message = {
   voice?: Voice | undefined;
 
   /**
-   * Caption for the animation, audio, document, paid media, photo, video or voice
+   * {@link Message} is an HTML widget, information about the widget
+   */
+  widget?: Widget | undefined;
+
+  /**
+   * Caption for the animation, audio, document, live photo, paid media, photo, video, voice, or widget
    */
   caption?: string | undefined;
 
@@ -970,7 +995,7 @@ export type Message = {
   caption_entities?: MessageEntity[] | undefined;
 
   /**
-   * True, if the caption must be shown above the message media
+   * True, if the caption must be shown above the message media or the widget
    */
   show_caption_above_media?: true | undefined;
 
@@ -1245,6 +1270,11 @@ export type Message = {
   paid_message_price_changed?: PaidMessagePriceChanged | undefined;
 
   /**
+   * Service message: the sender of the message used a link of the other user, which allows sending messages to the user without paying Telegram Stars
+   */
+  paid_messages_waived?: PaidMessagesWaived | undefined;
+
+  /**
    * Service message: answer option was added to a poll
    */
   poll_option_added?: PollOptionAdded | undefined;
@@ -1278,6 +1308,11 @@ export type Message = {
    * Service message: payment for a suggested post was refunded
    */
   suggested_post_refunded?: SuggestedPostRefunded | undefined;
+
+  /**
+   * Service message: a transfer with a TON wallet
+   */
+  ton_wallet_transfer?: TonWalletTransfer | undefined;
 
   /**
    * Service message: video chat scheduled
@@ -1346,7 +1381,7 @@ export type InaccessibleMessage = {
 export type MessageEntity =
   | {
       /**
-       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
+       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bank_card_number” (bank card number), “ton_address” (address in the TON blockchain), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
        */
       type:
         | 'mention'
@@ -1356,6 +1391,8 @@ export type MessageEntity =
         | 'url'
         | 'email'
         | 'phone_number'
+        | 'bank_card_number'
+        | 'ton_address'
         | 'bold'
         | 'italic'
         | 'underline'
@@ -1377,7 +1414,7 @@ export type MessageEntity =
     }
   | {
       /**
-       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
+       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bank_card_number” (bank card number), “ton_address” (address in the TON blockchain), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
        */
       type: 'pre';
 
@@ -1398,7 +1435,7 @@ export type MessageEntity =
     }
   | {
       /**
-       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
+       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bank_card_number” (bank card number), “ton_address” (address in the TON blockchain), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
        */
       type: 'text_link';
 
@@ -1419,7 +1456,7 @@ export type MessageEntity =
     }
   | {
       /**
-       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
+       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bank_card_number” (bank card number), “ton_address” (address in the TON blockchain), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
        */
       type: 'text_mention';
 
@@ -1440,7 +1477,7 @@ export type MessageEntity =
     }
   | {
       /**
-       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
+       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bank_card_number” (bank card number), “ton_address” (address in the TON blockchain), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
        */
       type: 'custom_emoji';
 
@@ -1461,7 +1498,7 @@ export type MessageEntity =
     }
   | {
       /**
-       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
+       * Type of the entity. Currently, can be “mention” (`@username`), “hashtag” (#hashtag or #hashtag`@chatusername`), “cashtag” ($USD or $USD`@chatusername`), “bot_command” (/start`@jobs_bot`), “url” (https://telegram.org), “email” (do-not-reply`@telegram`.org), “phone_number” (+1-212-555-0123), “bank_card_number” (bank card number), “ton_address” (address in the TON blockchain), “bold” (bold text), “italic” (italic text), “underline” (underlined text), “strikethrough” (strikethrough text), “spoiler” (spoiler message), “blockquote” (block quotation), “expandable_blockquote” (collapsed-by-default block quotation), “code” (monowidth string), “pre” (monowidth block), “text_link” (for clickable text URLs), “text_mention” (for users without usernames), “custom_emoji” (for inline custom emoji stickers), or “date_time” (for formatted date and time).
        */
       type: 'date_time';
 
@@ -1491,7 +1528,7 @@ export type MessageEntity =
  */
 export type TextQuote = {
   /**
-   * Text of the quoted part of a message that is replied to by the given message
+   * Text of the quoted part of a message that is replied to by the given message; may be empty if the quote was chosen from a rich message
    */
   text: string;
 
@@ -1501,7 +1538,12 @@ export type TextQuote = {
   entities?: MessageEntity[] | undefined;
 
   /**
-   * Approximate quote position in the original message in UTF-16 code units as specified by the sender
+   * Rich text of the quote if it was chosen from a rich message. May contain only plain text, {@link RichTextBold}, {@link RichTextItalic}, {@link RichTextUnderline}, {@link RichTextStrikethrough}, {@link RichTextSpoiler}, {@link RichTextSubscript}, {@link RichTextSuperscript}, {@link RichTextDateTime}, {@link RichTextCustomEmoji}, {@link RichTextMathematicalExpression}, and arrays of them.
+   */
+  rich_texts?: RichText[] | undefined;
+
+  /**
+   * Approximate quote position in the original message in UTF-16 code units as specified by the sender. For quotes from rich messages, it is the position in the text formed by joining plain texts of all quotable texts of the message, separated by line feeds.
    */
   position: number;
 
@@ -1591,6 +1633,11 @@ export type ExternalReplyInfo = {
   voice?: Voice | undefined;
 
   /**
+   * {@link Message} is an HTML widget, information about the widget
+   */
+  widget?: Widget | undefined;
+
+  /**
    * True, if the message media is covered by a spoiler animation
    */
   has_media_spoiler?: true | undefined;
@@ -1656,7 +1703,7 @@ export type ReplyParameters = {
   message_id?: number | undefined;
 
   /**
-   * If the message to be replied to is from a different chat, unique identifier for the chat or username of the bot, supergroup or channel in the format `@username`. Not supported for messages sent on behalf of a business account, messages from channel direct messages chats and ephemeral messages.
+   * If the message to be replied to is from a different chat, unique identifier for the chat or username of the bot, supergroup, or channel in the format `@username`. Not supported for messages sent on behalf of a business account, messages from channel direct messages chats and ephemeral messages.
    */
   chat_id?: number | string | undefined;
 
@@ -1686,7 +1733,12 @@ export type ReplyParameters = {
   quote_entities?: MessageEntity[] | undefined;
 
   /**
-   * Position of the quote in the original message in UTF-16 code units
+   * A JSON-serialized list of quoted parts of the rich message to be replied to. Must contain one element for each quoted text of the message in the order of their appearance. Each of the following is a separate quoted text: the text of a paragraph, a heading, a preformatted block, a footer, or a mathematical expression; the text and the credit of a block quotation or a pull quotation; the summary of a details block; the caption and each cell of a table; the text and the credit of a caption of a media block, a collage, a slideshow, or a map. Texts of blocks nested in lists, block quotations, details, collages, and slideshows are separate quoted texts too. The first and the last elements can contain only a part of the corresponding text; all other elements must contain the whole text. Formatting of the quoted parts must be kept, and rich texts must be nested in the same way as in the message received from the server. Mathematical expressions must be quoted entirely. Buttons in {@link RichBlockButtons}, anchors and dividers can't be quoted. Up to 32 quoted texts with total length up to 1024 characters can be specified. Only plain text, {@link RichTextBold}, {@link RichTextItalic}, {@link RichTextUnderline}, {@link RichTextStrikethrough}, {@link RichTextSpoiler}, {@link RichTextSubscript}, {@link RichTextSuperscript}, {@link RichTextDateTime}, {@link RichTextCustomEmoji}, {@link RichTextMathematicalExpression}, and arrays of them are kept in the quote; other rich text types are replaced with their text. If non-empty, then quote, quote_parse_mode and quote_entities are ignored.
+   */
+  quote_rich_texts?: RichText[] | undefined;
+
+  /**
+   * Position of the quote in the original message in UTF-16 code units. For quotes from rich messages, it is the position in the text formed by joining plain texts of all quotable texts of the message, separated by line feeds.
    */
   quote_position?: number | undefined;
 
@@ -1706,12 +1758,12 @@ export type ReplyParameters = {
 */
 export type EphemeralMessageParameters = {
   /**
-   * Identifier of the user who will receive the message. It is not guaranteed that the user will receive the message, especially if they are offline. See here for more details.
+   * Identifier of the user who will receive the message; required unless the message is sent as an ephemeral reply to a callback query. If omitted, then the parameter chat_id of the method is ignored. If specified together with callback_query_id, then it must be the identifier of the user who pressed the button. Must be omitted for messages sent in chats where the bot isn't a member, unless the message is a reply to an ephemeral message. It is not guaranteed that the user will receive the message, especially if they are offline. See here for more details.
    */
-  receiver_user_id: number;
+  receiver_user_id?: number | undefined;
 
   /**
-   * Identifier of the callback query which triggered the message, if any
+   * Identifier of the callback query which triggered the message, if any. If specified and receiver_user_id is omitted, then the message is sent as an ephemeral reply to the callback query and will be shown only to the user who pressed the button. Ephemeral replies can't be sent to callback queries from messages in channel direct messages chats. The bot must still answer the callback query using answerCallbackQuery.
    */
   callback_query_id?: string | undefined;
 
@@ -2204,6 +2256,41 @@ export type Voice = {
    * {@link File} size in bytes. It can be bigger than 2^31 and some programming languages may have difficulty/silent defects in interpreting it. But it has at most 52 significant bits, so a signed 64-bit integer or double-precision float type are safe for storing this value.
    */
   file_size?: number | undefined;
+};
+
+/**
+ * This object describes an {@link https://core.telegram.org/bots/widgets | HTML widget}.
+ */
+export type Widget = {
+  /**
+   * Unique identifier of the shared widget, which can be used to send the widget again using the method sendSharedWidget; omitted if the widget isn't shared
+   */
+  id?: string | undefined;
+
+  /**
+   * Width of the widget in logical pixels; omitted if the widget must occupy the whole width of the message bubble
+   */
+  width?: number | undefined;
+
+  /**
+   * Height of the widget in logical pixels; omitted if the height of the widget isn't fixed
+   */
+  height?: number | undefined;
+
+  /**
+   * HTML code of the widget
+   */
+  html: string;
+
+  /**
+   * Public data of the widget, which is available wherever the widget is shown. All messages with a shared widget have the same public data.
+   */
+  public_data?: string | undefined;
+
+  /**
+   * Data of the widget, which is specific to the message
+   */
+  chat_data?: string | undefined;
 };
 
 /**
@@ -3493,6 +3580,33 @@ export type SuggestedPostRefunded = {
   reason: 'post_deleted' | 'payment_refunded';
 };
 
+export type PaidMessagesWaived = Record<string, never>;
+
+/**
+ * Describes a service message about a transfer with a TON wallet.
+ */
+export type TonWalletTransfer = {
+  /**
+   * Unique identifier of the transaction; may be empty if the transfer hasn't been sent yet
+   */
+  transaction_id: string;
+
+  /**
+   * Address of the transfer peer in the TON blockchain
+   */
+  peer_address: string;
+
+  /**
+   * The amount of transferred cryptocurrency, in the smallest units of the cryptocurrency, as a decimal number; negative for outgoing transfers
+   */
+  amount: string;
+
+  /**
+   * Comment added to the transfer; omitted if the comment is encrypted
+   */
+  comment?: string | undefined;
+};
+
 /**
  * This object represents a service message about the creation of a scheduled giveaway.
  */
@@ -4013,7 +4127,7 @@ export type KeyboardButtonRequestManagedBot = {
   suggested_name?: string | undefined;
 
   /**
-   * Suggested username for the bot
+   * Suggested username for the bot. The username must end with “bot”. If the user creating the bot has a Telegram Premium subscription, then the username can also end with “agent”, “ai”, “app”, “game”, or “gay”; in this case, the username will be assigned to the bot as a secondary username, and a regular username ending with “bot” will be assigned to the bot automatically.
    */
   suggested_username?: string | undefined;
 };
@@ -4088,7 +4202,7 @@ export type InlineKeyboardButton = {
   callback_data?: string | undefined;
 
   /**
-   * Description of the {@link https://core.telegram.org/bots/webapps | Web App} that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a business account.
+   * Description of the {@link https://core.telegram.org/bots/webapps | Web App} that will be launched when the user presses the button. The Web App will be able to send an arbitrary message on behalf of the user using the method answerWebAppQuery. Available only in private chats between a user and the bot. Not supported for messages sent on behalf of a business account and ephemeral messages.
    */
   web_app?: WebAppInfo | undefined;
 
@@ -4238,6 +4352,172 @@ export type CallbackQuery = {
    * Short name of a {@link Game} to be returned, serves as the unique identifier for the game
    */
   game_short_name?: string | undefined;
+};
+
+/**
+ * The query contains data for the bot.
+ */
+export type WidgetQueryTypeData = {
+  /**
+   * Type of the query, always “data”
+   */
+  type: 'data';
+
+  /**
+   * TON wallet card of the user who sent the query, if it was sent to the bot along with the query
+   */
+  wallet_card?: TonWalletCard | undefined;
+};
+
+/**
+ * The query contains data signed by a TON {@link WidgetQueryTypeSignData.wallet | wallet} of the user who sent the query. The data is signed for the domain bot<bot_id>, where <bot_id> is the identifier of the bot.
+ */
+export type WidgetQueryTypeSignData = {
+  /**
+   * Type of the query, always “sign_data”
+   */
+  type: 'sign_data';
+
+  /**
+   * The wallet that signed the data
+   */
+  wallet: WidgetQueryWallet;
+
+  /**
+   * JSON-serialized signed data
+   */
+  sign_data: string;
+};
+
+/**
+ * The query notifies the bot about a transaction sent from a TON {@link WidgetQueryTypeSentTransaction.wallet | wallet} of the user who sent the query.
+ */
+export type WidgetQueryTypeSentTransaction = {
+  /**
+   * Type of the query, always “sent_transaction”
+   */
+  type: 'sent_transaction';
+
+  /**
+   * The wallet from which the transaction was sent
+   */
+  wallet: WidgetQueryWallet;
+
+  /**
+   * Value of msg_hash of the transaction
+   */
+  msg_hash: string;
+};
+
+/**
+ * This object describes a TON wallet of the user, which is used in a query from a widget.
+ */
+export type WidgetQueryWallet = {
+  /**
+   * Address of the wallet
+   */
+  address: string;
+
+  /**
+   * Balance of the wallet, in the smallest units of the cryptocurrency, as a decimal number
+   */
+  amount: string;
+
+  /**
+   * Hex-encoded public key of the wallet; omitted if unknown
+   */
+  public_key?: string | undefined;
+
+  /**
+   * Base64-encoded serialized StateInit of the wallet contract; omitted if and only if public_key is omitted
+   */
+  state_init?: string | undefined;
+};
+
+/**
+ * This object represents an incoming query {@link WidgetQuery.from | from} a widget in a message sent by the bot or via the bot. Use answerWidgetQuery to answer the query. Each user can send at most 5 queries per 5 seconds to the bot {@link WidgetQuery.from | from} all its widgets.
+ */
+export type WidgetQuery = {
+  /**
+   * Unique identifier for this query
+   */
+  id: string;
+
+  /**
+   * Sender
+   */
+  from: User;
+
+  /**
+   * {@link Chat} with the message containing the widget; omitted if the widget is in an inline message
+   */
+  chat?: Chat | undefined;
+
+  /**
+   * Identifier of the message containing the widget; omitted if the widget is in an inline message
+   */
+  message_id?: number | undefined;
+
+  /**
+   * Identifier of the inline message containing the widget
+   */
+  inline_message_id?: string | undefined;
+
+  /**
+   * Global identifier, uniquely corresponding to the chat to which the message with the widget was sent
+   */
+  chat_instance: string;
+
+  /**
+   * For widgets in inline messages, type of the chat to which the message was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”.
+   */
+  chat_type?:
+    'sender' | 'private' | 'group' | 'supergroup' | 'channel' | undefined;
+
+  /**
+   * Type of the query
+   */
+  type: WidgetQueryType;
+
+  /**
+   * Data of the query, 1-64 bytes
+   */
+  data: string;
+
+  /**
+   * Unique identifier of the shared widget, which sent the query; omitted if the widget isn't shared
+   */
+  widget_id?: string | undefined;
+};
+
+/**
+ * This object represents an incoming query {@link SharedWidgetQuery.from | from} a forwarded message with a shared widget created by the bot. Use answerWidgetQuery to answer the query. Each user can send at most 5 queries per 5 seconds to the bot {@link SharedWidgetQuery.from | from} all its widgets.
+ */
+export type SharedWidgetQuery = {
+  /**
+   * Unique identifier for this query
+   */
+  id: string;
+
+  /**
+   * Sender
+   */
+  from: User;
+
+  /**
+   * Type of the query
+   */
+  type: WidgetQueryType;
+
+  /**
+   * Data of the query, 1-64 bytes
+   */
+  data: string;
+
+  /**
+   * Unique identifier of the shared widget, which sent the query
+   */
+  widget_id: string;
 };
 
 /**
@@ -4730,7 +5010,7 @@ export type ChatMemberRestricted = {
   can_send_polls: boolean;
 
   /**
-   * True, if the user is allowed to send animations, games, stickers and use inline bots
+   * True, if the user is allowed to send animations, games, stickers, widgets and use inline bots
    */
   can_send_other_messages: boolean;
 
@@ -4895,7 +5175,7 @@ export type ChatPermissions = {
   can_send_polls?: boolean | undefined;
 
   /**
-   * True, if the user is allowed to send animations, games, stickers and use inline bots
+   * True, if the user is allowed to send animations, games, stickers, widgets and use inline bots
    */
   can_send_other_messages?: boolean | undefined;
 
@@ -5046,26 +5326,26 @@ export type UserRating = {
 };
 
 /**
- * Describes the position of a clickable area within a story.
+ * Describes the position of a rectangle area on a story media or a TON wallet card.
  */
-export type StoryAreaPosition = {
+export type AreaPosition = {
   /**
-   * The abscissa of the area's center, as a percentage of the media width
+   * The abscissa of the area's center, as a percentage of the media or the card width
    */
   x_percentage: number;
 
   /**
-   * The ordinate of the area's center, as a percentage of the media height
+   * The ordinate of the area's center, as a percentage of the media or the card height
    */
   y_percentage: number;
 
   /**
-   * The width of the area's rectangle, as a percentage of the media width
+   * The width of the area's rectangle, as a percentage of the media or the card width
    */
   width_percentage: number;
 
   /**
-   * The height of the area's rectangle, as a percentage of the media height
+   * The height of the area's rectangle, as a percentage of the media or the card height
    */
   height_percentage: number;
 
@@ -5075,9 +5355,199 @@ export type StoryAreaPosition = {
   rotation_angle: number;
 
   /**
-   * The radius of the rectangle corner rounding, as a percentage of the media width
+   * The radius of the rectangle corner rounding, as a percentage of the media or the card width
    */
   corner_radius_percentage: number;
+};
+
+/**
+ * This object represents an NFT in the TON blockchain.
+ */
+export type TonNft = {
+  /**
+   * Address of the NFT
+   */
+  address: string;
+
+  /**
+   * Address of the collection to which the NFT belongs; omitted if unknown
+   */
+  collection_address?: string | undefined;
+
+  /**
+   * Index of the NFT among all NFTs from the collection as a decimal number
+   */
+  index: string;
+
+  /**
+   * Name of the NFT
+   */
+  name: string;
+
+  /**
+   * Description of the NFT
+   */
+  description: string;
+
+  /**
+   * Attributes of the NFT
+   */
+  attributes?: TonNftAttribute[] | undefined;
+
+  /**
+   * The unique gift corresponding to the NFT
+   */
+  gift?: UniqueGift | undefined;
+};
+
+/**
+ * This object represents an attribute of an NFT in the TON blockchain.
+ */
+export type TonNftAttribute = {
+  /**
+   * Trait type of the attribute
+   */
+  trait_type: string;
+
+  /**
+   * Value of the attribute
+   */
+  value: string;
+};
+
+/**
+ * This object describes a sticker on a TON wallet card.
+ */
+export type TonWalletCardSticker = {
+  /**
+   * Position of the sticker on the card
+   */
+  position: AreaPosition;
+
+  /**
+   * The NFT shown as the sticker
+   */
+  nft: TonNft;
+};
+
+/**
+ * This object describes a TON wallet card, which is shown on the profile page of a user to everyone.
+ */
+export type TonWalletCard = {
+  /**
+   * Address of the wallet
+   */
+  address: string;
+
+  /**
+   * Balance of the wallet, in the smallest units of the cryptocurrency, as a decimal number
+   */
+  amount: string;
+
+  /**
+   * Stickers placed on the card
+   */
+  stickers: TonWalletCardSticker[];
+
+  /**
+   * Address of the NFT of one of the stickers, whose colors must be used for the card background; omitted if the default background must be used
+   */
+  background_nft_address?: string | undefined;
+};
+
+/**
+ * A regular {@link EmojiTypeEmoji.emoji | emoji}.
+ */
+export type EmojiTypeEmoji = {
+  /**
+   * Type of the emoji, always “emoji”
+   */
+  type: 'emoji';
+
+  /**
+   * The emoji
+   */
+  emoji: string;
+};
+
+/**
+ * A custom emoji.
+ */
+export type EmojiTypeCustomEmoji = {
+  /**
+   * Type of the emoji, always “custom_emoji”
+   */
+  type: 'custom_emoji';
+
+  /**
+   * Identifier of the custom emoji. Use getCustomEmojiStickers to get full information about the sticker.
+   */
+  custom_emoji_id: string;
+};
+
+/**
+ * The theme with emoji placed on a background.
+ */
+export type ChatShareThemeEmoji = {
+  /**
+   * Type of the theme, always “emoji”
+   */
+  type: 'emoji';
+
+  /**
+   * The emoji; 0-6 regular or custom emoji
+   */
+  emojis: EmojiType[];
+
+  /**
+   * Identifier of the backdrop used as the background; omitted if the default background is used. Use getChatShareThemeBackdrops to get details about the backdrop.
+   */
+  background_backdrop_id?: number | undefined;
+};
+
+/**
+ * The theme based on a unique {@link ChatShareThemeUniqueGift.gift | gift} owned by the user or the chat.
+ */
+export type ChatShareThemeUniqueGift = {
+  /**
+   * Type of the theme, always “unique_gift”
+   */
+  type: 'unique_gift';
+
+  /**
+   * The gift
+   */
+  gift: UniqueGift;
+};
+
+/**
+ * This object contains a list of {@link ChatShareThemeBackdrops.backdrops | backdrops}, which can be used as the background of a theme of the screen for sharing a link to a user or a chat.
+ */
+export type ChatShareThemeBackdrops = {
+  /**
+   * The list of backdrops
+   */
+  backdrops: ChatShareThemeBackdrop[];
+};
+
+/**
+ * This object describes a backdrop, which can be used as the background of a theme of the screen for sharing a link to a user or a chat.
+ */
+export type ChatShareThemeBackdrop = {
+  /**
+   * Unique identifier of the backdrop
+   */
+  id: number;
+
+  /**
+   * Name of the backdrop
+   */
+  name: string;
+
+  /**
+   * Colors of the backdrop
+   */
+  colors: UniqueGiftBackdropColors;
 };
 
 /**
@@ -5217,7 +5687,7 @@ export type StoryArea = {
   /**
    * Position of the area
    */
-  position: StoryAreaPosition;
+  position: AreaPosition;
 
   /**
    * Type of the area
@@ -7185,6 +7655,11 @@ export type BackgroundType =
   | BackgroundTypePattern
   | BackgroundTypeChatTheme;
 
+export type WidgetQueryType =
+  | WidgetQueryTypeData
+  | WidgetQueryTypeSignData
+  | WidgetQueryTypeSentTransaction;
+
 export type ChatMember =
   | ChatMemberOwner
   | ChatMemberAdministrator
@@ -7192,6 +7667,10 @@ export type ChatMember =
   | ChatMemberRestricted
   | ChatMemberLeft
   | ChatMemberBanned;
+
+export type EmojiType = EmojiTypeEmoji | EmojiTypeCustomEmoji;
+
+export type ChatShareTheme = ChatShareThemeEmoji | ChatShareThemeUniqueGift;
 
 export type StoryAreaType =
   | StoryAreaTypeLocation
@@ -7825,6 +8304,26 @@ export type RichTextBankCardNumber = {
    * The bank card number
    */
   bank_card_number: string;
+};
+
+/**
+ * An {@link RichTextTonAddress.address | address} in the TON blockchain.
+ */
+export type RichTextTonAddress = {
+  /**
+   * Type of the rich text, always “ton_address”
+   */
+  type: 'ton_address';
+
+  /**
+   * Text of the address
+   */
+  text: RichText;
+
+  /**
+   * The address
+   */
+  address: string;
 };
 
 /**
@@ -9095,6 +9594,7 @@ export type RichText =
   | RichTextEmailAddress
   | RichTextPhoneNumber
   | RichTextBankCardNumber
+  | RichTextTonAddress
   | RichTextMention
   | RichTextHashtag
   | RichTextCashtag
@@ -10676,6 +11176,101 @@ export type InputInvoiceMessageContent = {
 };
 
 /**
+ * Represents the content of a message with an {@link https://core.telegram.org/bots/widgets | HTML widget} to be sent as the result of an inline query. Currently, widgets can't be sent in response to inline queries in the production environment.
+ */
+export type InputWidgetMessageContent = {
+  /**
+   * HTML code of the widget, 1-32768 bytes. The code must not exceed 4096 bytes when compressed by zlib with the maximum compression level.
+   */
+  html: string;
+
+  /**
+   * Width of the widget in logical pixels; omit if the widget must occupy the whole width of the message bubble. The width is clamped by the app to the range from 200 to the maximum width of the message bubble.
+   */
+  width?: number | undefined;
+
+  /**
+   * Height of the widget in logical pixels; omit if the height of the widget isn't fixed. The height is clamped by the app to the range 50-600.
+   */
+  height?: number | undefined;
+
+  /**
+   * Public data of the widget, 0-1024 bytes, which will be available wherever the widget is shown. If the widget is shared, then all messages with it will have the same public data.
+   */
+  public_data?: string | undefined;
+
+  /**
+   * Data of the widget, which is specific to the message, 0-1024 bytes
+   */
+  chat_data?: string | undefined;
+
+  /**
+   * {@link Widget} caption, 0-1024 characters after entities parsing
+   */
+  caption?: string | undefined;
+
+  /**
+   * Mode for parsing entities in the widget caption. See formatting options for more details.
+   */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
+
+  /**
+   * List of special entities that appear in the caption, which can be specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[] | undefined;
+
+  /**
+   * Pass True if the caption must be shown above the widget
+   */
+  show_caption_above_media?: boolean | undefined;
+
+  /**
+   * Pass True to allow the widget to send queries to the bot
+   */
+  allow_queries?: boolean | undefined;
+
+  /**
+   * Pass True to create a shared widget. Each message sent from the result creates a separate shared widget, whose identifier is received by the bot only in the field widget_id of queries from the widget. To send an existing shared widget in response to an inline query, use {@link InputSharedWidgetMessageContent} instead.
+   */
+  is_shared?: boolean | undefined;
+};
+
+/**
+ * Represents the content of a message with a shared widget to be sent as the result of an inline query. Currently, widgets can't be sent in response to inline queries in the production environment.
+ */
+export type InputSharedWidgetMessageContent = {
+  /**
+   * Unique identifier of the shared widget created by the bot
+   */
+  widget_id: string;
+
+  /**
+   * Data of the widget, which is specific to the message, 0-1024 bytes
+   */
+  chat_data?: string | undefined;
+
+  /**
+   * {@link Widget} caption, 0-1024 characters after entities parsing
+   */
+  caption?: string | undefined;
+
+  /**
+   * Mode for parsing entities in the widget caption. See formatting options for more details.
+   */
+  parse_mode?: 'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
+
+  /**
+   * List of special entities that appear in the caption, which can be specified instead of parse_mode
+   */
+  caption_entities?: MessageEntity[] | undefined;
+
+  /**
+   * Pass True if the caption must be shown above the widget
+   */
+  show_caption_above_media?: boolean | undefined;
+};
+
+/**
  * Represents a result of an inline {@link ChosenInlineResult.query | query} that was chosen by the user and sent to their chat partner.
  */
 export type ChosenInlineResult = {
@@ -10733,7 +11328,9 @@ export type InputMessageContent =
   | InputLocationMessageContent
   | InputVenueMessageContent
   | InputContactMessageContent
-  | InputInvoiceMessageContent;
+  | InputInvoiceMessageContent
+  | InputWidgetMessageContent
+  | InputSharedWidgetMessageContent;
 
 /**
  * This object represents a portion of the price for goods or services.
