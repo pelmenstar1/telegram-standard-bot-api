@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { createTelegramBot, TelegramBotOptions } from '../bot.js';
+import { createTelegramBot, type TelegramBotOptions } from '../bot.js';
 import { TelegramError } from '../error.js';
 import { getChat, getMe } from '../methods.js';
 import { getBotKey } from './testUtils.js';
@@ -53,7 +53,7 @@ function createSequenceFetch(responses: readonly Response[]) {
   return createFetch(() => {
     const response = responses[index++];
 
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // oxlint-disable-next-line typescript/no-unnecessary-condition
     if (response === undefined) {
       throw new Error(`Unexpected request #${index}`);
     }

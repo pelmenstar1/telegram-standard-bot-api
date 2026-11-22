@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 
-import { ParsedField, ValueType, ValueTypeKind } from '../types';
+import { type ParsedField, type ValueType, ValueTypeKind } from '../types';
 import { valueTypeToString } from './valueType';
 
 function literal(value: string | number): ValueType {
@@ -59,7 +59,7 @@ test('emit discriminated union', () => {
   );
 
   // The blank lines are where the doc comments of the fields would go; the
-  // layout itself is left to prettier.
+  // layout itself is left to oxfmt.
   expect(actual).toEqual(
     [
       '{',

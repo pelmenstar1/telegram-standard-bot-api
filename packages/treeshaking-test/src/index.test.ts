@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { OutputOptions, rollup } from 'rollup';
+import { type OutputOptions, rollup } from 'rollup';
 import resolve from '@rollup/plugin-node-resolve';
 import path from 'node:path';
 import fsp from 'node:fs/promises';

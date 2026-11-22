@@ -1,12 +1,12 @@
 import { describe, expectTypeOf, test } from 'vitest';
 
 import { bot } from '../bot.js';
-import { BotMethodInfo, botMethod } from '../method.js';
+import { type BotMethodInfo, botMethod } from '../method.js';
 import {
   formDataRequestInitializerFactory,
   jsonRequestInitializerFactory,
-  RequestInitializer,
-  RequestInitializerFactory,
+  type RequestInitializer,
+  type RequestInitializerFactory,
 } from '../requestInitializer.js';
 
 type Payload = { chat_id: string; message_id?: number };

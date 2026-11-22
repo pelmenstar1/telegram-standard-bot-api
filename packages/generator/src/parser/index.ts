@@ -1,6 +1,6 @@
-import { FullParseResult } from '../types';
+import type { FullParseResult } from '../types';
 import { parseCurrencyData } from './currency';
-import { ParserMeta } from './meta';
+import type { ParserMeta } from './meta';
 import { parseMethods } from './methods';
 import { parseNamedTypes } from './namedTypes';
 import { parseVirtualTypes } from './virtualTypes';

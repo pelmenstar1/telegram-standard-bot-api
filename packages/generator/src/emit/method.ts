@@ -2,17 +2,17 @@ import fsp from 'node:fs/promises';
 import path from 'node:path';
 
 import {
-  FullParseResult,
-  ParsedField,
-  ParsedMethod,
-  ValueType,
+  type FullParseResult,
+  type ParsedField,
+  type ParsedMethod,
+  type ValueType,
   ValueTypeKind,
 } from '../types';
 import { prettify } from '../utils/prettify';
 import { capitalize } from '../utils/string';
 import { textToTsDocComment } from './comment';
 import { GENERATED_HEADER } from './constants';
-import { EmitMeta } from './meta';
+import type { EmitMeta } from './meta';
 import { valueTypeToString } from './valueType';
 
 const SRC_PATH = path.join(import.meta.dirname, '../../../api/src');
@@ -64,7 +64,7 @@ function resolveImports(types: ValueType[]): string {
     .sort((a, b) => a.localeCompare(b))
     .join(',');
 
-  return `import { ${content} } from './types.js';\n`;
+  return `import type { ${content} } from './types.js';\n`;
 }
 
 function createMethodReturnTypeFunction(

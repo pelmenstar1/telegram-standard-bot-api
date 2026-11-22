@@ -1,11 +1,16 @@
 import fsp from 'node:fs/promises';
 import path from 'node:path';
 
-import { FullParseResult, NamedType, ValueType, ValueTypeKind } from '../types';
+import {
+  type FullParseResult,
+  type NamedType,
+  type ValueType,
+  ValueTypeKind,
+} from '../types';
 import { prettify } from '../utils/prettify';
 import { textToTsDocComment } from './comment';
 import { GENERATED_HEADER } from './constants';
-import { EmitMeta } from './meta';
+import type { EmitMeta } from './meta';
 import { valueTypeToString } from './valueType';
 
 function getTypeFieldNames(type: ValueType): string[] {
@@ -63,7 +68,10 @@ export async function emitNamedTypes(result: FullParseResult, meta: EmitMeta) {
   let content = emitToString(result.types, meta);
   content = await prettify(content);
 
-  const filePath = path.join('../api/src/types.generated.ts');
+  const filePath = path.join(
+    import.meta.dirname,
+    '../../../api/src/types.generated.ts'
+  );
 
   await fsp.writeFile(filePath, content);
 }

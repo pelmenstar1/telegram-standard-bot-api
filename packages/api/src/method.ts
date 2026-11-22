@@ -1,12 +1,12 @@
 import {
   jsonRequestInitializerFactory,
-  RequestInitializer,
-  RequestInitializerFactory,
+  type RequestInitializer,
+  type RequestInitializerFactory,
 } from './requestInitializer.js';
 
 type PayloadType = Record<string, unknown>;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// oxlint-disable-next-line no-unused-vars
 export interface BotMethodInfo<R> {
   /**
    * The name of the method to call. It must be a valid method name of the Telegram Bot API.
@@ -19,7 +19,7 @@ export interface BotMethodInfo<R> {
   initializer?: RequestInitializer | undefined;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 export function botMethod<F extends (payload?: any) => unknown>(
   name: string,
   initializerFactory?: RequestInitializerFactory<Parameters<F>[0]>

@@ -1,4 +1,4 @@
-import { OutputOptions, rollup } from 'rollup';
+import { type OutputOptions, rollup } from 'rollup';
 import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 import path from 'node:path';

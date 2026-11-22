@@ -49,7 +49,6 @@ export const formDataRequestInitializerFactory: RequestInitializerFactory<
         } else if (propertyValue instanceof Uint8Array) {
           body.set(
             key,
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
             new Blob([propertyValue as Uint8Array<ArrayBuffer>], {
               type: 'application/octet-stream',
             })

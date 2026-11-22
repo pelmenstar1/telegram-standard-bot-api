@@ -1,6 +1,6 @@
-import { ParsedField } from '../types';
+import type { ParsedField } from '../types';
 import { textToTsDocComment } from './comment';
-import { EmitMeta } from './meta';
+import type { EmitMeta } from './meta';
 import { valueTypeToString } from './valueType';
 
 export function fieldToString(field: ParsedField, meta: EmitMeta): string {

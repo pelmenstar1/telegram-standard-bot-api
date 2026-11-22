@@ -1,4 +1,4 @@
-import { ParsedField, ValueType, ValueTypeKind } from '../types';
+import { type ParsedField, type ValueType, ValueTypeKind } from '../types';
 import { getImplicitStringLiteralType } from './implicitType';
 import { parseValueType } from './valueType';
 import { CURRENCY_TYPE_NAME } from './virtualTypes';

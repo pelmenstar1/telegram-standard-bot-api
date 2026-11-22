@@ -28,7 +28,13 @@ export const enum ValueTypeKind {
   DISCRIMINATED_UNION = 12,
 }
 
-export type PrimitiveTypeKind = 0 | 1 | 2 | 3 | 4 | 5;
+export type PrimitiveTypeKind =
+  | ValueTypeKind.INT
+  | ValueTypeKind.FLOAT
+  | ValueTypeKind.STRING
+  | ValueTypeKind.BOOLEAN
+  | ValueTypeKind.TRUE
+  | ValueTypeKind.FALSE;
 
 export type LiteralValueType = {
   kind: ValueTypeKind.LITERAL;

@@ -1,4 +1,4 @@
-import { LiteralValueType, ValueType, ValueTypeKind } from '../types';
+import { type LiteralValueType, type ValueType, ValueTypeKind } from '../types';
 
 const IMPLICIT_STRING_ENUM_PREFIXES = ['must be one of', 'Entities other than'];
 
@@ -22,7 +22,7 @@ function parseMaybeNumbers(parts: string[]): ValueType[] {
   return parts
     .map((part): LiteralValueType => ({
       kind: ValueTypeKind.LITERAL,
-      value: part.includes('x') ? Number.NaN : Number.parseInt(part),
+      value: part.includes('x') ? Number.NaN : Number.parseInt(part, 10),
     }))
     .filter(({ value }) => !Number.isNaN(value));
 }
@@ -31,7 +31,7 @@ const NUMBER_PRODUCT_PATTERN = /\d+\s*\*\s*\d+/;
 const NUMBER_TERM_PATTERN = /\d+(?:\s*\*\s*\d+)*/g;
 
 function parseNumberTerm(term: string): number {
-  const factors = term.split('*').map((factor) => Number.parseInt(factor));
+  const factors = term.split('*').map((factor) => Number.parseInt(factor, 10));
 
   return factors.reduce((result, factor) => result * factor);
 }

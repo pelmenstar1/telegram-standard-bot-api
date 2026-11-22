@@ -1,4 +1,8 @@
-import { PrimitiveTypeKind, ValueType, ValueTypeKind } from '../types';
+import {
+  type PrimitiveTypeKind,
+  type ValueType,
+  ValueTypeKind,
+} from '../types';
 
 const primitiveTypes: Record<string, PrimitiveTypeKind | undefined> = {
   String: ValueTypeKind.STRING,

@@ -28,7 +28,7 @@ async function fetchPageContent(url: string): Promise<string> {
   });
 
   if (response.ok) {
-    return await response.text();
+    return response.text();
   }
 
   throw new Error(`Cannot fetch the page: ${response.statusText}`);

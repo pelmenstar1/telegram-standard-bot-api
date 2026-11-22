@@ -2,14 +2,14 @@ import { describe, expect, test } from 'vitest';
 
 import { createTelegramBot } from '../bot.js';
 import { botMethod } from '../method.js';
-import { GetChat } from '../methods.js';
+import type { GetChat } from '../methods.js';
 import {
   formDataRequestInitializerFactory,
   jsonRequestInitializerFactory,
-  RequestInitializer,
+  type RequestInitializer,
 } from '../requestInitializer.js';
 import { getBotKey } from './testUtils.js';
-import { Chat } from '../types.generated.js';
+import type { Chat } from '../types.generated.js';
 
 function initRequest(
   initializer: RequestInitializer,
@@ -170,11 +170,13 @@ test.runIf(botKey !== undefined)(
 
     const bot = createTelegramBot();
     bot.setApiKey(botKey);
-    await bot(
+    const result = await bot(
       botMethod<(payload: GetChat) => Chat>(
         'getChat',
         formDataRequestInitializerFactory
       )({ chat_id: '@durov' })
     );
+
+    expect(result.id).toBe(-1_001_006_503_122);
   }
 );

@@ -1,7 +1,7 @@
 import {
-  DiscriminatedUnionValueType,
-  ParsedField,
-  ValueType,
+  type DiscriminatedUnionValueType,
+  type ParsedField,
+  type ValueType,
   ValueTypeKind,
 } from '../types';
 

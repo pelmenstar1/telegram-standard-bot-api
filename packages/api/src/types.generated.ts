@@ -4522,7 +4522,12 @@ export type WidgetQuery = {
    * For widgets in inline messages, type of the chat to which the message was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”.
    */
   chat_type?:
-    'sender' | 'private' | 'group' | 'supergroup' | 'channel' | undefined;
+    | 'sender'
+    | 'private'
+    | 'group'
+    | 'supergroup'
+    | 'channel'
+    | undefined;
 
   /**
    * Type of the query
@@ -7674,7 +7679,10 @@ export type MessageOrigin =
   | MessageOriginChannel;
 
 export type PaidMedia =
-  PaidMediaLivePhoto | PaidMediaPhoto | PaidMediaPreview | PaidMediaVideo;
+  | PaidMediaLivePhoto
+  | PaidMediaPhoto
+  | PaidMediaPreview
+  | PaidMediaVideo;
 
 export type InputPollMedia =
   | InputMediaAnimation
@@ -7697,7 +7705,9 @@ export type InputPollOptionMedia =
   | InputMediaVideo;
 
 export type BackgroundFill =
-  BackgroundFillSolid | BackgroundFillGradient | BackgroundFillFreeformGradient;
+  | BackgroundFillSolid
+  | BackgroundFillGradient
+  | BackgroundFillFreeformGradient;
 
 export type BackgroundType =
   | BackgroundTypeFill
@@ -7730,7 +7740,9 @@ export type StoryAreaType =
   | StoryAreaTypeUniqueGift;
 
 export type ReactionType =
-  ReactionTypeEmoji | ReactionTypeCustomEmoji | ReactionTypePaid;
+  | ReactionTypeEmoji
+  | ReactionTypeCustomEmoji
+  | ReactionTypePaid;
 
 export type OwnedGift = OwnedGiftRegular | OwnedGiftUnique;
 
@@ -7744,10 +7756,14 @@ export type BotCommandScope =
   | BotCommandScopeChatMember;
 
 export type MenuButton =
-  MenuButtonCommands | MenuButtonWebApp | MenuButtonDefault;
+  | MenuButtonCommands
+  | MenuButtonWebApp
+  | MenuButtonDefault;
 
 export type ChatBoostSource =
-  ChatBoostSourcePremium | ChatBoostSourceGiftCode | ChatBoostSourceGiveaway;
+  | ChatBoostSourcePremium
+  | ChatBoostSourceGiftCode
+  | ChatBoostSourceGiveaway;
 
 export type InputMedia =
   | InputMediaAnimation
@@ -7758,10 +7774,13 @@ export type InputMedia =
   | InputMediaVideo;
 
 export type InputPaidMedia =
-  InputPaidMediaLivePhoto | InputPaidMediaPhoto | InputPaidMediaVideo;
+  | InputPaidMediaLivePhoto
+  | InputPaidMediaPhoto
+  | InputPaidMediaVideo;
 
 export type InputProfilePhoto =
-  InputProfilePhotoStatic | InputProfilePhotoAnimated;
+  | InputProfilePhotoStatic
+  | InputProfilePhotoAnimated;
 
 export type InputStoryContent = InputStoryContentPhoto | InputStoryContentVideo;
 
@@ -9737,7 +9756,12 @@ export type InlineQuery = {
    * Type of the chat from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat.
    */
   chat_type?:
-    'sender' | 'private' | 'group' | 'supergroup' | 'channel' | undefined;
+    | 'sender'
+    | 'private'
+    | 'group'
+    | 'supergroup'
+    | 'channel'
+    | undefined;
 
   /**
    * Sender location, only for bots that enabled user location requests via `@BotFather` or using the parameter needs_inline_query_location of the method setMySettings

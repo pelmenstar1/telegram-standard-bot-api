@@ -1,6 +1,6 @@
-import { TelegramError, TelegramErrorOptions } from './error.js';
-import { BotMethodInfo } from './method.js';
-import { ResponseParameters } from './types.generated.js';
+import { TelegramError, type TelegramErrorOptions } from './error.js';
+import type { BotMethodInfo } from './method.js';
+import type { ResponseParameters } from './types.generated.js';
 import { delay, getApiRequestUrl } from './utils.js';
 
 export type TelegramBot = {
@@ -30,7 +30,8 @@ export type TelegramBotOptions = {
    * Custom fetch function to use for making HTTP requests. Defaults to the global {@link fetch} function.
    */
   fetch?:
-    ((url: string, init?: FetchBodyInit) => Promise<Response>) | undefined;
+    | ((url: string, init?: FetchBodyInit) => Promise<Response>)
+    | undefined;
 
   /**
    * How many times a request may be repeated when Telegram API answers with

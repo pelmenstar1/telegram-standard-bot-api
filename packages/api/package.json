@@ -1,23 +1,19 @@
 {
   "name": "telegram-standard-bot-api",
   "version": "2.3.0",
-  "type": "module",
-  "author": "Oleh Khmaruk <pelmenstar1@gmail.com>",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "!__tests__"
-  ],
   "license": "MIT",
+  "author": "Oleh Khmaruk <pelmenstar1@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git://github.com/pelmenstar1/telegram-standard-bot-api.git"
   },
-  "devDependencies": {
-    "@types/node": "catalog:",
-    "typescript": "catalog:"
-  },
+  "files": [
+    "dist",
+    "!__tests__"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -31,5 +27,9 @@
       "import": "./dist/methods.js",
       "types": "./dist/methods.d.ts"
     }
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
   }
 }

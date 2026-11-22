@@ -1,11 +1,11 @@
 import {
-  DiscriminatedUnionValueType,
-  ParsedField,
-  ValueType,
+  type DiscriminatedUnionValueType,
+  type ParsedField,
+  type ValueType,
   ValueTypeKind,
 } from '../types';
 import { fieldToString } from './field';
-import { EmitMeta } from './meta';
+import type { EmitMeta } from './meta';
 
 function formatNumberNotation(value: string): string {
   if (value.length <= 4) {
@@ -73,7 +73,7 @@ export function valueTypeToString(
     case ValueTypeKind.LITERAL: {
       const { value } = valueType;
 
-      return typeof value == 'string'
+      return typeof value === 'string'
         ? `'${value}'`
         : formatNumberNotation(value.toString());
     }
@@ -97,7 +97,9 @@ export function valueTypeToString(
       return valueType.expression;
     }
     default: {
-      return '';
+      const unhandled: never = valueType;
+
+      throw new Error(`Unknown value type: ${JSON.stringify(unhandled)}`);
     }
   }
 }

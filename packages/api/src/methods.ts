@@ -2,7 +2,7 @@
 
 import { botMethod } from './method.js';
 import { formDataRequestInitializerFactory } from './requestInitializer.js';
-import {
+import type {
   AcceptedGiftTypes,
   BotAccessSettings,
   BotCommand,
@@ -4270,7 +4270,10 @@ export type VerifyUser = {
    * Mode for parsing entities in the custom description. See formatting options for more details. Only “text_link” entities are supported.
    */
   custom_description_parse_mode?:
-    'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
+    | 'HTML'
+    | 'Markdown'
+    | 'MarkdownV2'
+    | undefined;
 
   /**
    * A JSON-serialized list of special entities that appear in the custom description, which can be specified instead of custom_description_parse_mode. Only “text_link” entities are supported.
@@ -4299,7 +4302,10 @@ export type VerifyChat = {
    * Mode for parsing entities in the custom description. See formatting options for more details. Only “text_link” entities are supported.
    */
   custom_description_parse_mode?:
-    'HTML' | 'Markdown' | 'MarkdownV2' | undefined;
+    | 'HTML'
+    | 'Markdown'
+    | 'MarkdownV2'
+    | undefined;
 
   /**
    * A JSON-serialized list of special entities that appear in the custom description, which can be specified instead of custom_description_parse_mode. Only “text_link” entities are supported.

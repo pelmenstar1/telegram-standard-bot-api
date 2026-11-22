@@ -1,5 +1,5 @@
-import { FullParseResult } from '../types';
-import { EmitMeta } from './meta';
+import type { FullParseResult } from '../types';
+import type { EmitMeta } from './meta';
 import { emitMethods } from './method';
 import { emitNamedTypes } from './namedType';
 

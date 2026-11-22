@@ -1,6 +1,6 @@
-import { DefaultTreeAdapterTypes, parseFragment } from 'parse5';
+import { type DefaultTreeAdapterTypes, parseFragment } from 'parse5';
 
-import { EmitMeta } from './meta';
+import type { EmitMeta } from './meta';
 
 interface BaseCommentOptions {
   meta: EmitMeta;
@@ -152,7 +152,10 @@ function removeUnnecessaryParts(value: string) {
 }
 
 function quoteAtText(value: string) {
-  return value.replaceAll(/(?<!\()@(\w+)/g, (_, name) => `\`@${name}\``);
+  return value.replaceAll(
+    /(?<!\()@(\w+)/g,
+    (_, name: string) => `\`@${name}\``
+  );
 }
 
 export function textToTsDocComment(

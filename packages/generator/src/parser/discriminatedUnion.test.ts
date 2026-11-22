@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 
-import { ParsedField, ValueType, ValueTypeKind } from '../types';
+import { type ParsedField, type ValueType, ValueTypeKind } from '../types';
 import { parseOnlyForValues, toDiscriminatedUnion } from './discriminatedUnion';
 
 function literal(value: string): ValueType {

@@ -1,6 +1,5 @@
 {
   "name": "@telegram-standard-bot-api/mono-repo",
-  "packageManager": "pnpm@11.23.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,16 +11,18 @@
     "run-stats": "pnpm --filter @telegram-standard-bot-api/treeshaking-stats run-stats"
   },
   "devDependencies": {
-    "@eslint/js": "catalog:",
     "@types/node": "catalog:",
-    "eslint": "catalog:",
     "husky": "catalog:",
-    "jiti": "catalog:",
     "knip": "catalog:",
     "lint-world": "catalog:",
-    "prettier": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "catalog:",
     "vitest": "catalog:"
-  }
+  },
+  "engines": {
+    "node": "^22.18.0 || ^24.0.0 || >=26.0.0"
+  },
+  "packageManager": "pnpm@12.21.0"
 }

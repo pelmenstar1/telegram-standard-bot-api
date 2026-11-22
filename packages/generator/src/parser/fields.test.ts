@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 
-import { ValueType, ValueTypeKind } from '../types';
+import { type ValueType, ValueTypeKind } from '../types';
 import { parseTypeTableToFields } from './fields';
 
 function typeTableRow(name: string, type: string, description: string): string {

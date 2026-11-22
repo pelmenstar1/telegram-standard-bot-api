@@ -1,4 +1,9 @@
-import { NamedType, ParsedField, ValueType, ValueTypeKind } from '../types';
+import {
+  type NamedType,
+  type ParsedField,
+  type ValueType,
+  ValueTypeKind,
+} from '../types';
 import { isCapitalized } from '../utils/string';
 import { toDiscriminatedUnion } from './discriminatedUnion';
 import { parseTypeTableToFields } from './fields';

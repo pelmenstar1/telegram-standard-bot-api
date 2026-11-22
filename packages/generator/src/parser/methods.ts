@@ -1,4 +1,4 @@
-import { ParsedMethod, ValueType, ValueTypeKind } from '../types';
+import { type ParsedMethod, type ValueType, ValueTypeKind } from '../types';
 import { isCapitalized } from '../utils/string';
 import { parseMethodTableToFields } from './fields';
 import { sliceSection, splitByHeader } from './misc';

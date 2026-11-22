@@ -1,5 +1,5 @@
-import { NamedType, ValueTypeKind } from '../types';
-import { ParserMeta } from './meta';
+import { type NamedType, ValueTypeKind } from '../types';
+import type { ParserMeta } from './meta';
 
 export const CURRENCY_TYPE_NAME = 'Currency';
 

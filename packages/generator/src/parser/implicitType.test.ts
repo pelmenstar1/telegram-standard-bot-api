@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 
-import { ValueType, ValueTypeKind } from '../types';
+import { type ValueType, ValueTypeKind } from '../types';
 import { getImplicitStringLiteralType } from './implicitType';
 
 function union(values: (string | number)[]): ValueType {
