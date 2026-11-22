@@ -8,6 +8,7 @@ import {
   BotCommand,
   BotCommandScope,
   BotDescription,
+  BotFullInfo,
   BotName,
   BotShortDescription,
   BusinessConnection,
@@ -71,7 +72,6 @@ import {
   SuggestedPostParameters,
   UniqueGift,
   Update,
-  User,
   UserChatBoosts,
   UserProfileAudios,
   UserProfilePhotos,
@@ -170,9 +170,9 @@ export const getWebhookInfo =
   /* @__PURE__ */ botMethod<() => WebhookInfo>('getWebhookInfo');
 
 /**
- * A simple method for testing your bot's authentication token. Requires no parameters. Returns basic information about the bot in form of a {@link User} object.
+ * A simple method for testing your bot's authentication token. Requires no parameters. Returns information about the bot in form of a {@link BotFullInfo} object.
  */
-export const getMe = /* @__PURE__ */ botMethod<() => User>('getMe');
+export const getMe = /* @__PURE__ */ botMethod<() => BotFullInfo>('getMe');
 
 /**
  * Use this method to log out from the cloud Bot API server before launching the bot locally. You must log out the bot before running it locally, otherwise there is no guarantee that the bot will receive updates. After a successful call, you can immediately log in on a local server, but will not be able to log in back to the cloud Bot API server for 10 minutes. Returns True on success. Requires no parameters.
@@ -3685,7 +3685,7 @@ export type AnswerCallbackQuery = {
 };
 
 /**
- * Use this method to send answers to callback queries sent from {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboards}. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned. Alternatively, the user can be redirected to the specified {@link Game} URL. For this option to work, you must first create a game for your bot via `@BotFather` and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
+ * Use this method to send answers to callback queries sent from {@link https://core.telegram.org/bots/features#inline-keyboards | inline keyboards} or rich messages. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned. Alternatively, the user can be redirected to the specified {@link Game} URL. For this option to work, you must first create a game for your bot via `@BotFather` and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
  */
 export const answerCallbackQuery = /* @__PURE__ */ botMethod<
   (payload: AnswerCallbackQuery) => true
@@ -3831,6 +3831,89 @@ export type SetManagedBotAccessSettings = {
 export const setManagedBotAccessSettings = /* @__PURE__ */ botMethod<
   (payload: SetManagedBotAccessSettings) => true
 >('setManagedBotAccessSettings');
+
+export type SetMySettings = {
+  /**
+   * Pass True to enable inline mode for the bot or False to disable it
+   */
+  supports_inline_queries?: boolean | undefined;
+
+  /**
+   * New placeholder for inline queries, which is shown in the input field after the bot's username. Pass an empty string to use the default placeholder.
+   */
+  inline_query_placeholder?: string | undefined;
+
+  /**
+   * Pass True to request the location of the user with every inline query to the bot or False to stop requesting it
+   */
+  needs_inline_query_location?: boolean | undefined;
+
+  /**
+   * Denominator of the share of chosen inline results received by the bot; the bot receives 1 out of inline_feedback_share_denominator chosen results. Must be one of 1, 10, 100, or 1000. Pass 0 to stop receiving chosen inline results.
+   */
+  inline_feedback_share_denominator?: number | undefined;
+
+  /**
+   * Pass True to allow adding the bot to groups or False to disallow it
+   */
+  can_join_groups?: boolean | undefined;
+
+  /**
+   * Pass True to disable {@link https://core.telegram.org/bots/features#privacy-mode | privacy mode} for the bot or False to enable it
+   */
+  can_read_all_group_messages?: boolean | undefined;
+
+  /**
+   * Pass True to allow connecting the bot to user accounts to manage them or False to disallow it
+   */
+  can_connect_to_business?: boolean | undefined;
+
+  /**
+   * Pass True to allow creating other bots that will be controlled by the bot or False to disallow it
+   */
+  can_manage_bots?: boolean | undefined;
+
+  /**
+   * Pass True to allow guest queries to the bot from chats it isn't a member of or False to disallow them
+   */
+  supports_guest_queries?: boolean | undefined;
+
+  /**
+   * Pass True to allow assigning the bot to process join request queries or False to disallow it
+   */
+  supports_join_request_queries?: boolean | undefined;
+
+  /**
+   * Pass True to enable forum topic mode in private chats with the bot or False to disable it
+   */
+  has_topics_enabled?: boolean | undefined;
+
+  /**
+   * Pass True to allow users to create and delete topics in private chats with the bot or False to disallow it
+   */
+  allows_users_to_create_topics?: boolean | undefined;
+
+  /**
+   * Pass True to show topics in private chats with the bot in a sidebar or False to stop showing them in a sidebar
+   */
+  has_topic_sidebar?: boolean | undefined;
+
+  /**
+   * Pass True to allow the bot to communicate with other bots in groups, private chats, and through business accounts or False to disallow it
+   */
+  can_communicate_with_bots?: boolean | undefined;
+
+  /**
+   * Mode in which the bot receives callback queries from buttons in messages sent by the bot. Must be one of “default” (the field message is always used and contains an {@link InaccessibleMessage} if the message is inaccessible to the bot), “auto” (the field inline_message_id is used instead of the field message if the message is inaccessible to the bot; the field message can still contain an inaccessible message if the message has just been deleted), or “inline” (the field inline_message_id is always used instead of the field message).
+   */
+  callback_query_mode?: 'default' | 'auto' | 'inline' | undefined;
+};
+
+/**
+ * Use this method to change settings of the bot. Settings that aren't specified remain unchanged. Returns True on success.
+ */
+export const setMySettings =
+  /* @__PURE__ */ botMethod<(payload?: SetMySettings) => true>('setMySettings');
 
 export type SetMyCommands = {
   /**
@@ -7012,6 +7095,7 @@ export default {
   setMyDescription,
   setMyName,
   setMyProfilePhoto,
+  setMySettings,
   setMyShortDescription,
   setPassportDataErrors,
   setStickerEmojiList,
